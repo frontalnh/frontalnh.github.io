@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>머신러닝강의 01. 머신러닝의 기본 개념 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                머신러닝강의 01. 머신러닝의 기본 개념
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-16T14:13:43.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 975 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#explicit-programming-의-한계와-인공지능의-대두">explicit programming 의 한계와 인공지능의 대두</a><ul>
+<li><a href="#supervised-learning">supervised learning</a></li>
+<li><a href="#unsupervised-learning">unsupervised learning</a></li>
+<li><a href="#tensorflow-설치">tensorflow 설치</a></li>
+<li><a href="#data-flow-graph">data flow graph</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="explicit-programming-의-한계와-인공지능의-대두">explicit programming 의 한계와 인공지능의 대두</span></h1><p>흔히 말하는 explicit programming 이란 사람이 생각한 다양한 방법들을 단순히 프로그램으로 옮기는 작업이다.<br>예를 들어 주식 시장의 주식을 판매를 할것인가의 하는 문제를 프로그램 적으로 해결을 할 때에, 국가의 GDP가 높아지면 주식의 판매하는 것이 바람직하다는 가정을 토대로 프로그램을 만들 수 있다. 이러한 판단이 옳을 수도 있지만 주식시장이라는 거대한 복합체를 판단하기에는 너무나 많은 다양한 변수들이 존재하기 때문에 이것을 프로그램화 시키는 것은 불가능한 수준에 가까웠다.<br>즉, 흔한 일상 생활에도 상당히 복잡한 상황들이 많이 발생하고 이것을 논리를 기반으로 한 프로그램으로 만들기 어려운 문제가 발생하게 되었고, 과학자들은 사람들이 정보를 학습할때 입력과 결과의 합, 즉 경험을 통해 학습을 진행하는 것을 모티브로 컴퓨터돠 수많은 입력과 출력의 쌍으로 어떤 상황에 대한 판단능력을 기를 수 있고, 또 보다 지능적인 프로그램을 만들 수 있지 않을 까 하는 생각을 하게 되었고, 그것이 인공 지능의 시초이다.</p>
+<p>인공지능을 위해서는 다양한 입력과 결과를 토대로 학습을 진행하여야 하는데, 데이터의 종류를 알고 학습을 하는가 혹은 모르고 학습을 하는가에 따라 supervised learning 과 unsupervised learning으로 나누어 지게 된다.</p>
+<h2><span id="supervised-learning">supervised learning</span></h2><p>데이터가 무엇인지 가르쳐 주고 학습을 진행한다. 즉 labeled data를 가지고 학습을 하는 학습방법이며 결과값의 범위에 따라 다음과 같은 종류가 있다.</p>
+<ol>
+<li><p>regression<br>예를들어 시험 성적의 값을 알고 싶은 경우 예를 들어 범위가 매우 넓은 경우</p>
+</li>
+<li><p>binary classification<br>결과가 둘중 하나인 경우</p>
+</li>
+</ol>
+<ol start="3">
+<li>multi-label classification</li>
+</ol>
+<p>결과가 몇가지 케이스가 있는 경우</p>
+<h2><span id="unsupervised-learning">unsupervised learning</span></h2><p>un-labeled data를 가지고 학습한다.<br>그룹핑이나 클러스터링을 주로 한다.</p>
+<h2><span id="tensorflow-설치">tensorflow 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install upgrade tensorflow</span><br></pre></td></tr></table></figure>
+<p>예제<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hello = tf.constant(&apos;Hello, TensorFlow!&apos;)</span><br><span class="line">//여기서 constant는 하나의 노드, 오퍼레이션을 의미한다</span><br><span class="line">//예를 들어 print(hello)를 출력하면 이상한 값이 나온다.</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print sess.run(hello) //실행을 시키는 부분이다.</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>placeholder</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//a와 b의 자료형을 지정해 주어 뒤에서 사용할 수 있게 한다.</span><br><span class="line">a = tf.placeholder(tf.int16)</span><br><span class="line">b = tf.placeholder(tf.int16)</span><br><span class="line"></span><br><span class="line">add = tf.add(a,b)</span><br><span class="line">mul = tf.mul(a,b)</span><br><span class="line"></span><br><span class="line">with tf.Session() ass sess:</span><br><span class="line">  print &quot;Addition with variables: %i&quot; % sess.run(add, feed_dict=&#123;a: 2, b:3&#125;) //a와 b에 값을 넘겨줄 수 있다.</span><br><span class="line">  print &quot;Multiplication with variables: %i&quot; % sess.run(mul, feed_dict=&#123;a: 2, b:3&#125;) //a와 b에 값을 넘겨줄 수 있다.</span><br></pre></td></tr></table></figure></p>
+<h2><span id="data-flow-graph">data flow graph</span></h2><p>edge와 node 로 구성된 data flow graph는 다음과 같은 의미를 가진다.</p>
+<p>node는 수학적 계산을 하는 operation의 의미를 가지며 edge는 데이터가 흘러들어감을 보여주는 연결선이다.<br>이러한 데이터는 data array와 같은 형태를 가지는데 이를 다른 말로는 tensor 라는 말로도 부른다.<br>tensorflow란 말은 이러한 데이터의 흐름을 의미한다.</p>
+<p>이러한 node들은 꼭 동일한 cpu 혹은 gpu안에 존재하지 않아도 되고 분산되어 존재하면서 병렬연산이 가능하기에 매우 강력하다.<br>많은 컴퓨터들을 컴퓨터 자원을 통합해서 계산이 가능해진 것이다</p>
+<p><img src="\images\dataFlowGraph.png" alt="data flow graph"></p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/machine-learning/">#
+                        machine learning
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2017/12/17/Python-설치-및-기본설정/">
+                                Python 설치 및 기본설정
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2017/12/16/Angular-hmr-적용하기/">
+                                Angular hmr 적용하기
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2017/12/16/머신러닝강의 1강 - 머신러닝의 기본 개념/';
+        this.page.identifier = '2017/12/16/머신러닝강의 1강 - 머신러닝의 기본 개념/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

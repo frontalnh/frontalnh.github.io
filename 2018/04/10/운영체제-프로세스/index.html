@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>운영체제 | 프로세스 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                운영체제 | 프로세스
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-10T13:42:49.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                22 minutes read (About 3355 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>초기의 컴퓨터 시스템은 한 번에 하나의 프로그램만을 실행할 수 있었습니다. 즉, 하나의 프로그램이 시스템에 대한 완전한 제어를 가지고, 시스템의 모든 자원에 접근하였습니다. 하지만, 오늘날의 컴퓨터 시스템들은 메모리에 다수의 프로그램을 적재하여 동시에 프로그램들을 병행으로 실행이 가능하게 되었고, 이에 따라 다양한 프로그램들의 동작을 관리할 필요성이 되었습니다. <strong>프로세스</strong> 란 실행중인 프로그램을 말하며, 현대 시분할 시스템에서 작업의 단위를 지칭합니다.</p>
+<p>하나의 시스템은 프로세스들의 집합체 이며, 운영체제 프로세스들을 시스템 코드를 실행하고, 사용자 프로세스들은 사용자 코드를 실행합니다. 이들 모든 프로세스들은 잠재적으로 병행 실행이 가능하고, CPU가 각 프로세스들을 번갈아 가며 실행하게 함으로써 운영체제는 컴퓨터를 보다 생산적으로 만들어 줍니다.</p>
+<h1><span id="프로세스란-무엇인가">프로세스란 무엇인가?</span></h1><p><img src="..\images\프로세스의개념도.png" alt="프로세스의 개념도"></p>
+<p>프로세스란 간단히 말하면 실행중인 프로그램을 의미합니다. 하지만, 프로세스는 디스크에 저장된 <strong>실행 파일</strong> 처럼 수동적인 존재가 아니라는 점에서 <strong>프로그램</strong> 과는 큰 차이가 있습니다. 프로그램이 단지 컴퓨터 안에 있는 수동적인 것인 반면, <strong>프로세스</strong> 는 다음에 실행할 명령어를 지정하는 프로그램 카운터 및 관련 자원의 집합을 가진 능동적인 존재입니다. 실행파일이 메모리에 적재될 때 프로그램은 프로세스가 됩니다.</p>
+<p>이러한 프로세스들은 능동적으로 동작하고 있는 존재이기에 현재의 <strong>프로세스 상태(process status)</strong> 라는 개념이 존재합니다. 각 프로세스들은 다음 상태들 중 하나에 있을 수 있습니다.</p>
+<ol>
+<li>new: 프로세스가 생성 중인 상태</li>
+<li>running: 명령어들을 실행중인 상태</li>
+<li>waiting: 프로세스가 어떤 사건이 일어나기를 기다리고 있는 경우</li>
+<li>ready: 프로세스가 처리기에 할당되기를 기다리는 중</li>
+<li>terminated: 프로세스가 실행을 종료함</li>
+</ol>
+<p>모든 프로세스는 위의 상태 중 하나에 있으며, <strong>어느 한 순간에 처리기에서는 오직 하나의 프로세스만이 실행될 수 있습니다.</strong></p>
+<p><strong>그렇다면 프로세스는 운영체제에서 어떻게 표현되나요?</strong><br>프로세스는 운영체제에서 <strong>프로세스 제어 블록(Process Control Block)</strong> 이라는 이름으로 표현되며, 특정 프로세스와 연관된 여러 정보를 수록하며 다음과 같은 것들을 포함합니다.</p>
+<ol>
+<li>프로세스 상태</li>
+<li>프로그램 카운터</li>
+<li>CPU 레지스터들</li>
+<li>CPU 스케줄링 정보</li>
+<li>메모리 관리 정보</li>
+<li>회계 정보</li>
+<li>입출력 상태 정보</li>
+</ol>
+<p>즉, <strong>프로세스 제어 블록은 단순히 프로세스별로 달라지는 모든 정보에 대한 저장소 역할을 합니다.</strong></p>
+<h1><span id="프로세스들은-어떤-방식으로-처리되나요">프로세스들은 어떤 방식으로 처리되나요?</span></h1><p>컴퓨터 시스템 안에는 수많은 프로세스들이 동작하고 있으며, 이러한 프로세스들을 효과적으로 처리하기 위한 컴퓨터의 작업을 <strong>프로세스 스케줄링</strong> 이라고 합니다. 만약 시스템이 <strong>시분할</strong> 로 동작하는 경우, 각 프로그램이 실행되는 동안 사용자가 상호작용할 수 있도록 프로세스들 사이에서 CPU를 빈번하게 교체하는 것입니다. 이를 위해 <strong>프로세스 스케줄러</strong> 는 CPU에서 실행 가능한 여러 프로레스들 중에서 하나의 프로세스를 선택하여 교체하는 역할을 수행합니다.</p>
+<p>프로세스가 시스템에 들어오면 이들은 <strong>작업 큐</strong> 에 들어가게 됩니다. 이 큐에는 시스템 안의 모든 프로세스들이 포함됩니다. 또한 <strong>메모리에 적재된 프로세스 중 준비완료 상태로 실행되기만을 기다리는 프로세스들은 별도로 준비완료 큐</strong> 에 들어가게 됩니다. 또 시스템에는 다른 큐들도 있습니다. 만약 입출력 장치를 대기하는 프로세스들은 <strong>장치 큐</strong> 안에서 장치를 대기하게 되며, 각 장치는 자기만의 <strong>장치 큐</strong> 를 가집니다.</p>
+<p>일단 프로세스에게 CPU가 할당되어 CPU가 실행되면, 다음 사건들 중 하나가 발생할 수 있습니다.</p>
+<ol>
+<li>프로세스가 입출력 요청을 하여 입출력 큐에 넣어질 수 있다.</li>
+<li>프로세스가 새로운 서브프로세스를 생성하고 그 프로세스의 종료를 기다릴 수 있다.</li>
+<li>프로세스가 <strong>인터럽트 처리</strong> 결과에 의해 강제로 CPU로부터 제거되어 준비완료 큐에 다시 놓일 수 있다.</li>
+</ol>
+<h1><span id="프로세스-스케줄링">프로세스 스케줄링</span></h1><p>이렇게 <strong>프로세스는 일생 동안에 다양한 스케줄링 큐 사이를 이주</strong> 하며 운영체제는 어떤 방식으로든지 프로세스들을 이 큐에서 반드시 선택해야 하며, 이러한 <strong>선택절차</strong> 는 적절한 <strong>스케줄러</strong> 에 의해 실행됩니다.<br>프로세스 스케줄러에는 장기 스케줄러와 단기 스케줄러가 있습니다.</p>
+<p>먼저, <strong>장기 스케줄러(작업 스케줄러)</strong> 를 살펴봅시다.<br>앞에서 말했듯이 컴퓨터에는 수많은 프로세스들이 존재하고 모든 프로세스들은 자원을 할당받기 위해 서로 경쟁구도에 놓여 있습니다. 또 어떤 경우에는 동시에 실행 가능한 수보다 많은 수의 프로세스들이 제출되는 경우가 존재하며, 이 경우에는 특정 프로세스를 보류하고 나중에 실행을 해야 할 필요성이 생기게 됩니다. 이것을 처리하는 것이 바로 <strong>장기 스케줄러</strong> 입니다. <strong>장기 스케줄러는 실행 할 수 없는 프로세스들을 대량 메모리(디스크 등)에 저장시켜 놓고 나중에 프로세스를 실행 시킬 수 있는 시점에 다시 메모리에 적재</strong> 시킵니다. 이렇게 디스크에서 메모리로 프로세스를 교체 시키면서 <strong>전체 시스템의 다중 프로그램의 개수를 조절</strong> 하는 중요한 역할을 수행합니다.<br>이러한 장기 스케줄러를 잘 살펴보면, 새로운 프로세스를 생성하는 시점에만 그 기능을 하는 것을 쉽게 알 수 있습니다. 또, 새로운 프로세스의 생성이 필요해 졌다는 말은 기존에 있던 하나의 프로세스가 종료되었음을 뜻하기 때문에 <strong>장기 프로세서는 프로세스가 시스템을 떠날 때에만 호출</strong> 됩니다.</p>
+<p>장기 스케줄러는 다음 프로세스를 매우 신중하게 선택해야합니다. 일반적으로 대부분의 프로세스들은 <strong>입출력 중심 프로세스</strong> 와 <strong>CPU 중심 프로세스</strong> 로 나뉘게 되는데, 장기 스케줄러는 이러한 입출력 중심과 CPU 중심 프로세스들이 적절하게 혼합되도록 선택하는 것이 중요합니다.</p>
+<p><strong>단기 스케줄러(CPU 스케줄러)</strong> 는 이러한 <strong>장기 스케줄러</strong> 와는 달리 매우 빠른 속도로 <strong>준비 완료 큐</strong> 에 있는 프로세스들의 상태를 바꾸며 CPU에게 교체로 할당하는 역할을 수행합니다.</p>
+<p>장기 스케줄러와, 단기 스케줄러 외로 <strong>중기 스케줄러</strong> 도 있습니다.<br><strong>중기 스케줄러 는 메모리에서 프로세스들을 제거</strong> 하여 다중 프로그래밍의 정도를 완화하는 역할을 수행합니다. 이 중기 스케줄러는 추후 <strong>스와핑</strong> 을 통해 메모리로 프로세스를 불러와 중단되었던 지점에서부터 실행을 재개합니다.</p>
+<h2><span id="중단된-프로세스는-어떻게-다시-실행되나요">중단된 프로세스는 어떻게 다시 실행되나요?</span></h2><p>여러 프로세스들은 <strong>인터럽트</strong> 를통해 작업이 중단되고 특정 프로세스가 끝나면 다시 CPU에 의해 실행되게 됩니다.<br>이렇게 중단된 프로세스가 추후에 어떻게 다시 실행이 되는 것일까요?</p>
+<p>이것은 바로 <strong>문맥교환</strong> 에 의해 이루어 집니다.</p>
+<p>시스템은 인터럽트 처리가 끝난 후에 <strong>문맥</strong> 을 복구할 수 있도록 <strong>실행중이던 프로세스의 문맥을 PCB에 저장</strong> 하고, <strong>문맥교환</strong> 을 통해 <strong>새로운 프로세스의 저장된 문맥을 불러들여 복구</strong> 합니다.</p>
+<h1><span id="프로세스의-생성과-종료">프로세스의 생성과 종료</span></h1><p>운영체제는 이러한 프로세스를 생성하고 종료하기 위한 기법을 제공해야 하며, 이에 대해 배워봅시다.</p>
+<h2><span id="프로세스-생성">프로세스 생성</span></h2><p>프로세스들은 프로세스를 실행하면서 여러개의 다른 프로세스들을 새롭게 생성할 수 있습니다. 여기서 새롭게 생성된 프로세스를 <strong>자식 프로세스</strong> 라고 하며, 생성을 하는 프로세스를 <strong>부모 프로세스</strong> 라고 합니다. 이렇게 프로세스는 프로세스를 생성할 수 있고 궁극적으로 <strong>트리 구조</strong> 를 형성하게 됩니다.</p>
+<p>프로세스가 버스 프로세스를 생성할 때 운영체제로부터 직접 자원을 얻거나 혹은 부모 프로세스의 자원의 일부분을 사용하도록 제한할 수 있습니다.</p>
+<p>프로세스가 프로세스를 생성할 때 실행과 관련하여 두가지 기능이 있습니다.</p>
+<ol>
+<li>부모가 계속해서 자식과 병렬로 실행된다.</li>
+<li>부모가 모든 자식 또는 일부 자식이 끝날 때까지 기다린다.</li>
+</ol>
+<h1><span id="프로세스간-통신">프로세스간 통신</span></h1><p>운영체제 내에서 실행되는 프로세스들은 서로에게 영향을 주는 경우도 있고, 또는 전혀 영향을 주지 않고 별도로 존재하는 경우도 있습니다. 두 프로세스가 서로간에 영향을 주고 받는다면 이를 <strong>협력적 프로세스</strong> 라고 하며, 그렇지 않고 서로에게 전혀 영향을 주지 않는 프로세스를 <strong>독립적인 프로세스</strong> 라고 합니다.</p>
+<p>이렇게 프로세스 끼리 서로 통신이 가능한 <strong>협력적 프로세스</strong> 가 생성될 수 있는 환경을 제공하는 데에는 다음과 같은 이유가 있습니다.</p>
+<ol>
+<li>정보 공유가 쉽습니다.<br>동리한 정보를 공유해야 할 필요가 있습니다.</li>
+<li>계산 가속화<br>특정 태스크를 빨리 실행하고자 하려면 그것을 서브태스크로 나누어 각각 다른 서브태스크들과 병렬로 실행되게 하여 더욱 빨리 특정 프로세스를 실행시킬 수 있습니다.</li>
+<li>모듈성<br>각 시스템의 기능을 별도의 프로세스로 나누어 모듈로 구성하기 쉽습니다. 모듈로 구성하기 위해서는 반드시 상호간의 통신이 필요합니다.</li>
+<li>편의성<br>한 사용자가 동시에 여러 태스크를 가지는 경우 필요합니다.</li>
+</ol>
+<p>협력적 프로세스들은 데이터와 정보를 교환할 수 있는 <strong>프로세스간 통신</strong> 기법을 필요로 하며, 기본적으로 <strong>공유 메모리 모델</strong> 과 <strong>메시지 전달 모델</strong> 을 통해 구현할 수 있습니다.</p>
+<h2><span id="공유-메모리-모델">공유 메모리 모델</span></h2><p>공유 메모리를 사용하는 프로세스간 통신에서는 통신하는 프로세스들이 공유 메모리 영역을 구축해야 한다. 일반적으로 운영체제는 한 프로세스가 다른 프로세스 메모리의 접근을 금지하기 때문에, 공유 메모리를 사용하기 위해서는 이 제약 조건을 제거하는 것에 동의가 필요합니다. 그런 뒤에는 프로세스들은 공유 영역에 읽고 씀으로써 정보를 교환할 수 있습니다.</p>
+<h2><span id="메시지-전달-모델">메시지 전달 모델</span></h2><h1><span id="클라이언트-서버-환경에서-통신">클라이언트 서버 환경에서 통신</span></h1><p>클라이언트와 서버의 관계에서 사용할 수 있는 통신 전략인 <strong>소켓, 원격 프로시저 호출</strong> 에 대해 알아봅시다.</p>
+<h2><span id="소켓">소켓</span></h2><hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/os/">#
+                        os
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/04/13/운영체제-메인-메모리/">
+                                운영체제 | 메인 메모리
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/04/08/컴퓨터-구조-캐시/">
+                                컴퓨터 구조 | 캐시(cache)
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/04/10/운영체제-프로세스/';
+        this.page.identifier = '2018/04/10/운영체제-프로세스/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

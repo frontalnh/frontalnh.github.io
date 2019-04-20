@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>운영체제 | 운영체제란 무엇인가? - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                운영체제 | 운영체제란 무엇인가?
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-02T13:17:12.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                29 minutes read (About 4359 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#운영체제가-하는-일은-무엇인가">운영체제가 하는 일은 무엇인가?</a></li>
+<li><a href="#컴퓨터-시스템은-어떻게-구성되어-있는가">컴퓨터 시스템은 어떻게 구성되어 있는가?</a><ul>
+<li><a href="#컴퓨터-시스템의-동작">컴퓨터 시스템의 동작</a></li>
+<li><a href="#저장-장치의-구조">저장 장치의 구조</a></li>
+<li><a href="#입출력-구조">입출력 구조</a></li>
+</ul>
+</li>
+<li><a href="#단일-처리기-시스템에서-다중-처리기-시스템으로">단일 처리기 시스템에서 다중 처리기 시스템으로</a><ul>
+<li><a href="#단일-처리기-시스템">단일 처리기 시스템</a></li>
+</ul>
+</li>
+<li><a href="#운영체제의-구조">운영체제의 구조</a></li>
+<li><a href="#운영체제는-어떤-방식으로-작업을-처리하는가">운영체제는 어떤 방식으로 작업을 처리하는가?</a></li>
+<li><a href="#프로세스-관리">프로세스 관리</a></li>
+<li><a href="#메모리-관리">메모리 관리</a></li>
+<li><a href="#저장-장치-관리">저장 장치 관리</a></li>
+<li><a href="#보호와-보안">보호와 보안</a></li>
+<li><a href="#분산-시스템">분산 시스템</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="운영체제가-하는-일은-무엇인가">운영체제가 하는 일은 무엇인가?</span></h1><p>운영체제란 컴퓨터 하드웨어를 관리하는 프로그램입니다.<br>운영체제는 사용자의 관점에서 혹은 시스템 적인 관점에서 보는가에 따라 그 존재 목적이 달리 설명될 수 있습니다.</p>
+<p>사용자의 관점에서의 운영체제는 바로 한낱 고철덩어리에 불과한 컴퓨터를 사람이 사용하기 쉽게 여러가지 일들을 수행해 주는 역할을 한다고 볼 수 있다.<br>이 경우 운영체제는 주로 사용의 편리와 자원의 이용 간에 적절히 조화를 이루도록 설계된다.</p>
+<p>시스템의 관점에서 운영체제는 하드웨어와 가장 밀접한 프로그램이라고 볼 수 있다. 컴퓨터 시스템은 특정 문제를 해결하기 위해 필요한 여러가지 자원들을 사용하는데(가령 CPU 시간, 메모리 공간, 파일 저장 공간, 입출력 장치 등) 운영체제는 <strong>이러한 자원의 관리자로써 동작</strong> 하여 <strong>자원 할당자</strong> 역할을 수행한다.</p>
+<p>결과적으로, 운영체제를 명확히 정의하는 것은 매우 어렵지만 컴퓨터라는 순수 하드웨어를 보다 쉽게 사용하기 위한 다양한 응용 프로그램들을 원활하게 동작시키기 위해 입출력 장치의 통제와 같은 공통적인 연산과 CPU, 메모리 공간 등의 컴퓨터 자원을 제어하고 할당하는 기능을 하는 하나의 소프트웨어라고 정의할 수 있을 것 같다. 또한, 운영체제는 컴퓨터에서 항상 실행되는 프로그램(일반적으로 <strong>커널</strong>)으로 운영체제를 제외한 다른 모든 프로그램은 응용 프로그램으로 부른다.</p>
+<h1><span id="컴퓨터-시스템은-어떻게-구성되어-있는가">컴퓨터 시스템은 어떻게 구성되어 있는가?</span></h1><p>컴퓨터 시스템의 동작을 배우기 전에 컴퓨터 시스템의 구조에 대해 간략하게 알아봅시다.</p>
+<h2><span id="컴퓨터-시스템의-동작">컴퓨터 시스템의 동작</span></h2><p>현대의 컴퓨터 시스템은 공유 메모리에 대한 접근을 제공하는 공통 버스를 통해 연결된 <strong>여러 개의 장치 제어기</strong> 와 <strong>하나 이상의 CPU</strong> 로 구성되어 있다. 각 <strong>장치 제어기는 특정 장치(가령 디스크 드라이브, 오디오 장치, 비디오 디스플레이 등)를 관리</strong> 하며, CPU와 장치 제어기는 메모리 사이클을 얻기 위해 경쟁하면서 병행 실행될 수 있다.</p>
+<p>컴퓨터를 구동시킬 때는 가장 먼저 흔히 <strong>펌웨어</strong> 로 알려져 있는 컴퓨터 내의 읽기 전용 메모리(ROM)에 저장된 <strong>부트스트랩 프로그램</strong> 을 실행한다.<br>부트스트랩 프로그램은 CPU 레지스터로 부터 장치 제어기, 메모리 내용 등을 포함한 시스템의 모든 면을 초기화 하고 운영체제의 커널을 찾아 메모리에 적재한다.<br>적재가 완료되면 운영체제는 init과 같은 초기 프로세스를 동작하고 사건이 발생하기를 기다린다.</p>
+<p>기본적으로 운영체제는 이렇게 사건을 기반으로 동작하게 되는데, 이러한 사건의 발생 사실을 <strong>인터럽트</strong> 에 의해 통보받을 수 있다.<br>하드웨어는 언제든지 <strong>시스템 버스</strong> 를 통해 인터럽트를 발생시킬 수 있고, 소프트웨어는 <strong>시스템 호출</strong> 을 통해 인터럽트를 발생시킬 수 있다.</p>
+<p>인터럽트가 발생되면 적절한 서비스 루틴으로 전달하고 이 루틴은 이어 인터럽트 고유의 핸들러를 호출한다.</p>
+<h2><span id="저장-장치의-구조">저장 장치의 구조</span></h2><p>컴퓨터가 프로그램을 실행하기 위해서는 프로그램이 반드시 <strong>주 메모리(RAM)</strong> 에 있어야 한다.<br>컴퓨터가 명령어를 실행한다는 것은 이 메모리로 부터 레지스터로 워드를 옮기는 적재(load) 과정을 통해 이루어 지며, 적재된 명령어는 명령 레지스터에 저장되고 명령이 해독되어 메모리에서 피연산자를 인출하여 내부 레지스터에 저장되도록 유발할 수 있다. 여기서 메모리 장치는 단지 연속적인 메모리 주소만을 인식하며 메모리는 주소값의 구체적인 생김새 등에는 관계없이 단지 주소값을 저장만 하고 있다.</p>
+<p>이상적으로는 프로그램과 데이터가 주 메모리 안에 영구히 존재한다면 좋지만, 메모리는 용량이 너무 작고 전원이 공급되지 않으면 내용을 잃어버리는 휘발성 저장장치이기 때문에 반드시 보조 저장장치에 프로그램과 데이터를 보관해야 한다. 이러한 보조 저장장치로는 주로 <strong>자기 디스크</strong> 등이 쓰인다.</p>
+<p>이러한 저장 장치의 구조는 하나의 계층으로 구성되며 저장 장치 구조의 최상단인 레지스터 부터 캐시, 주 메모리 순으로 내려 가면서 가격은 저렴해 지고 속도는 느려지는 피라미드형 구조를 보인다.</p>
+<h2><span id="입출력-구조">입출력 구조</span></h2><p>컴퓨터에 입력을 하고 또 출력 값을 받아오기 위해 다양한 입출력 장치들이 연결될 수 있으며, 범용 컴퓨터 시스템은 공통 버스에 의해 연결된 여러 개의 장치 제어기와 CPU 들로 구성된다.<br>장치 제어기는 자신이 제어하는 주변장치와 자신의 로컬 버퍼 저장장치 사이의 데이터 전송을 담당하며, 통상적으로 운영체제는 장치 제어기 마다 <strong>장치 드라이버</strong> 를 가지고 있는데, 이 장치 드라이버는 장치 제어기의 동작을 이해하고 운영체제의 다른 부분에게 장치에 대한 일관된 인터페이스를 제공한다.</p>
+<p>장치-&gt;장치 제어기-&gt;장치 드라이버-&gt;운영 체제<br>로 이어지는 입출력의 흐름은 <strong>인터럽트</strong> 를 기반으로 이루어진다. 먼저, 장치 제어기는 취할 동작을 결정하고 장치에 연산이 완료되었으면 인터럽트를 이용하여 장치 드라이버에 통보한다. 그러면 장치 드라이버는 제어를 운영체제에게 반환하는 방식이다. 하지만 이러한 인터럽트 구동방식은 대량의 데이터를 전송하는 데에는 높은 오버헤드를 초래하였으며, 이를 해결하기 위해 <strong>직접 메모리 접근(DMA)</strong> 장치가 사용된다. 이를 통해 장치 제어기는 CPU의 개입 없이 메모리로 부터 자신의 버퍼 장치로 또는 버퍼로부터 메모리로 데이터 블록 전체를 전송한다. 즉, 장치 제어기가 전송 작업을 실행하고 있는 동안 CPU는 다른 작업을 실행할 수 있다.</p>
+<h1><span id="단일-처리기-시스템에서-다중-처리기-시스템으로">단일 처리기 시스템에서 다중 처리기 시스템으로</span></h1><p>컴퓨터 시스템은 사용된 범용 처리기(CPU)의 개수에 따라 <strong>단일 처리기 시스템</strong> 과 <strong>다중 처리기 시스템</strong> 으로 나누어 집니다.<br>하나의 CPU를 가지는 경우를 단일 처리기 시스템, 1개 이상의 CPU를 가지는 컴퓨터 시스템의 경우를 다중 처리기 시스템이라고 합니다.</p>
+<p>하나의 CPU를 가질 때 보다 여러개의 CPU를 가지면 무엇이 좋을까요?</p>
+<p>먼저, 시스템의 <strong>처리량이 증가</strong> 합니다.<br>여러 개의 CPU를 가지게 되면 컴퓨터가 여러개의 일들을 동시에 처리할 수 있기 때문에 같은 시간동안 많은 양을 처리하게 되어 시스템의 처리량이 증가합니다.</p>
+<p><strong>비용이 절감됩니다.</strong><br>컴퓨터 하나에는 많은 주변 장치, 저장 장치, 전원 장치 등이 필요합니다.<br>5대의 하나의 CPU를 사용하는 컴퓨터를 제작하는 것 보다 5개의 CPU를 가진 컴퓨터 한대를 제작하는 것이 많은 디바이스와 리소스를 공유해서 이용하기 때문에 <strong>규모의 경제</strong> 가 나타나고 저렴한 비용으로 시스템을 만들 수 있습니다.</p>
+<p><strong>믿을 수 있습니다. 즉, 신뢰도가 올라갑니다.</strong><br>CPU 하나가 고장나더라고 시스템이 정지하지 않고 살아남은 하드웨어 수준에 비례하여 지속적으로 서비스가 동작하는 것은 <strong>우아한 퇴보</strong> 라고 합니다.<br>어떤 시스템은 하나의 구성요소의 고장에도 불구하고 시스템을 동작할 수 있기에  <strong>결함 허용</strong> 적이라고 불리며, 다중 처리기 시스템은 하나의 CPU가 고장나도 안정적으로 시스템이 동작하므로 단일 처리기 시스템에 비해 신뢰도가 높은 시스템을 구축할 수 있습니다.</p>
+<p>이러한 다중 처리 시스템의 경우 각 처리기에 일이 할당되는 방식에 따라 <strong>비대칭적 다중 처리</strong> 와 <strong>대칭적 다중 처리</strong> 로 구분되는데, 비대칭적 다중 처리의 경우 하나의 주 처리기가 시스템을 제어하고 다른 처리기들이 복종하는 시스템이며, 대칭적 다중 처리의 경우 모든 처리기가 동등한 업무를 수행하는 방식이며 현대에는 대부분 대칭적 다중 처리가 이용된다.</p>
+<h2><span id="단일-처리기-시스템">단일 처리기 시스템</span></h2><p>하나의 주 CPU를 사용하는 시스템으로</p>
+<h1><span id="운영체제의-구조">운영체제의 구조</span></h1><p>컴퓨터 시스템의 구성과 구조를 알아 보았으므로 이제는 본격적으로 운영체제에 대해 알아 보겠습니다.<br>운영체제의 가장 중요한 측면은 다중 프로그램(multi program)을 할 수 있는 능력입니다. 만약, 한명의 사용자가 컴퓨터를 사용한다면 아무리 노력해도 컴퓨터를 효과적으로 사용하여 모든 처리기를 바쁘게 유지시킬 수 없을 겁니다. CPU가 잠시라도 쉬면 서둘러 다른 업무를 시켜서 쉬지않고 일을 하도록 하는 <strong>다중 프로그래밍</strong> 은 CPU가 항상 하나의 작업을 수행하도록 조정함으로써 CPU의 이용률을 높여줍니다.</p>
+<p>이러한 다중 프로그래밍의 기본적인 동작 원리는 다음과 같습니다.<br>먼저 <strong>한 번에 여러 작업을 메모리에 적재하고, 운영체제는 메모리에 있는 작업 중 하나를 선택해서 실행합니다.</strong> 만약 이 작업이 어떤 일을 기다려야 한다면 CPU는 다른 작업으로 전환하여 다른 작업을 진행합니다. 이러한 다중 프로그래밍 시스템은 시스템 자원을 효율적으로 이용할 환경을 제공하지만 사용자와 컴퓨터 시스템이 상호작용을 할 수는 없는데, 이를 확장한 <strong>시분할(multi tasking)</strong> 을 통해 이를 해결할 수 있습니다. 시분할 시스템에서는 CPU가 다수의 작업을 서로 교대로 실행하지만 매우 빈번하게 교대를 일으킴으로써 프로그램이 동작하는 동안 사용자와 상호작용이 가능해 지기에, 시분할 프로그램은 <strong>대화식 혹은 hands on(실제 조작 가능한)</strong> 컴퓨터 시스템을 필요로 하며, 각 사용자에게 시분할 되는 컴퓨터의 작은 부분을 제공하기 위해 CPU 스케줄링과 다중 프로그래밍을 사용합니다.</p>
+<p>시분할과 다중 프로그래밍 운영체제에서는 메모리에 여러 작업이 동시에 유지되어야 하는데, 일반적으로 주 기억장치(RAM)은 사이즈가 너무 작기 때문에 메모리에 들어가지 못한 작업들을 디스크의 <strong>작업 풀</strong> 에 보관된다. 이런 작업 풀에서 어떤 프로그램을 메모리에 적재할 지 선택하는 것을 <strong>CPU 스케줄링</strong> 이라고 한다.</p>
+<p>또 다른 방법 중 하나는 <strong>가상 메모리</strong> 를 이용하는 것이다. 이것은 프로그램의 일부만이 메모리에 존재해도 작업을 실행을 허용하는 개념이기에, 프로그램 전체가 주 메모리에 적재되지 않아도 프로그램이 시작되고, 또 주 메모리의 전체 사이즈보다 큰 규모의 프로그램도 실행 할 수 있게 해 주는 중요한 개념이다. 이런 <strong>가상 메모리</strong> 는 주 메모리를 크고 균등한 저장장치의 배열로 추상화하여 사용자에게 보이는 <strong>논리 메모리</strong> 를 실제 물리 메모리로부터 분리시켜 주며, 이를 통해 프로그래머를 메모리 저장장치의 한계로부터 자유롭게 해 준다.</p>
+<h1><span id="운영체제는-어떤-방식으로-작업을-처리하는가">운영체제는 어떤 방식으로 작업을 처리하는가?</span></h1><p>현대의 운영체제는 <strong>인터럽트 구동식</strong> 으로 무언가 일이 일어나야만 동작을 한다. 사건은 트랩 혹은 인터럽트에 의해 발생하며 여기서 <strong>트랩</strong> 이란 오류 혹으 사용자 프로그램의 운영체제 서비스 실행 요청에 의해 유발되는 소프트웨어의 실행에 의해 생성된 인터럽트이다. 때문에 운영체제는 수많은 인터럽트들을 계속해서 처리해야 하며, 이중 하나만 잘못되어도 시스템이 정지한다면 그 시스템은 매우 불완전하다고 볼 수 있다.<br>올바르게 설계된 운영체제는 잘못된 또는 악의적인 프로그램이 부정확하게 실행되지 않도록 보장해야 한다.</p>
+<p>이렇게 안정성 있는 운영체제를 위해 운영체제 내에는 다양한 안정 장치들이 있는데 그중 하나가 <strong>이중 동작 모드</strong> 이다.<br>이중 동작 모드란 운영체제의 적절한 동작을 보장하기 위해서 운영체제 코드와 사용자가 작성한 코드의 실행을 구분하는 것이다. 이렇게 구분된 각각의 명령은 독립된 동작모드인 <strong>사용자 모드</strong> 와 <strong>커널 모드 혹은 특권 모드</strong> 로 나뉘어 실행되게 된다. 만약 <strong>트랩</strong> 이나 <strong>인터럽트</strong> 가 발생할 때마다 하드웨어는 사용자 모드에서 커널 모드로 전환한다.</p>
+<p>또다른 안전장치는 <strong>타이머</strong> 인데, 이는 사용자의 프로그램이 무한루프에 빠져 동작하지 않게 되어 운영체제로 통제권이 돌아오지 않는 경우를 막기 위해 특정 시간이 지나면 제어가 자동으로 운영체제로 넘어가게 하는 기능이다.<br>타이머가 인터럽트를 발생시키면 제어는 자동적으로 운영체제로 넘어가게 된다.</p>
+<h1><span id="프로세스-관리">프로세스 관리</span></h1><p>실행중인 프로그램을 <strong>프로세스</strong> 라 하며, 프로세스가 끝나면 운영체제는 재사용 할 수 있는 자원을 회수하게 된다.<br>여기서 프로그램 자체는 <strong>프로세스</strong> 가 아니다. 하나의 프로그램은 디스크에 저장된 파일의 내용과 같이 수동적인 개체인 반면, 프로세스는 다음 실행할 명령을 지정하는 <strong>프로그램 카운터</strong> 를 가진 능동적인 개체이다.<br>운영체제는 프로세스 관리와 관련하여 다음과 같은 활동을 수행한다.</p>
+<ol>
+<li>사용자 프로세스와 시스템 프로세스의 생성과 제거</li>
+<li>프로세스의 일시 중지와 재싱행</li>
+<li>프로세스 동기화를 위한 기법 제공</li>
+<li>프로세스 통신을 위한 기법 제공</li>
+</ol>
+<h1><span id="메모리-관리">메모리 관리</span></h1><p>메모리는 컴퓨터 시스템에서 매우 중요한 부분이며, 운영체제는 이러한 메모리를 관리하며 다음과 같은 일을 담당한다.</p>
+<ol>
+<li>현재 메모리의 어느 부분이 사용되고 있으며, 누구에 의해 사용되고 있는지를 추적</li>
+<li>어떤 프로세스들을 메모리에 적재할 것이며 제거할 것인가?</li>
+<li>메모리 공간을 할당하고 회수</li>
+</ol>
+<h1><span id="저장-장치-관리">저장 장치 관리</span></h1><h1><span id="보호와-보안">보호와 보안</span></h1><h1><span id="분산-시스템">분산 시스템</span></h1><hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/os/">#
+                        os
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/04/03/컴퓨터-구조-메모리-계층구조란-무엇인가/">
+                                컴퓨터 구조 | 메모리 계층구조란 무엇인가?
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/03/29/진정한-아름다움이란-무엇인가/">
+                                아름다움이란 단어가 빛바랜 오늘, 진정한 아름다움이란 무엇인가?
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/04/02/운영체제-운영체제란-무엇인가/';
+        this.page.identifier = '2018/04/02/운영체제-운영체제란-무엇인가/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

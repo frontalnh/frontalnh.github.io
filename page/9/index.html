@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/08/mysql-copy-statement/" itemprop="url">
+                MYSQL CREATE STATEMENT
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:19:58.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 119 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE TB_NEW SELECT * FROM TB_OLD</span><br></pre></td></tr></table></figure>
+<p>위 명령어는 TB_OLD의 값과 테이블을 복사하지만 AUTO_INCREMENT가 복사되지 않고, 간혹 INDEX가 누락되는 경우가 있다.</p>
+<p><strong>COPY STRUCTURE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE TB_NEW LIKE TB_OLD</span><br></pre></td></tr></table></figure></p>
+<p>이 명령어를 사용하면 데이터는 복사하지 않지만, AUTO_INCREMENT, INDEX 등의 형식을 복사할 수 있습니다.</p>
+<p><strong>COPY DATA</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TB_NEW SELECT * FROM TB_OLD</span><br></pre></td></tr></table></figure></p>
+<p><strong>COPY COLUMN DATA</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TB_NEW(COL_NM) SELECT COL_NAME FROM TB_OLD</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/08/mysql-index/" itemprop="url">
+                MYSQL INDEX
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:16:32.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 26 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="basic-statement">BASIC STATEMENT</span></h1><p><strong>CREATE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX INDEX_NM ON TB_NAME(COL_NAME)</span><br></pre></td></tr></table></figure></p>
+<p><strong>READ</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM TB_NAME</span><br></pre></td></tr></table></figure></p>
+<p><strong>DELETE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX INDEX_NM ON TB_NAME</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/08/mysql-alter-statement/" itemprop="url">
+                MYSQL ALTER statement
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:13:24.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 32 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="basic-statement">BASIC STATEMENT</span></h1><p><strong>CHANGE COLUMN DATA TYPE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE TB_NAME CHANGE COL1 COL2 INT</span><br></pre></td></tr></table></figure></p>
+<p><strong>DELETE COLUMN</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE TB_NAME DROP COL_NAME</span><br></pre></td></tr></table></figure></p>
+<p><strong>RESET AUTO_INCREMENT</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE TB_NAME AUTO_INCREMENT=0</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/06/이더리움-시작하기/" itemprop="url">
+                이더리움 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-06T06:29:11.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 1019 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="블록체인이란">블록체인이란?</span></h1><p>블록체인이란 수정 불가능한 분산형 원장을 의미하며, 특정 정보의 목록이 다수의 컴퓨터에 동시에 저장되고 수정될 수 있는 시스템을 의미합니다.<br>기존의 시스템은 단일 서버에 모든 정보가 저장되기 때문에 서비스 사용자들이 정보를 알 수 없고, 기업이나 혹은 악한 의도를 가진 사용자에 의해 플랫폼이 훼손될 수 있어 안전하지 못했다면, 블록체인은 수정이 불가능하기 때문에 신뢰할 수 있는 특징이 있습니다.</p>
+<p>이러한 블록체인은 반드시 BFT를 가져야 하는데</p>
+<h1><span id="기본-개념">기본 개념</span></h1><p>이더리움에서의 기본 단위는 <strong>account</strong> 이며 이러한 account는 다음과 같이 두 종류로 나뉘게 됩니다.</p>
+<ol>
+<li>EOA(External Owned Account)</li>
+<li>Countract Account</li>
+</ol>
+<p>여기서 EOA란 계정정보를 포함한 계약을 의미하며 외부 사용자가 private key 를 통해 제어합니다.<br>이러한 EOA 는 Contract Account의 내부 함수들을 사용할 수 있으며 Contract Account의 내부 함수들은 오직 EOA에 의해서만 호출될 수 있습니다.</p>
+<h1><span id="install-ethereum-command-line-interface-ethereum-cli">Install ethereum command line interface (Ethereum CLI)</span></h1><ol>
+<li><p>윈도우 go-ethereum(geth) 다운로드<br><a href="https://geth.ethereum.org/downloads/" target="_blank" rel="noopener">다운로드</a></p>
+</li>
+<li><p>geth 실행</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth console</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1><span id="테스트-네트워크-구축하기">테스트 네트워크 구축하기</span></h1><ol>
+<li><p>genesis.json 생성하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;config&quot;: &#123;</span><br><span class="line">    &quot;chainId&quot;: 15,</span><br><span class="line">    &quot;homesteadBlock&quot;: 0,</span><br><span class="line">    &quot;eip155Block&quot;: 0,</span><br><span class="line">    &quot;eip158Block&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;difficulty&quot;: &quot;20&quot;,</span><br><span class="line">  &quot;gasLimit&quot;: &quot;2100000&quot;,</span><br><span class="line">  &quot;alloc&quot;: &#123;</span><br><span class="line">  &quot;7df9a875a174b3bc565e6424a0050ebc1b2d1d82&quot;:</span><br><span class="line">      &#123; &quot;balance&quot;: &quot;300000&quot; &#125;,</span><br><span class="line">  &quot;f41c74c9ae680c1aa78f42e5647a62f353b7bdde&quot;:</span><br><span class="line">      &#123; &quot;balance&quot;: &quot;400000&quot; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>블록체인 초기화 하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth init genesis.json --datadir ethereum_private</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>geth console 로 geth 노드 열기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth --networkid 123 --datadir ethereum_private console</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>account 만들기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">personal.newAccount(&quot;testuser1&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mining 시작하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">miner.start()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>자신이 위치한 노드 확인하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.nodeInfo.enode</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>다른 노드 연결하기<br>위에서 받은 nodeurl을 받아 다른 클라이언트에서 다음 명령어를 실행한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.addPeer(&quot;_nodeurl_&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>이를 통해 노드와 노드가 연결될 수 있다.</p>
+<ol start="8">
+<li>다른 클라이언트들의 로그 확인<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth console 2&gt;&gt;geth.log</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><a href="https://medium.com/taipei-ethereum-meetup/beginners-guide-to-ethereum-3-explain-the-genesis-file-and-use-it-to-customize-your-blockchain-552eb6265145" target="_blank" rel="noopener">참조 블로그</a></p>
+<p><a href="https://ethereum.org/cli" target="_blank" rel="noopener">이더리움 공식 가이드</a></p>
+<h1><span id="geth-명령어">geth 명령어</span></h1><p><strong>geth 가동</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">geth --datadir ~/.ethereum_private init ~/dev/genesis.json</span><br><span class="line"></span><br><span class="line">geth --fast --cache 512 --ipcpath ~/Library/Ethereum/geth.ipc --networkid 1234 --datadir ~/.ethereum_private  console</span><br></pre></td></tr></table></figure>
+<p><strong>계좌 생성</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">personal.newAccount(&quot;testuser1&quot;)</span><br><span class="line">personal.newAccount(&quot;testuser2&quot;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>계좌 확인</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eth.accounts</span><br></pre></td></tr></table></figure></p>
+<p><strong>잔고 확인</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eth.getBalance(eth.accounts[0])</span><br></pre></td></tr></table></figure></p>
+<p><strong>블록 수 확인</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eth.blockNumber</span><br></pre></td></tr></table></figure></p>
+<p><strong>채굴 시작하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">miner.start()</span><br></pre></td></tr></table></figure></p>
+<p><strong>채굴 정지</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">miner.stop()</span><br></pre></td></tr></table></figure></p>
+<p><strong>트랜잭션 발행</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">eth.sendTransaction(&#123;from: &apos;id&apos;, to:&apos;id&apos;, value:web3.toWei(1,&quot;ether&quot;)&#125;)</span><br><span class="line">please unlocak account id</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">eth.sendTransaction(&#123;from:eth.accounts[0], to:eth.accounts[1], value:web3.toWei(1,&quot;ether&quot;)&#125;)</span><br><span class="line"></span><br><span class="line">트랜잭션 발행하는 계좌의 암호를 입력</span><br></pre></td></tr></table></figure></p>
+<p><strong>geth 기동</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir eth_data</span><br><span class="line">geth --networkid &quot;123&quot; --rpc --rpcaddr &quot;222.239.251.75&quot; --rpcport 8545 --rpccorsdomain &quot;*&quot; --rpcapi &quot;net,eth,web3,personal&quot; --datadir &quot;eth_data&quot; --olympic console</span><br></pre></td></tr></table></figure></p>
+<h1><span id="기본-원리">기본 원리</span></h1><p>proof of work -&gt; 어려운 문제를 푼 사람이 토큰을 가져간다.<br>풀기는 어렵지만 증명은 쉬운 해쉬를 사용한다.</p>
+<p>컴퓨터는 nonce에 무작위값을 계속 대입하여 해쉬를 풀고 이를 mining 이라고 한다.<br>mine이 된 이후에는 점점 난이도가 올라간다.</p>
+<h1><span id="이더리움의-활용">이더리움의 활용</span></h1><p>이더리움은 개인과 개인간의 약속에 기반한 모든 경제적 모델을 온라인 상에서 도입하는 것을 매우 간편하게 만들어 준다.<br>가령 국가가 특정 공약을 내세우고 이를 위한 자금을 이더리움에서 모금한다고 하면, 해당 공약이 이루어지지 않을 경우 스마트 계약에 따라 참여자에게 돈이 재분배 되게 되는 방식을 사용하는 예처럼 스스로에게 약속 불이행시 제약을 둠으로써 신뢰도 높은 거래를 할 수 있다.</p>
+<p>즉, 이더리움은 실제 경제모델과 정치모델을 모두 온라인 상에서 신뢰도있게 구현이 가능하다는 측면에서 그 가치가 높다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/24/자료구조-해시/" itemprop="url">
+                자료구조 | 해시
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-24T09:53:21.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 593 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="해시란">해시란?</span></h1><p>해시란 탐색, 삽입, 삭제를 모두 O(1) 기대 시간에 수행할 수 있도록 해 주는 기법입니다.<br>해시는 해시 테이블을 통해 구현되며 해시 테이블은 <strong>b개의 버킷</strong> 과 버킷 내에 s개의 사전쌍들로 이루어 집니다.<br>여기서 해시함수 h는 키 값을 특정 홈 주소로 사상 시키는 함수로써 주로 <strong>제산 함수</strong> 등이 사용됩니다.</p>
+<p><strong>h(k) = 0 ~ (b-1)</strong></p>
+<p>위 식에서 h(k)를 <strong>해시</strong> 혹은 <strong>홈 주소</strong> 라고 부릅니다.</p>
+<p>이상적인 조건 하에서 모든 사전쌍들이 모두 홈 버킷에 저장됩니다.</p>
+<p>이런 해시 테이블에 있는 쌍의 수를 n 개라 하고, 가능한 전체 키의 총 개수를 T라 할때</p>
+<p><strong>키 밀도 = n/T</strong></p>
+<p>위 식이 성립합니다.</p>
+<p>이러한 해시 함수는 여러 개의 키를 하나의 버킷에 사상시키게 되기 때문에<br>h(k1) = h(k2) 가 되는 k1과 k2가 존재하게 되고 이 경우 k1과 k2를 h에 대한 동거자라고 부릅니다.</p>
+<p><strong>오버플로우</strong> 란 어떤 쌍을 삽입 시 홈 버킷이 넘치는 경우를 말합니다.</p>
+<h1><span id="정적-해싱">정적 해싱</span></h1><p>오버플로우 처리방법에는 <strong>개방 주소법과 체인법</strong> 이 있으며, <strong>개방 주소법</strong> 에는 <strong>선형 조사법</strong>, 이차 조사법, 재해싱, 임의 조사법이 있습니다.</p>
+<h2><span id="오버플로우-처리법">오버플로우 처리법</span></h2><h3><span id="개방-주소법">개방 주소법</span></h3><p><strong>선형 조사법</strong></p>
+<p><img src="\images\선형조사법개념도.png" alt="선형 조사법 개념도"></p>
+<h3><span id="체인법">체인법</span></h3><p>선형 조사법을 비롯한 개방 주소법에서는 키를 탐색 할 때 서로 다른 해시 값을 가진 키들과 일일히 비교를 수행하기 때문에 효율이 매우 떨어집니다.<br>이와 달리 <strong>체인법</strong> 에서는 ht[i] 가 버킷 i에 연결된 체인들 중 첫번째 블록을 가리키고 있기 때문에, 연결된 체인 내에서만 탐색을 수행하면 되어 속도가 빠릅니다.</p>
+<p><img src="\images\체인법개념도.png" alt="체인법 개념도"></p>
+<h1><span id="동적-해싱">동적 해싱</span></h1><p>재조정을 한 번 할 때마다 오직 하나의 버킷만 재조정함</p>
+<h2><span id="디렉터리-사용-동적-해싱">디렉터리 사용 동적 해싱</span></h2><h2><span id="디렉터리-미사용-동적-해싱">디렉터리 미사용 동적 해싱</span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/24/자료구조-스택과-큐/" itemprop="url">
+                자료구조 | 스택과 큐
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-24T09:25:01.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 271 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="스택을-활용한-수식의-계산">스택을 활용한 수식의 계산</span></h1><p>모든 프로그래밍 언어는 연산 순위를 결정해야한다.<br>일반적으로 실생활 에서는 x+y 와 같이 연산자를 피연산자 사이에 작성하는 <strong>중위 표기법(infix notation)</strong> 을 사용하지만, 컴퓨터의 컴파일러는 <strong>후위 표기법(postfix notation)</strong> 으로 코드를 변환하기에 컴퓨터의 연산과정을 이해하기 위해서 <strong>후기 표현법</strong> 에 대해 익숙해질 필요가 있습니다.</p>
+<p><strong>후위 표기식 연산법</strong></p>
+<ol>
+<li>연산자를 만날때까지 피연산자를 스택에 저장</li>
+<li>연산자를 만나면 연산에 필요한 만큼만 스택에서 가져와 실행하여 연산결과를 다시 스택에 저장</li>
+</ol>
+<p><img src="/images/후위표기식연산.png" alt="후위 표기식 연산"></p>
+<p><strong>중위 표기식을 후위 표기식으로 고치는 법</strong></p>
+<ol>
+<li>식을 모두 괄호식으로 고침</li>
+<li>연산자를 모두 해당하는 오른 괄호랑 대체</li>
+<li>모들 괄호를 삭제</li>
+</ol>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/24/자료구조-그래프/" itemprop="url">
+                자료구조 | 그래프
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-24T07:55:15.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 1108 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#그래프-추상-데이타-타입">그래프 추상 데이타 타입</a></li>
+<li><a href="#그래프-표현법">그래프 표현법</a></li>
+<li><a href="#그래프의-기본-연산">그래프의 기본 연산</a><ul>
+<li><a href="#깊이-우선-탐색dfs">깊이 우선 탐색(DFS)</a></li>
+<li><a href="#너비-우선-탐색bfs">너비 우선 탐색(BFS)</a></li>
+<li><a href="#신장-트리spanning-tree">신장 트리(spanning tree)</a></li>
+</ul>
+</li>
+<li><a href="#최소-비용-신장-트리">최소 비용 신장 트리</a><ul>
+<li><a href="#kruskal-알고리즘">Kruskal 알고리즘</a></li>
+<li><a href="#prim-알고리즘">Prim 알고리즘</a></li>
+</ul>
+</li>
+<li><a href="#최단-경로와-이행적-폐쇄">최단 경로와 이행적 폐쇄</a><ul>
+<li><a href="#dijkstra-알고리즘-하나의-출발점에서-모든-목표점-음이-아닌-간선-비용의-경우">Dijkstra 알고리즘, 하나의 출발점에서 모든 목표점: 음이 아닌 간선 비용의 경우</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="그래프-추상-데이타-타입">그래프 추상 데이타 타입</span></h1><p>가령 여러 지점과 그 지점들을 잊는 길들 처럼 현실 세계의 많은 문제들은 <strong>그래프</strong> 라는 개념을 통해 해결될 수 있습니다.</p>
+<p>그래프 G 는 2개의 집합 V와 E로 구성됩니다. V는 공집합이 아닌 <strong>정점(Vertice)</strong> 들의 유한 집합이며, G는 정점 쌍들의 집합으로 이러한 쌍을 <strong>간선</strong> 이라 합니다. V(G) 와 E(G)는 각 각 정점과 간선들의 집합을 의미합니다. 그래프는 정점에서 특정 정점으로 가는데에 방향의 개념이 존재하는 경우와 존재하지 않는 경우로 나눌 수 있으며, 이렇게 정점에서 정점으로 이동시 방향이 있는 경우를 <strong>방향 그래프(directed graph)</strong> 라고 하며, 방향이 없는 경우 <strong>무방향 그래프(undirected graph)</strong> 라고 합니다.</p>
+<p>여기서 정점에 연결된 간선의 수를 <strong>차수</strong> 라고 하며, Euler는 각 정점의 차수가 <strong>짝수</strong> 인 경우에만 임의의 정점에서 출발하여 각 간선을 단 한 번씩만 거치고 출발한 정점으로 되돌아오는 길이 있음을 보였으며, 이를 <strong>오일러 행로(Eulerian Walk)</strong> 라 부릅니다.</p>
+<h1><span id="그래프-표현법">그래프 표현법</span></h1><p>무방향 그래프의 간선 <strong>(u, v)</strong><br>방향 그래프의 간선 <strong>&lt;u, v&gt;</strong></p>
+<p><img src="\images\그래프의표현.png" alt="그래프의 표현"></p>
+<p><img src="\images\인접리스트표현개념도.png" alt="인접 리스트 표현 개념도"></p>
+<h1><span id="그래프의-기본-연산">그래프의 기본 연산</span></h1><p><img src="../images/dFS,BFS를적용하기위한그래프.png" alt="DFS, BFS 를 적용하기 위한 그래프"></p>
+<h2><span id="깊이-우선-탐색dfs">깊이 우선 탐색(DFS)</span></h2><p><img src="../images/dFS개념도.png" alt="DFS 개념도"></p>
+<p>위처럼 인접 리스트 표현법의 경우 간선의 횟수 만큼만 탐색이 진행되므로, O(e) 의 복잡도를 가진다.<br>하지만 인접 매트릭스 표현으로 표현한 경우 각 정점마다 다른 정점들과 비교해야 하므로 O(n^2) 의 복잡도를 가진다.</p>
+<h2><span id="너비-우선-탐색bfs">너비 우선 탐색(BFS)</span></h2><p><img src="../images/bFS개념도.png" alt="BFS 개념도"></p>
+<p><strong>시간 복잡도: O(n^2)</strong></p>
+<h2><span id="신장-트리spanning-tree">신장 트리(spanning tree)</span></h2><p>신장 트리란 G의 간선들로만 구성되고 G의 모든 정점을 포함하는 트리를 말합니다.<br>신장 트리를 만들기 위해서는 DFS 혹은 BFS를 모두 이용할 수 있으며, DFS를 이용하여 만들어진 신장트리를 <strong>깊이 우선 신장 트리(depth first spanning tree)</strong> 라 하고, BFS를 이용하여 만들어진 신장 트리를 <strong>너비 우선 신장 트리(breath first spanning tree)</strong> 라 부릅니다.</p>
+<h1><span id="최소-비용-신장-트리">최소 비용 신장 트리</span></h1><p>가중치가 부여된 무방향 그래프의 신장 트리의 비용은 신장 트리를 구성하는 간선들의 비용의 합이 됩니다. 여기서 <strong>최소 비용 신장 트리</strong> 란 최저의 비용을 갖는 신장트리를 의미합니다.</p>
+<p>이 경우 다음의 조건을 만족해야 합니다.</p>
+<ol>
+<li>그래프 내에 있는 간선만을 사용해야 한다.</li>
+<li>정확히 n-1개의 간선만을 사용해야 한다.</li>
+<li>사이클을 생성하는 간선은 사용하면 안된다.</li>
+</ol>
+<h2><span id="kruskal-알고리즘">Kruskal 알고리즘</span></h2><p><img src="\images\kruskal알고리즘개념도.png" alt="kruskal 알고리즘 개념도"></p>
+<h2><span id="prim-알고리즘">Prim 알고리즘</span></h2><p><img src="\images\prim알고리즘개념도.png" alt="prim 알고리즘 개념도"></p>
+<h1><span id="최단-경로와-이행적-폐쇄">최단 경로와 이행적 폐쇄</span></h1><p>현대의 많은 지도 시스템들은 임의의 두 특정 지점 사이의 경로를 탐색하는 많은 시스템 중의 일부입니다. 경로 탐색 시스템은 일반적으로 주나 전국의 도로 시스템을 표현하기 위하여 그래프를 이용합니다. 이러한 문제에서 도시 A에서 도시 B로 가려는 운전자는 다음과 같은 사항들이 궁금할 것입니다.</p>
+<ol>
+<li>A로 부터 B로 가는 길이 있는가?</li>
+<li>A로부터 B로 가는 길이 2갱 이상이라면, 어느 길이 최단으로 가는 길인가?</li>
+</ol>
+<h2><span id="dijkstra-알고리즘-하나의-출발점에서-모든-목표점-음이-아닌-간선-비용의-경우">Dijkstra 알고리즘, 하나의 출발점에서 모든 목표점: 음이 아닌 간선 비용의 경우</span></h2><p><strong>다이크스트라 알고리즘</strong></p>
+<p><img src="\images\dijkstra알고리즘개념도.png" alt="dijkstra 알고리즘 개념도"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/23/운영체제-파일-시스템-구현/" itemprop="url">
+                운영체제 | 파일 시스템 구현
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-23T00:38:29.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 413 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#파일-시스템-구현">파일 시스템 구현</a></li>
+<li><a href="#디렉터리-구현">디렉터리 구현</a><ul>
+<li><a href="#선형-리스트">선형 리스트</a></li>
+<li><a href="#해시-테이블">해시 테이블</a></li>
+</ul>
+</li>
+<li><a href="#디스크-할당">디스크 할당</a><ul>
+<li><a href="#연속-할당">연속 할당</a></li>
+<li><a href="#연결-할당">연결 할당</a></li>
+<li><a href="#색인-할당">색인 할당</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="파일-시스템-구현">파일 시스템 구현</span></h1><p>운영체제는 파일 내용에 대한 접근을 요청하는 프로세스를 위해 open()과 close() 시스템 호출을 구현합니다.<br>본 장에서는 파일 시스템 연산을 구현하는데 사용되는 구조와 연산에 대해 알아봅시다.</p>
+<p>다음 그림은 파일 시스템에서 <strong>디스크</strong> 와 <strong>메모리</strong> 에 어떤 정보들이 들어있는지를 나타내 줍니다.</p>
+<p><img src="..\images\파일시스템에서디스크와메모리.png" alt="파일 시스템에서 디스크와 메모리"></p>
+<p><img src="..\images\계층적파일시스템구조.png" alt="계층적 파일 시스템 구조"></p>
+<h1><span id="디렉터리-구현">디렉터리 구현</span></h1><h2><span id="선형-리스트">선형 리스트</span></h2><p><img src="..\images\선형리스트디렉터리개념도.png" alt="선형 리스트 디렉터리 개념도"></p>
+<h2><span id="해시-테이블">해시 테이블</span></h2><p><img src="..\images\해시테이블디렉터리개념도.png" alt="해시 테이블 디렉터리 개념도"></p>
+<p><img src="..\images\체인오버플로우해시테이블개념도.png" alt="체인 오버플로우 해시 테이블 개념도"></p>
+<h1><span id="디스크-할당">디스크 할당</span></h1><h2><span id="연속-할당">연속 할당</span></h2><p><img src="..\images\디스크연속할당개념도.png" alt="디스크 연속 할당 개념도"></p>
+<h2><span id="연결-할당">연결 할당</span></h2><p><img src="..\images\디스크연결할당개념도.png" alt="디스크 연결 할당 개념도"></p>
+<p><img src="..\images\fAT개념도.png" alt="FAT 개념도"></p>
+<h2><span id="색인-할당">색인 할당</span></h2><p><img src="..\images\디스크색인할당개념도.png" alt="디스크 색인 할당 개념도"></p>
+<p><img src="..\images\색인블록의연결기법구성.png" alt="색인 블록의 연결 기법 구성"></p>
+<p><img src="색인블록의다중단계색인.png" alt="색인 블록의 다중 단계 색인"></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/23/운영체제-파일-시스템-인터페이스/" itemprop="url">
+                운영체제 | 파일 시스템 인터페이스
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-23T00:36:50.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 80 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#디렉터리-구조">디렉터리 구조</a><ul>
+<li><a href="#single-level-directory">Single Level Directory</a></li>
+<li><a href="#two-level-directory">Two Level Directory</a></li>
+<li><a href="#tree-structured-directory">Tree Structured Directory</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<p><img src="\images\파일Open및Access개념도.png" alt="파일 open 및 access 개념도"></p>
+<h1><span id="디렉터리-구조">디렉터리 구조</span></h1><h2><span id="single-level-directory">Single Level Directory</span></h2><p><img src="\images\1단계디렉터리.png" alt="1단계 디렉터리"></p>
+<h2><span id="two-level-directory">Two Level Directory</span></h2><p><img src="\images\2단계디렉터리.png" alt="2단계 디렉터리"></p>
+<h2><span id="tree-structured-directory">Tree Structured Directory</span></h2><p><img src="\images\트리구조디렉터리.png" alt="트리 구조 디렉터리"></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/19/컴퓨터-구조-amdahl의-법칙이란/" itemprop="url">
+                컴퓨터 구조 | Amdahl의 법칙이란?
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-19T14:34:09.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 572 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>컴퓨터를 설계함에 있어 위대한 아이디어인 <strong>자주 생기는 일을 빠르게(make common cae fast)</strong> 를 추구함에 있어 하드웨어 및 소프트웨어 설계자들이 필연적으로 고민하게 된느 문제 중의 하나는 “성능을 개선하려는 나의 노력이 얼마나 효과가 있는지 어떻게 평가할 수 있는가?” 이다.</p>
+<p>열심히 성능을 개선하려는 노력을 했다면 그것이 얼마나 효과가 있는지 궁금해 하는 것은 당연하다.<br>이러한 질문들에 대한 정석적인 해답은 다음과 같다.</p>
+<p><strong>“성능을 개선하려는 노력이 얼마나 효과가 있는지는 그 사건이 얼마나 많이 발생하는지와 관련이 있다.”</strong></p>
+<p>이러한 법칙은 얼핏 보면 당연해 보이지만 많은 경우 우리에게 명확한 직관을 줄 수 있다.</p>
+<p>간단한 예를 통해 <strong>Amdahl의 법칙</strong> 의 활용을 알아보자.<br>가령 프로그램의 실행 시간이 100초가 걸리는 데 그 중 80초는 곱하기 계산에 소요된다고 하자. 이 프로그램이 5배 빠르게 실행되기 위해서 곱셈 속도는 얼마나 개선되어야 하는지에 대한 문제가 있다고 하자.</p>
+<p>이는 <strong>Amdahl 의 법칙</strong> 에 의해 다음과 같이 표현된다.</p>
+<blockquote>
+<p>개선 후 실행시간<br>= (개선에 의해 영향을 받는 실행 시간)/개선의 크기 + 영향을 받지 않는 실행 시간</p>
+</blockquote>
+<p>이 문제의 경우는</p>
+<p>개선 후 실행시간 = 20초 = 80초 / n + (100-80)초</p>
+<p>즉, 0=80초 / n</p>
+<p>이라는 식을 얻을 수 있다.</p>
+<p>이는 바로 곱셈의 성능을 백날 개선해 보아도 시스템의 성능을 5배로 올리는 것은 불가능 하다는 깨우침을 우리에게 준다.<br>이는 일상생활에서 수확체감의 법칙과도 연관되어 있다.</p>
+<p>이처럼 Amdahl의 법칙을 통해 어떤 개선안이 전체 성능에 얼마만큼의 성능 개선을 가져다 줄 지를 예측 할 수 있다.<br>이 법칙은 CPU 성능식과 함께 잠재적 성능 개선율을 평가하는 편리한 도구이다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous">
+        <a href="/page/8/">Prev</a>
+    </div>
+    <div class="pagination-next">
+        <a href="/page/10/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link" href="/">1</a></li>
+        
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        
+        <li><a class="pagination-link" href="/page/8/">8</a></li>
+        
+        <li><a class="pagination-link is-current" href="/page/9/">9</a></li>
+        
+        <li><a class="pagination-link" href="/page/10/">10</a></li>
+        
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        
+        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

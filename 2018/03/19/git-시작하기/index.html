@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>git 시작하기 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                git 시작하기
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-18T16:45:57.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/git-강의/">git 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                14 minutes read (About 2047 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h1><span id="git-시작하기">git 시작하기</span></h1><h2><span id="git-설치하기">git 설치하기</span></h2><h3><span id="git-cli-와-gui를-모두-설치한다">git cli 와 gui를 모두 설치한다</span></h3><p>이때 gui를 설치하지 않아도 되지만, 이런 경우 ssh 설정이 복잡하므로 간단하게 설치를 마쳐준다.<br>만약 ubuntu의 경우는 패키지 매니저인 apt-get을 사용하여 다음과 같이 설치한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
+<h3><span id="git-home-디렉토리-변경하기">git home 디렉토리 변경하기</span></h3><p>git 아이콘을 우클릭하여 대상 뒤의 –cd-home을 없애고</p>
+<p>시작위치에 원하는 위치를 넣어준다.</p>
+<h2><span id="로그인-및-권한설정">로그인 및 권한설정</span></h2><p>git을 사용하기 위해 로그인 및 계정을 설정해 준다.<br>먼저, 다음과 같이 global 한 계정 정보를 설정해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;YOUR_USERNAME&quot;</span><br><span class="line">git config --global user.email &quot;your_email@youremail.com&quot;</span><br><span class="line">git pull https://username:password@mygithost.com/my/repository</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list //설정한 내용 확인하기</span><br></pre></td></tr></table></figure>
+<h3><span id="ssh-기반-인증">ssh 기반 인증</span></h3><p>만약 특정 레포지토리가 공개키 방식의 인증과정을 거치고 특정 키를 레포지토리에 등록시켜 두었다면, 해당 인증서를 통해 인증하여 레포지토리와 통신할 수 있다. 이때 여러 레포지토리들은 각각 다른 키를 사용할 수 있는데 이러한 ssh 연결 정보를 특정 레포지토리의 <code>.git/config</code> 파일에 설정해 둘 수 있으며, 그 명령어는 다음과 같다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
+<p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">sshCommand = &quot;ssh -i ~/.ssh/keyfile&quot;</span><br></pre></td></tr></table></figure>
+<p>w</p>
+<h2><span id="원격-repo-연결하기">원격 repo 연결하기</span></h2><p>git 세팅을 완료했다면 온라인 상의 코드들을 조작하기 위해 git 서버에 연결한다.<br>git 서버에 연결하는 방법은 2가지가 있는데, 하나는 http 방식이고 다른 하나는 ssh 방식이다.</p>
+<p>먼저, ssh를 활용하여 연결하기 위해서 컴퓨터의 ssh key를 생성하고, 생성된 공개키는 git에 등록한다.<br>공개키를 사용하려면 일단 공개키를 만들어야 하는데, 공개키를 만드는 방법은 모든 운영체제가 비슷하다.<br>먼저 키가 있는지부터 확인하자. 사용자의 SSH 키들은 기본적으로 사용자의 ~/.ssh 디렉토리에 저장한다.</p>
+<p>리눅스 혹은 ubuntu의 경우 ssh-keygen을 통해 공개키/개인키 쌍을 생성할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>위 명령어를 통해 공개키를 생성하였으면 ~/.ssh 디렉토리에 id_rsa.pub가 생성되었을 것이다.<br>해당 공개키를 git 홈페이지의 repository의 설정에서 등록해 주면 된다.</p>
+<p><a href="https://git-scm.com/book/ko/v1/Git-%EC%84%9C%EB%B2%84-SSH-%EA%B3%B5%EA%B0%9C%ED%82%A4-%EB%A7%8C%EB%93%A4%EA%B8%B0" target="_blank" rel="noopener">참조</a></p>
+<p>git pull 명령을 수행하는 동중 permission denied가 되는 경우가 있는데 이는 특정 유저에게 해당 파일에 대한 변경 권한이 없는 것으로 다음과 같이 해결한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown &lt;USER&gt;.&lt;GROUP&gt; -R /home/&lt;USER&gt;/.config</span><br><span class="line">chown &lt;USER&gt;.&lt;GROUP&gt; -R /home/&lt;USER&gt;/.gitconfig</span><br></pre></td></tr></table></figure>
+<p>만약 위처럼 ssh를 통해 연결이 어렵다면 pull 혹은 clone 시에 https를 기반으로 받으면 ssh 연결이 아닌 https를 통해 받을 수 있으니 시도해 보기 바란다.</p>
+<h2><span id="git-명령어-모음">git 명령어 모음</span></h2><h3><span id="브랜치-생성-및-변경">브랜치 생성 및 변경</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch [브랜치명]</span><br><span class="line">git checkout [브랜치명]</span><br></pre></td></tr></table></figure>
+<p>git branch [브랜치명] 명령어로 브랜치를 생성하고<br>git checkout [브랜치명] 명령어를 통해 브랜치를 변경한다.<br>여기서 checkout은 단순히 브랜치를 옮기는 것으로 지금까지의 변경내용이 바뀌지 않고 해당 브랜치로 이동하기 때문에<br>해당 브랜치에 지금의 변경내용이 전부 반영된다.</p>
+<h3><span id="브랜치-삭제하기">브랜치 삭제하기</span></h3><p><code>git branch -d [branch Name]</code></p>
+<h3><span id="추가된-파일-포함시키고-커밋하기">추가된 파일 포함시키고 커밋하기</span></h3><p>파일 추가<br><code>git add</code></p>
+<p>커밋하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;메세지&quot;</span><br></pre></td></tr></table></figure>
+<h3><span id="원격저장소에-사용하기">원격저장소에 사용하기</span></h3><p>업스트림(upstream) 브랜치 설정<br>로컬 저장소를 init 명령어로 생성했을땐 수동으로 업스트림 브랜치를 설정할 필요가 있다. 업스트림 브랜치란 원격 저장소와 바로 연결된 로컬 저장소를 말하며 push나 pull 명령등에서 원격 저장소 이름을 생략할 수 있게 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>
+<p>원격 저장소와 코드를 주고 받기 위해 가장 먼저 해야 할 일은 원격 저장소가 어디에 있는지를 알려주는 일이다.<br>다음과 같은 코드를 입력하기 원격저장소 origin의 위치를 등록해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:hea9549/expiritAdmin.git</span><br></pre></td></tr></table></figure>
+<p>밀어넣기<br><code>git push origin [branch]</code></p>
+<p>강제로 밀어넣기<br><code>git push -u origin master</code></p>
+<p>머지하기<br><code>git checkout master</code>를 통해 마스터로 이동한다<br><code>git merge [commit name]</code></p>
+<p>풀받기<br><code>git pull [remote 저장소] [브랜치]</code></p>
+<h3><span id="커밋을-되돌리기">커밋을 되돌리기</span></h3><p>이번에는 기존에 한 커밋을 되돌리는 법을 배운다.</p>
+<p>먼저 커밋 내역을 확인할 수 있도록 log를 확인한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>뒤로 돌리기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD</span><br></pre></td></tr></table></figure>
+<p>명령어를 통해 HEAD에 마지막으로 커밋된 내용을 뒤로 돌린다.</p>
+<h3><span id="원격-브랜치-가져오기">원격 브랜치 가져오기</span></h3><p><code>git checkout -t origin/eventsource</code></p>
+<h3><span id="로컬-작업-내용-버리기-혹은-저장하기">로컬 작업 내용 버리기 혹은 저장하기</span></h3><p>당신이 어떤 프로젝트에서 한 부분을 담당하고 있다고 하자. 그리고 여기에서 뭔가 작업하던 일이 있고 다른 요청이 들어와서 잠시 브랜치를 변경해야 할 일이 생겼다고 치자. 아직 완료하지 않은 일을 커밋하는 것은 좀 껄끄럽다. 이런 상황에서는 커밋하지 않고 나중에 다시 돌아와서 작업을 다시 하고 싶을 것이다. 이 문제는 git stash라는 명령으로 해결할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash // stash difference</span><br><span class="line">git stash clear // deled stased</span><br><span class="line">git stash list // list up stashed</span><br></pre></td></tr></table></figure>
+<h2><span id="과거의-커밋-내용을-수정하기">과거의 커밋 내용을 수정하기</span></h2><p>open source 활동을 하거나 혹은 대규모의 프로젝트를 진행할때 겪는 가장 큰 문제는 내가 작성한 과거의 코드내용, 즉 과거의 커밋 내용을 수정하는 것이다.</p>
+<p>대부분의 경우 feature 브랜치에서 많은 내용을 수정하고 중간중간 변경 사항에 대해 commit 으로 기록하기 때문에 과거의 커밋을 바꾸기 위해서는 까마득한 예전의 코드로 돌아가 그 특정 부분을 수정하고 그 뒤의 변경사항을 다시 재적용 시키는 일이 필요하다.</p>
+<p>이 경우에는 <code>git rebase</code> 명령을 사용하여 해결할 수 있으며 다음과 같은 절차를 거친다.</p>
+<ol>
+<li><p><code>git log</code> 를 통해 나의 이전 커밋 내용을 확인한다.</p>
+</li>
+<li><p><code>git rebase -i HEAD~n</code> 를 통해 HEAD로 부터 얼마나 뒤 내용을 수정하고 rebase를 진행할지 정해준다. 가령 HEAD 로 부터 3 번째 커밋부터의 커밋들에 수정사항이 있다면 <code>git rebase -i HEAD~3</code> 명령어를 입력한다.</p>
+</li>
+<li><p>위 명령어를 입력하면 과거의 커밋들이 나타나고 커밋명 앞에 pick 이라는 키워드가 있다. 여기서 우리가 수정하기를 원하는 커밋의 pick 키워드를 e(edit) 으로 바꿔준다.</p>
+</li>
+<li><p>이제 git이 edit 하고자 하는 커밋으로 코드를 돌려주고 원하는 내용을 수정한 뒤에 <code>git commit --amend</code> 를 해주면 해당 커밋을 수정하여 다시 커밋하고 <code>git rebase --continue</code> 명령을 통해 뒤의 커밋들을 쭉 적용시켜 줄 수 있다.</p>
+</li>
+</ol>
+<h2><span id="유용한-기능들">유용한 기능들</span></h2><p><strong>CLI 에서 비밀번호 저장하기</strong></p>
+<p><code>git config credential.helper store</code></p>
+<p><strong>변경내용 임시 저장하기</strong></p>
+<p><code>git stash</code></p>
+<p><strong>임시 저장내용 불러오기</strong></p>
+<p><code>git stash pop</code></p>
+<h2><span id="2fa-인증">2FA 인증</span></h2><p>git authentication</p>
+<p>git 에서 2FA 인증을 하는 경우 personal access token을 발급받아서 해야한다.</p>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/git/">#
+                        git
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/03/20/컴퓨터-구조-강의-02-명령어-컴퓨터-언어/">
+                                컴퓨터 구조 | 명령어, 컴퓨터 언어
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/03/18/how-to-write-a-service-introduction/">
+                                How to write a service introduction
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/03/19/git-시작하기/';
+        this.page.identifier = '2018/03/19/git-시작하기/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

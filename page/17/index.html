@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/10/Fuzzy-systems-fuzzy-sets-and-systems/" itemprop="url">
+                Fuzzy systems fuzzy sets and systems
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-10T12:30:06.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 826 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#fuzzy-concept">Fuzzy Concept</a></li>
+<li><a href="#fuzzy-set">Fuzzy Set</a></li>
+<li><a href="#multi-valued-logic-vs-boolean-logic">multi valued logic VS boolean logic</a></li>
+<li><a href="#fuzzy-set의-표현">Fuzzy Set의 표현</a></li>
+<li><a href="#a-cutalpha-cut">a-cut(alpha cut)</a></li>
+<li><a href="#definitions">definitions</a></li>
+<li><a href="#extension-principle">extension principle</a><ul>
+<li><a href="#fuzzy-control-system">Fuzzy control system</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="fuzzy-concept">Fuzzy Concept</span></h2><p>수학의 법칙은 현실 세계를 기반으로 하기 때문에 정확하지 않다.<br>하지만 수학 그 자체는 정확하므로 현실세계를 나타내지 않는다.<br>즉 정확하지 않은 현실 세계를 표현하기 위해 Fuzzy 라는 개념이 나타나게 되었다.</p>
+<h2><span id="fuzzy-set">Fuzzy Set</span></h2><p>fuzzy set은 binary set의 multi-valued logic으로의 확장이다.<br>여기서 특정 원소가 특정 범위에 ‘소속’될 확률을 membership function 이라고 하며,<br>membership function 의 값이 0,1 이외의 다른 값을 가지는 것이 가능한 집합이다.<br>fuzzy logic이란 널리 사용되는 머신 컨트롤이다. fuzzy라는 말은 논리가 참 혹은 거짓만으로 표현되지 않고 ‘부분적 참’과 같은 형태로 표현되는 것을 포함한다.</p>
+<p>genetic algorithm이나 neural network와 같은 다양한 대체적인 접근법들 또한 fuzzy logic과 같이 다양한 경우에서 훌륭하게 동작하나 fuzzy logic은 문제의 답이 사람들이 이해할 수 있는 형태로 표현되기 때문이다. 때문에, 그들의 경험이 컨트롤러의 디자인에 이용될 수 있다. 이것은 사람을 통해 이미 훌륭하게 동작하는 업무를 기계화 하는 것을 매우 간편하게 만들어 준다.<br><img src="\images\fuzzyConceptImage.png" alt="fuzzy concept image"></p>
+<p>보통 집합</p>
+<p>u_A: X -&gt; {0,1} =&gt; 원소에 mapping 됨</p>
+<p>퍼지 집합</p>
+<p>u_A: X -&gt; [0,1] =&gt; 모든 실수에 mapping 됨</p>
+<h2><span id="multi-valued-logic-vs-boolean-logic">multi valued logic VS boolean logic</span></h2><p><img src="\images\mutiValuedLogicAndBooleanLogicImage.png" alt="muti valued logic and boolean logic image"></p>
+<h2><span id="fuzzy-set의-표현">Fuzzy Set의 표현</span></h2><p>A={(2, 1.0), (3, 0.5)}</p>
+<p>특정 원소와 membership function의 값의 나열로 표현된다.</p>
+<p>혹은</p>
+<p>A=1.0/2 + 0.5/3</p>
+<p>여기서 +는 덧셈이 아닌 합집합 즉, UNION을 의미한다.</p>
+<h2><span id="a-cutalpha-cut">a-cut(alpha cut)</span></h2><p>membership function 이 a보다 큰 구간을 의미한다.</p>
+<h2><span id="definitions">definitions</span></h2><p>fuzzy proposition<br>:fuzzy proposition이란 하나의 퍼지 가설로써 “방 온도가 중간이다.”와 같은 명제이다.</p>
+<p>support of A<br>:이러한 fuzzy proposition을 A라고 하면 이 명제를 뒷바침 하는 x의 집합을 support of A라고 하며 membership function이 0보다 큰 x의 집합을 의미한다.</p>
+<p>crossover point<br>:membership function이 0.5인 x의 값들의 집합</p>
+<p>convexity<br>: 모든 x 에 대해 특정 두 x를 골랐을 때 그 값 사이의 모든 x값의 membership function이 선택한 두 x 값의 membership function의 최소값보다 큰 경우.<br>즉, 볼록하다고 생각하면 된다.</p>
+<p><img src="\images\fuzzyConvexity.png" alt="fuzzy convexity"></p>
+<p>normality<br>: membership function이 1인 x가 존재하는 경우이다.</p>
+<p>fuzzy number<br>: convexity와 normality를 둘 다 만족하는 fuzzy set</p>
+<p>resolution identity<br>: fuzzy set은 유한개 혹은 무한개의 a-cuts로 나누어 질 수 있다.</p>
+<p><img src="\images\resolutionIdentity.png" alt="resolution identity"><br><img src="\images\resolutionIdentityExample.png" alt="resolution identity example"></p>
+<h2><span id="extension-principle">extension principle</span></h2><p>fuzzy set A의 도메인은 non-fuzzy function f를 통해 확장될 수 있다.<br>여기서 f(A)를 extended fuzzy set이라 한다.</p>
+<p><img src="\images\extededFuzzySet.png" alt="exteded fuzzy set"></p>
+<p>extened fuzzy set의 예<br><img src="\images\extendedFuzzySetExample.png" alt="extended fuzzy set example"></p>
+<h1><span id="fuzzy-control-system">Fuzzy control system</span></h1><p><a href="assets/markdown-img-paste-20171017005435209.png">fuzzy-control-image</a></p>
+<p>Fuzzy control system이란 fuzzy logic에 기반한 컨트롤 시스템이다.</p>
+<p>(여기서 fuzzy logic이란 아날로그 입력값을 분석할 때 기존의 0과 1만 존재하는 디지털 로직과 달리 0과 1 사이의 연속적인 논리 값으로 분석을 하는 수학적 시스템이다.)</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/09/Neural-network-back-propagation/" itemprop="url">
+                Neural network back propagation
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-09T04:15:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 653 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#back-propagation-이란">back propagation 이란?</a></li>
+<li><a href="#back-propagation-algorithm">Back propagation Algorithm</a></li>
+<li><a href="#작동-원리">작동 원리</a></li>
+<li><a href="#bpn-learning-processencoding">BPN Learning Process(Encoding)</a></li>
+<li><a href="#bpn-retrieving-processdecoding">BPN Retrieving Process(Decoding)</a></li>
+<li><a href="#bpn">BPN</a></li>
+<li><a href="#gdrgeneralized-delta-rule">GDR(Generalized Delta Rule)</a></li>
+<li><a href="#bpn-learning-algorithm">BPN Learning Algorithm</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="back-propagation-이란">back propagation 이란?</span></h2><p>multi layer perceptron에서의 학습 알고리즘 이다.</p>
+<h2><span id="back-propagation-algorithm">Back propagation Algorithm</span></h2><p>다음과 같은 이유로  multi layer perceptron에서 BP를 사용한다.</p>
+<ol>
+<li>넓은 입력공간에서 복잡한 패턴을 가진다.</li>
+<li>병렬 처리를 통해 빠른 계산속도를 가진다.</li>
+<li>adaption을 위해 error back propagation을 한다.</li>
+</ol>
+<p>Back propagation을 하는 MLP의 구조를 BPN(Back Propagation Network)라고 한다.</p>
+<h2><span id="작동-원리">작동 원리</span></h2><p>BPN은 다음과 같은 복잡한 패턴 매칭 문제를 해결할 수 있다.</p>
+<ol>
+<li>입출력 쌍 패턴 분석을 propagation adoption 방식을 사용하고 학습할 수 있다.</li>
+<li>입력 자극이 hidden layer로 그리고 output layer 로 전달된다.</li>
+</ol>
+<p>다음과 같은 순서로 학습이 이루어 진다.</p>
+<ol>
+<li>패턴 입력이 인풋으로 주어짐</li>
+<li>히든 레이어로 전달된</li>
+<li>출력 레이어로 전달되고 출력 패턴이 나옴</li>
+<li>desired pattern에서 output pattern의 차를 통해 error를 검출</li>
+<li>검출된 error가 출력 레이어로 부터 히든 레이어로 전달되고 다시 입력단으로 전달됨</li>
+<li>히든 레이어에서 에러의 상대적 기여도가 사용되고, 모든 노드에 대해 수행됨</li>
+<li>connection strength가 업데이트 되고, 트레이닝 패턴이 다시 encode됨</li>
+</ol>
+<h2><span id="bpn-learning-processencoding">BPN Learning Process(Encoding)</span></h2><p>히든 레이어의 노드가 모든 입력 패턴을 인식할 수 있도록 스스로 재구성됨</p>
+<h2><span id="bpn-retrieving-processdecoding">BPN Retrieving Process(Decoding)</span></h2><ol>
+<li>입력된 입력패턴이 학습된 패턴과 같거나 유사하면 output layer에 나타남</li>
+<li>입력된 입력 패턴이 학습된 데이터가 아니면, 히든 레이어에서 자극값을 생성하는 것이 억제됨</li>
+</ol>
+<h2><span id="bpn">BPN</span></h2><p>Back propagation 알고리즘의 핵심은 error가 weight를 스스로 업데이트 하는 것이다.<br>error BP는 지도 학습(supervised learning)의 핵심이다.<br>여러개의 입출력 쌍을 통해 출력을 예상할 수 있다.</p>
+<p>Mapping network<br>:input과 output을 계산하는 함수</p>
+<p><img src="\images\bpnImage.png" alt="bpn image"></p>
+<h2><span id="gdrgeneralized-delta-rule">GDR(Generalized Delta Rule)</span></h2><p>입력 벡터를 통해 i 번체 히든 노드의 입력의 합을 구한다.</p>
+<p><img src="\images\gdnImage.png" alt="gdr image"></p>
+<p><img src="\images\gdn2.png" alt="gdr2"></p>
+<p>output of th k^th output unit<br><img src="\images\outputOfKthOutputUnit.png" alt="output of kth output unit"></p>
+<h2><span id="bpn-learning-algorithm">BPN Learning Algorithm</span></h2><ol>
+<li>적용된 input으로 부터 전달된 신호를 기반으로 관련 출력을 계산하라</li>
+<li>에러를 계산하라(desired-actual)</li>
+<li>error 를 감소시키기 위한 weight update의 방향을 결정하라.</li>
+<li>weight update의 양을 계산하라</li>
+<li>weight를 업데이트 하라</li>
+<li>1~5의 과정을 에러가 tolerance ranges 안에 들어갈 때 까지 반복하라.</li>
+</ol>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/08/Nodejs-Google-Api를-활용한-push-서버-구축/" itemprop="url">
+                Nodejs Google Api를 활용한 push 서버 구축
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-08T07:12:04.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 20 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="code-flow">Code Flow</span></h2><p><code>NPM install fcm-node</code></p>
+<ol start="2">
+<li>Usage<br><a href="https://www.npmjs.com/package/fcm-node" target="_blank" rel="noopener">Api 서버 만들기</a></li>
+</ol>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/08/nodejs에서-thumbnail-만들기/" itemprop="url">
+                nodejs thumbnail 만들기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-08T02:26:11.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 229 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#개요">개요</a></li>
+<li><a href="#설치">설치</a></li>
+<li><a href="#서버-코드">서버 코드</a></li>
+<li><a href="#default-options">default options</a></li>
+<li><a href="#referencehttpswwwnpmjscompackagenode-thumbnail">reference</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="개요">개요</span></h2><p>먼저 multiparty로 req를 받아 파일과 필드값으로 나누어 준 뒤에 노드 썸네일을 통해 변환을 해 준다.</p>
+<h2><span id="설치">설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install node-thumbnail</span><br></pre></td></tr></table></figure>
+<h2><span id="서버-코드">서버 코드</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">var multiparty = require(&apos;multiparty&apos;);</span><br><span class="line">var thumb = require(&apos;node-thumbnail&apos;).thumb;</span><br><span class="line"></span><br><span class="line">router.post(&apos;/thumbnail&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;썸네일 변경!&quot;);</span><br><span class="line">  var form = new multiparty.Form();</span><br><span class="line">  form.parse(req,function(err,fields, files)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">      console.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.keys(fields).forEach(function(name) &#123;</span><br><span class="line">      console.log(&apos;got field named &apos; + name);</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(&quot;files:&quot;, files);</span><br><span class="line"></span><br><span class="line">    var fileName=fields.fileName[0];</span><br><span class="line">    var oldPath = files.imageFile[0].path;</span><br><span class="line">    console.log(fileName);</span><br><span class="line">    // 서버에서 돌리는 부분</span><br><span class="line">    var newPath = &apos;/root/imageServer/public/images&apos;;</span><br><span class="line">    </span><br><span class="line">    thumb(&#123;</span><br><span class="line">      basename:fileName.split(&quot;.&quot;)[0],</span><br><span class="line">      suffix:&apos;&apos;,</span><br><span class="line">      source: oldPath,</span><br><span class="line">      destination: newPath,</span><br><span class="line">      width: 300</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">      console.log(&apos;Success&apos;);</span><br><span class="line">      res.sendStatus(200)</span><br><span class="line">    &#125;).catch(function(e) &#123;</span><br><span class="line">      console.log(&apos;Error&apos;, e.toString());</span><br><span class="line">      res.sendStatus(500);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2><span id="default-options">default options</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">defaults = &#123;</span><br><span class="line">  prefix: &apos;&apos;,</span><br><span class="line">  suffix: &apos;_thumb&apos;,</span><br><span class="line">  digest: false,</span><br><span class="line">  hashingType: &apos;sha1&apos;, // &apos;sha1&apos;, &apos;md5&apos;, &apos;sha256&apos;, &apos;sha512&apos;</span><br><span class="line">  width: 800,</span><br><span class="line">  concurrency: &lt;num of cpus&gt;,</span><br><span class="line">  quiet: false, // if set to &apos;true&apos;, console.log status messages will be supressed</span><br><span class="line">  overwrite: false,</span><br><span class="line">  basename: undefined, // basename of the thumbnail. If unset, the name of the source file is used as basename.</span><br><span class="line">  ignore: false, // Ignore unsupported files in &quot;dest&quot;</span><br><span class="line">  logger: function(message) &#123;</span><br><span class="line">    console.log(message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2><span id="reference"></span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/07/Rxjs-기본-개념/" itemprop="url">
+                Rxjs 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-06T16:09:55.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 244 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#observable과-observer">Observable과 Observer</a></li>
+<li><a href="#subject란">Subject란?</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="observable과-observer">Observable과 Observer</span></h2><p>Rx 는 동기적이고 이벤트 기반의 데이터 소스들 즉, Observable Object로 추상화된 push-based, observable sequences 이다.<br>이것은 observed 될 수 있는 데이터 소스를 의미하며, 이것은 관심이 있는 누구에게나 데이터를 전송할 수 있음을 의미한다.</p>
+<p>Observer는 subscription을 통해 관심사를 등록하는 것이다.<br>Observer가 subscribe 하는 observable 시퀀스의 내용들은 observer에게 차례로 전달된다.</p>
+<p>observable한 집합들로부터 알림을 받기 위해 Observer Object에게 observable들을 전달하는 Observable의 subscribe 함수를 사용한다.</p>
+<p>Observer는 3가지의 publication event를 지원한다.<br>observable 데이터 소스가 가능한 데이터가 있을 때, onNext()가 호출될 수 있다.<br>observer에게 새로운 데이터를 제공한다.</p>
+<h2><span id="subject란">Subject란?</span></h2><p>Subject란 observer 또는 Observable 모두 처럼 행동 가능한 구현체이다.<br>observer이기 때문에 하나 혹은 ㄷ</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/06/Angular-ngx-infinite-scroll을-이용한-무한-스크롤-구현/" itemprop="url">
+                Angular ngx infinite scroll을 이용한 무한 스크롤 구현
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-06T14:46:07.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 166 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="설치하기">설치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install ngx-infinite-scroll --save</span><br></pre></td></tr></table></figure>
+<h2><span id="동작-특성">동작 특성</span></h2><p>window scroll 이벤트를 감지하여 callback을 발생시킨다.<br>실제 요소가 스크롤 될때 콜백을 수행하기 위해서는 다음 설정이 되어야 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[scrollWindow]=&quot;false&quot;</span><br><span class="line">set an explict css &quot;height&quot; value to the element</span><br></pre></td></tr></table></figure>
+<h2><span id="import-하기">import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModule &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; BrowserModule &#125; from &apos;@angular/platform-browser&apos;;</span><br><span class="line">import &#123; InfiniteScrollModule &#125; from &apos;ngx-infinite-scroll&apos;;</span><br><span class="line">import &#123; platformBrowserDynamic &#125; from &apos;@angular/platform-browser-dynamic&apos;;</span><br><span class="line">import &#123; AppComponent &#125; from &apos;./app&apos;;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports:[ BrowserModule, InfiniteScrollModule ],</span><br><span class="line">  declarations: [ AppComponent, ],</span><br><span class="line">  bootstrap: [ AppComponent ]</span><br><span class="line">&#125;)</span><br><span class="line">export class AppModule &#123; &#125;</span><br><span class="line"></span><br><span class="line">platformBrowserDynamic().bootstrapModule(AppModule);</span><br></pre></td></tr></table></figure>
+<p>아래 예제에서는 스크롤이 내려가면 onScroll 함수가 호출된다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from &apos;@angular/core&apos;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">	selector: &apos;app&apos;,</span><br><span class="line">	template: `</span><br><span class="line">		&lt;div class=&quot;search-results&quot;</span><br><span class="line">		    infiniteScroll</span><br><span class="line">		    [infiniteScrollDistance]=&quot;2&quot;</span><br><span class="line">		    [infiniteScrollThrottle]=&quot;50&quot;</span><br><span class="line">		    (scrolled)=&quot;onScroll()&quot;&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	`</span><br><span class="line">&#125;)</span><br><span class="line">export class AppComponent &#123;</span><br><span class="line">	onScroll () &#123;</span><br><span class="line">	    console.log(&apos;scrolled!!&apos;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="참조"></span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/04/Angular-에러-처리/" itemprop="url">
+                Angular 에러 처리
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-04T12:46:09.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 0 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/04/Angular-host-listener의-활용/" itemprop="url">
+                Angular host listener의 활용
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-04T04:42:39.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 225 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="host-listener란">Host Listener란?</span></h2><p>호스트의 이벤트를 감지하는 라이브러리</p>
+<h2><span id="hostlistener-decorator-component-작성">HostListener Decorator Component 작성</span></h2><p>아래와 같이 호스트의 이벤트를 감지한다.<br>여기서 window는<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123; HostListener&#125; from &quot;@angular/core&quot;;</span><br><span class="line">import &#123; DOCUMENT &#125; from &quot;@angular/platform-browser&quot;;</span><br><span class="line">import &#123; Inject &#125; from &quot;@angular/core&quot;;</span><br><span class="line"></span><br><span class="line">export class LayoutNavComponent implements OnInit &#123;</span><br><span class="line">  constructor(@Inject(DOCUMENT) private document: Document) &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line">@HostListener(&quot;window:scroll&quot;, [])</span><br><span class="line">onWindowScroll() &#123;</span><br><span class="line"> //we&apos;ll do some stuff here when the window is scrolled</span><br><span class="line"> let windowScrollPos = this.document.documentElement.scrollTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="observable과-throttle을-활용하여-event-반응하기">observable과 throttle을 활용하여 event 반응하기</span></h2><p>throttle time이 200ms인 observable을 생성하고, subject를 통해 새로운 인자값을 전달한다.<br>생성한 observable을 subscribe 해 주고, subject를 통해 계속해서 새로운 인자값을 전달한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Subject &#125; from &apos;rxjs/Subject&apos;;</span><br><span class="line">import &apos;rxjs/add/operator/throttleTime&apos;;</span><br><span class="line"></span><br><span class="line">export class AppComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  private resizeSubject = new Subject&lt;number&gt;();</span><br><span class="line">  private resizeObservable = this.resizeSubject.asObservable().throttleTime(200);</span><br><span class="line"></span><br><span class="line">  @HostListener(&apos;window:resize&apos;, [&apos;$event.target.innerWidth&apos;])</span><br><span class="line">  onResize(width: number) &#123;</span><br><span class="line">    this.resizeSubject.next(width);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    this.resizeObservable.subscribe(x =&gt; this.doSomethingWithThrottledEvent(x));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private doSomethingWithThrottledEvent(width: number) &#123;</span><br><span class="line">    // . . .</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://martinmcwhorter.logdown.com/posts/1207659-throttling-events-in-angular-with-rxjs" target="_blank" rel="noopener">참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/02/Css-opacity-적용하기/" itemprop="url">
+                Css opacity 적용하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-02T00:31:57.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 87 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="rgb를-이용하는-방법">rgb를 이용하는 방법</span></h2><p>제일 뒷자리가 투명도를 조절하는 부분이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rgba(0, 0, 0, 0.5)</span><br></pre></td></tr></table></figure></p>
+<h2><span id="hexo-code를-이용하는-방식">hexo code를 이용하는 방식</span></h2><p>숫자 앞에 투명도를 붙여준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">for 50% white you&apos;d use #80FFFFFF.</span><br><span class="line"></span><br><span class="line">100% — FF</span><br><span class="line">95% — F2</span><br><span class="line">90% — E6</span><br><span class="line">85% — D9</span><br><span class="line">80% — CC</span><br><span class="line">75% — BF</span><br><span class="line">70% — B3</span><br><span class="line">65% — A6</span><br><span class="line">60% — 99</span><br><span class="line">55% — 8C</span><br><span class="line">50% — 80</span><br><span class="line">45% — 73</span><br><span class="line">40% — 66</span><br><span class="line">35% — 59</span><br><span class="line">30% — 4D</span><br><span class="line">25% — 40</span><br><span class="line">20% — 33</span><br><span class="line">15% — 26</span><br><span class="line">10% — 1A</span><br><span class="line">5% — 0D</span><br><span class="line">0% — 00</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/02/angular-lazy-image-loading/" itemprop="url">
+                angular lazy image loading
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-01T15:13:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 107 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="ngx-lazy-load-images-설치하기">ngx-lazy-load-images 설치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i ngx-lazy-load-images --save</span><br></pre></td></tr></table></figure>
+<h2><span id="모듈-import-하기">모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModule &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; LazyLoadImagesModule &#125; from &apos;ngx-lazy-load-images&apos;;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    LazyLoadImagesModule</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line">export class AppComponent &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="사용하고자-하는-img에-lazy-load-images-directive-사용하기">사용하고자 하는 img에 lazy-load-images directive 사용하기</span></h2><p>img 태그에 사용하는 것이 아니고 img의 상위 태그에 directive를 넣어야 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Image tags --&gt;</span><br><span class="line">&lt;div class=&quot;image-list&quot; lazy-load-images&gt;</span><br><span class="line">  &lt;img *ngFor=&quot;let imageUrl in images&quot; [attr.data-src]=&quot;imageUrl&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Background images --&gt;</span><br><span class="line">&lt;div class=&quot;image-list&quot; lazy-load-images&gt;</span><br><span class="line">  &lt;div *ngFor=&quot;let imageUrl in images&quot; [attr.data-background-src]=&quot;imageUrl&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="img-에-data-src-속성-넣기">img 에 data-src 속성 넣기</span></h2>
+undefined
+
+
+<p><a href="https://www.npmjs.com/package/ngx-lazy-load-images" target="_blank" rel="noopener">참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous">
+        <a href="/page/16/">Prev</a>
+    </div>
+    <div class="pagination-next">
+        <a href="/page/18/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link" href="/">1</a></li>
+        
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        
+        <li><a class="pagination-link" href="/page/16/">16</a></li>
+        
+        <li><a class="pagination-link is-current" href="/page/17/">17</a></li>
+        
+        <li><a class="pagination-link" href="/page/18/">18</a></li>
+        
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        
+        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

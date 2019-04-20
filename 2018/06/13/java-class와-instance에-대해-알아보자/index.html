@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>java - class와 instance에 대해 알아보자 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                java - class와 instance에 대해 알아보자
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-13T14:15:17.000Z" itemprop="datePublished">
+                10 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/java-강의/">java 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 562 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="class와-instance가-무엇인지-알아보자">Class와 Instance가 무엇인지 알아보자.</span></h1><h2><span id="객체-지향-언어란">객체 지향 언어란?</span></h2><p>객체(Object) 란 실제 세계의 많은 사물들을 컴퓨터 내에서 하나의 객체로써 표현하는 하나의 프로그래밍 패러다임을 의미한다.<br>가령 사과, 사과 장수, 사과의 판매 처럼 실존하는 형태와 형태의 행위들을 표현할 수 있게 된다.</p>
+<h2><span id="class-란">Class 란?</span></h2><p>Class 란 하나의 틀(mold) 라고 보면 된다.<br>가령 현실 세계의 사과 장수는 수없이 많고, 각 사과장수는 공통된 특성을 가지고 공통된 행위가 가능하다.<br>컴퓨터 프로그래밍 에서는 이러한 상태와 특성 그리고 행위를 표현 가능하며 각각을 property와 method 라고 부른다.</p>
+<p>가령 사과 장수라면, 나이, 가지고 있는 사과의 개수, 판매하고자 하는 사과의 가격 등의 특성을 가지고 ‘사과를 판매’ 하거나 ‘사과를 구매’ 하는 등의 행위가 가능할 것이다.</p>
+<h2><span id="instance란">Instance란?</span></h2><p>Instance란 위에서 정의한 class로 찍어낸 실제 객체를 의미한다.<br>가령 현실 세계에서 사과장수는 하나의 추상적인 개념이다. 즉, 사과의 갯수, 나이 처럼 각종 특성을 가지는 하나의 무형의 존재이지만 실제 사과장수는 현실에서 존재한다. 가령 옆집에 사는 사과장수의 경우 정해진 나이와 사과의 갯수를 가지고 실존하는 것이며, 이를 object 또 instance라고 부른다.</p>
+<p>Java에서는 class를 통해 instance를 만들어 낼 수 있으며, 새로운 instance를 생성하면 그 데이터가 저장되고 데이터를 가르치는 참조변수에 그 주소값을 저장한다.</p>
+<h2><span id="생성자constructor-란">생성자(Constructor) 란?</span></h2><p>가령 AppleSeller 라는 class 와 appleSeller1이라는 참조 변수를 가지는 instance를 만들었다고 가정하자.<br>이 만드는 과정에는 그 사과장수의 나이와 사과의 갯수처럼 최초로 설정해 주어야 하는 값들이 있고, 이러한 설정을 Constructor 즉 생성자 내부에서 처리할 수 있다.</p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/java/">#
+                        java
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/06/14/z_어떻게-원하는-바를-얻어낼-것인가-설득의-마법/">
+                                어떻게 원하는 바를 얻어낼 것인가, 설득의 마법
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/06/11/golang-test-code-작성하기/">
+                                golang - test code 작성하기
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/06/13/java-class와-instance에-대해-알아보자/';
+        this.page.identifier = '2018/06/13/java-class와-instance에-대해-알아보자/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

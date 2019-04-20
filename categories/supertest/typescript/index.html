@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Category: typescript - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5><i class="far fa-folder"></i>typescript</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/01/18/supertest-를-활용한-typescript-기반-node-js-e2e-테스트/" itemprop="url">
+                supertest 를 활용한 typescript 기반 node.js e2e 테스트
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-18T08:59:39.000Z" itemprop="datePublished">
+                3 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/supertest/">supertest</a><span>></span><a class="article-category-link" href="/categories/supertest/typescript/">typescript</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                12 minutes read (About 1850 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h2><span id="what-is-supertest">What is supertest</span></h2><p>Node.js 에서 express 를 이용하여 서버를 개발함에 있어, rest api 를 테스트 하기 위해서는 실제로 서버에 요청을 보내고 클라이언트에 원하는 데이터가 전송되는 것을 확인해야 한다.</p>
+<p>이러한 e2e 테스트를 위해서는 실제 서버를 띄운 뒤에 해당 서버로 요청을 날려 보면서 테스트를 진행해야 하며, 이렇게 가상의 서버를 띄워주고 express web server 에 대해 e2e 테스트를 가능하게 해주는 것이 바로 <code>supertest</code> 이다.</p>
+<p>본 포스트에서는 그 중에서도 일반 <code>javascript</code>가 아닌 <code>typescript</code> 환경에서의 e2e 테스트 코드 작성법에 대해 알아보고자 하며, 테스트를 위해서는 페이스북에서 만든 잘나가는 프레임웍인 <code>jest</code>와 <code>typescript 배포판인 ts-jest</code> 를 사용한다.</p>
+<h2><span id="prerequisition">Prerequisition</span></h2><p>먼저 타입스크립트로 작성된 프로그램은 javascript 기반의 테스트 환경인 jest 로는 테스트를 작동시킬 수가 없기 때문에, ts-jest 패키지를 dev 환경에 설치해 주어야 jest 가 <code>typescript</code> 코드를 읽고 실행할 수 있다.  </p>
+<p>다음과 같이 <code>ts-ject</code>, <code>supertest</code>, <code>@types/supertest</code>를 설치해 준다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev ts-jest</span><br><span class="line">npm install --save-dev supertest</span><br><span class="line">npm install --save-dev @types/supertest</span><br></pre></td></tr></table></figure>
+<p>여기서 한가지 문제가 있는데, 아직 typescript supertest 의 경우 여러 패키지들과의 문제를 보이고 있다.</p>
+<p>단편적인 예로 XMLHttpRequest 를 찾지 못하는 현상이 있는데, 이는 다음 설정을 tsconfig.json 에 해줌으로써 해결된다.<br>다음과 같이 dom 을 앞에다 추가해 주자. <strong>반드시 첫번째로 해야한다.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    compilerOptions:&#123;</span><br><span class="line">        &quot;lib&quot;:[&quot;dom&quot;,&quot;es2015]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위처럼 ts-jest를 설치했다면 이제 typescript 코드를 jest 에서 돌릴수 있게 된다.</p>
+<p>본 프로젝트에서는 ts-jest 는 내부적으로 js 의 es6 문법을 컴파일 하기 위해 babel loader 를 사용하기 때문에 다음과 같이 babel env 를 설치하고 babel configuration 을 다음과 같이 해주어야 한다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-preset-env</span><br></pre></td></tr></table></figure>
+<p>.babelrc</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    presets:["env"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="setup-jest-configuration">Setup jest configuration</span></h4><p>Jest 세팅은 tsconfig.json 에서도 할 수 있고 jest.config.js 파일에서도 할 수 있다.</p>
+<p>이 경우 반드시 한쪽에서만 해야 문제가 발생하지 않기때문에 유념한다.</p>
+<p>Jest 는 typescript 를 컴파일 하지 않고 파일별로 컴파일과 실행을 동시에 처리하기 때문에, module alias 를 사용하였다면, 해당 파일이 어디에 있는지를 가르쳐 주어야 한다.</p>
+<p>아래 코드에서는 moduleNameMapper 를 통해 module alias 를 발견하면 어디에서 해당 파일을 찾을 수 있는지 jest 에게 가르쳐 준다.</p>
+<p>또한 ts-jest preset 를 사용한다는 것을 명시하고 있다.</p>
+<p>jest.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  preset: <span class="string">'ts-jest'</span>,</span><br><span class="line">  testEnvironment: <span class="string">'node'</span>,</span><br><span class="line">  moduleNameMapper: &#123;</span><br><span class="line">    <span class="string">'^@domain/(.*)$'</span>: <span class="string">'&lt;rootDir&gt;/src/server/domain/$1'</span>,</span><br><span class="line">    <span class="string">'^@common/(.*)$'</span>: <span class="string">'&lt;rootDir&gt;/src/server/common/$1'</span>,</span><br><span class="line">    <span class="string">'^@utils/(.*)$'</span>: <span class="string">'&lt;rootDir&gt;/src/server/utils/$1'</span>,</span><br><span class="line">    <span class="string">'^@infra/(.*)$'</span>: <span class="string">'&lt;rootDir&gt;/src/server/infra/$1'</span>,</span><br><span class="line">    <span class="string">'^@api/(.*)$'</span>: <span class="string">'&lt;rootDir&gt;/src/server/api/$1'</span>,</span><br><span class="line">    <span class="string">'^@interfaces/(.*)$'</span>: <span class="string">'&lt;rootDir/src/server/interfaces/$1'</span>,</span><br><span class="line">    <span class="string">'^@root/(.*)$'</span>: <span class="string">'&lt;rootDir&gt;/src/server/$1'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  transform: &#123;</span><br><span class="line">    <span class="string">'^.+\\.jsx?$'</span>: <span class="string">'babel-jest'</span>,</span><br><span class="line">    <span class="string">'^.+\\.(ts|tsx)$'</span>: <span class="string">'ts-jest'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  moduleFileExtensions: [<span class="string">'ts'</span>, <span class="string">'tsx'</span>, <span class="string">'js'</span>, <span class="string">'node'</span>, <span class="string">'json'</span>],</span><br><span class="line">  testMatch: [<span class="string">'**/*.test.+(ts|tsx|js)'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>여기서 moduleFileExtensions의 경우 typescript 테스트만을 진행하는 경우에는 tx, tsx, js 만 명시해주어도 되지만, 기본적인 node 가 제공하는 확장자인 json, node 등도 추가하여야 여러 패키지를 사용함에 있어 문제가 없다.</p>
+<h2><span id="getting-started">Getting started</span></h2><h4><span id="how-to-setup-express-application">how to setup express application</span></h4><p>Supertest 는 express application 객체를 받아서 내부적으로 서버를 listen 하기 때문에 supertest를 할 때마다 이런 express application을 주입시켜 주어야 한다. 어찌보면 단순한 일이지만 사실 실제 서버의 경우 express application 을 초기화하는 일련의 과정이 존재하기 때문에 이 작업을 해주는 것이 다소 까다로울 수 있다.</p>
+<p>또한, 대부분의 REST API 테스트의 경우 인증된 사용자에 대해서만 요청을 처리하는 authentication 기능이 있기 때문에, 테스트를 진행하기 전에 jwt 토큰 발급 및 회원가입 등 authentication 관련 문제들을 해결해야 한다.</p>
+<p>때문에, 본 문서에서는 이런 <code>기본적인 express application initializing 과 authentication 을 도와주는 helper 클래스인 TestHelper 클래스</code>를 먼저 구현하여 supertest 를 하도록 한다.</p>
+<p>app.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> App &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">async</span> setup(): <span class="built_in">Promise</span>&lt;express.Express&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> app = express();</span><br><span class="line">        app.use();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> app;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>testHelper.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> TestHelper &#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 테스트에 필요한 유저를 만들어 주는 함수이다.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param id 유저의 아이디</span></span><br><span class="line"><span class="comment">   * @param password 유저의 비밀번호</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">async</span> generateTestUser(</span><br><span class="line">    id: <span class="built_in">string</span>,</span><br><span class="line">    password: <span class="built_in">string</span></span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 필자는 일련의 회원가입을 담당하는 userService 에서 </span></span><br><span class="line"><span class="comment">     * 회원가입을 처리하고 있다.</span></span><br><span class="line"><span class="comment">     * 이 부분은 독자가 임의적으로 회원가입 로직을 구현하면 된다.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">let</span> user = <span class="keyword">await</span> userService.createUser(</span><br><span class="line">      id,</span><br><span class="line">      password</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param id 유저의 아이디</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">async</span> generateJwt(id) &#123;</span><br><span class="line">    <span class="keyword">let</span> jwtPayload = <span class="keyword">new</span> JwtPayload(id);</span><br><span class="line">    <span class="keyword">return</span> encodeJwt(jwtPayload);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">async</span> getApp(): <span class="built_in">Promise</span>&lt;express.Express&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> APP = <span class="keyword">new</span> App();</span><br><span class="line">    <span class="keyword">let</span> app = <span class="keyword">await</span> APP.setup();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> testHelper = <span class="keyword">new</span> TestHelper();</span><br></pre></td></tr></table></figure>
+<p>위처럼 express appilcation 을 비동기적으로 세팅해주는 helper 함수들을 구현하였다면 아래와 같이 모든 테스트 코드를 작성하기 전에 위의 app을 초기화 해준다.</p>
+<p>모든 테스트 이전에 다양한 환경을 세팅해주기 위해 <code>beforeAll()</code> 를 이용하는데, 이는 모든 테스트 전에 해야할 일들을 명시하고 세팅해 준다. 만약, <code>비동기적인 작업을 beforeAll 에서 해야 할 필요가 있다면</code> 다음과 같은 방법이 있다.</p>
+<ol>
+<li>Promise 를 return 해주는 방법</li>
+<li>Async/Await 을 사용하는 방법</li>
+<li>Done 인자를 받아 사용하는 방법</li>
+</ol>
+<p>아래 코드에서<code>before all 부분에서 바로 promise 를 리턴</code>하는 방식과 <code>Async/Await</code> 방식을 보여주고 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'return promise'</span>,<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> app;</span><br><span class="line">    </span><br><span class="line">    beforeAll(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> testHelper.getApp().then(_app=&gt;&#123;</span><br><span class="line">            app = _app;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    describe(<span class="string">'POST: /users'</span>,<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="keyword">await</span> request(app).post(<span class="string">'api/v1/users'</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'example test'</span>,<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> app;</span><br><span class="line">    </span><br><span class="line">    beforeAll(<span class="keyword">async</span>()=&gt;&#123;</span><br><span class="line">        app = <span class="keyword">await</span> testHelper.getApp()</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    describe(<span class="string">'POST: /users'</span>,<span class="keyword">async</span>()=&gt;&#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="keyword">await</span> request(app).post(<span class="string">'api/v1/users'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>이렇게 테스트를 돌리게 되면, <strong>테스트는 끝이 났는데 프로세스는 계속해서 동작하고 있다는 에러를 볼 수 있다.</strong></p>
+<p>이는 데이터베이스 등처럼 connection 객체가 살아있는 경우 해당 프로세스가 종료되지 않기 때문인데, 이 때문에 다음과 같이 테스트가 끝난 이후에 <code>application</code> 내의 데이터베이스 커넥션을 끊어주면 해당 경고가 없어진다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>,()=&gt;&#123;</span><br><span class="line">    <span class="keyword">let</span> app;</span><br><span class="line">    </span><br><span class="line">    beforeAll(<span class="keyword">async</span>()=&gt;&#123;</span><br><span class="line">        app = <span class="keyword">await</span> testHelper.getApp()</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    afterAll(<span class="keyword">async</span>()=&gt;&#123;</span><br><span class="line">        app.closeApp()</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4><span id="여러-파일에서의-beforeall-작업">여러 파일에서의 beforeAll 작업</span></h4><p>위처럼 모든 테스트파일에서 setup 을 진행하면, 각 setup 은 jest 의 특성상 비동기적으로 동작하게 되기 때문에, 만약 db 등을 조작한다면 confict 이 날 수 있다.</p>
+<p>즉, 만약 모든 테스트를 통틀어 한번 데이터를 세팅하고자 한다면 다음과 같이 별도의 setup.js 파일을 만들어 전체 테스트 실행 전에 돌려주는 것이 좋다.</p>
+<p>setup.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mysql = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mysql);</span><br><span class="line"><span class="keyword">var</span> connection = mysql.createConnection(&#123;</span><br><span class="line">  host: <span class="string">'localhost'</span>,</span><br><span class="line">  user: <span class="string">'root'</span>,</span><br><span class="line">  password: <span class="string">'test1234'</span>,</span><br><span class="line">  database: <span class="string">'test'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.connect();</span><br><span class="line"></span><br><span class="line">connection.query(<span class="string">'DELETE FROM user;'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">error, results, fields</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">&#125;);</span><br><span class="line">connection.end();</span><br></pre></td></tr></table></figure>
+<p>위 스크립트 파일을 시작하도록 package.json 에 등록해준다.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"scripts"</span>:&#123;</span><br><span class="line">        <span class="attr">"test"</span>:<span class="string">"node ./setup.js &amp;&amp; jest"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Fuzzy systems fuzzy sets and systems - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                Fuzzy systems fuzzy sets and systems
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-10T12:30:06.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 826 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#fuzzy-concept">Fuzzy Concept</a></li>
+<li><a href="#fuzzy-set">Fuzzy Set</a></li>
+<li><a href="#multi-valued-logic-vs-boolean-logic">multi valued logic VS boolean logic</a></li>
+<li><a href="#fuzzy-set의-표현">Fuzzy Set의 표현</a></li>
+<li><a href="#a-cutalpha-cut">a-cut(alpha cut)</a></li>
+<li><a href="#definitions">definitions</a></li>
+<li><a href="#extension-principle">extension principle</a><ul>
+<li><a href="#fuzzy-control-system">Fuzzy control system</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="fuzzy-concept">Fuzzy Concept</span></h2><p>수학의 법칙은 현실 세계를 기반으로 하기 때문에 정확하지 않다.<br>하지만 수학 그 자체는 정확하므로 현실세계를 나타내지 않는다.<br>즉 정확하지 않은 현실 세계를 표현하기 위해 Fuzzy 라는 개념이 나타나게 되었다.</p>
+<h2><span id="fuzzy-set">Fuzzy Set</span></h2><p>fuzzy set은 binary set의 multi-valued logic으로의 확장이다.<br>여기서 특정 원소가 특정 범위에 ‘소속’될 확률을 membership function 이라고 하며,<br>membership function 의 값이 0,1 이외의 다른 값을 가지는 것이 가능한 집합이다.<br>fuzzy logic이란 널리 사용되는 머신 컨트롤이다. fuzzy라는 말은 논리가 참 혹은 거짓만으로 표현되지 않고 ‘부분적 참’과 같은 형태로 표현되는 것을 포함한다.</p>
+<p>genetic algorithm이나 neural network와 같은 다양한 대체적인 접근법들 또한 fuzzy logic과 같이 다양한 경우에서 훌륭하게 동작하나 fuzzy logic은 문제의 답이 사람들이 이해할 수 있는 형태로 표현되기 때문이다. 때문에, 그들의 경험이 컨트롤러의 디자인에 이용될 수 있다. 이것은 사람을 통해 이미 훌륭하게 동작하는 업무를 기계화 하는 것을 매우 간편하게 만들어 준다.<br><img src="\images\fuzzyConceptImage.png" alt="fuzzy concept image"></p>
+<p>보통 집합</p>
+<p>u_A: X -&gt; {0,1} =&gt; 원소에 mapping 됨</p>
+<p>퍼지 집합</p>
+<p>u_A: X -&gt; [0,1] =&gt; 모든 실수에 mapping 됨</p>
+<h2><span id="multi-valued-logic-vs-boolean-logic">multi valued logic VS boolean logic</span></h2><p><img src="\images\mutiValuedLogicAndBooleanLogicImage.png" alt="muti valued logic and boolean logic image"></p>
+<h2><span id="fuzzy-set의-표현">Fuzzy Set의 표현</span></h2><p>A={(2, 1.0), (3, 0.5)}</p>
+<p>특정 원소와 membership function의 값의 나열로 표현된다.</p>
+<p>혹은</p>
+<p>A=1.0/2 + 0.5/3</p>
+<p>여기서 +는 덧셈이 아닌 합집합 즉, UNION을 의미한다.</p>
+<h2><span id="a-cutalpha-cut">a-cut(alpha cut)</span></h2><p>membership function 이 a보다 큰 구간을 의미한다.</p>
+<h2><span id="definitions">definitions</span></h2><p>fuzzy proposition<br>:fuzzy proposition이란 하나의 퍼지 가설로써 “방 온도가 중간이다.”와 같은 명제이다.</p>
+<p>support of A<br>:이러한 fuzzy proposition을 A라고 하면 이 명제를 뒷바침 하는 x의 집합을 support of A라고 하며 membership function이 0보다 큰 x의 집합을 의미한다.</p>
+<p>crossover point<br>:membership function이 0.5인 x의 값들의 집합</p>
+<p>convexity<br>: 모든 x 에 대해 특정 두 x를 골랐을 때 그 값 사이의 모든 x값의 membership function이 선택한 두 x 값의 membership function의 최소값보다 큰 경우.<br>즉, 볼록하다고 생각하면 된다.</p>
+<p><img src="\images\fuzzyConvexity.png" alt="fuzzy convexity"></p>
+<p>normality<br>: membership function이 1인 x가 존재하는 경우이다.</p>
+<p>fuzzy number<br>: convexity와 normality를 둘 다 만족하는 fuzzy set</p>
+<p>resolution identity<br>: fuzzy set은 유한개 혹은 무한개의 a-cuts로 나누어 질 수 있다.</p>
+<p><img src="\images\resolutionIdentity.png" alt="resolution identity"><br><img src="\images\resolutionIdentityExample.png" alt="resolution identity example"></p>
+<h2><span id="extension-principle">extension principle</span></h2><p>fuzzy set A의 도메인은 non-fuzzy function f를 통해 확장될 수 있다.<br>여기서 f(A)를 extended fuzzy set이라 한다.</p>
+<p><img src="\images\extededFuzzySet.png" alt="exteded fuzzy set"></p>
+<p>extened fuzzy set의 예<br><img src="\images\extendedFuzzySetExample.png" alt="extended fuzzy set example"></p>
+<h1><span id="fuzzy-control-system">Fuzzy control system</span></h1><p><a href="assets/markdown-img-paste-20171017005435209.png">fuzzy-control-image</a></p>
+<p>Fuzzy control system이란 fuzzy logic에 기반한 컨트롤 시스템이다.</p>
+<p>(여기서 fuzzy logic이란 아날로그 입력값을 분석할 때 기존의 0과 1만 존재하는 디지털 로직과 달리 0과 1 사이의 연속적인 논리 값으로 분석을 하는 수학적 시스템이다.)</p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/fuzzy/">#
+                        fuzzy
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2017/12/10/Fuzzy-control-systems/">
+                                Fuzzy control systems
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2017/12/09/Neural-network-back-propagation/">
+                                Neural network back propagation
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2017/12/10/Fuzzy-systems-fuzzy-sets-and-systems/';
+        this.page.identifier = '2017/12/10/Fuzzy-systems-fuzzy-sets-and-systems/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

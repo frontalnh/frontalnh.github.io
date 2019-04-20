@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>자료구조 | 정렬(sorting) - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                자료구조 | 정렬(sorting)
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-27T11:38:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 876 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="개요">개요</span></h1><p>컴퓨터 안에는 수십 수만가지의 데이터 들이 있으며, 이러한 수많은 데이터들을 잘 정리하고 보관하는 것은 빠른 데이터 찾기와 데이터 추가 및 삭제 등의 작업의 효율에 매우 큰 영향을 미친다. 때문에 컴퓨터의 많은 자료들을 효율적으로 분류하고 원하는 자료를 찾고 추가 하기 위해서는 ‘정렬’에 대해 알아야 할 필요가 있다.</p>
+<p>본 강의에서 <strong>리스트</strong> 란 하나 이상의 필드로 된 레코드의 집합이라는 의미로 사용하며, 이때 코드를 서로 구별하기 위해 사용되는 필드를 <strong>키</strong> 라고 한다.</p>
+<h1><span id="일반적인-자료의-탐색-방법">일반적인 자료의 탐색 방법</span></h1><p>흔히 리스트를 탐색하는 가장 직관적인 방법은 앞에서 부터 차례대로 비교하면서 자료를 분류하는 것이다.<br>프로그래밍에서 for 문을 사용하여 리스트의 제일 앞에서 부터 뒤까지 훑어 가면서 equal 문을 통해 데이터를 찾는 작업은 매우 흔한 프로그래밍의 구현이다.</p>
+<p>이렇게 어떤 리스트의 왼편에서 오른편으로 차례대로 데이터를 찾는 것을 <strong>순차 탐색</strong> 이라고 한다.</p>
+<p>다음 C 언어로 순차탐색 프로그램을 구현한 코드이다.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Element</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">seqSearch</span><span class="params">(Element elements[], <span class="built_in">string</span> key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="keyword">sizeof</span>(*elements) / <span class="keyword">sizeof</span>(elements[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"address of the elements: "</span> &lt;&lt; elements &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"count is: "</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (elements[i].key == key)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Element element1 = &#123;<span class="string">"123"</span>&#125;;</span><br><span class="line">    Element element2 = &#123;<span class="string">"namhoon"</span>&#125;;</span><br><span class="line">    Element elements[] = &#123;element1, element2&#125;;</span><br><span class="line">    <span class="keyword">int</span> result = seqSearch(elements, <span class="string">"namhoon"</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>위 프로그램을 살펴보면 for 문을 돌면서 n 개의 레코드를 탐색하는 평균은 (n+1)/2 이므로, O(n)의 시간복잡도를 가진다.</p>
+<p>만약 어떤 리스트가 정렬된 순차 리스트라면 이런 순차 탐색 말고 <strong>이원 탐색</strong> 을 사용하여 자료를 찾을 수 있으며 이 경우 시간 복잡도는 O(logn) 이다.</p>
+<h1><span id="정렬의-종류">정렬의 종류</span></h1><h2><span id="삽입-정렬">삽입 정렬</span></h2><p>i 개의 정렬된 레코드에 새로운 레코드를 끼워넣어 i+1 개의 정렬된 레코드 리스트를 만드는 정렬 방법이다.</p>
+<p>아래 프로그램은 C로 구현한 insert 함수이다.</p>
+<p><img src="/images/삽입정렬시Insert함수의개념도.png" alt="삽입 정렬 시 insert 함수의 개념도"></p>
+<p>정렬된 리스트 a[1:i] 에 e 원소를 집어넣어 a[1:i+1]의 리스트를 만들어 내는 함수이다.</p>
+<p>index 역할을 하는 i가 점차 작아지면서 a[i].key가 e.key 보다 큰 경우 한칸씩 우측으로 밀어내고, a[i].key가 e.key 보다 작아지는 i 값에서 a[i+1]에 e를 넣어준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void insert(element e, element a[], int i)&#123;</span><br><span class="line">  a[0]=e;</span><br><span class="line">  while(e.key&lt;a[i].key)&#123;</span><br><span class="line">    a[i+1] = a[i];</span><br><span class="line">    i--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  a[i+1] = e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>아래 함수는 insert 함수를 활용하여 삽입정렬을 하는 프로그램이다.</p>
+<p><img src="../images/삽입정렬의개념도.png" alt="삽입 정렬의 개념도"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void insertionSort(element a[], int n)&#123;</span><br><span class="line">  int j;</span><br><span class="line">  for(j=2;j&lt;=n;j++)&#123;</span><br><span class="line">    element temp = a[j];</span><br><span class="line">    insert(temp, a, j-1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="병합정렬merge-sort">병합정렬(Merge Sort)</span></h2><p>병합정렬은 입력 리스트를 길이가 1인 n 개의 정렬될 서브트리로 간주하는 것으로 시작합니다.</p>
+<p>아래 merge 함수는 두개의 서로 다른 리스트를 병합하는 것을 보여줍니다.</p>
+<p><img src="\images\merge개념도.png" alt="합병 정렬을 위한 merge 함수 개념도"></p>
+<p><img src="\images\병합정렬의개념도.png" alt="병합 정렬의 개념도"></p>
+<p>merge sort 의 각 단계는 O(n) 의 시간이 걸리고 logn 번의 단계가 적용되므로 O(nlogn) 의 복잡도를 가집니다.</p>
+<p><strong>Time Complexity: O(nlogn)</strong></p>
+<p>또한 각 병합과정에서 새로운 배열이 필요하므로 inplace sort가 아니다.</p>
+<h2><span id="퀵-정렬quick-sort">퀵 정렬(Quick Sort)</span></h2><p>퀵 정렬은 앞서 살펴본 정렬법 중에서 가장 좋은 평균 성능을 가지고 있다.<br>퀵 정렬의 순서는 먼저 피벗 레코드를 선택하여 피벗의 왼쪽에는 레코드 키들이 피벗의 키보다 작거나 같고 피벗의 오른쪽에는 레코드 키들이 피벗의 키보다 크거나 같도록 하는 방법을 사용한다. 최종적으로는 피벗의 왼쪽에 있는 레코드들과 피벗의 오른쪽에 있는 레코드들이 서로 독립적으로 정렬이 된다.</p>
+<p><img src="/images\퀵정렬의개념도.png" alt="퀵정렬의 개념도"></p>
+<p>다음은 퀵 정렬을 수행하는 프로그램이다.<br>i와 j가 각각 왼쪽과 오른쪽에서 가운데 방향으로 진행하며, a[i].key는 pivot 보다 커질 때까지 a[j].key는 pivot 보다 작아질 때 까지<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void quickSort(element a[], int left, int right)&#123;</span><br><span class="line">  int pivot,i,j;</span><br><span class="line">  pivot = a[left].key;</span><br><span class="line">  do&#123;</span><br><span class="line">    do j++;while(a[i].key&lt;pivot);</span><br><span class="line">    do j--;while(a[j].key&gt;pivot);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="히프정렬">히프정렬</span></h2><p><img src="\images\히프정렬을위한Adjust함수.png" alt="히프 정렬을 위한 adjust 함수"></p>
+<p><img src="\images\히프정렬의개념도.png" alt="히프 정렬의 개념도"></p>
+<p><img src="배열에서의히프정렬.png" alt="배열에서의 히프 정렬"></p>
+<p>히프 정렬에서는 최대 길이 [log_2(n+1)] 을 가지고 adjust를 n-1번 호출한다.</p>
+<p>즉, O(nlogn) 이다.</p>
+<h2><span id="버블-정렬">버블 정렬</span></h2><p><img src="\images\버블정렬의개념도.png" alt="버블 정렬의 개념도"></p>
+<h2><span id="선택-정렬">선택 정렬</span></h2><p><img src="\images\선택정렬의개념도.png" alt="선택 정렬의 개념도"></p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/data-structure/">#
+                        data structure
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/03/28/getting-started-with-redux/">
+                                getting started with redux
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/03/27/자료구조-히프(Heap)/">
+                                자료구조 | 히프 구조
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/03/27/자료구조-정렬-sorting/';
+        this.page.identifier = '2018/03/27/자료구조-정렬-sorting/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>컴퓨터 네트워크 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                컴퓨터 네트워크
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-14T05:41:45.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 hours read (About 17507 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#1-computer-network-and-the-internet">1. Computer Network And The Internet</a><ul>
+<li><a href="#인터넷이란">인터넷이란?</a><ul>
+<li><a href="#인터넷의-하드웨어-소프트웨어적인-기초">인터넷의 하드웨어, 소프트웨어적인 기초</a><ul>
+<li><a href="#isp">ISP</a></li>
+<li><a href="#protocol">protocol</a></li>
+<li><a href="#rfcsrequest-for-comments">RFCs(Request For Comments)</a></li>
+</ul>
+</li>
+<li><a href="#서비스를-제공하는-주체로서의-인터넷의-기본-지식">서비스를 제공하는 주체로서의 인터넷의 기본 지식</a><ul>
+<li><a href="#socket-interface">Socket Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#the-network-edge">The Network EDGE</a><ul>
+<li><a href="#엔드-시스템hosts의-종류">엔드 시스템(hosts)의 종류</a><ul>
+<li><a href="#access-networks">Access Networks</a></li>
+</ul>
+</li>
+<li><a href="#home-access">Home Access</a></li>
+</ul>
+</li>
+<li><a href="#the-network-core">THE NETWORK CORE</a><ul>
+<li><a href="#패킷-스위칭">패킷 스위칭</a><ul>
+<li><a href="#store-and-forward-transmission">store and forward transmission</a></li>
+<li><a href="#queing-delays-and-packet-loss">Queing Delays and Packet Loss</a></li>
+<li><a href="#forwarding-tables-and-routing-protocol">Forwarding tables and Routing Protocol</a></li>
+</ul>
+</li>
+<li><a href="#circuit-switching">Circuit Switching</a><ul>
+<li><a href="#multiplexing-in-circuit-switched-networks">Multiplexing in Circuit-Switched Networks</a></li>
+<li><a href="#packet-switching-vs-circuit-switching">Packet Switching VS Circuit Switching</a></li>
+</ul>
+</li>
+<li><a href="#a-network-of-networks">A Network of Networks</a></li>
+</ul>
+</li>
+<li><a href="#delay-loss-and-throughput-in-packet-switched-networks">Delay, Loss, and Throughput in Packet-Switched Networks</a><ul>
+<li><a href="#overview-of-delay">Overview of Delay</a><ul>
+<li><a href="#processing-delay">processing delay</a></li>
+<li><a href="#queing-delay">queing delay</a></li>
+<li><a href="#transmission-delay">transmission delay</a></li>
+<li><a href="#propagation-delay">propagation delay</a></li>
+<li><a href="#total-delay">total delay</a></li>
+<li><a href="#end-to-end-delay">End to End delay</a></li>
+</ul>
+</li>
+<li><a href="#throughput-in-computer-networks">Throughput in Computer Networks</a></li>
+</ul>
+</li>
+<li><a href="#protocol-layers-and-their-service-models">Protocol layers and their Service Models</a><ul>
+<li><a href="#layered-architecture">Layered Architecture</a></li>
+<li><a href="#protocol-layering">Protocol Layering</a></li>
+<li><a href="#application-layer">Application Layer</a></li>
+<li><a href="#transport-layer">Transport Layer</a></li>
+<li><a href="#network-layer">Network Layer</a></li>
+<li><a href="#link-layer">Link Layer</a></li>
+<li><a href="#physical-layer">Physical Layer</a><ul>
+<li><a href="#encapsulation">Encapsulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#network-under-attack">Network Under Attack</a><ul>
+<li><a href="#사용자를-공격하는-형태">사용자를 공격하는 형태</a></li>
+<li><a href="#서버-혹은-네트워크-인프라를-공격하는-형태">서버 혹은 네트워크 인프라를 공격하는 형태</a></li>
+<li><a href="#패킷을-가로채는-형태">패킷을 가로채는 형태</a></li>
+<li><a href="#신뢰하는-다른-사람으로-위장하는-형태의-공격">신뢰하는 다른 사람으로 위장하는 형태의 공격</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-application-layer">2. Application Layer</a><ul>
+<li><a href="#principles-of-network-application">Principles of Network Application</a><ul>
+<li><a href="#network-application-architecture">Network Application Architecture</a><ul>
+<li><a href="#client-server-architecture">client-server architecture</a></li>
+<li><a href="#p2p-application">P2P application</a></li>
+</ul>
+</li>
+<li><a href="#process-communicating">Process Communicating</a><ul>
+<li><a href="#the-interface-between-the-process-and-the-computer-network">The Interface Between the Process and the Computer Network</a></li>
+<li><a href="#addressing-process">Addressing Process</a></li>
+</ul>
+</li>
+<li><a href="#transport-services-available-to-applications">Transport Services Available to Applications</a><ul>
+<li><a href="#reliable-data-transfer">reliable data transfer</a></li>
+<li><a href="#throughput">Throughput</a></li>
+<li><a href="#timing">Timing</a></li>
+<li><a href="#security">Security</a></li>
+</ul>
+</li>
+<li><a href="#transport-services-provided-by-the-internet">Transport Services Provided by the Internet</a><ul>
+<li><a href="#tcp-services">TCP Services</a></li>
+<li><a href="#udp-services">UDP Services</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#the-web-and-http">The web and HTTP</a><ul>
+<li><a href="#user-server-ineraction-cookies">User-Server Ineraction: Cookies</a></li>
+<li><a href="#web-caching">Web Caching</a><ul>
+<li><a href="#web-cache의-작동-순서">web cache의 작동 순서</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#electronic-mail-in-the-internet">Electronic Mail in the Internet</a></li>
+<li><a href="#dns-the-internets-directory-service">DNS - The Internet’s directory Service</a><ul>
+<li><a href="#services-provided-by-dns">Services Provided by DNS</a></li>
+<li><a href="#overview-of-how-dns-works">Overview of How DNS Works</a><ul>
+<li><a href="#a-distributed-hierarchical-database">A Distributed, Hierarchical Database</a></li>
+<li><a href="#dns-caching">DNS Caching</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#peer-to-peer-file-distribution">Peer to Peer File Distribution</a><ul>
+<li><a href="#scalability-of-p2p-architectures">Scalability of P2P Architectures</a><ul>
+<li><a href="#server-to-client-architecture">Server to Client Architecture</a></li>
+<li><a href="#p2p-architecture">P2P Architecture</a></li>
+</ul>
+</li>
+<li><a href="#bit-torrent">bit torrent</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3-transport-layer">3. Transport Layer</a><ul>
+<li><a href="#introduction-and-transport-layer-services">Introduction and Transport-Layer Services</a></li>
+<li><a href="#multiplexing-and-demultiplexing">Multiplexing and Demultiplexing</a></li>
+<li><a href="#connectionless-transport-udp">Connectionless Transport: UDP</a></li>
+<li><a href="#principles-of-reliable-data-transfer">PRINCIPLES OF RELIABLE DATA TRANSFER</a><ul>
+<li><a href="#building-a-reliable-data-transfer-protocol">Building a Reliable Data Transfer protocol</a><ul>
+<li><a href="#reliable-data-transfer-over-a-perfectly-reliable-channel-rdt10">Reliable Data Transfer over a perfectly Reliable Channel: rdt1.0</a></li>
+<li><a href="#reliable-data-transfer-over-a-channel-with-bit-errors-rdt20">Reliable Data Transfer over a Channel with Bit Errors: rdt2.0</a></li>
+<li><a href="#rdt21">rdt2.1</a></li>
+<li><a href="#rdt22">rdt2.2</a></li>
+<li><a href="#reliable-data-transfer-over-a-lossy-channel-with-bit-errorsrdt30">Reliable Data Transfer over a lossy Channel with Bit Errors:rdt3.0</a></li>
+</ul>
+</li>
+<li><a href="#go-back-ngbn">Go-Back-N(GBN)</a></li>
+<li><a href="#selective-repeatsr">Selective Repeat(SR)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-the-network-layer-data-plane">4. The Network Layer: Data Plane</a><ul>
+<li><a href="#overview-of-network-layer">Overview of Network Layer</a><ul>
+<li><a href="#forwarding-and-routing-the-data-and-control-planes">Forwarding and Routing: The Data and Control Planes</a><ul>
+<li><a href="#control-plane-the-traditional-approach">Control Plane: The Traditional Approach</a></li>
+<li><a href="#control-plane-the-sdn-approach">Control Plane: The SDN Approach</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#5-the-network-layer-control-plane">5. The Network Layer: Control Plane</a><ul>
+<li><a href="#routing-algorithms">Routing Algorithms</a><ul>
+<li><a href="#the-link-statels-routing-algorithm">The Link State(LS) Routing Algorithm</a></li>
+<li><a href="#the-distance-vector-routing-algorithms">The Distance-Vector Routing Algorithms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#7-wireless-and-mobile-networks">7. Wireless and Mobile Networks</a><ul>
+<li><a href="#wifi-80211-wireless-lans">WIFI : 802.11 WIRELESS LANS</a><ul>
+<li><a href="#the-80211-mac-protocol">The 802.11 MAC Protocol</a><ul>
+<li><a href="#dealing-with-hidden-terminals-rts-and-cts">Dealing with Hidden Terminals: RTS and CTS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#8-security-in-computer-networks">8. Security in Computer Networks</a><ul>
+<li><a href="#what-is-network-security">What is Network security?</a><ul>
+<li><a href="#confidentiality">Confidentiality</a></li>
+<li><a href="#message-integrity">Message integrity</a></li>
+<li><a href="#end-point-authentication">End point authentication</a></li>
+<li><a href="#operational-security">Operational security</a></li>
+<li><a href="#중간-침입자는-다음과-같은-기능을-할-수-있다">중간 침입자는 다음과 같은 기능을 할 수 있다.</a></li>
+</ul>
+</li>
+<li><a href="#principles-of-cryptography">Principles of Cryptography</a><ul>
+<li><a href="#symmatrcic-key-cryptography">Symmatrcic Key Cryptography</a></li>
+<li><a href="#public-key-encryption">Public Key Encryption</a></li>
+</ul>
+</li>
+<li><a href="#message-integrity-and-digital-signature">Message Integrity and Digital Signature</a><ul>
+<li><a href="#cryptographic-hash-functions">Cryptographic Hash Functions</a><ul>
+<li><a href="#비트코인">비트코인</a></li>
+</ul>
+</li>
+<li><a href="#비트코인이란">비트코인이란?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#industry-40">Industry 4.0</a><ul>
+<li><a href="#ubiquitous">Ubiquitous</a></li>
+<li><a href="#layering-architecture">Layering Architecture</a></li>
+</ul>
+</li>
+<li><a href="#history-of-computer-network">History Of Computer Network</a><ul>
+<li><a href="#80년대">80년대</a></li>
+<li><a href="#90년대">90년대</a></li>
+<li><a href="#2000년대">2000년대</a></li>
+<li><a href="#유비쿼터스-컴퓨팅-vs-모바일-컴퓨팅">유비쿼터스 컴퓨팅 VS 모바일 컴퓨팅</a></li>
+<li><a href="#mobile-computing">Mobile Computing</a></li>
+<li><a href="#유비쿼터스-컴퓨팅">유비쿼터스 컴퓨팅</a></li>
+<li><a href="#home-network">Home Network</a></li>
+<li><a href="#security-vs-privacy">Security VS privacy</a></li>
+<li><a href="#energy">Energy</a></li>
+</ul>
+</li>
+<li><a href="#introduction-of-data-analytics">Introduction Of Data Analytics</a><ul>
+<li><a href="#data-analytics-rd-environment">Data Analytics R/D Environment</a></li>
+<li><a href="#three-types-of-communication">Three Types of Communication</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="1-computer-network-and-the-internet">1. Computer Network And The Internet</span></h1><h2><span id="인터넷이란">인터넷이란?</span></h2><p>인터넷이란 컴퓨터 네트워크의 한 형태이다.<br>인터넷은 전 세계에 있는 수십억개의 컴퓨팅 디바이스들을 연결하는 컴퓨터 네트워크 이다.<br>이를 구성하는 요소들에는 컴퓨터 뿐만이 아니라 다양한 기기들이 있으며, 이 모든 기기를 <strong>hosts</strong> 또는 <strong>end systems</strong> 라고 부른다.</p>
+<p>end systems들은 communication link와 packet switches들의 네트워크에 의해 연결되어 있다.</p>
+<p>packet switch는 여러 가지 형태로 있는데, 가장 많이 사용되는 형태는 router와 linke-layer switches이다.<br>link layer switch는 네트워크에 접속하는 데 많이 쓰이고, 라우터는 네트워크 코어에 쓰인다.</p>
+<h3><span id="인터넷의-하드웨어-소프트웨어적인-기초">인터넷의 하드웨어, 소프트웨어적인 기초</span></h3><h4><span id="isp">ISP</span></h4><p>end systems들은 ISP(Internet Service Provider)를 통해 인터넷에 접속한다.<br>이 종류에는 local cable, telephone companies같은 지역 ISP와, Wifi Access를 제공하는 ISP 등을 포함한다.</p>
+<h4><span id="protocol">protocol</span></h4><p>End System, Packet Switch 그리고 다른 인터넷의 구성요서들은 인터넷을 통해 정보를 전송하고 수신하는 것을 컨트롤 하기 위해 프로토콜을 실행한다.<br>TCP(Transmission Control Protocol)<br>IP(Internet Protocol)<br>가 인터넷에서 가장 중요한 두개의 프로토콜이다.<br>프로토콜이란 두개 혹은 여러개의 communicating entities들이 메세지를 교환할 때 사용하는 포맷이나 규칙을 정의한다.</p>
+<p>예를 들어 사람사이의 커뮤니케이션에서의 프로토콜이라 하면 특정 사람이 어떤 메세지를 받았을 때, 답으로 전달할 구체적인 메세지와 특정한 행동 양식이 있다는 것이다.<br>만약 두 사람 사이의 커뮤니케이션에 있어 한 사람은 매너가 좋은데 한 사람은 매너가 없다면 대화가 이루어 지지 않고, 한 명은 아예 다른 문화권(혹은 외계인)일 경우에도 대화가 이루어 지지 않는다.<br>즉, 프로토콜이란 이러한 커뮤니케이션이 가능한 환경을 말한다.</p>
+<p>네트워크 프로토콜의 경우도 사람사이의 프로토콜과 마찬가지로 많이 존재한다.<br>예를 들어 두 개의 컴퓨터가 비트를 주고받기 위한 물리적인 프로토콜이 있고, 또 다른 예로는 엔드 시스템에서 전송자와 수신자 사이의 패킷 전송률을 관장하는 congestion control protocol이 있다.<br>위에서 보듯이 프로토콜을 정의하는 핵심 요소는 특정 메세지를 보내거나 받을 때 취해지는 메세지나 행동의 교환이다.</p>
+<blockquote>
+<p>프로토콜은 두개 혹은 여러개의 커뮤니케이팅 대상들의 메세지 교환의 형식과 순서를 정의한다.<br>또한, 메세지의 전송 혹은 수신이나 또 다른 이벤트가 발생하였을 때의 행동을 정의한다.</p>
+</blockquote>
+<p><strong>컴퓨터 네트워크를 마스터한다는 것은 네트워크 프로토콜들이 왜, 어떻게 동작하는지를 아는 것과 동일하다</strong></p>
+<h4><span id="rfcsrequest-for-comments">RFCs(Request For Comments)</span></h4><p>모두가 프로토콜들이 하는 역할을 동의하기 위해서 IETF(Internet Engineering Task Force)에서 internet Standards를 도입했다.<br>IETF의 공식 문서를 RFCs라고 하는데, 여기서는 다양한 종류의 프로토콜을 정의한다.<br>대표적으로 IP, TCP, HTTP(웹을 위한 프로토콜), SMTP(이메일을 위한 프로토콜) 등이 있다.</p>
+<h3><span id="서비스를-제공하는-주체로서의-인터넷의-기본-지식">서비스를 제공하는 주체로서의 인터넷의 기본 지식</span></h3><h4><span id="socket-interface">Socket Interface</span></h4><p>하나의 end system에서 동작하는 프로그램이 다른 end system에서 동작하는 특정 대상 프로그램에게 데이터를 전송하기 위해 Internet Infrastucture에게 요청하는 양식 혹은 환경을 말한다.<br>마치 편지를 보낼 때 우체국을 이용하려면 그들이 갖추어 놓은 체계에 따라 편지 봉투에 우편번호를 작성하는 것 처럼.<br>인터넷을 통해 무언가 정보를 보내기 위해서는 이러한 internet socket interface환경에 맞추어야 한다.</p>
+<h2><span id="the-network-edge">The Network EDGE</span></h2><p>컴퓨터, 스마트폰 등 네트워크에서 우리가 가장 흔하게 접해본 내용들을 학습한다.<br>즉, 네트워크의 엔드시스템들을 다룬다.<br>그리고 다음 장에서는 실제 컴퓨터 네트워크에서 스위칭과 라우팅이 어떻게 동작하는 지를 다루는 network core를 학습한다.</p>
+<h4><span id="엔드-시스템hosts의-종류">엔드 시스템(hosts)의 종류</span></h4><p>여기서 host는 client와 server로 나뉜다.<br>데스크탑 컴퓨터, 서버, 모바일 기기, iot devices</p>
+<h3><span id="access-networks">Access Networks</span></h3><p>엔드 시스템에서 네트워크의 edge로 접속하는 것을 다룬다.<br>엔드 시스템과 최초의 라우터(edge router) 사이의 네트워크 이다.</p>
+<h4><span id="home-access">Home Access</span></h4><p>DSL 방식<br>: 전화선을 공유하여 인터넷을 연결한다.<br>전화선에 각각 다른 주파수를 통해 통신을 하기 때문에 전화 통신이랑 같은 선을 쓸 수 있다.</p>
+<h2><span id="the-network-core">THE NETWORK CORE</span></h2><h3><span id="패킷-스위칭">패킷 스위칭</span></h3><p>인터넷의 end system들을 연결하는 packet switch와 links의 동작 흐름을 알아본다.<br>source가 되는 end system 하서 destination이 되는 end system으로 정보를 전송할 때 source는 긴 메세지를 작은 정보의 뭉터기로 쪼게는데 이를 패킷이라고 한다.<br>소스에서 destination으로 가기 위해서 각 패킷은 커뮤니케이션 링크와 패킷 스위치들을 통과하게 되는데 이 패킷 스위치에는 가장 잘 알려진 라우터와 링크 레이어 스위치가 있다.<br>각 커뮤니케이션 링크의 패킷들을 그 링크의 전송률을 최대로 활용하므로<br>전송률 R로 L bit의 패킷을 보내는 데 걸리는 시간  $T=L/R$이다.</p>
+<h4><span id="store-and-forward-transmission">store and forward transmission</span></h4><p>대부분의 packet switch들은 link의 input단에서 store and forward transmission을 하는데 이는 packet switch가 다른 outbound link로 최초의 packit 의 bit를 보내기 전에 전체 packet을 받아야 함을 의미한다.</p>
+<p>라우터는 받은 패킷을 어떤 링크로 전송하는 지를 결정하는 역할을 수행하는데, packet의 bit를 buffer하여 다 받고 나서 outbound link로 패킷을 전송하기 시작한다.</p>
+<p>propagation delay<br>: 피트가 와이어를 타고 빛의 속도로 이동하는 데 걸리는 시간으로 지금은 무시하기로 한다.</p>
+<p>queing delay<br>: 전송하기 전에 output buffer에서 packet bit들이 쌓이게 되는데 이 때문에 queing delay가 발생한다.</p>
+<p>transmissioin delay<br>: 패킷의 모든 비트를 링크로 밀어넣는데 걸리는 시간이다.<br>router의 output link단에서의 buffer 때문에 발생한다.</p>
+<p>실제 전송에 걸리는 시간<br>: source에서 $L/R$의 시간동안 데이터를 전송하면 propagation delay를 무시하므로 데이터를 전송하는 동안 라우터의 buffer에 이 패킷의 비트들이 쌓이게 된다.<br>전송이 끝나면 이 라우터는 목적지로 데이터를 전송하기 시작하는 데, 이때도 또한 $L/R$의 시간이 걸리게 되므로 <strong>총 걸리는 시간은 $2L/R$의 시간이 걸리게 된다.</strong></p>
+<p>하나의 소스에서 여러개의 라우터를 통해 패킷을 전송하는 경우<br>: 소스부터 라우터 사이에 N-1개의 링크가 있고, 라우터에서 destination사이에 하나의 경로가 있어 전송률이 R인 총 N개의 링크를 통해 데이터를 보내는 데 걸리는 시간은<br>$$d_{end-to-end} = NL/R$$</p>
+<h4><span id="queing-delays-and-packet-loss">Queing Delays and Packet Loss</span></h4><p>queing Delays<br>: 라우터는 각각의 링크들과의 연결에서 보낼 패킷을 저장해두는 outer buffer가 있다.<br>만약 각 링크들에 이미 패킷을 보내고 있다면 라우터는 이런 패킷들의 전송이 끝나기 까지 기다려야 하는데 이것이 바로 queing delay이다. 이러한 queing delay는 네트워크의 혼잡도에의해 결정된다.</p>
+<p>pakcet loss<br>: outer buffer가 전송을 기다리는 다른 패킷들로 꽉 차있어서 패킷을 받지 못하는 경우 패킷이 유실된다.</p>
+<h4><span id="forwarding-tables-and-routing-protocol">Forwarding tables and Routing Protocol</span></h4><p>우리는 라우터가 패킷을 받아 다른 링크로 전송해 준다고 배웠다. 하지만 이 라우터는 어떻게 보내야할 링크를 선택하는 것일까?<br>이것은 마치 사람이 길을 찾아갈 때 전체 지도를 가지고 있지 않더라도 분기점 마다 방향에 대한 정보만을 받아 목적지에 도착할 수 있는 것과 같은 원리이다.<br>모든 end system은 IP주소를 가지고 있다.<br>source end system 이 destination end system 으로 패킷을 전송하고자 할 때에는 packet의 header에 destination end system의 IP주소를 포함해야 한다.<br>각 router는 destination address를 해당 router의 outbout link에 매칭시키는 forwarding table을 통해 목적지로 가는 다음 라우터의 주소를 가르쳐주고, 이런 forwarding table은 routing protocol을 통해 만들어 진다.</p>
+<h3><span id="circuit-switching">Circuit Switching</span></h3><p>서킷 스위칭 네트워크에서, 각 엔드시스템 사이에서 통신을 하기 위한 자원들(버퍼, 링크 전송률 등)이 커뮤니케이션 세션이 유지되는 동안에만 제공된다.<br>전화 네트워크가 서킷 스위칭의 예이다. 전화 통신에서의 이런 연결은 circuit(회선)이라고 부른다. 전화가 한번 연결이 되면, 네트워크에서의 전송률을 보장을 한다.<br>각 연결은 총 4개의 링크가 유지되어야 하기 때문에 전체 전송률이 1Mbps라면  각각의 circuit switch 연결은 250Kbps의 속도밖에 얻지 못한다.</p>
+<h4><span id="multiplexing-in-circuit-switched-networks">Multiplexing in Circuit-Switched Networks</span></h4><p>FDM(Frequency Division Multiplexing)<br>: 주파수를 다르게 하여 송신한다, 이러한 주파수의 범위를 bandwidth라고 한다.</p>
+<p>TDM(Time Division Multiplexing)<br>: 시간간격을 쪼개어 데이터를 전송한다.<br>시간은 프레임으로 쪼개지고 각 프레임의 slop이 하나의 통신 데이터를 담고 있다.<br>만약 초당 8000프레임의 속도로 링크를 통한 전송을 할 때 각 slot이 8bit로 구성되어 있다면<br>이 circuit의 전송률은 8000*8bps 즉 64Kbps이다.</p>
+<p>packet switching을 옹호하는 많은 사람들은 서킷 스위칭은 쉬는 시간에도 자원을 소모한다는 점을 단점으로 꼽는다.</p>
+<h4><span id="packet-switching-vs-circuit-switching">Packet Switching VS Circuit Switching</span></h4><p>현 트렌드는 패킷스위칭을 주로 한다.</p>
+<h3><span id="a-network-of-networks">A Network of Networks</span></h3><p>엔드시스템들이 ISP를 통해 인터넷에 연결되는 만큼 이런 ISP들 사이의 네트워크 또한 필요하다.</p>
+<p>Network Structure 1<br>: 각각의 access ISP들을 묶어 하나의 global transit ISP를 만든다.</p>
+<p>Network Structure 2<br>: 여러개의 global transit ISP들이 생겨나고 이 transit ISP들이 연결된다.</p>
+<p>Network Structure 3<br>: 기존의 global transit ISP들을 tier-1 ISP라 명명하고 이를 통합하는 regional ISP들이 생겨나게 된다.<br>여기서 global transit ISP들에는 많은 통신사들이 포함된다.</p>
+<p>Network Structure 4<br>: access ISP를 제외한 모든 ISP 들은 provider ISP에 접속하기 위한 PoP이 있다.<br>그리고 가가운 ISP들이 모여 Internet Exchange Point를 형성한다.</p>
+<p>Network Structure 5<br>: google과 같은 큰 대기업들은 content provider networks를 구성한다.<br>구글은 수십개의 데이터센터를 보유하고 있으며 독자적인 TCP/IP를 통해 연결되어 있으며 이는 전 세계를 연결하는 동시에 public 망과는 독자성을 띄고 있다.<br>구글의 독자적인 네트워크는 internet의 upper tiers를 건너뛰고 바로 access ISP에 접근하고 자하며, 이를 통해 가격을 절감한다.</p>
+<h2><span id="delay-loss-and-throughput-in-packet-switched-networks">Delay, Loss, and Throughput in Packet-Switched Networks</span></h2><p>가장 중요한 delay들은 nodal processing delay, queing delay, transmission delay, propagation dalay가 있다.<br>위의 모든 delay를 합산하면 total nodal delay가 된다.</p>
+<h3><span id="overview-of-delay">Overview of Delay</span></h3><h4><span id="processing-delay">processing delay</span></h4><p>패킷의 헤더를 통해 목적지가 어디인지 파악하는데 걸리는 시간이다.</p>
+<h4><span id="queing-delay">queing delay</span></h4><p>outbound link 에서 전송되기를 기다리는 데 걸리는 delay이다.<br>이는 전체 delay에서 매우 중요한 역할을 하며 이를 다루는 논문들이 매우 많다.<br>이는 다른 delay와 다르게 패킷마다 그 정도가 다르다.<br>예를 들어 10개의 패킷이 도착하면 첫 패킷은 처음왔으므로 queing delay가 zero이나 뒤의 패킷들은 앞에 남은 패킷에 따라 그 정도가 제각각이다.<br>때문에 queing delay를 말할 때는 통계학적 수치를 가지고 말한다.<br>가령 평균 queing delay라고너, variance of queing delay, 그리고 queing delay가 특정 수치 이상일 확률 등으로 표현한다.</p>
+<p>a를 queue에 도착하는 패킷 개수의 초당 비율이라 하고, R을 transmission rate라 하고, 각 패킷의 비트수가 모두 L이라고 하면 도착하는 비트의 속도는 La/sec가 된다.<br>여기서 $La/R$을 <strong>traffic intensity</strong> 라고 부른다.<br>이 수치가 1을 넘게 되면, queing delay는 무한으로 본다.<br>이 수치가 1에 가까워 지면 가까워 질수록 Average Queing Delay는 급격하게 증가한다.<br>또한 packet lose가 발생한다.</p>
+<h4><span id="transmission-delay">transmission delay</span></h4><p>패킷의 모든 피트를 링크 안에 밀어넣는데 걸리는 시간이다.<br>$L/R$이다</p>
+<h4><span id="propagation-delay">propagation delay</span></h4><p>비트가 전선을 타고 전달되는 속도이다.<br>흔히 빛의 속도를 일컬어 지며 무시해도 될만큼 작다.</p>
+<h4><span id="total-delay">total delay</span></h4><p>$d_{nodal}=d_{proc}+d_{queue}+d_{trans}+d_{prop}$<br>여기서 propagation delay는 거의 무시 가능하나, 위성 통신 등에서는 상당한 값을 가진다.<br>또한, processing delay의 경우도 거의 무시 가능하나, 하나의 라우터의 최대 throughput을 결정하는 데 큰 영향을 준다.</p>
+<p>throughput in computer Networks<br>파일을 전송받는 데 걸리는 시간이다.</p>
+<h4><span id="end-to-end-delay">End to End delay</span></h4><p>source 와 host 사이에 N-1개의 router가 있는 경우<br>$d_{end-end}=N(d_{proc}+d_{trans}+d_{prop})$<br>여기서 $d_{trans}=L/R$ 이다.</p>
+<h3><span id="throughput-in-computer-networks">Throughput in Computer Networks</span></h3><p>F bit의 파일을 보내는 데 T 초가 걸린다면<br>average throughput은 $F/T$이다.<br>하지만 만약 서버가 라우터에 보내는 속도($R_s$)보다 라우터가 클라이언트에 보내는 속도($R_s$)가 더 느리다면 이 때 전송 속도는 라우터가 클라이언트에 보내는 속도와 같을 것이다.<br>그러므로 throughput은 $min(R_c, R_s)$ 이다.</p>
+<h2><span id="protocol-layers-and-their-service-models">Protocol layers and their Service Models</span></h2><h4><span id="layered-architecture">Layered Architecture</span></h4><p>비행기를 타고 내리는 것과 마찬가지로 인터넷도 패킷을 보내고 받는 일련의 과정으로 나눌 수 있다.<br>티켓을 끈고 수화물을 찾는 등 여러가지 절차들로 나누어 비행서비스를 설명할 수 있듯이 네트워크도 이러한 일련의 작업들의 집합으로 설명한다. 이런 구조화를 layering Architecture라고 한다.<br>이러한 layered architecture를 통해 우리는 각 부분들을 더욱 잘 이해할 수 있으며, 크고 복잡한 시스템의 각 부분을 더 잘 이해하게 된다.</p>
+<p>이러한 간소화작업은 모듈화를 해주며, 각 레이어들이 제공하는 서비스들을 알 수 있게 해준다.</p>
+<p>각 레이어들은 상위 레이어에게 같은 서비스를 제공하고, 하위 레이어와 같은 서비스를 이용하기 때문에 특정 레이어의 기능이 바뀌어도 전체 시스템은 변하지 않고 유지 될 수 있도록 해 준다.<br>예를들어, 공항에서 승객들을 실어나르는 방식이 바뀌어도 역시 승객을 실어나른다는 같은 기능을 수행하기 때문에 전체 시스템은 변하지 않고 유지될 수 있다.</p>
+<p>layering을 통해서 크고 복잡한 시스템의 각 부분의 동작방식을 바꾸어도 다른 요소들에 영향을 주지 않을 수 있는 점은 아주 중요하다.</p>
+<h4><span id="protocol-layering">Protocol Layering</span></h4><p>각 프로토콜은 하나의 레이어에 속하게 된다.<br>우리는 하위 레이어가 상위 레이어에게 어떤 서비스를 제공하는가를 관심있게 살펴볼 것이며, 이것을 <strong>service model</strong> 이라고 한다.</p>
+<p>각기 다른 레이어들의 프로토콜들을 protocol stack이라고 부른다.<br>인터넷 프로토콜 스택은 5개의 레이어로 나뉜다.</p>
+<p>physical, link, network, transport, application 이 그것이다.<br>이책은 application-layer를 시작으로 하위 위에서 아래로 학습해 나가는 top-down 접근을 사용했다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">프로토콜 레이어</th>
+<th style="text-align:left">사용하는 패킷 단위</th>
+<th>대표적인 프로토콜</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">application-layer</td>
+<td style="text-align:left">message</td>
+<td>HTTP, SMTP, FTP</td>
+</tr>
+<tr>
+<td style="text-align:left">transport-layer</td>
+<td style="text-align:left">segment</td>
+<td>TCP, UDP</td>
+</tr>
+<tr>
+<td style="text-align:left">network-layer</td>
+<td style="text-align:left">datagram</td>
+<td>IP</td>
+</tr>
+<tr>
+<td style="text-align:left">Link-Layer</td>
+<td style="text-align:left">frame</td>
+<td>Ethernet, Wifi</td>
+</tr>
+<tr>
+<td style="text-align:left">physical-layer</td>
+<td style="text-align:left">bit</td>
+<td>protocol for copper wire etc</td>
+</tr>
+</tbody>
+</table>
+<h4><span id="application-layer">Application Layer</span></h4><p>네트워크 어플리케이션과 어플리케이션 레이어의 프로토콜들이 있다.<br>어플리케이션 레이어 프로토콜은 여러개의 엔드 시스템에서 동작하며 각 각의 엔드 시스템에서 프로토콜을 사용하여 다른 엔드시스템의 어플리케이션과 메세지 형태로 패킷을 주고 받을 수 있다.<br>어플리케이션 레이어 프로토콜의 종류</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">프로토콜 이름</th>
+<th style="text-align:left">기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">HTTP</td>
+<td style="text-align:left">웹 문서를 전송하고 받는 프로토콜</td>
+</tr>
+<tr>
+<td style="text-align:left">SMTP</td>
+<td style="text-align:left">이메일 메세지를 주고 받는 프로토콜</td>
+</tr>
+<tr>
+<td style="text-align:left">FTP</td>
+<td style="text-align:left">두 엔드시스템 사이에서 파일을 주고받는 프로토콜</td>
+</tr>
+</tbody>
+</table>
+<h4><span id="transport-layer">Transport Layer</span></h4><p>application-layer의 message들을 전송한다.<br>TCP와 UDP 두 종류가 있는데, 둘 다 어플리케이션 레이어의 메세지들을 전송할 수 있다.</p>
+<p>TCP<br>: connection 기반의 서비스를 제공하여, 어플리케이션 레이어의 메세지 전송을 보장하고 flow control을 제공한다.<br>또한 큰 메세지들을 작은 segment로 나누고, congestion control mechanism을 제공한다.</p>
+<p>UDP<br>: 무선 서비스를 제공한다.<br>이는 안정성도 보장하지 못하고 흐름제어 또한 하지못하며, 혼잡 컨트롤이 안된다.</p>
+<p>transport layer의 패킷을 <strong>segment</strong> 라고 부를 것이다.</p>
+<h4><span id="network-layer">Network Layer</span></h4><p>datagrams라 불리는 네트워크 레이어 패킷들을 호스트들 사이에서 전송하는 역할을 한다.<br>트랜스포트 레이어의 프로토콜은 네트워크 레이어에게 segment와 목적지 정보를 전달하면, 목적지의 호스트의 트랜스포트 레이어에 세그먼트를 전달한다.<br>일반적으로 IP 프로토콜을 포함하는 개념이며, 네트워크 레이어를 구성하는 모든 구성요소들이 IP프로토콜을 실행하여야 한다.</p>
+<h4><span id="link-layer">Link Layer</span></h4><p>라우터의 한 노드에서 다른 노드로 패킷을 옮기기 위해 네트워크 레이어는 링크 레이어의 서비스에 의존한다.<br>링크 레이어에 의해 제공되는 서비스는 링크에 적용된 링크레이어 프로토콜에 의존한다.<br>예를 들어, 어떤 링크 레이어 프로토콜은 송신 노드에서 링크를 거쳐 수신 노드로 reliable delivery를 제공한다.<br>여기서 말하는 reliable delivery service는 한 엔드 시스템에서 달느 엔드시스템으로 reliable delivery를 하는 TCP의 reliable delivery service와는 다르다.<br>네트워크 레이어는 각각 다른 링크 레이어 프로토콜에게 다른 서비스를 받는다. 이 책에서 링크 레이어 패킷을 frames라고 부른다.</p>
+<h4><span id="physical-layer">Physical Layer</span></h4><p>한 네트워크 요소에서 전체 프레임을 다른 인접한 네트워크 요소로 옮기는 역할을 link layer가 수행한다.</p>
+<h3><span id="encapsulation">Encapsulation</span></h3><blockquote>
+<p>전체 네트워크 프로세스는 한 엔드 시스템에서 어플리케이션의 메세지가 그 엔드 시스템의 transport layer와 network layer, link layer, physical layer를 거쳐 라우터의 link layer로 들어가 physical layer를 거쳐 네트워크의 physical layer로 가서 link layer, network layer 를 거쳐 다른 엔드 시스템의 physical layer로 들어가고 여기서 다시 link layer, network layer, transport layer, application layer를 거쳐 전달된다.</p>
+<p>우체국을 예를 들자면 편지(메세지)를 봉투(segment)에 담는것이 트랜스포트 레이어에서의 작업이다. 여기에 우편번호를 쓰고 다른 봉투에 담는 행위를 네트워크 레이어에서 처리하고 이를 가까운 우편 사무국에 전달 함으로써 (링크레이어로 보냄) 우편을 보낸다.<br>여기서 부터 decapulation이 시작되는데, 여기서 정보를 읽어들여 실제 배송을 준비하고 밥에게 메세지를 전달한다.</p>
+</blockquote>
+<h2><span id="network-under-attack">Network Under Attack</span></h2><h4><span id="사용자를-공격하는-형태">사용자를 공격하는 형태</span></h4><p>인터넷을 통해 악한 것들을 보낼 수 있는데 이런 악한 것들의 모음을 malware라고 칭한다.<br>이런 malware들은 온갖 종류의 나쁜 짓을 할 수 있고, 현대의 많은 malware는 자가 복재를 하여 주변의 인터넷을 사용하는 많은 호스트들을 감염시킨다.<br>Virus는 사용자가 특정 행동을 취할때 사용자의 디바이스를 감염시키는 것이다.<br>Worm은 유저의 상호작용없이도 사용자의 디바이스에 침임할 수 있는 형태이다.</p>
+<h4><span id="서버-혹은-네트워크-인프라를-공격하는-형태">서버 혹은 네트워크 인프라를 공격하는 형태</span></h4><p>Denial Of Service(Dos) Attacks<br>: 네트워크, 호스트, 다른 인프라환경을 변형하여 기능을 못하도록 하는 것.</p>
+<p>대표적인 Dost 공격은 다음과 같다.</p>
+<ol>
+<li><p>Vulnerability Attacks<br>특정하게 조작된 메세지를 취약한 어플리케이션이나 운영 시스템에 보내는 것<br>적합한 형태의 패킷이 전달되면 서비스가 중지될 수 있다.</p>
+</li>
+<li><p>Bandwidth flooding<br>막대한 양의 패킷을 보내 공격 대상의 access link가 마비되게 하는 것</p>
+</li>
+<li><p>Connection flooding<br>많은 양의 TCP 연결을 걸어 다른 연결을 못하도록 하는 것.</p>
+</li>
+</ol>
+<h4><span id="패킷을-가로채는-형태">패킷을 가로채는 형태</span></h4><h4><span id="신뢰하는-다른-사람으로-위장하는-형태의-공격">신뢰하는 다른 사람으로 위장하는 형태의 공격</span></h4><h1><span id="2-application-layer">2. Application Layer</span></h1><h2><span id="principles-of-network-application">Principles of Network Application</span></h2><h3><span id="network-application-architecture">Network Application Architecture</span></h3><p>네트워크 아키텍쳐는 이미 그 체계가 잡혀있고, 어플리케이션에게 정해진 서비스를 제공한다.<br>어플리케이션 아키텍쳐란 어플리케이션 개발자들에 의해 디자인되며, 여러가지 시스템들에서 어떻게 동작하는 지를 명시한다.<br>어플리케이션 아키텍쳐를 디자인 할 때, 두 가지 종류의 큰 아키텍쳐 디자인 패러다임이 있는데 그것은 바로 <strong>client-server Architecture</strong> 와 <strong>peer-to-peer architecture</strong> 이다.</p>
+<h4><span id="client-server-architecture">client-server architecture</span></h4><p>클라이언트 서버 구조에서는 서버라 불리는 호스트가 항상 존재한다.<br>서버는 클라이언트라 불리는 많은 호스트들이 계속해서 요청을 하고 그에 맞는 서비스를 제공한다.</p>
+<h4><span id="p2p-application">P2P application</span></h4><p>p2p 구조에서는 피어라고 불리는 호스트들 사이에 직접 통신이 이루어 진다.<br>현대의 매우 유명하고 트래픽이 많은 어플리케이션들이 p2p에 기반한다.</p>
+<h3><span id="process-communicating">Process Communicating</span></h3><p>end system 내에서 서로 소통을 하는 것은 program이 아니라 process이다.</p>
+<h4><span id="the-interface-between-the-process-and-the-computer-network">The Interface Between the Process and the Computer Network</span></h4><p>process는 소켓이라는 소프트웨어 인터페이스를 통해 네트워크에 메세지를 전송하고 수신할 수 있다.<br>socket은 <strong>application layer와 transport layer의 경계</strong> 이다.<br>또한 소켓은 network application이 구성되어 있는 환경에서의 programming interface이기 때문에 API(Application Programming Interface)라고 불린다.</p>
+<h4><span id="addressing-process">Addressing Process</span></h4><p>프로세스의 주소를 찾아가기 위해서는 두가지를 알아야 한다.</p>
+<ol>
+<li>목적 디바이스의 IP 주소</li>
+<li>해당 프로세스가 작동하고 있는 디바이스의 포트번호</li>
+</ol>
+<h3><span id="transport-services-available-to-applications">Transport Services Available to Applications</span></h3><p>트랜스포트 레이어의 프로토콜이 제공하는 서비스는 어떤 것들이 있는가?</p>
+<h4><span id="reliable-data-transfer">reliable data transfer</span></h4><p>프로토콜이 데이터 전송 서비스를 보장하면 안정적인 데이터 전송을 한다고 말한다.<br>트랜스포트 레이어 프로토콜이 제공하는 것 중 하나는 프로세스에서 프로세스로의 안정적인 데이터 전송을 가능하게 한다는 것이다.</p>
+<h4><span id="throughput">Throughput</span></h4><p>트랜스포트 레이어 프로토콜은 일정한 수준의 throughput을 보장한다.<br>특정 수준의 throughput을 필요로 하는 어플리케이션을 bandwidth-sensitive application이라고 한다.</p>
+<h4><span id="timing">Timing</span></h4><h4><span id="security">Security</span></h4><h3><span id="transport-services-provided-by-the-internet">Transport Services Provided by the Internet</span></h3><p>인터넷이 제공하는 구체적인 트랜스포트 레이어 프로토콜의 서비스를 알아본다.</p>
+<h4><span id="tcp-services">TCP Services</span></h4><ol>
+<li>연결 기반의 서비스 이다.</li>
+<li>안정적인 데이터 전송 서비스를 제공한다.</li>
+</ol>
+<h4><span id="udp-services">UDP Services</span></h4><p>UDP는 Connectionless하기 때문에 handshaking 이 필요없다.</p>
+<h2><span id="the-web-and-http">The web and HTTP</span></h2><p>Overview of HTTP<br>Http란 Hypertext Transfer Protocol의 약자로, 웹의 application-layer protocol이다.</p>
+<h3><span id="user-server-ineraction-cookies">User-Server Ineraction: Cookies</span></h3><p>쿠키는 웹 사이트가 유저를 트래킹 하기 위해서 존재한다.</p>
+<h3><span id="web-caching">Web Caching</span></h3><p>proxy server라고도 불리는 web cache는 원래 서버를 대신하여 HTTP 요청을 만족하는 네트워크 요소이다.<br>web cache는 자체적인 디스크 저장소가 있어서 최근에 요청된 객체들의 카피를 저장하고 있는다.</p>
+<p>브라우저가 무언가를 요청하면 가장 먼저 web cache로 요청이 간다.</p>
+<h4><span id="web-cache의-작동-순서">web cache의 작동 순서</span></h4><ol>
+<li>브라우저가 Web Cache와 TCP Connection을 형성하고, HTTP 요청을 보낸다.</li>
+<li>Web Cache는 요청한 내용의 가피본을 자체적으로 저장하고 있는지를 체크하고 만약 있으면 해당 객체를 돌려준다.</li>
+<li>만약 Web Cache가 요청받는 객체를 가지고 있지 않으면 Web Cache는 origin server와 TCP Connection을 열고 요청받은 객체를 가져온다.</li>
+<li>Web Cache가 요청한 객체를 받으면 이 것을 자체 저장소에 저장하고 카피본을 보내준다.</li>
+</ol>
+<blockquote>
+<p>웹 캐시를 통해 클라이언트의 요청을 보다 빠르고 저렴하게 처리할 수 있다.<br>또한 인터넷으로의 접근량을 줄여 획사 혹은 대학에서 대역폭을 업그레이드 하지 않아도 된다.<br>또한, 웹 캐시는 전체 인터넷의 웹 트래픽을 현저하게 줄여준다.</p>
+</blockquote>
+<h2><span id="electronic-mail-in-the-internet">Electronic Mail in the Internet</span></h2><h2><span id="dns-the-internets-directory-service">DNS - The Internet’s directory Service</span></h2><h3><span id="services-provided-by-dns">Services Provided by DNS</span></h3><p>Donmain Name System은 hostname을 IP주소로 번역해주는 시스템이다.</p>
+<h3><span id="overview-of-how-dns-works">Overview of How DNS Works</span></h3><h4><span id="a-distributed-hierarchical-database">A Distributed, Hierarchical Database</span></h4><ol>
+<li>host가 인근 local dns server에 domain name을 요청한다.</li>
+<li>local dns server는 root DNS Server에 요청을 보낸다.</li>
+<li>Root DNS Server는 .com 등 domain을 분석하여 해당 도메인을 관리하는 TLD DNS Server를 가르쳐 준다.</li>
+<li>Local DNS Server는 위의 TLD DNS Server로 요청을 보낸다.</li>
+<li>TLD DNS Server는 해당 Authoritative DNS Server를 가르쳐 준다.</li>
+<li>위의 Authoritative DNS Server로 요청을 보낸다.</li>
+<li>Authoritative DNS Server는 Local DNS Server 에게 도메인을 보낸다.</li>
+<li>도메인을 받아 host에게 돌려준다.</li>
+</ol>
+<h4><span id="dns-caching">DNS Caching</span></h4><p>위의 DNS 구조는 DNS Caching을 무시한 것이다.<br>이 구조는 매우 간단한데 바로 한번 요청한 url에 대해서 이를 캐싱해 놓는 것이다.</p>
+<h2><span id="peer-to-peer-file-distribution">Peer to Peer File Distribution</span></h2><h3><span id="scalability-of-p2p-architectures">Scalability of P2P Architectures</span></h3><h4><span id="server-to-client-architecture">Server to Client Architecture</span></h4><p>서버에서 클라이언트로 데이터를 주고 받는 방식에서는 Distribution time은 클라이언트가 서버로 부터 다운받는 속도가 가장 느린 경우보다 커야하며, 또한 클라이언트가 서버에 자료를 올리는 시간보다도 커야한다.<br>최소 배포 속도(Minimum Distribution Time)를 결정할때 다음을 고려한다.</p>
+<ol>
+<li>최초에는 서버만 원본 파일을 가지고 있기 때문에 최소 이 전송시간 보다는 minimum distribution time이 길어야 한다.</li>
+<li>제일 느린 피어가 다 받아야 하므로 이 시간보다도 길어야 한다.</li>
+<li>전체 전송 가용량(upload capacitance)는 서버와 다른 피어들의 전송률의 합과 같다.<br>전체 피어들의 개수와 전체 파일 크기를 곱한 만큼을 전송해야 한다.<br>즉, 최소 $NF/u_s$보다 커야한다.<br>$D_{cs} = max(NF/u_{s}, F/d_{min})$<br>$while,$ $d_{min} = min(d_1, d_p, …, d_N)$</li>
+</ol>
+<h4><span id="p2p-architecture">P2P Architecture</span></h4><p>각 피어들이 파일을 배포할 때 서버를 도울 수 있다.</p>
+<ol>
+<li>배포의 시작점에서 파일은 오직 서버만이 들고있다.<br>이 파일을 피어들의 집합으로 전송하기위해 하나의 파일을 온전히 다 전송해야 한다.<br>즉, minimum distribution time은 적어도 $F/u_s$ 이상이다.</li>
+<li>가장 느린 피어가 다 받는데 걸리는 시간인 $F/d_min$보다도 커야한다.</li>
+<li>전체 시스템의 업로드 역량은 서버 뿐 아니라 각 피어들의 업로드 전송률을 다 합한 것이다.<br>즉, $u_{total}=u_s+u_1+u_2+…+u_N$ 이다.<br>따라서 전체 업로드에 걸리는 시간은 $NF/u_{total}$ 이다.<blockquote>
+<p>$D_{P2P}=max(F/u_s, F/d_{min}, NF/(u_s+u_1+u_2+…+u_N))$</p>
+</blockquote>
+</li>
+</ol>
+<h3><span id="bit-torrent">bit torrent</span></h3><p>비트 토렌트는 매우 유명한 P2P Protocol이다.<br>하나의 피어가 다운로드를 받는 동안 이 피어는 동시에 자체적인 업로딩 성능을 가지고 서버를 도와 다른 피어에게 데이터를 전송한다.(TCP Connection)<br>특정 파일을 배포하는데 참여하는 모든 피어들의 집합을 토렌트라고 부른다.<br>각 토렌트는  tracker라고 불리는 infrastructure node를 가지는데, 한 피어가 토렌트에 조인하면 그 자신을 트래커에 등록시키고 주기적으로 자신이 아직 토렌트에 있음을 알려준다. 이런식으로 트래커는 토렌트에 참여하는 피어들을 추적하게 된다.</p>
+<p>예를들어 엘리스라는 사람이 토렌트에 참여했다고 보자.</p>
+<ol>
+<li>엘리스가 토렌트에 참여하는 순간 무작위로 토렌트에 참여한 다른 피어들의 IP주소를 받아와 엘리스에게 전달한다.<br>이 피어들을 가짐으로써 엘리스는 이 IP리스트의 피어들과 모두 TCP Connection을 연결한다. 이 피어들을 neighboring peers라고 부른다.</li>
+<li>모든 시간대에서 각 피어들은 파일의 뭉텅이들 중 일부를 가지고 있을 것이다. 엘리스는 자신의 neighboring peers에게 뭉텅이들의 리스트를 요구할 것이고, 만약 엘리스가 L명의 각기 다른 이웃을 가진다면 그녀는 L개의 뭉텅이들을 가질 것이다.</li>
+<li>모든 시간대동안 엘리스는 자신의 이웃들이 어떤 chunks를 가지고 있는지 알고 있다.</li>
+<li>엘리스는 자신의 이웃들중 누구에게 어떤 chunks를 요청할지 결정해야 하는데 이는 rarest first원칙에 따라 가장 희소한 chunks를 먼저 받아오게 된다.<br>이를 통해 희소한 chunk들은 더 빨리 redistribute 될 수 있게 된다.</li>
+<li>어떤 요청에 대해 응답할지를 결정해야 하는데 여기서 BitTorrent는 아주 똑똑한 알고리즘을 사용한다.<br>이는 바로 그녀에게 가장 빨리 전송해 주고 있는 4명의 peer에게 chunk를 보내는 것이다.<br>10초 마다 그녀는 이 4명의 peer를 갱신하고, 이 4 개의 피어는 unchoked라고 말한다.<br>30초 마다 그녀는 또한 한명의 추가적인 이웃을 무작위로 골라 chunk를 전송한다.</li>
+<li>위에서 임의로 선택되 피어를 bob이라고 하자.<br>여기서 bob은 optimistically unchoked되었다고 하는데 이를 통해 엘리스는 bob의 최고 4명의 uploader중 한명이 되었기 때문이다.</li>
+</ol>
+<p>만약 엘리스가 최초로 토렌트에 입장하였다면 다른 사람들보다 optimistically unchoked 될 확률이 3배가량 더 높게 책정되어 최대한 빨리 완전한 chunk를 가지게 되어 다운로드에 참여할 수 있게 한다.</p>
+<p><a href="https://wiki.theory.org/BitTorrentSpecification#Choking_and_Optimistic_Unchoking" target="_blank" rel="noopener">출처 바로가기</a></p>
+<h1><span id="3-transport-layer">3. Transport Layer</span></h1><h2><span id="introduction-and-transport-layer-services">Introduction and Transport-Layer Services</span></h2><hr>
+<p>내용없음</p>
+<hr>
+<h2><span id="multiplexing-and-demultiplexing">Multiplexing and Demultiplexing</span></h2><hr>
+<p>내용없음</p>
+<hr>
+<h2><span id="connectionless-transport-udp">Connectionless Transport: UDP</span></h2><p>UDP는 Transport Protocol이 할 수 있는 최소한의 기능만을 수행한다.<br>UDP를 사용하면 segment를 전달할 때 handshaking이 필요없다.<br>TCP가 보다 안정적이고 믿을만한 데이터 전송 서비스를 수행하지만 다음과 같은 이유로 인해 UDP가 많이 쓰이는 경우가 있다.</p>
+<ol>
+<li><p>Finer application-level control over what data is sent, and when.<br>UDP를 사용하면 데이터를 받는 즉시 세그먼트에 담아 네트워크 레이어로 보내기대문에 속도가 매우 빠르다.<br>실시간 방송 등 어느정도의 데이터 유실이 발생하더라도 실시간으로 빠르게 정보를 주어야 하는 어플리케이션의 경우 UDP를 사용한다.</p>
+</li>
+<li><p>No Connection establishment<br>TCP의 경우 다양한 방식으로 핸드쉐이킹을 하기 때문에 속도가 느리다.<br>UDP는 핸드쉐이킹 없이 즉시 연결한다.<br>구글의 크롬 브라우저는 UDP를 메인 프로토콜로 이용하고 어플리케이션 레이어의 프로토콜을 통해 안정성 문제를 보완하고 있다.</p>
+</li>
+<li><p>No Connection State<br>TCP는 엔드 시스템과의 연결을 계속 유지한다.<br>UDP는 연결을 유지하지 않는다.</p>
+</li>
+<li><p>Small Packet header overhead<br>TCP segment는 20 bytes 가량의 헤더를 포함하는데 반해 UDP는 단지 8bytes 가량만 포함한다.</p>
+</li>
+</ol>
+<blockquote>
+<p>미래에는 TCP를 사용하지 않을 것이다.<br>네트워크 환경이 완벽하게 reliable 해 질 것이기 때문이다.</p>
+</blockquote>
+<h2><span id="principles-of-reliable-data-transfer">PRINCIPLES OF RELIABLE DATA TRANSFER</span></h2><p>내가 보낸 데이터가 상대방에게 100% 잘 전달되었는지는 네트워킹에서 가장 중요한 논점이다.</p>
+<p>만약 신뢰적이지 못한, 비신뢰적인 채널(unreliable channel)에서 데이터를 전송한다면 어떤 문제가 발생할 수 있을까요? 메세지 에러(message error) 그리고 메세지 분실(message loss) 등의 문제점이 발생할 수 있음을 예상할 수 있습니다. 그렇기 때문에 신뢰적인 데이터 전송 프로토콜(reliable data transfer protocol)이 필요한 것입니다.</p>
+<p>그러나 생각보다 이 topic이 어렵고 중요한데요. 이유는 위 그림을 보면 알 수 있듯이 TCP가 Reliable Channel로 데이터를 잘 전송하는 것 같지만, 사실 그 서비스 구현을 위해 Network Layer의 Unreliable Channel 위에 구현되어 있기 때문입니다.</p>
+<p>그러니깐 다시 말해서, 우리 눈(초록색)에는 TCP는 Reliable하게 데이터를 잘 전송하는게 맞지만, 실제로(빨간색) 구현 측면에서 보자면 TCP는 Unreliable Channel이 존재하는 Network Layer 위에 존재하므로 구현하기가 복잡하다라는 의미입니다.</p>
+<h3><span id="building-a-reliable-data-transfer-protocol">Building a Reliable Data Transfer protocol</span></h3><p>신뢰적인 데이터 전송 프로토콜을 구축하기 위해서 가장 간단한 상황부터 시작해서 조금씩 더 복잡해지는 상황으로 이어지는 다음의 4가지 경우에 대해 알아봅시다.<br>좀 더 복잡하고 무결하고 안정적인 데이터 전송 프로토콜을 생각해 본다.<br>일단 송신자로부터 수신자로의 데이터 전송은 단방향의 경우만 고려합니다. 그리고 송신자와 수신자를 정의하기 위해 유한 상태 머신 FSM(Finite State Machine)을 사용합니다.</p>
+<h4><span id="reliable-data-transfer-over-a-perfectly-reliable-channel-rdt10">Reliable Data Transfer over a perfectly Reliable Channel: rdt1.0</span></h4><p>완벽하게 신뢰적인 채널 상에서의 신뢰적인 데이터 전송에 쓰이는 프로토콜 rdt1.0을 살펴본다.</p>
+<p>송신측<br>: rdt_send(data) 이벤트에 의해 상위 계층으로부터 데이터를 받는다.<br>paket=make_pkt(data) 이벤트에 의해 데이터를 포함하는 패킷을 생성한다.<br>udt_send(packet) 이벤트에 의해 패킷을 채널로 내려보내며 송신한다.</p>
+<p>수신측<br>: rdt_rcv(packet) 이벤트에 의해 하위 채널로부터 패킷을 수신한다.<br>extract(packet,data) 이벤트에 의해 패킷으로부터 데이터를 추출한다.<br>deliver_data(data) 이벤트에 의해 데이터를 상위 계층으로 전달한다.</p>
+<blockquote>
+<p>rdt1.0의 경우에는 하위 채널이 완전히 신뢰할 수 있는 경우이므로 중간에 데이터 변형이 없고(비트에러가 없음), 패킷의 손실도 없기 때문에, 오류가 생길 수 없으므로 수신 측이 송신 측에게 송신을 늦추어 달라는 어떠한 피드백도 제공할 필요가 없다.</p>
+</blockquote>
+<h4><span id="reliable-data-transfer-over-a-channel-with-bit-errors-rdt20">Reliable Data Transfer over a Channel with Bit Errors: rdt2.0</span></h4><p>비트 오류가 있는 채널 상에서의 신뢰적인 데이터 전송 : rdt2.0<br>패킷 안의 비트들이 하위 채널에서 손상되는 경우이다. 비트의 손상은 패킷이 전송되고, 버퍼되는 등 네트워크의 물리적인 부분에서 발생한다.<br>rdt1.0보다 조금 복잡한 rdt2.0이라고 부르며, 모든 패킷들이 순서대로 수신되고 패킷손실은 없다고 가정한다.<br>여러분은 전화통화를 할 때, 상대방의 말이 잘 들리면 계속 대화를 이어가지만 상대방의 말이 잘 안들리거나 하면 “뭐라고? 잘 안들려”라고 상대방에게 피드백을 줄 것입니다. 통신에서도 마찬가지입니다. 상대방의 말이 잘 들리면(데이터가 잘 도착하면) ACKs(acknowledgements)라는 긍정확인응답을 보내고, 상대방의 말이 잘 안들리면(데이터가 잘 도착하지 못하면) NAKs(negative acknowledgements)라는 부정 확인응답을 보내서 재전송을 요청합니다. 이렇게 재전송을 기반으로 하는 신뢰적인 프로토콜을 자동재전송요구 프로토콜인 ARQ(Automatic Repeat reQuest) 프로토콜이라고 합니다.</p>
+<p>ARQ의 기능은 크게 3가지 입니다.</p>
+<ol>
+<li>오류검출 : 체크섬 필드를 사용하여 비트오류 발생 시 수신자가 검출할 수 있게 합니다.</li>
+<li>수신자 피드백 : 패킷이 정확하게 수신되었는지 아닌지를 수신자가 송신자에게 ACK 또는 NAK로 피드백 합니다.</li>
+<li>재전송 : NAK의 피드백일 경우 송신자는 재전송합니다.</li>
+</ol>
+<p><strong>송신 측(2가지의 상태를 가집니다)</strong></p>
+<ol>
+<li><p>송신 측은 상위 계층으로부터 데이터가 전달되기를 기다립니다.</p>
+</li>
+<li><p>rdt_send(data) 이벤트에 의해 상위 계층으로부터 데이터를 받으면, sndpkt=make_pkt(data,checksum) 이벤트에 의해 데이터와 체크섬을 포함하는 패킷을 생성하고, udt_send(sandpit) 이벤트에 의해 패킷을 채널로 내려보내며 송신합니다.</p>
+</li>
+<li>송신 후에는 오른쪽 상태로 넘어와 ACK 또는 NAK로 피드백 받기를 기다립니다.</li>
+<li>만약, 수신 측이 잘 받고(receive) ACK의 피드백이 돌아온다면 왼쪽의 상태로 넘어가 상위계층으로부터 데이터가 전달되기를 기다리며 위의 과정을 반복합니다.</li>
+<li>그러나, 수신 측이 잘 받았지만 NAK의 피드백이 돌아온다면 ACK의 피드백이 돌아올 때까지 udt_send(sandpit)의 과정을 반복합니다.</li>
+</ol>
+<blockquote>
+<p>이 때 송신 측이 ACK 또는 NAK를 기다리는 오른쪽 상태에 있는 중에는 상위 계층으로부터 더 이상의 데이터를 전달받을 수 없습니다. rdt2.0은 전송-후-대기(Stop-and-Wait) 프로토콜이라고도 합니다.</p>
+</blockquote>
+<p><strong>수신 측</strong></p>
+<ol>
+<li>rdt_rcv(rcvpkt) 이벤트에 의해 하위 채널로부터 패킷을 수신합니다.</li>
+<li>corrupt(rcvpkt) 이벤트에 의해 수신한 패킷에 오류가 있는 경우 udt_send(NAK)로 NAK 피드백을 합니다.</li>
+<li>수신한 패킷에 오류가 없는 경우 extract(rcvpkt, data) 이벤트에 의해 패킷으로부터 데이터를 추출합니다.</li>
+<li>deliver_data(data) 이벤트에 의해 데이터를 상위 계층으로 전달합니다.</li>
+<li>udt_send(ACK) 이벤트에 의해 ACK 피드백을 합니다.</li>
+</ol>
+<blockquote>
+<p>rdt2.0은 위와 같이 잘 동작되는 것처럼 보이지만 실제로는 치명적인 결합이 있는데 바로 ACK/NAK 패킷의 손상 가능성을 무시했다는 것입니다.</p>
+</blockquote>
+<p>송신 측으로부터 수신 측으로 data가 잘 왔고, ACK 피드백을 보냈는데 중간에 ACK 패킷이 손상되어서 송신 측이 ACK를 못 알아듣는다면 어떻게 해야할까요? 가장 간단하면서 단순한 방법으로 송신 측은 그저 data를 수신 측으로 다시 한 번 보냅니다. 그러면 ACK/NAK가 다시 올테니깐요.</p>
+<p>그런데 수신 측은 혼란스러울 겁니다. 자신은 아까 받은 data에 대해 ACK를 보내주었는데, 동일한 data가 한 번 더 왔으니… 이게 다음 data인지 똑같은 data를 두번 중복(duplicate)으로 보낸건지…. 헷갈립니다.</p>
+<p>이러한 중복 패킷에 대한 문제에 대한 간단한 해결책은 패킷에 순서번호(sequence number)를 붙이는 것입니다. 그래서 수신 측은 수신된 패킷이 재전송으로 인한 중복패킷인지 새로운 패킷인지를 결정할 때 sequence number만 확인하면 됩니다. 동일한 sequence number의 패킷이 수신된다면 이는 중복패킷으로 인식하는 것입니다.</p>
+<h4><span id="rdt21">rdt2.1</span></h4><p>세번째로, 바로 위에서 언급한 sequence number를 추가한 모델이 rdt2.1입니다. 송신 측은 0과 1을 sequence number로 사용합니다. 그리고 수신측은 0과 1로 중복패킷인지 여부를 결정합니다. 아래의 FSM을 봅시다</p>
+<p>왼쪽 송신 측이 sequence number 0의 패킷을 보내면 0번에 대한 ACK/NAK를 기다립니다.<br>오른쪽 수신 측은 문제없이 잘 수신한 경우 ACK를 보내며 sequence number 1의 패킷이 수신되기를 기다립니다.<br>왼쪽 송신 측은 ACK를 받으면 sequence number 1의 패킷을 보내고, NAK를 받거나 피드백 패킷에 오류가 있을 경우에 sequence number 0의 패킷을 재전송합니다.<br>오른쪽 수신 측은 sequence number 1의 패킷을 기다리고 있는데, sequence number 1의 패킷이 수신되면 순조롭게 ACK를 보내면 되고, sequence number 0의 패킷이 도착한다면 sequence number 0의 패킷이 중복도착했으므로 무언가 중간에 문제가 생겼음을 알고 sequence number 0에 대한 ACK를 보냅니다.</p>
+<h4><span id="rdt22">rdt2.2</span></h4><p>기능은 rdt2.1과 동일하지만 NAK를 사용하지 않고(NAK-free) ACK만 사용하는 모델이 rdt2.2입니다.</p>
+<p>NAK를 보내는 대신에, 가장 최근에 잘 받은 패킷에 대한 ACK를 보냄으로써 NAK를 보내는 것과 동일한 효과를 얻을 수 있습니다. 다음 그림을 보면 쉽게 이해할 수 있습니다.</p>
+<p>송신 측이 pkt1을 보냈지만 수신측이 ACK1이 아닌 ACK0만 계속 보낸다면 송신 측은 pkt1의 전송에 문제가 생겼음을 인식하고 재전송할 수 있다라는 의미입니다.</p>
+<h4><span id="reliable-data-transfer-over-a-lossy-channel-with-bit-errorsrdt30">Reliable Data Transfer over a lossy Channel with Bit Errors:rdt3.0</span></h4><p>마지막으로, 비트 손상과 함께 패킷을 손실하는 모델을 고려봅시다. 이를 rdt3.0이라고 부르며, 어떻게 패킷 손실을 검출하며 패킷손실이 발생했을 때 어떤 행동을 해야하는지가 중요한 사항이 됩니다. 다행히 패킷손실이 발생했을 경우 rdt2.2까지 설명하면서 사용되어 왔던 체크섬,sequence number, ACK, 재전송 등은 패킷손실이 발생했을 때 해야하는 행동에 대한 답이 될 수 있습니다. 패킷 손실의 검출은 바로 Timer로 할 수 있습니다.</p>
+<p>타이머는 패킷 손실이 일어났다는 100% 보장은 아니지만, 손실이 일어났을 만한 그런시간을 현명하게 선택하는 방식입니다. 만일 ACK가 이 시간안에 수신되지 않는다면 패킷은 재전송될 것(그림 b,c)입니다. 심지어 패킷이 유별나게 큰 delay를 가져서 타이머 시간보다 늦게 도착하는 경우 비록 ACK가 손실되지 않았다 하더라도 패킷은 재전송할 수 있습니다. 이는 중복 데이터 패킷(duplicate data packet)의 가능성을 포함한다는 이야기입니다.(그림d) 다행히 rdt2.2는 이미 패킷이 중복되었을 경우를 처리하기 위한 sequence number의 기능을 가지고 있습니다.</p>
+<p>재밌는 점은 프로토콜 rdt3.0은 기능적으로 매우 정확한 프로토콜임에도 불구하고 오늘날의 고속 네트워크에서 만족스러운 성능을 보여주지 못한다는 점입니다. 이유는 ‘전송-후-대기(Stop-and-Wait)’방식이기 때문입니다. 이를 위해서 pipelining이 도입되었고 이는 다음과 같은 성질을 가진다.</p>
+<ol>
+<li>sequence number의 범위가 증가한다. 왜냐하면 각각의 패킷이 서로 다른 시퀀스 넘버를 가져야하기 때문이다.</li>
+<li>리시버 사이드는 하나 이상의 패킷을 버퍼해야 한다. 제대로 받은 패킷들에 대한 버퍼링이 필요하다.</li>
+<li>시퀀스 넘버의 범위는 유실되고 손상되고 지연된 패킷들에 따라 결정된다. 이를 위해 Go-Back-N, selective repeat이라는 두가지 파이프라인 에러 리커버리 접근이 있다.</li>
+</ol>
+<h3><span id="go-back-ngbn">Go-Back-N(GBN)</span></h3><p>누적 ACK, 단일 타이머<br>GBN 방식은 단일한 타이머를 사용한다.<br>만약 1번 패킷까지만 도착을 했고 2번 패킷이 도착을 하지 않았으면, 리시버는 2번부터 계속해서 날아오는 패킷들을 죄다 버리고 전체 타이머가 다 되어 2번이 날아오기를 기다린다.<br>그리고 2번 이후로 날아오는 패킷마다 ACK1만 보내 내가 1까지 밖에 못받았음을 알린다.</p>
+<h3><span id="selective-repeatsr">Selective Repeat(SR)</span></h3><p>개별 ACK, 개별 타이머<br>SR 방식은 패킷마다 신경을 쓴다.<br>만약 2번 패킷이 전달되지 않았다면 3번부터 오는 패킷들을 전부 버퍼해 두고 2번 패킷에 대한 타이머가 타임아웃되어 다시 전송을 해 주면 버퍼해두었던 모든 패킷을 한꺼번에 어플리케이션 레이어로 보내주고 2번 패킷에 대한 ACK를 보낸다.</p>
+<h1><span id="4-the-network-layer-data-plane">4. The Network Layer: Data Plane</span></h1><h2><span id="overview-of-network-layer">Overview of Network Layer</span></h2><h3><span id="forwarding-and-routing-the-data-and-control-planes">Forwarding and Routing: The Data and Control Planes</span></h3><p>네트워크 레이어가 하는 일은 간단히 말하면 아주 쉽다.<br>바로 보내는 host로 부터 받는 host로 패킷을 이동시키는 것이다.<br>이를 위해서는 다음과 같은 두가지 중요한 네트워크 레이어의 기능을 알아야 한다.</p>
+<p>Forwarding<br>: 패킷이 라우터의 인풋링크에 도착하면, 라우터는 패킷을 적합한 output link에 옮겨야 한다. 즉, 패킷이 다음 라우터로 가는 링크를 가르키게 해야한다. 또한 다른 호스트로 패킷이 이동하지 못하도록 막아야 한다. 이는 네트워크 레이어의 <strong>data plane</strong> 에서 이루어진다.</p>
+<p>Routing<br>: 네트워크 레이어의 <strong>control plane</strong> 에서 이루어지는 것으로 routing algorithm을 통해 다음에 어떤 라우터로 갈지를 결정한다.</p>
+<blockquote>
+<p>운전자를 예로 들면 운전자가 각각의 갈림길에서 어느 길로 갈지를 순간순간 결정하는 것이 forwarding 이고 routing은 목적지로의 여행을 계획하는 프로세스로 볼 수 있다.</p>
+</blockquote>
+<h4><span id="control-plane-the-traditional-approach">Control Plane: The Traditional Approach</span></h4><p>네트워크 레이어의 기존의 Control Plane에서는 routing algorithm이 모든 라우터에서 실행되어 포워딩과 라우팅 기능이 모두 라우터 안에 내장되어 있었다.<br>때문에 모든 포워딩 테이블들을 관리하기 위해서 물리적인 라우터에 관여해야 했다.</p>
+<h4><span id="control-plane-the-sdn-approach">Control Plane: The SDN Approach</span></h4><p>현대의 네트워크 레이어의 컨트롤 플레인의 경우 원격의 컨트롤러가 포워딩 테이블을 계산하고 각 라우터에 배포하는 식이다.<br>이를 통해 컨트롤 플레인의 라우팅 기능이 라우터의 물리적인 부분에서 독립되어 라우팅 디바이스는 단순히 포워딩 기능만을 담당하게 되었다.<br>이러한 SDN의 개념은 포워딩 테이블을 계산하는 컨트롤러가 소프트웨어로 구축이되어 네트워크의 개선 가능성을 높였다.<br>이러한 SDN 기술은 오픈소스로 배포되어 많은 사람들이 효과적인 네트워킹 방식에 대해 논의를 지속적으로 하여 기술 향상성이 기대된다.</p>
+<h1><span id="5-the-network-layer-control-plane">5. The Network Layer: Control Plane</span></h1><h2><span id="routing-algorithms">Routing Algorithms</span></h2><p>송신자에서 수신자까지 좋은 길을 찾아내는 routing 알고리즘을 배운다.<br>여기서 좋은 path란 말은 least coast를 말한다.</p>
+<p>라우팅 알고리즘의 구분</p>
+<ol>
+<li>centralized routing인가 decentralized routing인가?</li>
+</ol>
+<p>centralized routing algorithm<br>완벽하고 네트워크 전체의 이해를 기반으로 least coast를 결정한다.</p>
+<p>decentralized routing algorithm<br>least coast path에 대한 계산이 라우터들마다 저만의 방식으로 반복적으로 수행되는 알고리즘이다.</p>
+<ol start="2">
+<li>static routing algorithms인가 dynamic routing algorithms인가?<br>static routing algorithm은 라우팅이 매우 천천히 진행된다.<br>가끔은 인간의 간섭으로 진행되기도 한다.</li>
+</ol>
+<p>dynamic routing algoritms은 현재 연결상태에 따라 매우 다이나믹하게 routing path가 바뀐다.</p>
+<ol start="3">
+<li>load-sensitive인가 load-insensitive인가?<br>load-sensitive에서는 현재 연결의 혼잡도에 따라 cost가 매우 다이내믹 하게 바뀐다.</li>
+</ol>
+<h3><span id="the-link-statels-routing-algorithm">The Link State(LS) Routing Algorithm</span></h3><p>Link State Algorithms에서는 네트워크 위상과 코스트가 모두 알려져 있다.<br>때문에 link state broadcast algorithm이라고도 불린다.<br>즉, 때문에 이 모든 값들은 LS알고리즘의 input으로 들어갈 수 있다.</p>
+<p>WorkFlow<br>모든 노드가 최적의 길을 알고있다고 한다.<br>하나의 노드에서 각각의 모든 노드에 이르는 least coast path를 구하는 식으로 테이블을 그려나가며<br>각 반복마다 전 노드 추가에 대한 반복을 기준으로 가장 least cost가 작은 노드를 추가하여 다시 반복을 실행한다.<br>모든 테이블을 완성하였다면 이를 기반으로 Least cost Path를 그리고 forwarding table을 완성한다.</p>
+<h3><span id="the-distance-vector-routing-algorithms">The Distance-Vector Routing Algorithms</span></h3><p>LS 알고리즘이 전체 네트워크에 대한 정보를 사용하는 반면, distance-vector(DV) algorithms은 반복적이고, 비동기적이고, 분산적이다.<br>이것은 각 노드가 주변의 하나 혹은 여러개의 직접 붙어있는 노드에서 정보를 받아온다는 점에서 분산적이다.<br>또한 이렇게 계산된 정보를 다시 이웃의 노드로 전달하는 것을 더 이상 노드 사이에 정보 교환이 필요없는 시점까지 반복한다는 점에서 반복적이다.<br>또한 각 계산과정에서 모든 노드가 필요하지 않다는 점에서 비동기적이다.</p>
+<p>이는 centralized algorithm 보다 훨씬 흥미롭다.</p>
+<p>기본적인 작동 원리는<br>예를 들어 x노드에서 y노드 까지의 least cost는 x에서 v로 갈때의 코스트와 v에서 y로 갈때의 least cost의 합중 가장 작은 값이라는 bellman-ford의 방정식에 입각한다.</p>
+<h1><span id="7-wireless-and-mobile-networks">7. Wireless and Mobile Networks</span></h1><h2><span id="wifi-80211-wireless-lans">WIFI : 802.11 WIRELESS LANS</span></h2><h3><span id="the-80211-mac-protocol">The 802.11 MAC Protocol</span></h3><p>AP 혹은 디바이스를 다중접속 채널을 나누는 무선 스테이션이라고 칭한다.<br>무선 연결시 충돌된 연결을 피하기 위해서 다양한 기술들을 사용하는데<br>802.11 Wireless LAN에서는 CSMA/AC 기술을 이용한다.<br>CSMA/CA란 Carrier Sense Multiple Access / Avoiding Collision의 약어로<br>각 스테이션이 데이터 전송 전에 채널을 센싱하고 채널이 바쁘면 데이터를 전송하지 않아 충돌을 막는 방법을 일컷는다.</p>
+<h4><span id="dealing-with-hidden-terminals-rts-and-cts">Dealing with Hidden Terminals: RTS and CTS</span></h4><p>RTS와 CTS를 통해 네트워크 사이의 충돌을 막는다.</p>
+<ol>
+<li>한 호스트가 AP에게 데이터를 받기 위해 RTS Frame을 보낸다<br>이 RTS Frame에는 데이터 프레임을 보낼때 소요되는 총 시간과 ACK 프레임을 받기 위해 필요한 총 시간을 명시한다.</li>
+<li>AP가 RTS 프레임을 받으면 CTS 프레임을 broadcasting 해 줌으로써 응답한다.<br>이러한 CTS 프레임은 전송자에게 데이터 프레임 전송을 시작하도록 허락하고 그 동안 다른 호스트들이 그 시간동안 데이터를 전송하지 못하도록 한다.</li>
+<li>AP가 원하는 데이터를 다 받으면 <strong>ACK 프레임</strong> 을 <strong>broadcasting</strong> 하여 전송이 완료되었음을 알린다.</li>
+<li>다른 호스트는 ACK프레임을 전송받음과 동시에 AP로의 접근 제한이 풀리게 된다.</li>
+</ol>
+<p>RTS<br>: Request to Send</p>
+<p>CTS<br>: Clear To Send</p>
+<blockquote>
+<p>RTS와 CTS 프레임을 사용하면 다음과 같은 두가지 중요한 성과를 얻을 수 있다.<br>첫째로, 채널이 확보되고 난 다음에 데이터 프레임을 전송하므로 hidden station problem을 해결한다.<br>둘째로, RTS와 CTS 프레임은 매우 짧으므로 이 두 프레임을 전송하면서 발생하는 충돌은 아주 짧은 시간동안만 발생 가능하다. RTS와 CTS 프레임을 전송하고 난 뒤에는 뒤따라 데이터와 ACK 프레임들이 충돌없이 전송되어야 한다.</p>
+</blockquote>
+<h1><span id="8-security-in-computer-networks">8. Security in Computer Networks</span></h1><p>인터넷에서 secure communication을 원하는 경우는 수없이 많다.<br>전쟁 서신부터 연애편지, 사업 거래 등 많은 요소에서 보안을 필요로 하고, 이를 할 수 있는 방법을 배운다.<br>먼저 기초적인 암호기술을 배우고 4개의 layer에 대해서 먼저 application layer에서 부터의 안전한 protocol에 대해 배운다.</p>
+<h2><span id="what-is-network-security">What is Network security?</span></h2><p>다음과 같은 조건이 만족되어야 한다.</p>
+<h4><span id="confidentiality">Confidentiality</span></h4><p>오직 송신자와 수신자만이 전송된 메세지의 내용을 알 수 있어야 한다.<br>중간에 도청자가 메세지를 가로체더라도 이것이 암호화되어있어 도청자에 의해 해독되지 못해야 한다.<br>이를 위해 우리는 간단한 암호화 기술을 배운다.</p>
+<h4><span id="message-integrity">Message integrity</span></h4><p>전송된 메세지의 내용이 중간에 변형되지 않아야 한다.<br>이건은 data link protocol에 의해 제공될 수 있다.</p>
+<h4><span id="end-point-authentication">End point authentication</span></h4><p>전송자와 수신자가 서로 상대방이 누구인지 알아야 한다.</p>
+<h4><span id="operational-security">Operational security</span></h4><p>대부분의 기관들의 네트워크가 공용 인터넷에 연결되어 있는 만큼 이러한 네트워크가 공격받을 수 있다.<br>이러한 네트워크의 보안이 잘 지켜져야 한다.<br>firewall이 기관의 네트워크와 공용 네트워크 사이에 있어서 접근하고 나가는 패킷들을 관리해야 한다.</p>
+<h4><span id="중간-침입자는-다음과-같은-기능을-할-수-있다">중간 침입자는 다음과 같은 기능을 할 수 있다.</span></h4><p>eavesdropping / 조작 메세지 및 데이터 메세지를 가로체거나 복제할 수 있다.<br>modification, insertion, or deletion of messages or message content</p>
+<h2><span id="principles-of-cryptography">Principles of Cryptography</span></h2><p>암호화 되기 전 메세지를 plaintext 혹은 cleartext라고 한다.<br>함호화를 위해 사용한 알고리즘을 encryption algorithm이라 하며, 암호화된 메세지를 ciphertext라 한다.<br>요즘의 경우 암호화 기술은 그 자체로 누구에게나 잘 알려져 있는데 이를 해독하기 위해서는 비밀스런 정보인 키값이 필요하다.<br>암호화 기술에 키값을 넣으면 plaintext가 나오게 된다.</p>
+<h3><span id="symmatrcic-key-cryptography">Symmatrcic Key Cryptography</span></h3><p>엘리스가 자신의 private key로 암호화해서 보내면 밥은 자신의 private key로 해독하여 메세지를 읽는다.<br>두 key는 symmetric하다.</p>
+<h3><span id="public-key-encryption">Public Key Encryption</span></h3><p>엘리스가 밥에게 메세지를 보낼 때 밥의 공개키로 암호화를 해서 보내고 밥은 이를 열때 밥의 private key로 해독한다.</p>
+<h2><span id="message-integrity-and-digital-signature">Message Integrity and Digital Signature</span></h2><h4><span id="cryptographic-hash-functions">Cryptographic Hash Functions</span></h4><p>Hash function이 입력 메세지를 받으면, 고정된 사이즈의 스트링 H(m)을 계산해 낸다.(Hash)<br>Cryptographic Hash Function은 다음과 같은 성질을 가진다.<br>다른 메세지를 Hash Function에 넣고 같은 Hash값을 가지는 경우가 반드시 있다.<br>이러한 성질은 intruder가 한 메세지를 다른것으로 만드는 것을 불가능하게 만든다.</p>
+<p>어떤 메세지가 있을때 단순히 checksum 방식을 이용하여 메세지를 변형하였을때 같은 hash를 가지는 메세지를 쉽게 찾을 수 있기 때문에 메세지를 변형하기 쉽다. 하지만 Hash Function을 이용하면 intruder가 같은 Hash를 가지는 메세지를 찾는 것이 거의 불가능해 진다.<br>즉, hash를 이용할 경우가 더 좋은 message integrity를 가진다.</p>
+<h3><span id="비트코인">비트코인</span></h3><h4><span id="비트코인이란">비트코인이란?</span></h4><p>데이터 마이닝을 통해 새로운 블록들이 마만들어고 이것은 25개의 비트코인을 만들어 낸다.<br>디지털 화폐로 매우 신뢰도 있고, 합법적으로 되고 있다.</p>
+<p>비트코인을 어떻게 트래킹 하는가?<br>여기서 블록체인의 개념이 나온다.<br>비트코인이 생성되면 비트코인을 가진 모든 사용자들에게 알려지게 된다.<br>모든 사람들이 다 이 정보를 볼 수 있다.<br>영속적이고 신뢰할 수 있는 정보인지 어떻게 하는가</p>
+<p>해쉬를 만들어 데이터 마이닝을 한다.<br>해쉬는 만들기 어려운 것이 아니다.<br>한번 이걸 만들면 즉각적으로 블록과 연결이 된다.<br>해쉬는 일종의 판별자이다<br>-secure, permanent</p>
+<p>마이닝을 통해 데이터는 안전하게 되고 영속적으로 된다.</p>
+<p>블록체인의 핵심은 중앙집권화된 단체를 없애는 것이다.<br>모든 참여자들이 모든 거래에 대해 ㄱ알게하고 각 모든 거래는 그 정보를 구성하는 판별자를 가지고 있다.</p>
+<p>퍼블릭 블록체인<br>퍼블릭 키를 사용한다.<br>너무 많은 에너지를 사용한다.</p>
+<p>private 블록체인<br>개인 키를 사용한다.</p>
+<p>블록체인을 사용하면 매우 보안이 높고 효율적인 데이터 교환을 할 수 있지만 블록체인 자체를 통제하는 데 어려움이 있게 때문에 이를 통제하기 위해 노력한다.<br>주로 금융 기관에서 블록체인을 적용하려고 노력하고 있다.</p>
+<p>블록체인에 각종 정보를 담아 널리 퍼뜨릴 수 있느 가능성이 있다.<br>의료사업에 있어서도 현재는 나의 모든 의료정보를 병원이나 다른 의료 기관에서 들고 있지만 이는 그다지 합리적이지 못하다.<br>블록체인을 통해서 이러한 보든 정보들을 사용자가 직접 가질 수 있다.</p>
+<p>블록체인 1<br>시초<br>블록체인 2.0<br>스마트카 등등<br>블록체인 3.0<br>인텔리전스 기반</p>
+<p>Blockchain Application<br>현재 기관들이 block chain을 도입하면 많은 부분들이 급변하게 된다.</p>
+<p>왜 블록체인이 좋은가?<br>p2p<br>scalable<br>block 없이는 아무것도 바꾸지 못한다.</p>
+<p>private하다면 접속하는데 private key가 필요하기 때문에</p>
+<p>Buisiness Model<br>initiate -&gt; design -&gt; strengthen -&gt; implement</p>
+<p>여기서 디자이닝 모델에 집중한다.<br>현재 금융 시장에서 돌아가는 방식을 토대로 앞으로 이러한 시장에 블록체인 기술을 통해 어떤 방식의 통화흐름을 만들어낼 것인가?</p>
+<p>블록체인의 정보들이 FTA 과정을 통해 분석될 수 있고, 이 내용을 통해 각 국의 경제정보를 얻을 수 있어 이를 통해 새로운 비즈니스가 가능해 진다.<br>블록체인을 통해 모든 정보가 투명해 질 수 있다.</p>
+<p>의료정보에 쉽게 접근가능 - 정보가 투명해 졌기 때문<br>예를 들어 의료 정보들은 각 의료센터마다 분산되어 있기 때문에 누구나 접근할 수 있는 정보가 아니다.<br>하지만 블록체인 기술을 통해 분산된 지역에서의 모든 정보들이 누구든지 접근할 수 있는 형태가 되기 때문에 가능하다.</p>
+<p>프로슈머들이 훌륭하게 활동할 수 있다.</p>
+<p>ad-hoc<br>기기가 라우터의 역할 까지 하는 등 센서 네트워크가 이런 것이 많다.<br>독립 단말끼리 외부의 도움없이 자기들 만으로 자율적인 임시적 망을 구성함을 뜻함<br>ㅇ 동적 토폴로지</p>
+<ul>
+<li>이동이 자유롭기 때문에 네트워크 토폴로지가 동적으로 변함<br>ㅇ 유연한 망 구성</li>
+<li>임시 망의 구성은 각 이동단말이 서로 가까이 있을 때에 만 통신망을 구성<br>ㅇ 중앙 제어 없음 (자율 망 구성 능력)</li>
+<li>어떠한 중앙 제어나 표준 지원 서비스의 도움 없이 임시로 망을 구성.<br>ㅇ 정보 전달 방식</li>
+<li>일대일 다중 홉 라우팅(Multihop Routing) 방식으로 전달<br>ㅇ 각 노드 역할 다양성</li>
+<li>Mesh network에서는 각 노드가 메시지를 보내거나 받을 수 있으며 라우터 역할도 가능<br>ㅇ Self-healing (자율 고장 치유 능력)</li>
+<li>하나의 연결이 끊어져도 network는 자동적으로 다른 연결로 메세지를 전송할 수 있음<br>ㅇ 신호 강도</li>
+<li>각 노드가 가까워 질수록 신호가 매우 좋아짐<br> . 예를들면,  거리가 반으로 줄어들면 신호는 4배로 좋아짐<br>ㅇ 노드 추가/탈퇴 유연성</li>
+<li>간단하게 노드들이 추가,탈퇴할 수가 있음</li>
+</ul>
+<h1><span id="industry-40">Industry 4.0</span></h1><p>4차 산업은 생산공정에서의 자동화와 데이터 교환의 흐름을 일컷는다.<br>이 용어는 cyber-physical system와 IoT 그리고 클라우드 컴퓨팅을 포함하는 개념이다.<br>4차 산업혁명을 통해 이른바 스마트 팩토리라는 개념이 생겨나고 모듈화 되고 구조화된 스마트 팩토리를 통해 Cyber Physical System은 물리적 공정을 감독하고, 실제 세계의 모형을 본떠 decentralized된 의사결정을 내릴 수 있게 되었다.</p>
+<p>Over the Internet of Things, cyber-physical systems communicate and cooperate with each other and with humans in real time, and via the Internet of Services, both internal and cross-organizational services are offered and used by participants of the value chain.[1]<br>block chain기술 - p2p big data를 포괄한다.<br>IoT<br>smart machine<br>한정된 컴퓨팅 자원만을 이용한다.<br>clustering of things using cloud computing</p>
+<h3><span id="ubiquitous">Ubiquitous</span></h3><p>make smart space</p>
+<h3><span id="layering-architecture">Layering Architecture</span></h3><p>새로운 platform을 만들기 위한 구조를 설계하는 법을 배울 것이다.<br>모든 플랫폼은 이러한 layer를 기반으로 설계된다.</p>
+<p>Five Layer<br>Application Layer<br>Transport Layer - TCP<br>Network Layer - IP<br>Data Link Layer - WLAN<br>Physical Layer</p>
+<p>여기서 Application, Transport, Network, DataLink는 Software의 범주에 속한다.<br>Network, Data Link 를 middleware에 속한다.<br>Physical Layer는 Hardware를 의미한다.</p>
+<h1><span id="history-of-computer-network">History Of Computer Network</span></h1><h3><span id="80년대">80년대</span></h3><p>distributed computing을 사용하였다<br>이 경우에는 매우 한정적인 computing resources를 가지고 일을 하였다.</p>
+<h3><span id="90년대">90년대</span></h3><p>mobile computing 에 대한 관심이 높아졌다.<br>모바일 컴퓨팅의 경우는 단지 nomadic한 네트워크 통신을 하였다면<br>유비쿼터스 시대에는 상당히 스마트한 환경을 기반으로 한다.</p>
+<h3><span id="2000년대">2000년대</span></h3><p>IoT + big data analytics</p>
+<h3><span id="유비쿼터스-컴퓨팅-vs-모바일-컴퓨팅">유비쿼터스 컴퓨팅 VS 모바일 컴퓨팅</span></h3><h3><span id="mobile-computing">Mobile Computing</span></h3><p>모바일 컴퓨팅<br>모바일 컴퓨팅은 단순히 서버에서 클라이언트로의 네트워크를 의미한다.<br>base station에서 다른 스마트 기기로 정보를 전송한다.</p>
+<h3><span id="유비쿼터스-컴퓨팅">유비쿼터스 컴퓨팅</span></h3><p>Two Entities</p>
+<ol>
+<li>sensors</li>
+<li>actuators<br>유비쿼터스 에서의 네트워크는 peer to peer를 의미한다. 또는 센서 네트워크<br>p2p ad-hoc network, mesh network</li>
+</ol>
+<p>Context<br>formal data 와 informal data를 모두 포함한다.<br>이러한 기술을 통해 유비쿼터스 컴퓨팅은 reasoning과 inferencing, learning이 가능해 진다.<br>센세들이 단순한 컴퓨터 데이터가 아닌 context를 수집하기 때문이다.<br>-&gt; context awareness<br>peer는 바로 인터넷에 적합하지 못함 반드시 gateway를 거쳐야.</p>
+<p>IoT<br>단순 sensor와 actuator만 가지고는 reasoning inferencing, learning 등을 할 수 없다.<br>여기에는 반드시 gateway가 들어가야 한다.<br>Ex) 스마트카 등이 gateway의 일종이다.<br>유비쿼터스 컴퓨팅의 기초는 localized service라는 것이다.<br>이 기술을 통해 우리는 당면한 문제를 중앙집중된 처리를 하는 것이 아니라 주변 네트워크 자원을 이용하여 해결한다.<br>이를 통해 통신 네트워크 자원을 아낄 수 있게 된다.<br>더 적은 센서와 actuator를 사용하기 위해 더 똑똑한 IoT가 필요하게 되었다.<br>IoT란 센서와 actuator 네트워크를 모두 사용한 일종의 기기를 의미한다.<br>사용하는 통신의 기술에는 WLAN, ZGBEE,ZWAVE,LTE등이 있다.<br>SK의 경우 여기에 LTE를 이용하고, KT 는 WLAN, LTE,를 이용한다. LG의 경우는 ZGBEE,ZIWAVE</p>
+<p>lte의 경우impossible to make clustering entities for smart space<br>스마트폰이 지역적 통신망에 접근하는 유일한 방법은 wifi를 이용하는 것이다.<br>즉 lte는 유비쿼터스 컴퓨팅에 적합하지 않은 통신 방법이다.</p>
+<p>vertical handoff<br>lte to wifi or wifi to bluetooth</p>
+<p>회사들은 zgbee와 zwave방식을 더 선호한다. - 왜 그런지는 다음에</p>
+<p>security<br>p.726 - wep</p>
+<h3><span id="home-network">Home Network</span></h3><h3><span id="security-vs-privacy">Security VS privacy</span></h3><p>Authentication이 매우 중요해 졌다.<br>이를 위해 PKI같은 기술들을 사용하게 된다.</p>
+<h3><span id="energy">Energy</span></h3><p>ZEB(Zero Energy Building)을 만들기 위해서 다음과 같은 기술이 필요하다.<br>a. renewable energy<br>b. Energy IoT<br>ex) Smart switch의 경우 센서와 액츄에이터의 역할을 같이 한다.<br>c. HEMS - Home Energy Management System<br>d. ESS - Energy Storage System.</p>
+<p>Service<br>Cost<br>Performance<br>Reliability<br>Safety<br>Security<br>Reliability<br>Scabiability</p>
+<h1><span id="introduction-of-data-analytics">Introduction Of Data Analytics</span></h1><p>Big Data Analytics<br>traditionally / SPSS, R<br>Future oriented / python, php, 하둡</p>
+<p>Crawling<br>필요한 데이터를 긁어오는 것<br>Supervised Learning<br>learning with labeled examples<br>x값과, y값이 이 정해져 있다.<br>어떤 데이터가 들어가서 어떤 데이터가 나오는지 안다</p>
+<p>Unsupervised Learning<br>google news grouping<br>word clustering<br>어떤 값인지 모르고 데이터의 특성에 따라 분류한다.</p>
+<p>Data Visulalization Tools<br>python library<br>matplotlib<br>flask</p>
+<p>process<br>data gathering<br>preprocessing<br>modeling<br>testing<br>visualization</p>
+<p>Start Data Analytics<br>“프로그램인 Tableau<br>phthon+TensorFlow(구글 라이브러리)”</p>
+<h3><span id="data-analytics-rd-environment">Data Analytics R/D Environment</span></h3><p>Main Tool<br>Tableau<br>Phython with Pycharm<br>Tensorflow</p>
+<h3><span id="three-types-of-communication">Three Types of Communication</span></h3><ol>
+<li>Unicast<br>one to one communication</li>
+<li>Multicast<br>만약 UDP방식을 채택하게 되면 만약 하나의 패킷이 다른 유저에게 전달되지 않았을 경우<br>재 요청을 하면 다른 모든 사용자에게 요청을 날리게 된다.</li>
+</ol>
+<p>QOS(Quality Of Service)<br>사용자의 품질이 좋지 않으면 환불하는 등의 정책을 편다.<br>link layer protocol<br>to resolve</p>
+<p>wired network - ethernet (CSMA(Multiple Access)/CD(Collision Detection) )<br>다 연결되어 잇기 때문에 colision을 다 detect할 수 있다.<br>collistion detection</p>
+<p>wireless network - wifi(CSMA/CA(Collision Avoidance))<br>hidden node problem이 발생한다.<br>연결되지 않은 부분이 있기 때문이. detect colision할 수 없다.<br>collision avoidance</p>
+<p>Zigbee</p>
+<p>bluetooth</p>
+<p>Zigwave</p>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/computer-network/">#
+                        computer network
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/01/14/심리학-개론/">
+                                심리학 개론
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/01/14/안드로이드-시작하기/">
+                                안드로이드 시작하기
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/01/14/컴퓨터-네트워크/';
+        this.page.identifier = '2018/01/14/컴퓨터-네트워크/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

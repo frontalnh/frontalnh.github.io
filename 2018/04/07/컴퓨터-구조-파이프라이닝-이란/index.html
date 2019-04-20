@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>컴퓨터 구조 | 파이프라이닝 이란? - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                컴퓨터 구조 | 파이프라이닝 이란?
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-07T02:15:34.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                18 minutes read (About 2762 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#파이프라이닝이란">파이프라이닝이란</a><ul>
+<li><a href="#파이프라인-해저드">파이프라인 해저드</a></li>
+<li><a href="#구조적-해저드">구조적 해저드</a></li>
+<li><a href="#데이터-해저드">데이터 해저드</a></li>
+<li><a href="#제어-해저드control-hazard-분기-해저드branch-hazard">제어 해저드(control hazard) / 분기 해저드(branch hazard)</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<p>본 강의에서는 컴퓨터 구조에서 <strong>파이프라이닝</strong> 이 무엇이며 어떤 역할을 수행하는 지를 알아봅니다.</p>
+<h1><span id="파이프라이닝이란">파이프라이닝이란</span></h1><p><strong>파이프라이닝</strong> 이란 마치 조립 라인처럼 어떤 명령어가 중첩되어 실행되는 구현기술입니다.<br>보통 파이프라이닝을 설명할 때에는 세탁소에서 세탁을 하는 절차를 비유하여 많이 이용하며 세탁소가 세탁을 하는 절차를 컴퓨터에 빗대어 설명을 해보도록 하겠습니다.<br>세탁소에서 세탁을 하기 위해서는 먼저 다음과 같은 순서로 세탁물을 처리합니다.</p>
+<ol>
+<li>세탁기에 한 아름의 더러운 옷을 넣는다.</li>
+<li>세탁기 작동이 끝나면 젖은 옷을 건조기에 넣는다.</li>
+<li>건조기 작동이 끝나면 건조된 옷을 탁자 위에 놓고 접는다.</li>
+<li>접는 일이 끝나면 같은 방 친구에게 옷을 장롱에 넣어달라고 부탁한다.</li>
+</ol>
+<p>하지만, 위 순서대로 차례차례 일을 진행하는 것 만큼 바보같은 짓은 없을 것이다.<br>세탁기가 다 돌아가기를 기다렸다가 세탁이 다 되면 젖은 옷을 건조기에 넣고 건조기가 다 돌아가면 접어서 장롱에 넣는 일련의 전차들은 사실 각 <strong>단계</strong> 를 담당하는 별도의 <strong>자원(세탁기, 건조기, 나, 친구)</strong> 들이 있는 한은 모두 동시에 처리될 수 있다.</p>
+<p>이 작업을 파이프라이닝을 한다면 다음과 같을 것이다.</p>
+<ol>
+<li>첫번째 빨래가 다 돌아가면 건조기에 빨래를 넣고 나는 다시 세탁기에 옷을 집어 넣는다.</li>
+<li>건조기와 세탁기가 다 돌아가면 나는 건조된 옷을 접고, 세탁이 된 빨래를 건조기에 넣고, 새로운 빨래를 세탁기에 넣는다.</li>
+<li>옷을 다 접었으면 친구에게 옷을 장롱에 넣어달라고 하고, 다시 빨래를 개고, 건조기에 세탁이 된 옷을 넣고, 새로운 빨래를 세탁기에 넣는다.</li>
+</ol>
+<p>위처럼 동시에 처리 가능한 일들을 동시에 처리함으로써 <strong>처리량</strong> 을 올리는 것이 파이프라이닝의 핵심이다.</p>
+<p>이 경우 중요한 점은 각 단계를 수행하는 속도가 빨라지지는 않느다는 점이다. 모든 단계는 원래의 동작속도대로 일을 해 나가지만 병렬적으로 처리를 함으로써 쉬는 시간을 없애어 전체 <strong>처리량</strong> 을 올려 많은 작업을 빠른 시간 내에 처리 할 수 있도록 하는 것이다.</p>
+<p>위 과정에서 알 수 있듯이 할 일이 충분히 많다면 <strong>파이프라이닝에 의한 속도 향상은 파이프라인의 단계 수와 같다.</strong> 위의 예에서는 <strong>세탁, 건조, 빨래 개기, 장롱에 넣기</strong> 의 4 단계로 파이프라이닝이 진행되므로 <strong>4배 빠른 시간에 작업량을 처리</strong> 한 것이 되고 <strong>처리량은 4배 증가</strong> 한 것이 된다.</p>
+<p>여기서 또 유의깊에 보아야 할 부분은 각 단계별 걸린 시간이다.<br>세탁, 건조, 개기, 넣기 4가지의 작업을 하는 각 단계별로 걸리는 시간은 물론 전부 다를 것이다. 하지만, 파이프라이닝을 한 경우에 우리는 제일 빠른 단계의 작업이 끝나도 전체 작업이 다 끝나는 것을 기다렸다가 다음 단계로 넘어갈 수 밖에 없다. 가령 건조가 빨리 다 끝나더라도 세탁기가 덜 돌아갔다면 세탁기가 다 돌아가기를 기다려야 하는 것이다. 컴퓨터 시스템에서 이러한 한 단계를 처리하는 시간을 컴퓨터의 <strong>클럭 사이클</strong> 이라고 하며, 파이프라이닝에서 <strong>클럭 사이클은 전체 단계 중 가장 시간이 오래걸리는 것을 기준으로 한다</strong>.</p>
+<p>이처럼 이상적으로 파이프라인 프로세서에서 속도향상은 파이프 단계 수와 거의 같아야 하지만 위와 같은 문제 때문에 향상 률은 단계수보다는 조금 적으며, 파이이프라이닝 되지 않은 컴퓨터와 파이프라인 컴퓨터에서의 실제 프로그램의 전체 실행시간의 비율은 <strong>명렁어 사이의 시간 비율에 가깝다</strong>.</p>
+<h2><span id="파이프라인-해저드">파이프라인 해저드</span></h2><p>각 명령어가 다음 클럭 사이클에 실행되지 못하는 상황을 파이프라인 해저드라고 하며 3가지 종류의 해저드가 있다.</p>
+<h2><span id="구조적-해저드">구조적 해저드</span></h2><p>첫번째 해저드는 <strong>구조적 해저드</strong> 라 불리는데, 이는 가은 클럭 사이클에 실행하기를 원하는 명령어의 조합을 하드웨어가 지원할 수 없기 때문에 발생하는 해저드이다.<br>가령, 세탁소의 예를 들면 세탁기와 건조기가 붙어있다던지, 혹은 장롱에 개어진 세탁물을 넣어줄 친구가 없다던지 하는 경우이다. 이러한 해저드를 없애기 위해서는 설계자가 파이프라인을 설계하는 시점에서 구조적 해저드를 피하는 것이 비교적 용이하다.</p>
+<h2><span id="데이터-해저드">데이터 해저드</span></h2><p>두번째 해저드인 <strong>데이터 해저드</strong> 는 어떤 단계가 다른 단계가 끝나기를 기다려야 하기 때문에 파이프라인이 지연되는 경우 생기는 것으로, 컴퓨터 파이프라인에서는 앞선 명령어에 종속성을 가질 때데이터 해저드가 일어난다. 가령, add 명령어를 사용하여 %s0 레지스터에 값을 저장하고, 바로 다음 명령어에서 sub 명령어 혹은 기타 명령어를 통해 &amp;s0에 저장된 값을 사용하는 경우 첫번째 명령어에서 미처 데이터가 레지스터에 저장되기도 전에 해당 레지스터를 참조하게 되어 연산이 이루어 질 수가 없게 된다.</p>
+<p>이를 해결하기 위한 방법 중 하나는 바로 <strong>전방전달(forwarding) 혹은 우회전달(bypassing)</strong> 이다.<br>이것은 별도의 <strong>하드웨어를 추가</strong> 하여 정상적으로는 얻을 수 없는 값을 내부 자원으로부터 일찍 받아오는 것을 의미하는데, 레지스터나 메모리에 아직 나타나지 않은 데이터를 기다리지 않고 데이터패스를 추가로 하드웨어에 연결하여 내부 버퍼로 부터 가져오는 것이다.</p>
+<p>앞의 add 연산 뒤에 바로 sub 연산을 처리하는 경우를 예로 들면, 하드웨어 자체에 앞에서 계산한 결과가 나오는 부분에서 다음 연산의 뺄셈의 입력 부분으로 새롭게 데이터 패스를 연결하여 데이터가 레지스터에 씌어지기 전에 비트값으로 값을 받아와 연산에 활용하여 <strong>데이터 해저드</strong> 를 해결 할 수 있다.</p>
+<p>하지만, 위의 예인 add와 sub 연산의 연속적 사용이 아닌 <strong>데이터 적재</strong> 명령어를 사용하는 경우 문제는 더 커진다. 이 경우에는 메모리의 적재까지 4단계 정도의 오랜 시간이 소요되고 이것을 기다리는 것은 너무도 큰 성능 저하를 불러 일으키는데 이러한 적재 명령어 사용에 따른 데이터 해저드를 별도로 <strong>적재 사용 데이터 해저드</strong> 라고 부른다. 이것은 <strong>파이프라인 지연(pipeline stall)</strong> 의 대표적인 예이며 <strong>거품(bubble)</strong> 이라는 별명으로도 지칭된다.</p>
+<h2><span id="제어-해저드control-hazard-분기-해저드branch-hazard">제어 해저드(control hazard) / 분기 해저드(branch hazard)</span></h2><p>세번째 해저드인 <strong>제어 해저드</strong> 는 <strong>분기 명령어 처럼 다른 명령어들이 실행 중에 한 명령어의 결과 값에 기반을 둔 결정</strong> 을 할 필요가 있을 때 일어납니다.<br>보다 쉽게 이해하기 위해 다시 세탁소의 예를 들어봅시다. 어떤 세탁소의 점원이 옷들을 세탁할 때 세탁 세제와 물의 온도를 선택함에 있어 옷들이 상하지는 않는 한도 내에서 강한 세제와 높은 온도를 통해 옷을 깨끗하게 세척을 해야 합니다. 하지만, 이 때 세탁소의 점원은 그 옷의 성질을 알지 못하므로 일단 한번 세탁을 한 뒤 말려보아야 올바른 세탁 세제와 물의 온도를 사용했는지를 알 수 있습니다. 이를 해결하기 위해서는 다음과 같은 <strong>세가지 해결법</strong> 이 있습니다.</p>
+<p><strong>지연</strong></p>
+<p>첫번째는 <strong>지연</strong> 으로, 첫번째 묶음의 옷들이 건조될 때까지 그냥 순차적으로 작업하되 올바른 비율이 결정될 때까지 계쏙 순차적 작업을 반복하는 것입니다. 위의 세탁소의 예를 들면 일단 옷을 세탁하고 말리는 작업까지를 했다면 그 결과값이 나올때까지 다음 세탁을 대기한 뒤 결과가 나오면 다시 파이프라이닝을 시켜 세탁을 시작합니다. 하지만, 이렇게 계속 반복적으로 분기 명령어 마다 지연을 시킨다면 훨씬 더 큰 속도 저하를 초래할 것입니다 때문에 다른 방법을 필요로 하게 되었고 만들어 진 것이 <strong>예측</strong> 기법입니다.</p>
+<p><strong>예측</strong></p>
+<p>예측을 수행하는 가장 간단한 방법은 <strong>분기가 항상 실패한다고 예측하는 것</strong> 입니다. 예측이 옳으면 파이프라인은 최고 속도로 진행되고, 실제로 분기가 일어날 때만 파이프라인이 지연이 됩니다. 좀 더 정교한 버전은 <strong>동적 하드웨어 예측기</strong> 를 이용하는 것으로 각 분기가 일어났지는 지록함으로써 최근의 과거 이력을 사용하여 미래를 예측하는 것입니다.</p>
+<p><strong>delayed branch</strong></p>
+<p>세번째 방법은 <strong>분기 지연</strong> 입니다. 이 방법은 분기가 필요한 명령어의 결과값이 나오는 동안 해당 분기와 관련이 없는 다양 명령어를 먼저 실행하여 시간이 지연되지 않도록 하는 방법이며, 이를 위해서는 명령어를 적합한 순서에 따라 배치해야하며 주로 <strong>컴파일 최적화</strong> 를 통해 이루어 질 수 있습니다.</p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/computer-architecture/">#
+                        computer architecture
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/04/07/자료구조-b-트리/">
+                                자료구조 | B-트리
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/04/05/운영체제-교착상태-deadlock-란-무엇인가/">
+                                운영체제 | 교착상태(deadlock)란 무엇인가?
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/04/07/컴퓨터-구조-파이프라이닝-이란/';
+        this.page.identifier = '2018/04/07/컴퓨터-구조-파이프라이닝-이란/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

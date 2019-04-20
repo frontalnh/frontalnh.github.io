@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>컴퓨터 구조 | 캐시(cache) - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                컴퓨터 구조 | 캐시(cache)
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-08T06:04:14.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                27 minutes read (About 4004 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#캐시란-무엇인가요">캐시란 무엇인가요?</a><ul>
+<li><a href="#캐시에-데이터-쓰기">캐시에 데이터 쓰기</a></li>
+</ul>
+</li>
+<li><a href="#캐시-성능의-측정">캐시 성능의 측정</a></li>
+<li><a href="#캐시-성능의-향상">캐시 성능의 향상</a><ul>
+<li><a href="#유연한-블록-배치를-통한-캐시-실패-줄이기">유연한 블록 배치를 통한 캐시 실패 줄이기</a><ul>
+<li><a href="#완전-연관-방식">완전 연관 방식</a></li>
+<li><a href="#집합-연관-방식">집합 연관 방식</a></li>
+</ul>
+</li>
+<li><a href="#다단계-캐시를-이용한-실패-손실-줄이기">다단계 캐시를 이용한 실패 손실 줄이기</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="캐시란-무엇인가요">캐시란 무엇인가요?</span></h1><p>캐시란 메모리와 프로세서 사이에 있는 메모리 계층을 나타내기 위해 선택된 이름이며, 오늘날 대부분의 컴퓨터가 캐시 메모리를 사용하고 있습니다.<br>위의 도서관에서의 예처럼 캐시는 ‘책상’ 의 역할을 수행합니다. 우리는 도서관에서 책상위의 책들을 뒤적거려 책을 찾는다면 캐시는 어떻게 정보를 찾을 까요? 캐시는 다양한 형태로 구성되지만 이번 강의에서는 가장 대표적인 캐시 내의 정보를 찾는 방법으로 <strong>직접 사상 캐시</strong> 를 기반으로 하여 설명을 진행합니다. <strong>직접 사상</strong> 이란 바로 메모리 주소에 기반하며 메모리 주소 하나당 캐시 내의 정확한 하나의 물리적 위치가 사상되는 방식입니다. 이러한 직접 사상 방식에서 실제 물리 메모리는 <strong>주소값</strong> 을 가지는데 이 주소값의 마지막 몇자리를 인덱스로 하여 캐시에 저장이 됩니다. 가령 물리 메모리의 주소값이 0101100101 이고, 블록의 수가 8개 라면 끝의 3자리(log2_8)는 인덱스 필드로 캐시 내에서의 주소를 담당합니다.<br>모든 직접 사상 캐시는 블록을 찾기 위하여 다음의 사상 방식을 사용합니다.</p>
+<p>(블록주소) modulo (캐시 내에 존재하는 전체 캐시 블록 수)</p>
+<p>위의 사상 방식을 따르면 10101011, 11101011, 00101011 처럼 끝의 인덱스 필드가 같은 메모리의 정보들을 캐시 메모리에서 같은 블록에 사상될 것입니다. 이렇게 되면 가져온 블록이 정말 원하는 정보인지 알 수 있어야 하며 이를 위해 <strong>태그</strong> 필드가 존재합니다. 이 태그 필드는 주소 중에서 인덱스 필드를 제외하고 남은 숫자들이며 이를 통해 해당 블록이 찾고자 하는 블록인지 알 수 있습니다.</p>
+<p><strong>캐시 블록은 항상 유효한 숫자를 가지고 있을까요?</strong><br>만약 캐시가 비어있고나 혹은 올바르지 못한 값을 가지고 있는 경우가 있을 수 있습니다. 심지어 이 데이터는 물리 주소에 없는 값일 수도 있고요, 그렇다면 이러한 블록을 어떻게 표기해야 할까요?<br>이를 위해 캐시에는 <strong>유효 비트</strong> 라는 것이 존재합니다. 이 비트가 1로 설정되어 있지 않으면 유효한 블록이 없는 것으로 간주합니다.</p>
+<p>이처럼 캐시는 <strong>예측 기법</strong> 을 통해 자료의 찾는 속도를 빠르게 해 주는 역할을 하며, 현대 컴퓨터에서 캐시 예측 적중률은 95% 이상입니다.</p>
+<p><strong>필요한 캐시의 사이즈는 어떻게 알 수 있나요?</strong><br>필요한 캐시의 사이즈는 전체 블록의 수와 블록의 크기를 가지고 알 수 있습니다.<br>여기서 가장 중요한 점은 캐시는 몇개의 블록으로 구성되지만 블록이 정확한 값을 들고 있는지 알기 위해서 <strong>태그 필드</strong> 와 <strong>유효 비트(1비트)</strong> 를 별도로 필요하게 되며, 이것은 <strong>블록의 사이즈와 별도로 필요한 공간</strong> 이라는 점입니다. 또한, <strong>인덱스 필드</strong> 의 경우는 캐시 메모리에 영향을 주지 않는데, 그것은 바로 인덱스 필드는 별도로 비트 필드를 가지지 않아도 하드웨어에서 물리적인 주소로 바로 연결이 되는 것이기 때문에, 인덱스를 가르쳐 주기 위한 별도의 비트는 필요하지 않습니다.</p>
+<p>예를 들어,<br>32비트의 직접 사상 캐시가 있고, <strong>2^n개 블록</strong> 을 가지고 있다고 하면 당연히 <strong>n개의 비트는 인덱스 필드</strong> 에 사용됩니다.<br>또 실제 캐시에서는 블록의 크기가 1워드보다 보통 크기 때문에, 만약 <strong>블록의 크기가 2^m개 워드</strong> 라고 하면 <strong>m개 비트는 블록 내부에서 워드를 구분</strong> 하는 데에 사용되며 하나의 워드는 4바이트로 구성되므로 <strong>2 개의 비트는 주소 중 바이트 구별용</strong> 으로 사용됩니다.</p>
+<p>이 경우 태그 필드의 길이는</p>
+<p>32-(m+n+2) 가 되며,</p>
+<p>직접 사상 캐시의 전체 비트 수는<br>2^n * (블록 크기+태그 크기+유효 비트 크기) 이므로</p>
+<p>2^n _ (2^m _ 32 + 32-n-m-2 + 1) = 2^n(32*2^m+31-n-m) 비트 이다.</p>
+<p><strong>캐시 실패의 경우는 어떻게 처리되나요?</strong><br>만약 캐시에서 원하는 정보를 찾지 못하는 경우에는 임시 레지스터와 프로그래머에게 보이는 레지스터의 내용을 그대로 유지한 채 메모리로부터 데이터가 오기를 기다리면서 전체 시스템이 지연되게 됩니다. 캐시 실패의 처리 단계는 다음과 같습니다.</p>
+<ol>
+<li>원래의 PC값(현재 PC 값 -4)을 메모리로 보낸다.</li>
+<li>메인 메모리에 읽기 동작을 지시하고 메모리가 접근을 끝낼 때까지 기다린다.</li>
+<li>메모리에서 인출된 데이터를 데이터 부분에 쓰고, 태그 필드에 주소의 상위 비트를 쓰고 유효 비트를 1로 만들어서 캐시 엔트리에 쓰기를 수행한다.</li>
+<li>명령어 수행을 첫 단계부터 다시 시작하여 캐시에 명령어를 가져온다. 이제는 필요한 명령어를 캐시에서 찾을 수 있다.</li>
+</ol>
+<h2><span id="캐시에-데이터-쓰기">캐시에 데이터 쓰기</span></h2><p>캐시에 데이터를 수정하고 저장하는 경우 데이터 캐시에만 작성 되고 메인 메모리에는 쓰지 않아지는 <strong>불일치</strong> 가 나타날 수 있습니다. 이를 해결하는 방법 중 하나는 <strong>즉시쓰기(write through)</strong> 이며, 통해 데이터를 항상 메모리와 캐시에 동시에 작성하게 됩니다. 하지만 이는 프로세서의 성능을 심하게 저하시키고 보통은 <strong>쓰기 버퍼</strong> 를 활용하여 일단 캐시에만 작성하고 천천히 메모리에 작성되는 방식으로 처리합니다.</p>
+<p>두번째 방법은 <strong>나중 쓰기(write-back)</strong> 입니다.<br>이 방식에서는 쓰기가 발생했을 때 새로운 값을 캐시 내의 블록에만 쓰고, 나중에 해당 블록이 캐시에서 쫓겨나는 경우 쓰기에 의해 내용이 바뀐 블록이라면, 메모리 계층 구조의 더 낮은 계층에 씌어집니다.</p>
+<p>두 방식 모두 장단점이 있는데 이는 다음과 같습니다.</p>
+<p><strong>나중쓰기(write-back) 의 장점</strong></p>
+<ol>
+<li>각각의 워드는 프로세서에 의해 메인 메모리가 아닌 캐시가 받아들일 수 있는 속도로 쓰인다.</li>
+<li>다수의 쓰기가 행해진 블록을 계층의 하위 계층에 한 번만 쓰면 된다.</li>
+<li>블록들이 하위 수준에 쓰일 때, 전체 블록을 한꺼번에 쓰기 때문에 높은 대역폭을 효과적으로 사용할 수 있다.</li>
+</ol>
+<p><strong>즉시쓰기(write-through)</strong> 의 장점</p>
+<ol>
+<li>실패가 발생해도 하위 수준 블록을 쓸 필요가 없으므로 간단하고 비용이 적게 든다.</li>
+<li>즉시 쓰기는 나중 쓰기보다 구현이 간단하다, 하지만 실제적으로 즉시 쓰기 캐시는 쓰기 버퍼를 요구한다.</li>
+</ol>
+<p>가상 메모리 시스템에서는 계층의 하위 수준에 쓰기를 수행할 때 매우 큰 지연시간이 발생하기 때문에 나중 쓰기 방식이 유일한 실용적인 대안이다.</p>
+<h1><span id="캐시-성능의-측정">캐시 성능의 측정</span></h1><p>캐시가 무엇인지 알았다면 실제 캐시의 성능을 측정하고 분석하는 방법을 배워 봅시다.</p>
+<p>캐시의 성능을 측정할 때의 기준은 필요한 메모리를 인출한 시간이라고 볼 수 있으며, 그에 따른 CPU 시간은 다음과 같습니다.</p>
+<p>CPU 시간 = (CPU 클럭 사이클 + 메모리 지연 클럭 사이클) X 클럭 사이클 시간</p>
+<p>위의 식에서 메모리 지연 클럭 사이클은 주로 캐시 실패 때문에 생기며 다음과 같이 읽기 지연 사이클과, 쓰기 지연 사이클로 나누어 지며 그 값 또한 다음과 같이 계산 할 수 있습니다.</p>
+<p>메모리 지연 클럭 사이클 = 읽기 지연 사이클 + 쓰기 지연 사이클</p>
+<p>읽기 지연 사이클 = 읽기 접근 횟수 / 프로그램 X 읽기 실패율 X 읽기 실패 손실</p>
+<p>쓰기 지연 사이클 = (쓰기 접근 수 / 프로그램 X 쓰기 실패율 X 쓰기 실패 손실) + 쓰기 버퍼 지연</p>
+<h1><span id="캐시-성능의-향상">캐시 성능의 향상</span></h1><p>앞에서는 <strong>직접 사상</strong> 으로 구성된 캐시와 캐시의 성능 측정에 대해 알아보았습니다.</p>
+<p><img src="\images\직접사상캐시의개념도.png" alt="직접 사상 캐시의 개념도"></p>
+<p>이번에는 캐시의 성능을 향상시키기 위한 방법을 알아봅시다.</p>
+<h2><span id="유연한-블록-배치를-통한-캐시-실패-줄이기">유연한 블록 배치를 통한 캐시 실패 줄이기</span></h2><p>기존에는 메모리 블록을 캐시에 넣을 때 각 블록이 캐시의 정확한 한 곳에만 들어갈 수 있는 단순한 배치 방법을 사용하였고, 이를 <strong>직접 사상</strong> 이라고 불렀습니다. 하지만, 실제로는 블록을 배치하는 다양한 방법이 존재하는데, 블록의 배치 방법에 따라 <strong>완전 연관 방식</strong> 과 <strong>집합 연관 방식</strong> 이 있습니다.</p>
+<h3><span id="완전-연관-방식">완전 연관 방식</span></h3><p>완전 연관 방식에서는 블록이 캐시 내의 어느 곳에나 위치할 수 있으며, 때문에 블록 하나를 찾기 위해서 캐시 내의 모든 엔트리를 검색해야 합니다. 물론 이러한 방법은 하드웨어 비용을 크게 증가시키기 때문에 블록을 적게 갖는 캐시에서만 유용합니다.</p>
+<h3><span id="집합-연관-방식">집합 연관 방식</span></h3><p><img src="\images\m-way집합연관캐시의개념도.png" alt="m-way 집합 연관 캐시의 개념도"></p>
+<p><strong>집합 연관 방식</strong> 은 직접 사상과 완전 연관 사상의 중간 방식입니다. 집합 연관 사상 캐시에서는 <strong>한 블록이 들어갈 수 있는 자리가 고정되어 있습니다.</strong> 가령 각 블록당 n개의 배치 가능한 위치를 갖는 집합 연관 캐시가 있다면 이를 n-way 집합 연관 캐시라고 부릅니다.</p>
+<p>집합 연관 방식에서 메모리의 각 블록은 <strong>인덱스 필드에 의해 캐시 내의 한 집합으로 사상</strong> 되며, 때문에 일치하는 블록을 찾기 위해서는 <strong>집합 내의 모든 블록들을 검색</strong> 하여야 합니다. 직접 사상 캐시는 단순히 1-way 집합 연관 캐시라고도 볼 수 있습니다.</p>
+<p>이렇게 연관 정도를 늘리는 것의 장점은 대개 실패율이 줄어든다는 것이며, 단점은 적중 시간의 증가입니다.<br>그 이유는 간단히 생각해 보면 이해할 수 있습니다. 가령 특정 블록을 찾을 때에 기존의 <strong>직접 사상</strong> 방식에서는 하나의 인덱스에 오직 하나의 블록만이 들어갈 수 있기 때문에, 다른 블록이 들어왔다면 기존의 블록을 삭제하고 새로운 블록을 저장하기 때문에 실패율이 높을 수 밖에 없습니다. 하지만 <strong>연관 방식 사상</strong> 을 통해서는 하나의 인덱스가 집합을 이루고 과거에 찾아진 블록이 해당 집합에 들어 있다면 캐시에 저장되어 있어 찾을 수 있으므로 <strong>실패율이 줄어들게 됩니다.</strong> 단점인 적중 시간의 증가도 같은 원리로 만약 하나의 블록을 특정 집합에서 찾았다면 기존의 <strong>직접 사상</strong> 방식에서는 각 집합마다 블록이 유일하게 존재하므로 집합 내에서 검색이 필요하지 않았습니다. 하지만 n-way 집합 연관 방식에서는 특정 집합을 찾을 이후에도 집합 내에서 n 개의 엔트리 중에서 일치하는 태그인 블록을 찾는 시간이 추가되기 때문에 <strong>적중 시간이 증가</strong> 하게 됩니다.</p>
+<p><strong>집합 연관 방식에서 집합 내의 블록은 어떻게 교체될까요?</strong><br>집합 연관 방식 사상을 할 때 집합 내에는 정해진 수의 블록 만이 들어갈 수 있으므로, 집합이 가득 찾다면 기존의 블록이 새로운 블록으로 교체되어야 합니다. 이 경우 가장 많이 쓰이는 방법은 <strong>LRU 교체 방식</strong> 을 사용합니다. 즉, 가장 오래전에 사용된 블록이 교체 됩니다.</p>
+<p><strong>집합 연관 방식에서는 캐시 내에서 블록을 어떻게 찾을까요?</strong><br>직접 사상 캐시에서와 같이 집합 연관 캐시 내의 블록도 블록 주소를 나타내는 <strong>주소 태그</strong> 를 가지고 있습니다. 선택된 집합 내 모든 블록의 태그는 프로세서로 부터 나온 태그와 일치하는 지를 검사하게 됩니다. 여기서 빠른 속도가 매우 중요하기 때문에 선정된 집합 내 모든 태그는 병렬로 검색이 수행됩니다.<br><strong>완전연관 캐시</strong> 의 경우에는 실제로 <strong>한 개의 집합</strong> 만이 존재하며 모든 블록들은 병렬로 검사가 되게 됩니다.</p>
+<h2><span id="다단계-캐시를-이용한-실패-손실-줄이기">다단계 캐시를 이용한 실패 손실 줄이기</span></h2><p>현대의 모든 컴퓨터는 캐시를 사용하고 있으며, 프로세서의 빠른 클럭 속도와 상대적으로 점점 느려지는 메모리 접근 시간 사이의 차이를 줄이기 위해, 고성능 마이크로프로세서들은 캐시를 한 계층 더 사용합니다.</p>
+<p>여기서 각 단계의 캐시들을 L1, L2, L3, L4 로 부르고 각각은 1차, 2차, 3차, 4차 캐시를 의미합니다.<br>다단계 캐시를 이용한 CPU 에서 1차 캐시에서 미스가 발생하면 2차 캐시에서 다시 검색을 하고 2차 캐시에서도 미스가 발생하면 메인 메모리 접근이 필요하게 되고 더 큰 실패 손실이 발생하게 됩니다.</p>
+<p><strong>1차 캐시와 2차 캐시의 설계 시에는 각자 다른 것을 우선시 합니다.</strong> 가령 1차 캐시의 경우에는 어차피 실패를 해도 2차 캐시에서 데이터를 찾는 작업이 일어나므로 메모리 접근이 필요 없기 때문에 실패율이 그다지 높지 않아도 됩니다. 대신, 제일 많이 접근이 되는 만큼 <strong>적중 시간의 최소화</strong> 에 초점을 맞추어 설계를 진행합니다. 반대로 <strong>2차 캐시</strong> 의 경우에는 실패가 일어나면 메인 메모리 접근이 필요하게 되기 때문에 긴 메모리 접근 시간으로 인한 손실을 줄일 수 있도록, <strong>실패율이 중점을 맞춘 설계</strong> 를 합니다. 같은 원리로 <strong>1차 캐시는 실패 손실을 줄이기 위해 블록 크기가 더 작으며, 2차 캐시는 실패율을 줄이기 위해 크기가 더 크고, 높은 연관정도가 많이 사용된다.</strong></p>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/computer-architecture/">#
+                        computer architecture
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/04/10/운영체제-프로세스/">
+                                운영체제 | 프로세스
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/04/07/자료구조-b-트리/">
+                                자료구조 | B-트리
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/04/08/컴퓨터-구조-캐시/';
+        this.page.identifier = '2018/04/08/컴퓨터-구조-캐시/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

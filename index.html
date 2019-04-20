@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/04/20/getting-started-with-aws-cloud-formation/" itemprop="url">
+                Getting started with aws cloud formation
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
+                2 hours ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws/">aws</a><span>></span><a class="article-category-link" href="/categories/aws/cloud-formation/">cloud formation</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 830 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="what-is-vpc">What is VPC</span></h2><p>VPC 란 Virtual Private Cloud 의 약어로 사용자가 모든 AWS 자원에 대한 Access Control 이 가능한 private network 입니다.</p>
+<p>즉, 사용자는 VPC 안의 Internet Gateway, Route Table, Subnet 등 다양한 네트워크 리소스를 마음대로 제어할 수 있으며 자신의 네트워크에 접근할 수 있는 사용자들에 대한 권한설정이 가능합니다.</p>
+<p>다음 그림은 AWS 의 VPC 를 시각적으로 표현한 도식입니다.</p>
+<p><img src="/images/Screen Shot 2019-04-20 at 4.40.45 PM.png" alt="Screen Shot 2019-04-20 at 4.40.45 PM"></p>
+<p>아마존에는 수많은 region 이 존재하며, 이는 전 세계에 분포되어 있으며, 각 지역별 가용한 zone 을 Availavility Zone 이라고 부릅니다.</p>
+<p>사용자는 여러 availability 존에 분산하여 리소스를 운영함으로써 aws 에 지역적인 결함이 생겨도 문제없이 서비스를 운영할 수 있습니다. VPC 는 이러한 여러 Region 을 모두 포괄하는 개념입니다.</p>
+<p>VPC를 세팅함에 있어 다음과 같은 순서로 진행합니다.</p>
+<ol>
+<li>Choosing IP Address<br>VPC 는 네트워크로써 외부에서 접근하기 위한 IP 주소를 가지며, 내부 ip를 사용합니다.<br>사용할 내부 IP의 범위를 설정하며 이는 CIDR 표기법으로 작성합니다.</li>
+<li>Routing Table 을 설정합니다.<br>VPC 내부에서 외부로 자원을 요청할 때, VPC 는 외부 주소를 확인해야 합니다. 이처럼 외부 주소를 라우팅 해주는 Route Table 이 필요하며 Routing Table 은 외부 요청에 대한 Routing 을 담당합니다.</li>
+<li>Security Group<br>각 VPC 에는 여러 개의 Security 그룹을 가질 수 있으며, VPC 내의 리소스 마다 해당 VPC에 종속되는 Security 그룹을 할당합니다.</li>
+</ol>
+<h3><span id="choosing-ip-address">Choosing IP Address</span></h3><p>사용할 내부 IP 의 범위를 설정합니다.</p>
+<p><img src="/images/Screen Shot 2019-04-20 at 4.42.00 PM.png" alt="Screen Shot 2019-04-20 at 4.42.00 PM"></p>
+<h3><span id="routing-table">Routing Table</span></h3><p>아래와 같이 요청을 Route 해줄 Routing Table 을 설정합니다. <strong>네트워크 외부로의 요청에 대한 Routing 을 담당합니다.</strong></p>
+<p><img src="/images/Screen Shot 2019-04-20 at 4.44.39 PM.png" alt="Screen Shot 2019-04-20 at 4.44.39 PM"></p>
+<p>해당 VPC 의 모든 내부 ip 는 local 로 routing 하며 그 외의 모든 주소에 대해서는 Internet Gateway 에 요청을 전달하고 적합한 목적지로 요청을 Routing 해줍니다.</p>
+<h3><span id="setup-subnet">Setup Subnet</span></h3><p>요청에 대한 접근 관리는 Security Group 설정으로 관리됩니다.</p>
+<p><img src="/images/Screen Shot 2019-04-20 at 4.47.21 PM.png" alt="Screen Shot 2019-04-20 at 4.47.21 PM"></p>
+<p>위 그림에서 위의 4개의 인스턴스는 웹 서버를 의미하며, 아래의 세개의 인스턴스는 웹 서버에서만 접근이 가능한 private resource 입니다.</p>
+<p>각 subnet 은 vac 의 서로 다른 내부 ip range 를 할당하여 가상으로 다른 네트워크로 분리합니다.</p>
+<p>이 경우 두개의 resource 를 각각 <strong>public subnet</strong> 과 <strong>private subnet</strong> 으로 나누어 관리할 수 있으며 각 subnet 마다 다른 security 그룹을 할당하여 접근을 관리할 수 있습니다.</p>
+<p>## </p>
+<h3><span id="outbound-request-in-vpc">Outbound request in VPC</span></h3><p>아래와 같이 외부로의 요청을 처리하는 NAT 는 VPC 의 내부 ip range 로의 모든 요청을 VPC 내부로 Route 하고 그 외의 모든 요청을 NAT Gateway 를 통한 외부접근으로 설정한다.</p>
+<p><img src="/images/Screen Shot 2019-04-20 at 4.55.35 PM.png" alt="Screen Shot 2019-04-20 at 4.55.35 PM"></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/04/08/hyperledger-fabric-시작하기/" itemprop="url">
+                
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-08T13:48:34.167Z" itemprop="datePublished">
+                12 days ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1216 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="hyperledger-fabric-시작하기">Hyperledger fabric 시작하기</span></h1><h2><span id="prerequisition">Prerequisition</span></h2><ol>
+<li>docker 설치하기</li>
+<li>virtual box 다운로드</li>
+</ol>
+<h2><span id="vm-환경-설정">VM 환경 설정</span></h2><p>먼저 다음 명령어를 통해 docker를 사용하기 위한 VM을 생성해 줍니다.</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --driver virtualbox blockchain</span><br></pre></td></tr></table></figure>
+<p>새로 생성된 VM의 환경변수를 Host에 적용해 줍니다</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine env blockchain</span><br></pre></td></tr></table></figure>
+<p>운영체제에 따라 다음과 같은 명령을 실행해 줍니다.</p>
+<p>MacOS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ eval $(docker-machine env blockchain)</span><br></pre></td></tr></table></figure>
+<p>Windows</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@FOR /f &quot;tokens=*&quot; %i IN (&apos;docker-machine env blockchain&apos;) DO @%i</span><br></pre></td></tr></table></figure>
+<p>Docker 사용을 위한 환경 설정이 잘 되었는지 확인합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<h2><span id="download-hyperledger-fabric-docker-image">Download hyperledger fabric docker image</span></h2><p>다음의 명령을 통해서 모든 이미지를 받습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull hyperledger/fabric-baseimage:x86_64-0.2.2</span><br><span class="line">docker pull hyperledger/fabric-membersrvc:x86_64-0.6.1-preview</span><br><span class="line">docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview</span><br></pre></td></tr></table></figure>
+<p>이미지를 다 받으셨으면 <code>docker images</code> 명령을 통해서 이미지 리스트를 확인합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p><code>baseimage</code>의 경우 Tab를 latest로 태깅을 해야 합니다. 향후 블록체인의 운영모드에서 체인코드 디플로이를 할 경우 baseimage를 통해 체인코드 구동을 위한 Docker 이미지를 만드는데 <code>hyplerledger/fabric-baseimage:latest</code> 를 사용합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag hyperledger/fabric-baseimage:x86_64-0.2.2 hyperledger/fabric-baseimgae:latest</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<h2><span id="docker-configuration">docker     configuration</span></h2><p>Docker-compose.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">membersrvc:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">hyperledger/fabric-membersrvc:x86_64-0.6.1-preview</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7054:7054"</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">membersrvc</span></span><br><span class="line"><span class="attr">vp0:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">hyperledger/fabric-peer:x86_64-0.6.1-preview</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7050:7050"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7051:7051"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7053:7053"</span></span><br><span class="line"><span class="attr">  environment:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_ADDRESSAUTODETECT=true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_LOGGING_LEVEL=DEBUG</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_ID=vp0</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_PKI_ECA_PADDR=membersrvc:7054</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_PKI_TCA_PADDR=membersrvc:7054</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_PKI_TLSCA_PADDR=membersrvc:7054</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_SECURITY_ENABLED=true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_SECURITY_ENROLLID=test_vp0</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_SECURITY_ENROLLSECRET=MwYpmSRjupbT</span></span><br><span class="line"><span class="attr">  links:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">membersrvc</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">sh</span> <span class="bullet">-c</span> <span class="string">"sleep 5; peer node start --peer-chaincodedev"</span></span><br></pre></td></tr></table></figure>
+<h2><span id="fabric-소스-준비하기">Fabric 소스 준비하기</span></h2><p>컴퓨터의 go path 내에 hyper ledger-fabric 의 코드를 받습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $GOPATH/src/github.com/hyperledger</span><br><span class="line">cd $GOPATH/src/github.com/hyperledger</span><br><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br><span class="line">cd fabric</span><br><span class="line">git checkout v0.6.1-preview</span><br></pre></td></tr></table></figure>
+<p>우선 예제 코드를 빌드하여 블록체인 네트워크 상에서 동작을 확인해 봅시다.</p>
+<p>MacOS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $GOPATH/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02</span><br><span class="line">go build</span><br></pre></td></tr></table></figure>
+<p>Windows</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd %GOPATH%\src\github.com\hyperledger\fabric\examples\chaincode\go\chaincode_example02</span><br><span class="line">&gt; go build</span><br></pre></td></tr></table></figure>
+<p>위의 과정을 문제없이 완료하였으면 <code>chaincode_example02</code> 디렉토리 하위에 chaincode_example02 라는 이름으로 실행파일이 생성되었을 겁니다.(Windows는 chaincode_example02.exe ) 개발모드에서는 이 실행파일을 몇 개의 환경변수와 함께 실행하기만 하면 블록체인 런타임에서 트랜잭션 테스트가 가능한 상태가 됩니다.</p>
+<h2><span id="스마트-컨트랙의-배포">스마트 컨트랙의 배포</span></h2><p>체인 코드를 validating peer 컨테이너에 복사해 넣고 rest api로 deploy만 호출하면 블록체인 네트워크 전체에 코드가 적용됩니다.</p>
+<p>다음은 운영모드에서 어떻게 체인크도그 반영되는지를 보여줍니다.</p>
+<h3><span id="체인코드의-디플로이-프로세스">체인코드의 디플로이 프로세스</span></h3><ol>
+<li>운영모드에서 체인코드 디플로이가 요청되면 요청을 받은 Peer는 블록체인 네트워크상에 연결되어 있느 모든 피어에게 동일한 체인코드를 전송합니다.</li>
+<li>체인 코드를 받은 각 validating peer는 체인코드르 빌드하여 체인 구동을 위한 docker-image를 만들고, 실행하게 됩니다.</li>
+<li>validating peer는 docker remote api서비스에 체인코드를 위한 docker-image 생성 및 실행을 요청하고 docker-engine은 hyper ledger/fabric-baseimage를 이용하여 체인코드 docker이미지를 생성하고 실행합니다.</li>
+</ol>
+<h3><span id="validating-peer의-수정">Validating Peer의 수정</span></h3><p>docker machine은 VM 환경을 만들 때 기본적으로 https 통신을 하도록 docker 엔진을 구동하고, validating peer 가 docker engine api 에 요청하기 위해서는 블록체인의 ssl certificate를 가지고 있어야합니다.</p>
+<p>이렇게 validating peer 가 ssl certificate를 가지기 위해 다음과 같은 절차를 거칩니다.</p>
+<ol>
+<li>실행중인 validating peer  컨테이너에 certificate들을 복사합니다.</li>
+<li>실행중인 Validating Peer 컨테이너에 터미널로 접속해서 설정파일을 수정합니다.</li>
+<li>Validating Peer에서 빠져나와서 실행중인 Validating Peer 컨테이너를 새로운 이미지 명으로 commit 합니다.</li>
+<li>새로 생성된 이미지로 Validating Peer를 다시 구동합니다.</li>
+</ol>
+<h3><span id="컨테이너에-ssl-인증서-복사">컨테이너에 ssl 인증서 복사</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">컨테이너에서 로컬로 복사</span><br><span class="line">docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH</span><br><span class="line"></span><br><span class="line">로컬에서 컨테이너로 복사</span><br><span class="line">docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</span><br></pre></td></tr></table></figure>
+<p>인증서 위치</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd $HOME/.docker/machine/machines/blockchain</span><br><span class="line">$ mkdir key</span><br><span class="line">$ cp &#123;cert,ca,key&#125;.pem key</span><br></pre></td></tr></table></figure>
+<p>도커 컨테이너 아이디 확인</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<p>컨테이너에서 Peer의 설정파일에 인증서 위치를 명시</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 컨테이너ID bash</span><br><span class="line"></span><br><span class="line">위 그럼을 기준으로 명령 예는 다음과 같습니다.</span><br><span class="line">docker exec -it 4409df7072c4 bash</span><br></pre></td></tr></table></figure>
+<p>docker의 bash 에 접근하였으면 다음과 같은 설정파일을 수정한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> cd membersrvc</span><br><span class="line"># vi membersrvc.yaml</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/28/what-is-the-restful-api/" itemprop="url">
+                What is the RESTful API
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-28T12:40:05.000Z" itemprop="datePublished">
+                23 days ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/rest/">rest</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 574 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="what-is-the-restful-api">What is the RESTful API</span></h2><p>Rest API 란 WWW 과 같은 분산 하이퍼미디어 시스템을 위한 소프트웨어 아키텍처의 한 형식으로 자원을 정의하고 자원에 대한 주소를 지정하는 방법 전반에 대한 패턴이다.</p>
+<p>좀 더 쉽게 말하자면, REST API 란 인터넷이라는 정보의 바다에서 정보를 주고받는 활동을 <strong>인터넷에 있는 자원과 자원의 위치를 명시</strong> 하는 일종의 방법론이자 아키텍처이다. API 설계의 핵심은 자원을 사용하는 것이고 HTTP method 를 통해 자원을 처리하는 양식을 일컷는다.</p>
+<h2><span id="characteristics-of-rest-api">Characteristics of REST API</span></h2><ol>
+<li><p>Uniform Interface<br>URI로 지정한 리소스에 대한 조작을 통일되고 한정적인 인터페이스로 수행합니다.<br>이는 REST API 의 핵심이며, 자원과 자원에 대한 행위(HTTP method) 를 명확히 구분하고 준수합니다.</p>
+</li>
+<li><p>Stateless<br>REST 는 상태를 가지지 않습니다. 즉, 작업을 위한 상태 정보를 저장하고 관리하지 않기에 서버는 들어오는 요청만 단순히 처리하면 됩니다. 이를 통해 구현이 간편해 집니다.</p>
+</li>
+<li>Cacheable<br>HTTP라는 기존 웹표준을 그대로 사용하기 때문에, Http가 가진 캐싱 기능을 사용할 수 있습니다.</li>
+<li>Self descriptiveness<br>REST API uri 만 보고도 이를 쉽게 이해할 수 있는 자체 표현구조로 되어있습니다.</li>
+<li>Client-Server 구조<br>자원을 제공자인 Server 와 사용자인 Client 가 명확히 구분되기에 의존성이 없습니다.</li>
+<li>계층형 구조<br>REST 서버는 다중 계층으로 구성될 수 있으며 보안, 로드 밸런싱, 암호화 계층을 추가해 구조상의 유연성을 둘 수 있고 PROXY, 게이트웨이 같은 네트워크 기반의 중간매체를 사용할 수 있게 합니다.</li>
+</ol>
+<h2><span id="how-to-design-restful-api">How to design RESTful API</span></h2><p>REST API 설계시 가장 중요한 항목은 다음 두가지로 요약할 수 있습니다.</p>
+<ol>
+<li>URI 는 정보의 자원을 표현해야 한다.</li>
+<li>자원에 대한 행위는 HTTP method 로 표현한다.</li>
+</ol>
+<p>즉, URI 는 어떤 자원을 사용할지에 대한</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/28/what-is-the-object-oriented-programming/" itemprop="url">
+                What is the object oriented programming
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-28T12:00:56.000Z" itemprop="datePublished">
+                23 days ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/top/">top</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 956 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="what-is-the-object-oriented-programming">What is the object oriented programming</span></h1><p>객체지향 프로그래밍 이란 그 이전의 프로그래밍이 컴퓨터가 하는 동작 즉, 명령 단위의 프로그래밍을 벗어나 인간이 사고하는 방식 그대로를 표현할 수 있는 방식으로 프로그래밍을 하는 프로그래밍 패러다임을 의미한다.</p>
+<p>객체지향 프로그래밍 에서는 실제 생활의 행동과 사물 그대로를 프로그램 상에서 표현하며 모든 프로그래밍은 이러한 ‘객체’ 를 기반으로 움직이게 된다. 여기서 객체라 하면 <strong>속성(attributes) 과 행위(method)를 가지는 일종의 데이터이다.</strong></p>
+<p>이러한 객체지향 프로그래밍에서는 코드 재사용성과 확장성을 위해 <strong>상속(inheritance)</strong> 이라는 개념이 존재하는데, 이는 <strong>class 와 prototype</strong> 의 형태로 나타난다.</p>
+<p>먼저 <strong>class based language</strong> 에서는 object 보다 항상 class 가 먼저 정의되어야 하며, object 는 이러한 class 를 통해 생성된다. Class 를 통해 instantiate 된 객체를 instance 라고 하며, 이렇게 생성된 instance 는 class 의 속성에 따라 일관된 방식으로 통제될 수 있다. 이러한 class based language 에서는 특정 class 를 inherit 하여 코드 재사용성과 확장성을 늘릴 수 있는데, 이렇게 상위 class 를 inherit 받아 새로운 class 가 생성되면, 상위 class 를 <strong>super class</strong> 상속받은 클래스를 <strong>subclass</strong> 라고 부른다.</p>
+<p><strong>prototype-based language</strong> 에서는 class 라는 개념이 없으며, prototype 이라는 개념을 통해 object 자체를 복사하고 확장한다. 가령 javascript 와 같은 언어들이 이러한 갈래에 속하지만 시간이 지남에 따라 javascript 에서도 class 를 지원하면서 그 성격이 변화하고 있다.</p>
+<p>이러한 객체지향 프로그래밍의 장점은 재사용성이 매우 높다는 것이다, 특정 객체가 수행하는 역할과 특성을 명확하게 규정해 놓으면 다른 개발자들은 해당 객체를 간편하게 가져다 쓸 수 있다. 이는 프로그램의 기능인 도메인 단위로 객체들이 잘 나뉘어 있기 때문이며, 가령 함수의 이름이나 클래스의 이름만으로도 해당 객체의 특성을 손쉽게 유추하고 사용할 수 있는 특성이 있다.</p>
+<p>하지만, 이러한 OOP 에도 단점이 존재하는데, 아는 procedural program 에 비해 코드라인이 길고 특정 기능을 수행하기 위해 많은 명령어가 수행되기 때문에 상대적으로 성능이 좋지 않은 부분이 있다.</p>
+<p>또한, 각 개체가 저마다의 상태를 가지기 때문에, 예상치 못한 상태의 불일치로 예측할 수 없는 상태를 가지게 되는 경우가 있어 어플리케이션 내부에서 버그를 가지는 경우가 있다. 이를 해결하기 위한 방안으로 <strong>functional programming</strong> 이 대두되고 있는데, 그 핵심은 바로 모든 기능을 수학적 함수로 계산하는 것으로 취급하여 최대한 상태변화 혹은 mutable data 를 변경하지 않는 것을 원칙으로 한다. 가령, 함수형 프로그래밍 에서는 <strong>pure function</strong> 이란 개념을 매우 중요하게 여기는 데 이는 같은 입력값을 주면 항상 같은 결과가 나오는 함수로 전역 변수나 혹은 특정 시스템의 상태에 좌우되지 않는 pure 한 함수를 의미하고 이러한 pure function 은 시스템의 안정성을 높여주는 핵심적인 역할을 한다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/28/setup-nodejs-in-ubuntu/" itemprop="url">
+                Setup Nodejs in ubuntu
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-28T02:14:34.000Z" itemprop="datePublished">
+                23 days ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/ubuntu/">ubuntu</a><span>></span><a class="article-category-link" href="/categories/ubuntu/nodejs/">nodejs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 8 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="setup">Setup</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/27/marketing-workbook/" itemprop="url">
+                Marketing workbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
+                24 days ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/marketing/">marketing</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 125 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="sass-marketing-tactic">SASS marketing tactic</span></h2><ol>
+<li>free tool, educational content</li>
+<li>free trial</li>
+<li>Identify ideal customer who is the actual customer</li>
+<li>SEO, content marketing</li>
+<li>collect email(by register in homepage)</li>
+<li>live chat</li>
+</ol>
+<h2><span id="b2b-marketing">B2B marketing</span></h2><ol>
+<li><p>Quora 에서 질답하며 인사이트를 확보하고 고객의 비즈니스를 이해한다.</p>
+</li>
+<li><p>커뮤니티, 포럼에 참석한다.</p>
+<p>inbound.org, growthhackers.com</p>
+<p>Hackers new, insidehackers</p>
+</li>
+<li><p>링크드인과 페이스북 그룹을 통해 기업 관계자들과 친분을 쌓는다.</p>
+</li>
+<li><p>슬랙 커뮤니티에 활동하라</p>
+</li>
+<li><p>다른 브랜드와 협업하라</p>
+</li>
+</ol>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/27/getting-started-with-pyqt/" itemprop="url">
+                Getting started with PyQt
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-26T23:34:19.000Z" itemprop="datePublished">
+                24 days ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/python/">python</a><span>></span><a class="article-category-link" href="/categories/python/pyqt/">pyqt</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 131 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="what-is-pyqt">What is PyQt?</span></h2><p>Qt 란 GUI 크로스 플랫폼 프레임워크로 운영체제에 관계없이 같은 코드로 동작하는 프레임워크이다.</p>
+<p>PyQt 는 이러한 Qt 프레임워크의 python 바인딩이다.</p>
+<p>Qt Designer 는 WYSIWYG(What You See Is What You Get) 방식의 간편한 디자인 툴도 제공한다.</p>
+<h3><span id="basic-usage">Basic Usage</span></h3><p>QApplication.exec() 은 qt 어플리케이션을 시작하고 event loop 에 진입시킨다.</p>
+<h3><span id="ocx">OCX</span></h3><p>Object linking and embedding Custom Control 의 약어로 모듈화된 파일이다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/22/building-node-api-server-based-on-ddd-architecture/" itemprop="url">
+                Building node API server based on DDD architecture
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-22T07:02:12.000Z" itemprop="datePublished">
+                a month ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 992 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="building-node-api-server-based-on-ddd-architecture">Building node API server based on DDD architecture</span></h1><h2><span id="domain-layer">Domain Layer</span></h2><p>Domain 레이어는 각 서브 도메인 마다 model, service, repository를 가지며 다음과 같은 역할을 수행한다.</p>
+<p>-   Model</p>
+<p>​    해당 도메인의 모델링이 정의되고, 해당 도메인 내에서의 항상성과 유효성을 담당한다.</p>
+<p>-   Service</p>
+<p>​    주로 여러 도메인을 아우르는 로직을 처리한다.</p>
+<p>-   Repository</p>
+<p>​    도메인 단위로 DB 입출력을 담당하며, 실제 구현은 infra layer의 repository implementation에서 이루어 지며, interface만 정의되어 있다.</p>
+<h2><span id="api-layer">API Layer</span></h2><p>도메인의 서비스들을 조합하며 엔드 유저 레벨에서의 기능수행이 이루어 진다.</p>
+<p>가령 특정 재화를 구매함에 따라 결제를 수행하는 어플리케이션이 있다면 본 api 레이어에는 ‘결제’와 같은 엔드 유저 레벨에서의 함수가 들어가며, 결제 데이터 생성, 구매자의 감소 등과 같은 로직은 도메인의 모델 및 서비스 레벨에서 처리된다.</p>
+<h2><span id="infra-layer">Infra layer</span></h2><p>도메인의 비즈니스 로직들이 잘 수행될 수 있도록 DB, http 라우터 등 외부 환경을 다루는 실제 구현이 이루어 진다.</p>
+<p>본 레이어에서 도메인의 repository interface에 정의된 함수들을 실제로 구현하며, express router를 활용하여 외부 요청에 대한 라우팅을 수행한다.</p>
+<p>또한 본 레이어에는 middleware, auth guard, errorHandler 처럼 도메인에 접근하기 전에 전처리되거나 비즈니스 로직 이후 클라이언트에게 반환할 반환값에 대한 후처리 로직이 들어간다.</p>
+<p>auth guard 는 decorator 를 사용하여 제작되었다.</p>
+<h2><span id="branching-model">Branching Model</span></h2><p>모든 작업 내용은 feature/[브랜치 명] 에서 작업하고, dev 서버에 배포하기 위한 버전을 develop 브랜치에 푸시한다.</p>
+<p>Release 브랜치에서 develop 브랜치를 pull 하면서 코드리뷰를 진행하고 모든 코드리뷰 사항이 반영되면 release 브랜치에 머지된다.</p>
+<p>release 브랜치에서 스프린트 및 일정관리, 테스트 작업을 진행하며 안정화되면 master 브랜치로 push 하고 서비스 배포한다.</p>
+<p>-   Master: 실제 서비스 배포를 위한 브랜치</p>
+<p>-   Release: 개발 진행의 경과가 되는 브랜치로 QA 및 일정관리의 지표가 된다.</p>
+<p>-   Develop: 각 개발자들이 실시간으로 머지하는 브랜치로 테스트 서버의 소스코드가 보관된다.</p>
+<p>-   Feature: 각 개발자들이 임의로 자신들의 작업량을 작업한다.</p>
+<h2><span id="input-validation">Input validation</span></h2><p>본 프로젝트에서는 클라이언트의 요청값을 검증함에 있어 모든 요청의 형태를 DTO 형태로 정의하고 해당 DTO 에 값을 넣기 전에 <code>Joi</code> 라이브러리를 사용하여 요청값에 대한 검증을 수행한다.</p>
+<h2><span id="tsconfig-setting">tsconfig setting</span></h2><p>각 파일에서 다른 파일을 import 함에 있어서 보다 가독성을 높이기 위해 @domain과 같이 태그를 하여 손쉽게 import를 할 수 있습니다.</p>
+<p>tsconfig.json 파일의 예</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">"paths"</span>: &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">"@domain/"</span>: [<span class="string">"server/domain/"</span>]</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위처럼 옵션을 설정하면 복잡한 filepath 대신 위의 태그네임을 통해 import 할 수 있습니다.</p>
+<p>이때 위의 태그네임이 잘 반영이 되지 않는 경우가 있는데, 이는 웹팩에서 트랜스파일링을 하는 과정에서 webpack.config.js 세팅을 바꾸어 줌으로써 해결이 가능합니다.</p>
+<p>태그 네이밍을 하기 위해서 tsconfig-paths-webpack-plugin 을 사용하는데 해당 플러그인은 다음과 같이</p>
+<p>루트 plugin이 아닌 resolve 내의 plugin 내에 설정되어야 합니다.</p>
+<p>webpack.config.js의 예</p>
+<p>\<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    resolve: &#123;</span><br><span class="line"></span><br><span class="line">​        plugins: [</span><br><span class="line"></span><br><span class="line">​            <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line"></span><br><span class="line">​                configFile: <span class="string">'./tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line"></span><br><span class="line">​            &#125;)</span><br><span class="line"></span><br><span class="line">​        ];</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\</span><br></pre></td></tr></table></figure></p>
+<h3><span id="author">Author</span></h3><p><a href="https://github.com/frontalnh" target="_blank" rel="noopener">frontalnh(Namhoon Lee)</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/16/nuxt-js-시작하기/" itemprop="url">
+                Nuxt.js 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-16T09:14:59.000Z" itemprop="datePublished">
+                a month ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/next/">next</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                13 minutes read (About 1997 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#next-cli">Next CLI</a></li>
+<li><a href="#vuex">Vuex</a></li>
+<li><a href="#global-css">Global CSS</a><ul>
+<li><a href="#setup-vuetify">Setup Vuetify</a></li>
+</ul>
+</li>
+<li><a href="#nuxt-에서-axios-사용하기">Nuxt 에서 axios 사용하기</a><ul>
+<li><a href="#기본-사용법">기본 사용법</a></li>
+<li><a href="#http-helper-plugin-적용">http helper plugin 적용</a></li>
+</ul>
+</li>
+<li><a href="#plugin-사용하기">Plugin 사용하기</a><ul>
+<li><a href="#플러그인-만들기">플러그인 만들기</a></li>
+<li><a href="#플러그인-등록하기">플러그인 등록하기</a></li>
+<li><a href="#vue-instance-contextk-store-에서-사용가능하게-등록하기">Vue instance, Contextk, Store 에서 사용가능하게 등록하기</a></li>
+</ul>
+</li>
+<li><a href="#reverse-proxy">Reverse proxy</a></li>
+<li><a href="#global-modal">Global Modal</a></li>
+<li><a href="#environment-variables">Environment variables</a></li>
+<li><a href="#problem-solving">Problem solving</a><ul>
+<li><a href="#layout-사용하기">layout 사용하기</a></li>
+<li><a href="#unexpected-token-import">Unexpected token import</a></li>
+<li><a href="#cannot-find-module">cannot find module</a></li>
+<li><a href="#query-string-nested-object">Query string nested object</a></li>
+<li><a href="#custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</a></li>
+<li><a href="#다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="installation">Installation</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vue init nuxt-community/typescript-template [프로젝트 명];</span><br><span class="line"></span><br><span class="line">yarn add nuxt-property-decorator &amp;&amp; <span class="comment"># property decorator installation</span></span><br><span class="line">yarn add tsconfig-paths-webpack-plugin &amp;&amp;<span class="comment"># webpack 에서 typescript 를 사용하기 위한 세팅</span></span><br><span class="line">yarn add ts-loader &amp;&amp; <span class="comment"># typescript 사용을 위한 ts-loader 설치</span></span><br><span class="line">yarn add vuex-class &amp;&amp; <span class="comment"># Vuex 를 class 타입으로 사용하기 위해 설치</span></span><br><span class="line">yarn add nuxt-sass-resources-loader &amp;&amp; <span class="comment"># For using sass</span></span><br><span class="line">yarn add sass-loader <span class="comment"># for using sass</span></span><br></pre></td></tr></table></figure>
+<p>타입스크립트를 트랜스파일링 하기 위해 webpack configuration을 바꾸어 주어야 한다.</p>
+<p>이는 nuxt.config.js 에서 webpack configuration 을 overriding 함으로써 구현한다.</p>
+<p>nuxt.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ** You can extend webpack config here</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  extend(config, ctx) &#123;</span><br><span class="line">    config.resolve.extensions.push(<span class="string">'.ts'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> tsLoader = &#123;</span><br><span class="line">      loader: <span class="string">'ts-loader'</span>,</span><br><span class="line">      options: &#123; <span class="attr">appendTsSuffixTo</span>: [<span class="regexp">/\.vue$/</span>], <span class="attr">transpileOnly</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">      exclude: [<span class="regexp">/vendor/</span>, /\.nuxt/]</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    config.module.rules.push(&#123; <span class="attr">test</span>: <span class="regexp">/.tsx?$/</span>, ...tsLoader &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> rule <span class="keyword">of</span> config.module.rules) &#123;</span><br><span class="line">      <span class="keyword">if</span> (rule.loader === <span class="string">'vue-loader'</span>) &#123;</span><br><span class="line">        rule.options.loaders = &#123;</span><br><span class="line">          ts: tsLoader</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> plugin = <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line">      configFile: <span class="string">'tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    config.resolve[<span class="string">'plugins'</span>] = [plugin];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="next-cli">Next CLI</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install dependencies</span></span><br><span class="line"></span><br><span class="line">$ npm install <span class="comment"># Or yarn install</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># serve with hot reload at localhost:3000</span></span><br><span class="line"></span><br><span class="line">$ npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># build for production and launch server</span></span><br><span class="line"></span><br><span class="line">$ npm run build</span><br><span class="line"></span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line"><span class="comment"># generate static project</span></span><br><span class="line"></span><br><span class="line">$ npm run generate</span><br></pre></td></tr></table></figure>
+<h2><span id="vuex">Vuex</span></h2><p>store 디렉토리는 어플리케이션에서 사용하는 도메인 객체들의 저장소이다.</p>
+<p>초기 프로젝트는 Vuex 가 disable 된 상태이나 다음과 같이 store/index.js 파일을 작성하면, Vuex 를 사용할 수 있다.</p>
+<p>store/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createStore = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">      counter: <span class="number">0</span></span><br><span class="line">    &#125;),</span><br><span class="line">    mutations: &#123;</span><br><span class="line">      increment(state) &#123;</span><br><span class="line">        state.counter++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore;</span><br></pre></td></tr></table></figure>
+<p>Vuex state 의 경우 nested 된 object 의 경우 내부 값만 바뀌면 store 가 업데이트 되지 않는 현상이 있다.</p>
+<p>이를 위한 해결법으로 state.prop[key] ={} 와 같은 연산이 있다면 이를 <code>state.prop={[key]:{}}</code> 와 같이 수정하는 트릭을 쓸 수 있다.</p>
+<h2><span id="global-css">Global CSS</span></h2><p>nuxt.config.js 에서 head 에 추가한다.</p>
+<h3><span id="setup-vuetify">Setup Vuetify</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @nuxtjs/vuetify</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuetify <span class="keyword">from</span> <span class="string">'vuetify'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuetify);</span><br><span class="line"><span class="keyword">import</span> <span class="string">'vuetify/dist/vuetify.min.css'</span>; <span class="comment">// Ensure you are using css-loader</span></span><br></pre></td></tr></table></figure>
+<p>nuxt.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'@nuxtjs/vuetify'</span></span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Vuetify options</span></span><br><span class="line">  vuetify: &#123;</span><br><span class="line">    <span class="comment">//  theme: &#123; &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="nuxt-에서-axios-사용하기">Nuxt 에서 axios 사용하기</span></h2><h3><span id="기본-사용법">기본 사용법</span></h3><p>Nuxt 에서는 기본적으로 다음과 같은 방법을 통해 axios 모듈을 사용할 수 있다.</p>
+<p>여기서, 왜 그냥 axios 를 동적으로 import 해서 사용하지 않고 nuxt 가 제공하는 axios 를 사용해야 하는지 궁금할 수 있다.</p>
+<p>바로 그 이유는, nuxt 는 기본적으로 server redering 방식으로 동작하기 때문에, browser cookie 와 jwt 토큰 등의 중앙적인 데이터에 접근하기가 힘들기 때문이다.</p>
+<p>nuxt 가 제공하는 axios 는 withCredential 등을 통해 간편하게 cookie 데이터에 접근할 수 있는 장점이 있다.</p>
+<p>axios 설치</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @nuxtjs/axios</span><br></pre></td></tr></table></figure>
+<p>axios 모듈 등록</p>
+<p>nuxt.config.ts</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'@nuxtjs/axios'</span>,</span><br><span class="line">  ],</span><br><span class="line">  axios: &#123;</span><br><span class="line">    <span class="comment">// proxyHeaders: false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이를 통해 각 component 의 <code>this.$axios</code> 와 <code>context 의 $axios</code> 를 통해 axios를 사용할 수 있다.</p>
+<p>하지만, 여기서는 범용 logger 혹은 http request 에 있어서 일관된 에러 핸들링 등을 할 수 없기 때문에 이 함수를 사용하는 httpHelper 플러그인을 구현하여 이를 가능하도록 한다.</p>
+<h3><span id="http-helper-plugin-적용">http helper plugin 적용</span></h3><p>여기서 httpHelper의 경우 get, post, put, delete 등의 메소드를 wrapping 하는 다양한 함수들이 존재하며 여기서는 구현을 생략하겠다.</p>
+<p>중요한 점은 이런 HttpHelper 클래스가 plugin 에서 <code>$axios</code> 를 주입받아 새로운 메소드를 구현하며, 이를 <code>inject 함수를 통해 vue instance, store, context 에 바인딩 하여 어느 곳에서나 사용 가능하게 해준다는 것이다.</code></p>
+<p>plugins/httpHelper.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; HttpHelper &#125; <span class="keyword">from</span> <span class="string">'utils/httpHelper'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">context, inject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123; $axios &#125; = context;</span><br><span class="line">  <span class="keyword">let</span> httpHelper = <span class="keyword">new</span> HttpHelper($axios);</span><br><span class="line">  context.$httpHelper = httpHelper;</span><br><span class="line"></span><br><span class="line">  inject(<span class="string">'httpHelper'</span>, httpHelper);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="plugin-사용하기">Plugin 사용하기</span></h2><p>Vue.js 의 자체 기능 뿐 아니라 다양한 외부 라이브러리 혹은 사용자의 external util function 등을 활용하기 위해서 nuxt 는 plugin 이라는 기능을 제공한다.</p>
+<p>이러한 plugin 을 통해서 사용자는 사용하고자 하는 함수 혹은 instance 를 vue root application 혹은 context 에 binding 할 수 있다.</p>
+<h3><span id="플러그인-만들기">플러그인 만들기</span></h3><p>plugins/sample.ts</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (context, inject) =&gt; &#123;</span><br><span class="line">  context.$sample = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3><span id="플러그인-등록하기">플러그인 등록하기</span></h3><p>플러그인을 사용하기 위해 nuxt configuration 에 등록시켜 주어야 한다.<br>nuxt.config.ts</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  plugins: [<span class="string">'~/plugins/sample.ts'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3><span id="vue-instance-contextk-store-에서-사용가능하게-등록하기">Vue instance, Contextk, Store 에서 사용가능하게 등록하기</span></h3><p>기본적으로 plugin 을 등록하면 오직 context 혹은 vue instance 내에서만 사용 가능하다.<br>하지만 store 혹은 여러 곳에서 이 함수 혹은 인스턴스에 접근하고자 한다면 <code>inject</code> 함수를 이용하여 전역에서 사용가능하게 등록시켜 주어야 한다.</p>
+<p>아래처럼 <code>&#39;sample&#39;</code> 과 같이 <code>$</code> 기호를 생략하고 등록해 주면 <code>$sample</code> 과 같이 변형되어 바인딩 된다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (context, inject) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> sample = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">let</span> sample2 = &#123;</span><br><span class="line">    b: <span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(x);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  inject(<span class="string">'sample'</span>, sample);</span><br><span class="line">  inject(<span class="string">'sample2'</span>, sample2);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>이를 통해 context, Vue 인스턴스 내에서의 this 등 어디에서는 이곳에 접근할 수 있게 된다.</code></p>
+<h2><span id="reverse-proxy">Reverse proxy</span></h2><p>클라이언트가 서버를 호출하는 경우 <code>cors(cross origin resource sharing</code> 문제로 브라우저 내에 렌더링 된 페이지를 준 호스트가 아닌 다른 곳으로의 요청은 기본적으로 막혀있다.</p>
+<p>사실 이는 nuxt.js 뿐만이 아니라 대부분의 웹 어플리케이션 배포 과정에서 나타나는 문제인데, nuxt.js 에서는 그 해결과정이 조금 다르기 때문에 작성한다.</p>
+<p>다른 어플리케이션 배포과정의 경우 일반적으로 nginx 와 같은 web server 를 사용하여 reverse proxy 를 통해 클라이언트 내의 서버 요청 url 을 같은 호스트로 설정하고, 같은 호스트로 오는 요청의 url 을 분석하여 같은 호스트 내의 다른 포트로 리다이렉팅 시켜주는 등의 해결법을 제시하지만, nuxt.js 의 경우 server rendering 프레임워크로 독자적으로 hosing 을 하는 만큼, 자체적으로 reverse proxy 를 제공하며, <code>nuxt.config.js</code> 파일에 다음과 같이 <code>reverse proxy</code> 설정을 주어 해결할 수 있다.</p>
+<p>nuxt.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> serverUrl = <span class="string">"localhost:3002"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    <span class="string">'/api/'</span>: serverUrl</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="global-modal">Global Modal</span></h2><p>전역으로 alert와 dialog를 사용하기 위해 layout 레이어에서 해당 모듈을 구현하였으며, 이는 page store 를 통해 접근이 가능하다.</p>
+<h2><span id="environment-variables">Environment variables</span></h2><p>node.js 서버와는 달리 nuxt 의 경우는 동작환경이 브라우저 이므로, 서버에서 하듯이 <code>process.env</code> 와 같이 환경변수에 접근해도 브라우저의 환경변수이기 때문에 접근이 되지 않는다. 이는 매우 기본적인 사실이지만 서버렌더링을 하는 과정에서 혼동될 수 있다.</p>
+<p>즉, nuxt.js 에서 process.env 를 사용한다면, 이는 빌드시점에 주입되어야 할 것이다.</p>
+<h2><span id="problem-solving">Problem solving</span></h2><h4><span id="layout-사용하기">layout 사용하기</span></h4><p>vue component class 를 사용함에 있어 layout 옵션이 설정되지 않았다면 다음 코드를 index.d.ts 에 추가한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">module</span> 'vue/types/options' &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">interface</span> ComponentOptions&lt;V <span class="keyword">extends</span> Vue&gt; &#123;</span><br><span class="line"></span><br><span class="line">    layout?: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="unexpected-token-import">Unexpected token import</span></h4><p>모든 기능이 정산인데 갑자기 Unexpected token import 에러가 났다.</p>
+<p>이 경우 최종 문제의 원인은</p>
+<p>nuxt.config.js에서 modules 에 bootstrap-vue 를 import 함에 있어 <code>bootstrap-vue/nuxt</code> 가 아니라 <code>@nuxtjs/bootstrap-vue</code> 를 import 하여 생기는 문제였다.</p>
+<p>bootstrap-vue 공식 홈페이지에도 <code>bootstrap-vue/nuxt</code> 를 import 하라고 하고 있는데, 이를 매우 주의하여야 한다.</p>
+<h4><span id="cannot-find-module">cannot find module</span></h4><p>nuxt property decorator 를 사용할때</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">components</span>:&#123;&#125;&#125; 속성을 추가하지 않으면 모듈을 찾지 못하는 문제가 생긴다.</span><br></pre></td></tr></table></figure>
+<h4><span id="query-string-nested-object">Query string nested object</span></h4><p>기존에는 querystring 라이브러리를 사용하여 nested object 를 처리하지 못하였으나, qs 라이브러리를 사용하면 해결 가능하다.</p>
+<h4><span id="custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@click.native</span><br></pre></td></tr></table></figure>
+<h4><span id="다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</span></h4>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/12/javascript-cookbook/" itemprop="url">
+                Javascript Cookbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-12T03:43:17.000Z" itemprop="datePublished">
+                a month ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1229 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h2><span id="javascript-cookbook">Javascript Cookbook</span></h2><h3><span id="object">Object</span></h3><h4><span id="assign">assign()</span></h4><p>assign 함수는 특정 객체의 값을 복사하는 함수입니다. assign 함수를 통해 두 개 이상의 객체를 병합하는 등의 작업을 수행 가능합니다.</p>
+<p>assign 함수는 아래와 같이 사용되며 대상 객체를 반환합니다.</p>
+<p>example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.assign(target, ...source)</span><br></pre></td></tr></table></figure>
+<p><strong>객체 복사하기</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, source);</span><br></pre></td></tr></table></figure>
+<p>위와 같이 Object.assign은 객체를 복사하는 데 사용될 수 있으며, {} 처럼 빈 객체를 넣고 반환값을 받음으로써 빈 객체에 source 가 되는 object를 복사할 수 있습니다.</p>
+<p><strong>객체 병합하기</strong></p>
+<p>assign 함수를 통해 객체를 병합 할 수 있습니다. 가령 a, b 객체가 있고 각각의 키값을 하나로 병합하고 싶다면 다음과 같이 수행 할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">c</span>:<span class="number">4</span>, <span class="attr">d</span>:<span class="number">5</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br></pre></td></tr></table></figure>
+<p>이처럼 만약 동일한 key를 가졌다면 뒤에 오는 source의 key, value 들로 덮어씌워지는 방식으로 복사될 것입니다.</p>
+<h4><span id="keys">keys()</span></h4><h4><span id="entries">entries()</span></h4><p>entries 함수는 object의 키들을 열거가능한 [key, value] 쌍을 리턴해 주며, 다음과 같이 사용됩니다.</p>
+<p>example</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line"><span class="comment">// [["a", 1],["b", 2],["c", 3]]</span></span><br></pre></td></tr></table></figure>
+<p>객체 내의 다양한 키들을 순환하는 로직을 구현 하는 경우 이는 매우 효과적이며 다음과 같이 사용됩니다.</p>
+<p><strong>exmaple</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line">entries.foreach(<span class="function">(<span class="params">key, value</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff</span></span><br><span class="line">  <span class="built_in">console</span>.log(key, value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3><span id="map">Map</span></h3><p>js에서 Map 이란 일종의 key 와 value의 쌍으로 흔히 object와 비슷한 역할을 수행하지만, object와 달리 어떤 종류의 값도 저장할 수 있는 장점이 있으며, 흔히 대량의 자료가 저장되는 경우 object에 비해 훨씬 좋은 성능을 보인다.</p>
+<p>이번 포스트에서는 Map 이 가진 다양한 함수들과 이에 대한 활용법에 대해 알아보도록 한다.</p>
+<p>example</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Map</span>([iterable]) <span class="comment">//key, value pair</span></span><br></pre></td></tr></table></figure>
+<h4><span id="set">set</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.set(c, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h4><span id="get">get</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<h4><span id="deletekey">delete(key)</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var exampleMap = new Map([a, 1], [b, 2]);</span><br><span class="line">exampleMap.delete(a);</span><br></pre></td></tr></table></figure>
+<h4><span id="foreach">foreach</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example = <span class="keyword">new</span> <span class="built_in">Map</span>([a, <span class="number">1</span>], [b, <span class="number">2</span>]);</span><br><span class="line">example.foreach((value, key)&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3><span id="array">Array</span></h3><h4><span id="sort">sort()</span></h4><p>array의 sort는 배열을 정렬하기 위한 아주 좋은 method 입니다.</p>
+<p>sort는 뒤에 오는 콜백함수를 계속 실행하여 callback(a, b)의 값이 0보다 작은 경우 a를 앞으로 보내고, 0보다 큰 경우 a를 뒤로 보내는 방식으로 동작합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/* 정상 동작 */</span><br><span class="line">score.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a - b;</span><br><span class="line">    // 1, 2, 3, 4, 10, 11</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">score.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return b - a;</span><br><span class="line">    // 11, 10, 4, 3, 2, 1</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a.name &lt; b.name ? -1 : a.name &gt; b.name ? 1 : 0;</span><br><span class="line">    // 광희, 명수, 재석, 형돈</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return a.name &gt; b.name ? -1 : a.name &lt; b.name ? 1 : 0;</span><br><span class="line">    // 형돈, 재석, 명수, 광희</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4><span id="splice">splice()</span></h4><p>array.splice(i,1)를 통해 index i 로 부터 1개의 요소를 제거하고 제거한 자리에 값을 추가한다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var array = [0, 1, 2, 3, 4, 5];</span><br><span class="line">array.splice(2, 1);</span><br><span class="line">//array에는 세번째 요소가 빠진 상태가 된다.</span><br><span class="line">[0, 1, 3, 4, 5]</span><br></pre></td></tr></table></figure>
+<h4><span id="delete">delete</span></h4><p>특정 요소를 삭제할 때 사용한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">delete arr[1];</span><br></pre></td></tr></table></figure>
+<h4><span id="pop">pop</span></h4><p>array를 stack으로 사용하는 경우 pop() 함수는 매우 유용하며, 가장 우측의 element를 제거한다.</p>
+<p>example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let list = [1, 2, 3, 4, 5, 6, 7];</span><br><span class="line"></span><br><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let poped = list.pop();</span><br><span class="line">console.log(&apos;poped item: &apos;, poped);</span><br><span class="line">console.log(&apos;list after pop() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
+<h4><span id="push">Push</span></h4><p>리스트에 특정 아이템을 추가하고 추가된 이후에 총 아이템의 갯수를 반환한다.</p>
+<p>이 함수는 원래의 리스트를 변형한다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'original list: '</span>, list);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> count = list.push(<span class="string">'pushed item'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Total item count after push() executed: '</span>, count);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'list after push() executed: '</span>, list);</span><br></pre></td></tr></table></figure>
+<h4><span id="shift">shift</span></h4><p>shift는 주로 que의 구현에 많이 사용되며, 제일 앞의 element를 제거하고 반환해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let shifted = list.shift();</span><br><span class="line">console.log(&apos;shifted item: &apos;, shifted);</span><br><span class="line">console.log(&apos;list after shift() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
+<h4><span id="unshift">unshift()</span></h4><p>제일 앞쪽에 밀어 넣는다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var fruits = [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Apple&quot;, &quot;Mango&quot;];</span><br><span class="line">fruits.unshift(&quot;Lemon&quot;);    // Adds a new element &quot;Lemon&quot; to fruits</span><br></pre></td></tr></table></figure>
+<h4><span id="foreachgt">foreach(()=&gt;{})</span></h4><p>모든 어레이값에 대해 연산을 수행하는 함수이며 다음과 같이 사용된다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.foreach(<span class="function">(<span class="params">element, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(element);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4><span id="reduce">reduce</span></h4><p>reduce는 array의 모든 값에 대해 계속해서 callback함수를 실행시키는 함수이며 다음과 같은 용도로 사용합니다.</p>
+<p><strong>syntax</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>여기서 첫번째 인자인 accumulator는 계속해서 다음 callback의 인자로 전달되는 값이며 어떤 변환을 하더라도 해당 변환 내용이 다음으로 전달되며, currentValue는 현재 값을 나타냅니다.</p>
+<p><strong>배열에서 가장 큰 값을 구하기</strong></p>
+<p>accumulator를 통해 계속 앞의 return 값을 받아와 비교하면서 가장 큰 값을 구할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> max = arr.reduce(<span class="function">(<span class="params">before, current</span>)=&gt;</span></span><br><span class="line">  <span class="keyword">return</span> before&lt;current ? current : before</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous is-invisible is-hidden-mobile">
+        <a href="/page/0/">Prev</a>
+    </div>
+    <div class="pagination-next">
+        <a href="/page/2/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link is-current" href="/">1</a></li>
+        
+        <li><a class="pagination-link" href="/page/2/">2</a></li>
+        
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        
+        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Tag: react - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#react</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/07/28/react의-기본-개념/" itemprop="url">
+                react의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-28T05:25:54.000Z" itemprop="datePublished">
+                9 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/react/">react</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 966 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="react의-기본-개념">react의 기본 개념</span></h1><p>react 란 정적인 html 페이지를 js 라는 스크립트 언어를 통해 동적으로 redering 하기 위한 라이브러리이다.<br>react의 핵심은 단순히 browser라는 환경이 아닌 많은 환경에서 html 페이지를 렌더링 할 수 있게 하여 보다 다양한 환경에 쉽게 rendering 될 수 있는 페이지를 만드는 것이다. js 는 일반적으로 <code>DOM API</code> 를 통해 화면을 렌더링 하는데 흔히 <code>document.createElement</code> 와 같은 명령어들이 대표적이 예이다. 우리는 react가 제공하는 함수들을 통해 렌더링을 제어하며 react 는 우리를 대신하여 효율적으로 <code>DOM APU</code> 를 컨트롤 하여 매우 효과적으로 렌더링을 제어한다. 우리는 react가 제공하는 virtual dom 환경을 통해 렌더링을 조작하며, 이러한 <code>virtual dom</code> 을 사실 단순한 javascript object에 불과하다.</p>
+<h2><span id="dom-rendering">DOM Rendering</span></h2><p>리액트는 매우 효율적으로 <code>DOM API</code> 를 통해 렌더링을 수행하며, 대표적으로 페이지를 리 렌더링하는 시점에 바뀐 부분과 바뀌지 않은 부분들을 파악하여 반드시 필요한 부분에 대해서만 rerendering을 수행하게 되므로 브라우저의 한정된 자원을 효율적으로 사용하여 클라이언트 효율을 올려준다.</p>
+<h2><span id="react-elemnt-and-component">React Elemnt and Component</span></h2><p>react는 <code>DOM API</code> 의 element에 매칭되는 독자적인 element를 가지며 이는 js object이다.<br>이러한 element 및 component들은 직관적으로 html element 를 조작하는 것과 같은 환경을 제공해 준다.</p>
+<h2><span id="react-with-jsx">React with JSX</span></h2><p>facebook 은 보다 직관적인 html 작성을 위해 jsx라는 독자적인 언어를 만들었으며, 이를 통해 우리는 마치 html을 작성하는 것과 같은 환경에서 react 의 virtual dom을 제어할 수 있게 되었다.</p>
+<h2><span id="webpack-loader">Webpack Loader</span></h2><p>여기서 load란 build 과정에서 우리가 작성한 코드를 브라우저가 읽을 수 있도록 변형해주는 것을 의미한다. webpack은 다양한 환경에서 동작하기 위해 막대한 양의 loader 들을 가지고 있으며, 적절한 변환을 위해 우리는 <code>webpack.config.js</code> 파일을 작성하여 webpack에게 어떤 내용을 변형시켜 줄 지를 말해준다. 대표적인 loader 로는 ES6 과 React 분법을 ES5 로 변형시켜 주는 babel-loader와 scss 언어를 css 로 변형시켜주는 css-loader가 있다.</p>
+<h3><span id="webpack-설치하기">webpack 설치하기</span></h3><p>webpack 설치하기</p>
+<p><code>sudo npm install -g webpack</code></p>
+<p>loader 설치하기</p>
+<p><code>npm install babel-core babel-loader babel-preset-env babel-preset-react babel-preset-stage-0 --save-dev</code></p>
+<h3><span id="webpack-설정하기">webpack 설정하기</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 5-20. webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, <span class="comment">//define client entry file</span></span><br><span class="line">    output: &#123;</span><br><span class="line">            path: <span class="string">"dist/assets"</span>, <span class="comment">//export bundler to the dist foler</span></span><br><span class="line">            filename: <span class="string">"bundle.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    devtool: <span class="string">'#source-map'</span>, <span class="comment">// source mapping - should be after output</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [ &#123;</span><br><span class="line">                        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                        exclude: <span class="regexp">/(node_modules)/</span>,</span><br><span class="line">                        loader: [<span class="string">'babel-loader'</span>],</span><br><span class="line">                        query: &#123;</span><br><span class="line">                            presets: [<span class="string">'env'</span>, <span class="string">'stage-0'</span>, <span class="string">'react'</span>]</span><br><span class="line">                        &#125;</span><br><span class="line">        &#125; ]</span><br><span class="line">    &#125;, <span class="attr">plugins</span>: [ <span class="comment">// uglify plugin</span></span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123; <span class="attr">sourceMap</span>: <span class="literal">true</span>,</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">        mangle: <span class="literal">true</span> &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="uglify">uglify</span></h3><p>번들링 되는 파일의 용량을 줄이기 위해 웹팩은 띄어쓰기, 변수명 축약 등의 작업을 수행하는 플러그인을 내포하고 있으며, 이를 사용하기 위해서는 다음 명령어를 통해 webpack을 로컬로 설치해야한다.</p>
+<p><code>npm install webpack --save-dev</code></p>
+<h2><span id="create-react-app">create react app</span></h2><p>위와 같은 웹팩 설정 등의 여타 작업들을 수행하는 것은 상당히 성가신 일이다. facebook은 개발자들이 빠르게 설정을 완료할 수 있도록 cli 환경을 만들어 두었으며, create-react-app 을 통해 간편하게 리액트를 시작할 수 있다.<br>create-react-app 은 transpile 과 uglify 등 webpack 이 수행하는 여타의 작업들을 모두 끝내주기 때문에 가볍게 react 개발을 시작할 수 있다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/07/25/react-시작하기/" itemprop="url">
+                react 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-25T08:41:15.000Z" itemprop="datePublished">
+                9 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/react/">react</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 221 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="react-시작하기">React 시작하기</span></h1><h2><span id="react-create-app-설치하기">React Create App 설치하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br></pre></td></tr></table></figure>
+<h2><span id="react-create-app-을-통해-프로젝트-생성하기">React Create App 을 통해 프로젝트 생성하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create-react-app react_boot_template --scripts-version=react-scripts-ts</span><br></pre></td></tr></table></figure>
+<h2><span id="개발-의존-모듈-설치하기">개발 의존 모듈 설치하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react react-hot-loader webpack webpack-dev-server</span><br></pre></td></tr></table></figure>
+<h2><span id="글로벌-모듈-설치하기">글로벌 모듈 설치하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g babel-cli</span><br></pre></td></tr></table></figure>
+<h2><span id="필요-디렉토리-만들기">필요 디렉토리 만들기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir server server/routes &amp;&amp; touch <span class="keyword">public</span>/index.html server/main.js server/routes/posts.js src/App.js src/index.js webpack.dev.config.js</span><br></pre></td></tr></table></figure>
+<h2><span id="webpack-설정하기">webpack 설정하기</span></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 가장 처음 읽을 스크립트파일</span></span><br><span class="line">    <span class="comment">// 여기서부터 import 되어있는 다른 스크립트를 불러온다.</span></span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 파일을 합치고 ./public/bundle.js 에 저장한다.</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: __dirname + <span class="string">'/public'</span>,</span><br><span class="line">        filename: <span class="string">'bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ES6 문법과 JSX 문법을 사용한다</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        loaders: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                loader: <span class="string">'babel'</span>,</span><br><span class="line">                exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">                query: &#123;</span><br><span class="line">                    cacheDirectory: <span class="literal">true</span>,</span><br><span class="line">                    presets: [<span class="string">'es2015'</span>, <span class="string">'react'</span>]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

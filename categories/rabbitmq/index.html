@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Category: rabbitmq - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5><i class="far fa-folder"></i>rabbitmq</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/01/16/rabbitmq-시작하기/" itemprop="url">
+                rabbitmq 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-16T08:15:57.000Z" itemprop="datePublished">
+                3 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/rabbitmq/">rabbitmq</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 640 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="rabbitmq-시작하기">RabbitMQ 시작하기</span></h1><h2><span id="installation-on-ubuntu">Installation on ubuntu</span></h2><p>ubuntu 에 rabbitmq 를 설치하고 실제 동작시켜 보자.</p>
+<p>본 글에서는 실제 ubuntu 피씨가 아닌 docker ubuntu image 를 사용하도록 한다.</p>
+<h4><span id="ubuntu-image-실행">Ubuntu image 실행</span></h4><p>아래 명령어를 통해 도커 우분투 이미지를 실행하고 콘솔에 들어가도록 하자.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br><span class="line">docker run -it ubuntu</span><br></pre></td></tr></table></figure>
+<h4><span id="sudo-및-curl-설치">sudo 및 curl 설치</span></h4><p>기본 우분투 이미지에는 sudo 와 curl 명령어가 없기 때문에 아래 명령어를 통해 sudo 와 curl 을 설치해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get update&amp;&amp;</span><br><span class="line">apt-get install -y sudo &amp;&amp;</span><br><span class="line">apt-get -y install curl</span><br></pre></td></tr></table></figure>
+<h4><span id="erlangotp-다운로드">Erlang/OTP 다운로드</span></h4><p>Rabbitmq 를 내부적으로 erlang/otp 를 사용하기 때문에 적합한 버젼을 설치해 주어야 한다.</p>
+<p>하지만 현재 erlang 버전은 너무 오래되었기 때문에 rabbitmq 팀에서 별도의 erlang 을 관리하고 배포하고 있는데 이를 설치하기 위해 다음과 같은 절차를 거친다.</p>
+<p>먼저 apt-key 에 다음 키를 추가한다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -y gnupg2 &amp;&amp;</span><br><span class="line">apt-key adv --keyserver <span class="string">"hkps.pool.sks-keyservers.net"</span> --recv-keys <span class="string">"0x6B73A36E6026DFCA"</span></span><br></pre></td></tr></table></figure>
+<p>데비안 계열 운영체제가 레포지토리를 등록하기 위해서 다음 파일에 레포지토리를 등록해 주어야 한다.</p>
+<p>이를 통해 apt-get 명령어가 해당 레포지토리를 찾고 패키지를 설치할 수 있다.</p>
+<p>/etc/apt/sources.list.d/bintray.erlang.list 파일에</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang</span><br></pre></td></tr></table></figure>
+<p>를 추가하면 되며 아래와 같은 명령어를 통해 한번에 세팅할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/apt/sources.list.d &amp;&amp;</span><br><span class="line">touch bintray.erlang.list &amp;&amp;</span><br><span class="line">echo &quot;deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang&quot; &gt;&gt; bintray.erlang.list &amp;&amp;</span><br><span class="line">echo register finished! &amp;&amp;</span><br><span class="line">cat bintray.erlang.list</span><br></pre></td></tr></table></figure>
+<p>등록한 레포지토리를 설치해준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+<h4><span id="rabbitmq-및-rabbitmq-server-설치">RabbitMQ 및 rabbitmq-server 설치</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | sudo bash &amp;&amp; apt-get install -y rabbitmq-server</span><br></pre></td></tr></table></figure>
+<h2><span id="getting-started">Getting started</span></h2><p>서버 시작하기</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl reset</span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure>
+<p>큐 비우기</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rabbitmqctl purge_queue queue_name</span><br></pre></td></tr></table></figure>
+<h2><span id="final-dockerfile">Final dockerfile</span></h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"></span><br><span class="line"><span class="comment"># set working directory</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># update apt packages</span></span></span><br><span class="line"><span class="bash">RUN rm -rf /var/lib/apt/lists/*</span></span><br><span class="line"><span class="bash">RUN apt-get update</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># install sudo and curl command</span></span></span><br><span class="line"><span class="bash">RUN apt-get install -y sudo &amp;&amp; apt-get -y install curl</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># register key for apt third party repository</span></span></span><br><span class="line"><span class="bash">RUN apt-get install -y gnupg2</span></span><br><span class="line"><span class="bash">RUN apt-key adv --keyserver <span class="string">"hkps.pool.sks-keyservers.net"</span> --recv-keys <span class="string">"0x6B73A36E6026DFCA"</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># register repository</span></span></span><br><span class="line"><span class="bash">RUN <span class="built_in">cd</span> /etc/apt/sources.list.d &amp;&amp; touch bintray.erlang.list &amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang"</span> &gt;&gt; bintray.erlang.list &amp;&amp; <span class="built_in">echo</span> register finished! &amp;&amp; cat bintray.erlang.list</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># install repository</span></span></span><br><span class="line"><span class="bash">RUN apt-get update</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | sudo bash</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">RUN apt-get install -y rabbitmq-server</span></span><br><span class="line"><span class="bash">EXPOSE 3001</span></span><br><span class="line"><span class="bash">EXPOSE 5672</span></span><br><span class="line"><span class="bash">EXPOSE 15672</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">CMD [ <span class="string">"rabbitmq-server"</span>,<span class="string">"start"</span> ]</span></span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

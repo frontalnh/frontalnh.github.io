@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Neural Network의 기본 개념 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                Neural Network의 기본 개념
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T02:49:33.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1216 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#neural-network의-역사">neural network의 역사</a></li>
+<li><a href="#왜-인공신경망이-각광을-받게-되었는가">왜 인공신경망이 각광을 받게 되었는가?</a></li>
+<li><a href="#인공신경망이란">인공신경망이란?</a></li>
+<li><a href="#생체-신경망과-컴퓨터-신경망의-연산속도">생체 신경망과 컴퓨터 신경망의 연산속도</a></li>
+<li><a href="#문자의-인식">문자의 인식</a></li>
+<li><a href="#기초적인-생체-신경망">기초적인 생체 신경망</a></li>
+<li><a href="#neural-network-computation">Neural Network Computation</a></li>
+<li><a href="#mcculloch-pitts-theoryold">McCulloch-Pitts Theory(old)</a></li>
+<li><a href="#hebbian-learning">Hebbian Learning</a></li>
+<li><a href="#general-processing-element">General Processing Element</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="neural-network의-역사">neural network의 역사</span></h2><p>1940년 후반, 디지털 컴퓨터의 출현</p>
+<p>1950년 후반, perceptron과 ADALINE의 출현</p>
+<p>1969년 ~ 1980년 초반, single layer perceptron에서 xor 문제 발생</p>
+<p>1986년, 전환점을 맞이하게 된다.<br>multi layer perceptron이 xor 문제를 해결하다.</p>
+<p>1990년, optical neural network, 디지털 하드웨어</p>
+<h2><span id="왜-인공신경망이-각광을-받게-되었는가">왜 인공신경망이 각광을 받게 되었는가?</span></h2><ol>
+<li>경험, 데이터, 실험을 통해 강력한 학습이 가능하다.</li>
+<li>물체의 분류와 식별이 가능해진다.</li>
+<li>빠른 병렬연산으로 이상적으로 빛의 속도로 연산이 가능하다.</li>
+<li>잠재 지능이 존재한다.</li>
+<li>수많은 범용 어플리케이션이 나오고 있다.</li>
+</ol>
+<h2><span id="인공신경망이란">인공신경망이란?</span></h2><p>인공 신경망이란 processing elements 로 구성된 여러개의 장치들이 connection strength or weight이 다른 여러 개의 연결망을 통해 연결된 복합체이다.<br>많은 패턴들과 수치 데이터들이 학습되고 저장될 수 있다.<br>여기서 weights란 인공 신경만이 학습하고 저장하기 위한 수치값들로 메모리에 저장되는 값이다.</p>
+<p>adaption이란 예제와 실험들로 학습하는 것을 말한다.</p>
+<h2><span id="생체-신경망과-컴퓨터-신경망의-연산속도">생체 신경망과 컴퓨터 신경망의 연산속도</span></h2><p>컴퓨터의 속도가 생체 신경망에 비해 10,000,000배나 더 빠른 속도를 보인다.<br>하지만 컴퓨터는 병렬적 처리를 하지 못하는데 반해 생체신경망은 막대한 병렬연산이 가능하고 복잡하게 연결되어 있기 때문에 컴퓨터가 100msec가 걸려야 풀 수 있는 한번의 인식을 단지 0.1msec 만에 해결한다.</p>
+<h2><span id="문자의-인식">문자의 인식</span></h2><p>손으로 작성되었는가 혹은 컴퓨터로 타이핑 되었는가, 기울기 확대율, 회전율 등에 따라 다른 인식율을 보인다.</p>
+<p>기본적인 패턴인식은 패턴을 픽셀단위로 분해아여 벡터화 시킨다.<br>인공 신경망의 node와 connection strength를 조절하여 분석한다.</p>
+<p><img src="\images\characterRecognition.png" alt="character recognition"></p>
+<h2><span id="기초적인-생체-신경망">기초적인 생체 신경망</span></h2><p>뉴런</p>
+<ol>
+<li>부분적인 투과성을 가진다.</li>
+<li>potential 차이가 존재하며 이온들이 이동한다.</li>
+</ol>
+<p>이온들이 potential차가 평행을 이루는 지점까지 운동한다.</p>
+<p><strong>시냅스</strong></p>
+<p>시냅스는 Neuro-transmitter이다.<br>시냅스가 Ca(+)의 투과성을 높여주면 action potential이 증가한다.</p>
+<p>투과성이 critical point를 넘기게 되면 action potential이 이동하여 다른 뉴런에 연결된다.</p>
+<h2><span id="neural-network-computation">Neural Network Computation</span></h2><blockquote>
+<p>뇌는 수많은 연결을 통해 어떻게 엄청난 능력을 가지게 되었는가?</p>
+</blockquote>
+<h2><span id="mcculloch-pitts-theoryold">McCulloch-Pitts Theory(old)</span></h2><ol>
+<li>뉴런의 활동은 일어나거나 일어나지 않거나 두가지 상태를 가진다. 중간은 없다.</li>
+<li>신경이 흥분되려면 두 개 이상의 시냅스가 흥분되어야 한다.</li>
+<li>delay는 오직 스냅스에서만 발생한다.</li>
+<li>억제 시냅스는 뉴런 활동성을 저해한다.</li>
+<li>연결망의 구조는 시간에 따라 변하지 않는다.</li>
+</ol>
+<blockquote>
+<p>뉴런은 단순한 장치이지만, 적절하게 연결되어 신경 시스템을 구성하면 막대한 계산이 가능하다.</p>
+</blockquote>
+<h2><span id="hebbian-learning">Hebbian Learning</span></h2><blockquote>
+<p>생체신경망은 최초에 직렬적으로 작동할 능력과 지식을 갖추지 못했다.</p>
+</blockquote>
+<p><strong>Pavlov’s Conditioned Response</strong></p>
+<p>뉴런 A 의 축색돌기가 뉴런 B를 자극하기에 충분하고 지속적으로 계속적으로 자극이 발생한다면 하나 혹은 여러개의 뉴런에서 성장 혹은 신진대사가 이루어 지고 뉴런 C의 효율이 높아진다.<br>그리고 마침내 뉴런 C를 자극하는 다른 뉴런인 뉴런 B가 증가하게 된다.</p>
+<p><img src="\images\파블로프의모델.png" alt="파블로프의 모델"></p>
+<p><img src="\images\파블로프의조건적반응.png" alt="파블로프의 조건적 반응"></p>
+<p>Hebb’s assumption says, “The excitation of neuron A has enough stimulus for neuron B, but that of neuron C doesn’t have. Now, with neuron A, the connection strength of neuron C increases, and eventually, without neuron A, neuron B can be excited by neuron C only.”</p>
+<h2><span id="general-processing-element">General Processing Element</span></h2><p>인공 신경세포를 노드 혹은 유닛으로 나타내는 단위이다.</p>
+<p><img src="\images\pE의개념도.png" alt="PE의 개념도"></p>
+<p><img src="\images\pE를이루는기본공식.png" alt="PE를 이루는 기본 공식"></p>
+<p>수학에서 뉴럴 네트워크의 설계는 시간에 따라 변하는 역동적인 시스템이다.</p>
+<p><strong>학습 법칙</strong><br>connection strength는 학습이 진행됨에 따라 업데이트되며, data of weights가 무엇을 배우지에 관한 정보를 기록하게 된다.</p>
+<p>vector notations<br><img src="\images\pE모델링을위한벡터표기.png" alt="PE 모델링을 위한 벡터 표기"></p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/neural-network/">#
+                        neural network
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2017/11/29/Neural-network-Perceptron과-ADALINE/">
+                                Neural network Perceptron과 ADALINE
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2017/11/27/nodejs-mysql-join-데이터를-간편하게-json으로-정제하기/">
+                                nodejs mysql join 데이터를 간편하게  json으로 정제하기
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2017/11/29/Neural-Network의-기본-개념/';
+        this.page.identifier = '2017/11/29/Neural-Network의-기본-개념/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>
