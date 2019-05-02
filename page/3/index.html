@@ -91,6 +91,92 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/01/29/getting-started-with-aws/" itemprop="url">
+                Getting started with AWS
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-29T06:45:00.000Z" itemprop="datePublished">
+                3 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws-cli/">aws cli</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                11 minutes read (About 1665 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="route53">Route53</span></h2><p>Route53 은 AWS 가 제공하는 DNS 서비스이며, 실제 도메인을 구입하고 도메인의 routing 을 설정하고 subdomain 지정 등 많은 일을 수행할 수 있다.</p>
+<p>Route 53은 도메인과 동일한 이름의 퍼블릭 호스팅 영역을 자동으로 생성한다. 퍼블릭 호스팅 영역이란 특정 도메인(예: example.com)과 그 하위 도메인(apex.example.com, acme.example.com)의 트래픽을 인터넷에서 라우팅하는 방식에 대한 정보를 담고 있는 컨테이너로, 호스팅 영역에 레코드를 생성하여 도메인 및 하위 도메인에 대한 트래픽의 라우팅 방법을 지정한다.</p>
+<p>트래픽을 리소스로 라우팅하려면 호스팅 영역에 <strong>리소스 레코드 세트</strong> 라고도 하는 <em>레코드</em>를 생성해야 합니다. 각각의 레코드에는 도메인의 트래픽을 라우팅할 방법에 관한 다음과 같은 정보가 포함되어 있습니다.</p>
+<p><strong>이름</strong></p>
+<p>레코드의 이름은 Route 53을 사용하여 트래픽을 라우팅하려는 도메인 이름(예: example.com) 또는 하위 도메인 이름(예: <a href="http://www.example.com)과" target="_blank" rel="noopener">www.example.com)과</a> 일치합니다.</p>
+<p>호스팅 영역에 있는 모든 레코드의 이름은 반드시 호스팅 영역의 이름으로 끝나야 합니다. 예를 들어 호스팅 영역의 이름이 example.com이라면 모든 레코드 이름이 example.com으로 끝나야 합니다. Route 53 콘솔은 자동으로 이 작업을 수행합니다.</p>
+<p><strong>형식</strong></p>
+<p>레코드 유형은 일반적으로 트래픽을 라우팅할 리소스 유형을 결정합니다. 예를 들어 트래픽을 이메일 서버로 라우팅하려면 [Type]을 [MX]로 지정합니다. IPv4 IP 주소를 가진 웹 서버로 트래픽을 라우팅하려면 [Type]을 [A]로 지정합니다.</p>
+<p><strong>값</strong></p>
+<p>[Value]는 [Type]과 밀접한 관련이 있습니다. [Type]을 [MX]로 지정하는 경우, [Value]에 하나 이상의 이메일 서버의 이름을 지정해야 합니다. [Type]을 [A]로 지정하는 경우, 192.0.2.136과 같은 IPv4 형식의 IP 주소를 지정해야 합니다.</p>
+<p><img src="/images/image-20190328112743282.png" alt="image-20190328112743282"></p>
+<p>* 출처: <a href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/welcome-dns-service.html" target="_blank" rel="noopener">AWS 홈페이지</a></p>
+<h2><span id="load-balancer">Load balancer</span></h2><p>Route53 에서 라우팅 된 요청을 여러 인스턴스에 분배해주는 부하 부산기이다.</p>
+<p>로드 밸런서는 특정 서브도메인을 특정 타겟 그룹으로 보내도록 설정할 수 있으며, 이는 로드밸런서가 특정 프로토콜 통신을 위해 듣고 있는 포트의 rule 을 바꾸어 줌으로써 해결할 수 있다. 가령 80 번 포트 리스너에서 특정 서브 도메인을 특정 타겟 그룹으로 전달 할 수 있으며, 이때 반드시 타겟 그룹을 미리 설정해 두어야 한다.</p>
+<p>타겟 그룹은 여러 인스턴스들과 특정 포트를 등록해 두는 것으로 이를 통해 로드 밸런서가 특정 타겟 그룹의 여러 인스턴스들에게 부하를 분산해서 할당한다.</p>
+<h2><span id="aws-cli">AWS CLI</span></h2><p>AWS 에는 수많은 기능이 있고, 이를 실제 웹사이트에서 console 을 통해 제어하는 것은 개발자에게 매우 비효율적인 일이 아닐 수 없다. AWS 는 이렇게 사용자의 컴퓨터에서 AWS 상의 많은 기능을 제어하기 위해 AWS CLI 프로그램을 제공하며, 본 포스트에서는 AWS CLI 의 기본적인 사용법을 알아보고자 한다.</p>
+<h3><span id="installation">Installation</span></h3><p>Mac OS 에서는 다음과 같이 pip 명령어를 통해 aws cli 를 쉽게 설치할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install awscli</span><br></pre></td></tr></table></figure>
+<h3><span id="authentication">Authentication</span></h3><p>AWS 는 현재 cli 프로그램을 사용하는 내가 어떤 유저인지 모르기 때문에 이를 AWS 에게 알려주어야 하며, 그것이 authentication 자체이다.</p>
+<p>사용자의 PC에는 여러 AWS 유저들에 대한 정보를 저장할 수 있는데, AWS 는 매우 복잡한 유저 관리 체계를 가지기 때문에 이는 매우 필요한 일이다.(가령 특정 AWS 서비스의 조작을 위한 별도 Program user 를 생성하는 경우 여러 개발자가 하나의 계정을 공유하여 사용하는 것은 매우 빈번한 일이다.)</p>
+<p><strong>Command 를 입력할 때 특정 사용자임을 밝히기</strong></p>
+<p>아래 명령어를 통해 aws access key 와 secret key 를 등록하고 사용할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
+<p>다음과 같은 command option 을 통해 내가 어떤 사용자인지 알리고, 미리 configure 되어있는 해당 사용자의 정보로 authentication 을 진행할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws [<span class="built_in">command</span>] --profile 사용자이름</span><br></pre></td></tr></table></figure>
+<p><strong>MFA 를 사용하는 경우의 인증</strong></p>
+<p>콘솔 계정의 경우 cli 를 통한 작업을 진행할 경우 MFA 를 적용했다면 Access Deny 된다.</p>
+<p>이 경우 MFA 유저를 위해 별도의 임시 인증을 거쳐야 하는데 이는 다음 명령어로 해결이 가능하다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws sts get-session-token --serial-number &lt;arn-mfa-device&gt; --token-code 126355 --profile jee</span><br></pre></td></tr></table></figure>
+<p><code>arn-mfa-device</code> 는 각 AWS계정 정보에 들어가서 보안자격증명 탭에 할당된 MFA 디바이스를 보시면 알 수 있다.</p>
+<p><code>token-code</code> 는 Authy와 같은 2FA 토큰 값을 입력해 주면 된다.</p>
+<p>커맨드를 실행하시면 임시 Access Key가 발급되고 Access ID, Secret Access Key, Session Token을 환경변수나 credential에 profile로 등록하신후 사용하면 된다.</p>
+<p>때문에, 만료시간이 있기때문에 매번 재발급받아야하는데 AWS에서는 이를 각자 Cron Tab등으로 만들어서 사용하는 것을 권장한다.</p>
+<p>다음과 같이 credential 에 등록하여 사용하면 된다.</p>
+<p>~/.aws/credential</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = ~</span><br><span class="line">AWS_SECRET_ACCESS_KEY = ~</span><br><span class="line">AWS_SESSION_TOKEN = ~</span><br></pre></td></tr></table></figure>
+<h3><span id="configuration">Configuration</span></h3><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
+<p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
+<p>config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
+<p>그 중에서도 유저 정보는 credentials 에 다음과 같이 저장되어 있다.</p>
+<p>credentials</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+<p>이처럼 기본 user 인 [default] 유저와 특정 유저를 나타내는 [profile user_name] 이 나뉘어 있다.</p>
+<p>여기에 정의된 특정 profile 은 command line 에서 <code>--profile user1</code> 과 같이 사용될 수 있다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/01/25/getting-started-with-elastic-stack/" itemprop="url">
                 Getting started with elastic stack
             </a>
@@ -622,7 +708,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-01-16T08:15:57.000Z" itemprop="datePublished">
-                3 months ago
+                4 months ago
             </time>
         </span>
         
@@ -687,7 +773,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-01-15T06:13:41.000Z" itemprop="datePublished">
-                3 months ago
+                4 months ago
             </time>
         </span>
         
@@ -715,49 +801,6 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
 <p>다음과 같은 command option 을 통해 내가 어떤 사용자인지 알리고, 미리 configure 되어있는 해당 사용자의 정보로 authentication 을 진행할 수 있다.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws [<span class="built_in">command</span>] --profile 사용자이름</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/01/15/vs-code-debugging-시작하기/" itemprop="url">
-                VS Code Debugging 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-01-15T04:50:05.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/vscode/">vscode</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 80 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="vs-code-debugging-시작하기">VS Code Debugging 시작하기</span></h1><p>vs code 에서 디버깅을 함에 있어 Launch 와 Attach 모드가 존재한다.</p>
-<p>우리는 .vscode 의 launch.json 설정파일을 수정함으로써 디버거를 attach 하시 전에 디버그 모드에서 어떻게 앱을 실행할지를 알려주는 것이다.</p>
 
                         
     </div>

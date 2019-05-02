@@ -91,6 +91,50 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/02/22/mysql-trigger의-활용/" itemprop="url">
+                6. mysql trigger의 활용
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-22T04:20:59.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 268 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="trigger의-생성과-삭제">trigger의 생성과 삭제</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">DROP TRIGGER IF EXISTS `sport`.`tr_update_gameresult`;</span><br><span class="line"></span><br><span class="line">CREATE TRIGGER `sport`.`tr_update_gameresult` BEFORE UPDATE ON sport.tb_game</span><br><span class="line">FOR EACH ROW</span><br><span class="line">BEGIN</span><br><span class="line">  -- 게임이 종료 되었는지 판단</span><br><span class="line">  IF NEW.COMP_CODE = &apos;3&apos; THEN</span><br><span class="line">    SET @exception = (select EXPECATE from tb_reg_game where GAME_NO = NEW.GAME_NO);</span><br><span class="line"></span><br><span class="line">    IF @exception = NEW.VIC_CODE THEN</span><br><span class="line">      update tb_reg_game set `HIT_RESULT` = &apos;1&apos; where GAME_NO = NEW.GAME_NO;</span><br><span class="line">    ELSE</span><br><span class="line">      update tb_reg_game set `HIT_RESULT` = &apos;2&apos; where GAME_NO = NEW.GAME_NO;</span><br><span class="line">    END IF;</span><br><span class="line"></span><br><span class="line">  END IF;</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
+<h1><span id="새로-들어온-데이터-선택자-new와-기존에-있던-데이터-선택자-old">새로 들어온 데이터 선택자 new와 기존에 있던 데이터 선택자 OLD</span></h1><p>새로 들어온 데이터를 new로 지칭하여 attribute를 뽑아서 사용할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tb_group set MEMBER_NUM=@memberNum where GROUP_ID = new.GM_GROUP_ID;</span><br></pre></td></tr></table></figure></p>
+<h1><span id="특정-데이터-생성-혹은-삭제시에-상위-테이블의-전체-개수-인덱스-변경하기">특정 데이터 생성 혹은 삭제시에 상위 테이블의 전체 개수 인덱스 변경하기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create trigger trx_updates_atrig</span><br><span class="line">after insert on trx_updates for each row begin</span><br><span class="line"></span><br><span class="line">&lt;!-- 트리거 동작에 필요한 변수 선언 --&gt;</span><br><span class="line">DECLARE memverNum INT;</span><br><span class="line">  &lt;!-- 변수에 값 넣는 sql --&gt;</span><br><span class="line">  set @memberNum = ( select count(*) from tb_group_member where GM_GROUP_ID=new.GM_GROUP_ID );</span><br><span class="line"></span><br><span class="line">  &lt;!-- 인덱스 변경 SQL --&gt;</span><br><span class="line">  update tb_group set MEMBER_NUM=@memberNum where GROUP_ID = new.GM_GROUP_ID;</span><br><span class="line">end//</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/02/06/mongodb-데이터-마이그레이션/" itemprop="url">
                 2. mongodb 데이터 마이그레이션
             </a>
@@ -541,43 +585,6 @@
 <p>commitTransaction()은 sessionEnd 까지 포함된 개념이다.</p>
 <h2><span id="uninstallation">Uninstallation</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod stop</span><br><span class="line">sudo apt-get purge mongodb-org*</span><br><span class="line">sudo rm -r /var/log/mongodb</span><br><span class="line">sudo rm -r /var/lib/mongodb</span><br></pre></td></tr></table></figure>
 <h2><span id="cookbook">Cookbook</span></h2><h3><span id="위치-찾기">위치 찾기</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.createIndex( &#123; &lt;location field&gt; : <span class="string">"2dsphere"</span> &#125; )</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/22/npm-시작하기/" itemprop="url">
-                npm 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-22T02:48:45.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 36 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="npm-시작하기">npm 시작하기</span></h1><h2><span id="packagejson-의-항목들-최신버전으로-업데이트하기">package.json 의 항목들 최신버전으로 업데이트하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i -g npm-check-updates</span><br><span class="line">npm-check-updates -u</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
                         
     </div>

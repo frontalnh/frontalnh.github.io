@@ -91,6 +91,50 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/12/02/angular-lazy-image-loading/" itemprop="url">
+                angular lazy image loading
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-01T15:13:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 107 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="ngx-lazy-load-images-설치하기">ngx-lazy-load-images 설치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i ngx-lazy-load-images --save</span><br></pre></td></tr></table></figure>
+<h2><span id="모듈-import-하기">모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModule &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; LazyLoadImagesModule &#125; from &apos;ngx-lazy-load-images&apos;;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    LazyLoadImagesModule</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line">export class AppComponent &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="사용하고자-하는-img에-lazy-load-images-directive-사용하기">사용하고자 하는 img에 lazy-load-images directive 사용하기</span></h2><p>img 태그에 사용하는 것이 아니고 img의 상위 태그에 directive를 넣어야 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Image tags --&gt;</span><br><span class="line">&lt;div class=&quot;image-list&quot; lazy-load-images&gt;</span><br><span class="line">  &lt;img *ngFor=&quot;let imageUrl in images&quot; [attr.data-src]=&quot;imageUrl&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Background images --&gt;</span><br><span class="line">&lt;div class=&quot;image-list&quot; lazy-load-images&gt;</span><br><span class="line">  &lt;div *ngFor=&quot;let imageUrl in images&quot; [attr.data-background-src]=&quot;imageUrl&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="img-에-data-src-속성-넣기">img 에 data-src 속성 넣기</span></h2>
+undefined
+
+
+<p><a href="https://www.npmjs.com/package/ngx-lazy-load-images" target="_blank" rel="noopener">참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/12/01/Angular-polyfill을-활용한-exploler호환/" itemprop="url">
                 Angular polyfill을 활용한 exploler호환
             </a>
@@ -601,46 +645,6 @@
 <h2><span id="arrayforeach-함수의-활용">array.forEach 함수의 활용</span></h2><p>forEach()는 오름차순으로 배열에 있는 각 요소에 대해 한 번씩 callback을 실행한다.<br>삭제 또는 비초기화된 인덱스 속성에 대해서는 호출되지 않는다.</p>
 <p>callback은 다음 세 인수와 함께 호줄된다.<br>요소 값, 요소 인덱스, 순회될 배열</p>
 <h2><span id="받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</span></h2><p>정제하는 함수<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function(err,rows)&#123;</span><br><span class="line">  var result = [];</span><br><span class="line">  var indexObject = &#123;&#125;;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    rows.forEach(function(row)&#123;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 해당 행의 id가 indexObject의 키값에 없을때 실행 --&gt;</span><br><span class="line">        if(!(row.id in index))&#123;</span><br><span class="line">          index[row.id]=&#123;</span><br><span class="line">            id: row.id,</span><br><span class="line">            name: row.name</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">          &lt;!-- 반환값에 추가 --&gt;</span><br><span class="line">          result.push(index[row.id]);</span><br><span class="line">        &#125;</span><br><span class="line">        해당 행이 인덱스에 있건 없건 간에 해당 인덱스의 내역을 체워줌</span><br><span class="line">        index[row.id].histories.push(&#123;</span><br><span class="line">            historyId:row.historyId,</span><br><span class="line">            historyName:row.historyName</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/26/angular-safe-navigation-operator를-활용한-한전한-null-값-출력하기/" itemprop="url">
-                angular safe navigation operator를 활용한 한전한 null 값 출력하기 
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-26T03:07:55.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 156 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="개요">개요</span></h2><p>흔히 bracket 안에 다양한 model을 바인딩 하는 경우 null 혹은 undefined에 대해 많은 에러가 일어나게 된다.</p>
-<p>예를 들어 다음과 같은 경우<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line">&#123;&#123;user.name&#125;&#125;</span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>user 안에 값이 없다면 null안에서 name property를 가져올 수 없으므로 전체 어플리케이션에 치명적인 오류가 일어나게 된다.</p>
-<h2><span id="safe-navigation-operator의-활용">safe navigation operator의 활용</span></h2><p>다음과 같이 Object?.property를 사용하는 경우<br>Object의 값이 null이어도 시스템 에러를 발생시키지 않아<br>보다 안전한 프로그램이 될 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line">&#123;&#123;user?.name&#125;&#125;</span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure></p>
 
                         
     </div>

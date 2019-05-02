@@ -91,6 +91,46 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/19/Angular-FormData를-활용한-파일-입력-받기/" itemprop="url">
+                Angular FormData를 활용한 파일 입력 받기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T17:23:59.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 106 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="html-상에서-input-typefile-만들기">html 상에서 input (type=file) 만들기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;file&quot; (change)=&quot;onChange($event)&quot;&gt;&lt;/input&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="onchange로-file-추출-및-저장하기">onChange로 file 추출 및 저장하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onChange(event)&#123;</span><br><span class="line">  let file = event.srcElement.files[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="formdata에-key-value-매핑하기">formData에 key, value 매핑하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">console.log(file);</span><br><span class="line"></span><br><span class="line">폼데이터를 선언한다.</span><br><span class="line">let formData:FormData = new FormData();</span><br><span class="line"></span><br><span class="line">formData에 key와 value를 메겨준다.</span><br><span class="line">formData.append(&apos;fileName&apos;,this.fileName+&apos;.&apos;+file.name.split(&apos;.&apos;)[1]);</span><br><span class="line"></span><br><span class="line">여기서 file.name.split(&apos;.&apos;)[1]는 확장자를 찾아주는 것이다.</span><br><span class="line"></span><br><span class="line">formData.append(&apos;imageFile&apos;, file, file.name);</span><br></pre></td></tr></table></figure>
+<p><a href="https://stackoverflow.com/questions/40214772/file-upload-in-angular-2" target="_blank" rel="noopener">참조자료</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/19/Angular-Router의-활용/" itemprop="url">
                 Angular Router의 활용
             </a>
@@ -511,157 +551,6 @@ undefined
 <p>pagedItems에는 받아온 데이터를 pager의 startIndex와 endIndex+1까지로 잘라 담아준다.</p>
 <h2><span id="componenthtml">component.html</span></h2><p>실제 pagination을 입혀준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;row-wrapper&quot;&gt;</span><br><span class="line">  &lt;nav class=&quot;&quot; style=&quot;display:inline-block&quot;&gt;</span><br><span class="line">    &lt;!-- pager --&gt;</span><br><span class="line">    &lt;ul *ngIf=&quot;paymentService.pager.pages &amp;&amp; paymentService.pager.pages.length&quot; class=&quot;pagination&quot;&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === 1&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction first&quot; (click)=&quot;paymentService.setPage(1)&quot; aria-label=&quot;First&quot;&gt;First&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === 1&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction previous&quot; (click)=&quot;paymentService.setPage(paymentService.pager.currentPage - 1)&quot; aria-label=&quot;Previous&quot;&gt;Prev&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li *ngFor=&quot;let page of paymentService.pager.pages&quot; [ngClass]=&quot;&#123;active:paymentService.pager.currentPage === page&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">      &#123;% raw %&#125;</span><br><span class="line">          &lt;a class=&quot;page-link&quot; (click)=&quot;paymentService.setPage(page)&quot;&gt;&#123;&#123;page&#125;&#125;&lt;/a&gt;</span><br><span class="line">          &#123;% endraw %&#125;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === paymentService.pager.totalPages&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction next&quot; (click)=&quot;paymentService.setPage(paymentService.pager.currentPage + 1)&quot; aria-label=&quot;Next&quot;&gt;Next&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === paymentService.pager.totalPages&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction last&quot; (click)=&quot;paymentService.setPage(paymentService.pager.totalPages)&quot; aria-label=&quot;Last&quot;&gt;Last&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
 <p>다음을 클릭할때에는 service.ts의 setPage()를 호출하여 pagedItems를 바꾸어 준다.<br>만약에 데이터를 index를 통해 나누어 받아오고 싶은 경우에는 setPage()의 if 문에서 범위를 넘는 페이지의 요청에 대해 서버에 요청을 날려 다음 데이터들을 받아올 수 있다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/17/Angular의-기본-개념-및-사용/" itemprop="url">
-                Angular의 기본 개념 및 사용
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-16T17:39:10.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1202 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#기본-명령어">기본 명령어</a></li>
-<li><a href="#component">Component</a></li>
-<li><a href="#module">Module</a><ul>
-<li><a href="#declaration">declaration</a></li>
-<li><a href="#imports">imports</a></li>
-<li><a href="#bootstrap">bootstrap</a></li>
-</ul>
-</li>
-<li><a href="#service">Service</a><ul>
-<li><a href="#workflow">WorkFlow</a></li>
-<li><a href="#maints">main.ts</a></li>
-</ul>
-<ul>
-<li><a href="#라이브러리">라이브러리</a></li>
-</ul>
-</li>
-<li><a href="#express">Express</a><ul>
-<li><a href="#example">Example</a></li>
-</ul>
-<ul>
-<li><a href="#활용법">활용법</a></li>
-</ul>
-</li>
-<li><a href="#structural-deretive">Structural Deretive</a><ul>
-<li><a href="#pipe">Pipe</a></li>
-<li><a href="#method-in-components">Method in Components</a></li>
-<li><a href="#model">Model</a></li>
-<li><a href="#property-binding">Property Binding</a></li>
-<li><a href="#class-binding">Class Binding</a></li>
-<li><a href="#event-binding">Event Binding</a></li>
-<li><a href="#clickfunc">(click)=”func()”</a></li>
-<li><a href="#two-way-binding">Two Way Binding</a></li>
-<li><a href="#routes">Routes</a></li>
-<li><a href="#http-library">Http Library</a></li>
-<li><a href="#언디파인-방지">언디파인 방지</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h2><span id="기본-명령어">기본 명령어</span></h2><p>새 프로젝트 만들기</p>
-<p><code>ng new [project name]</code></p>
-<p>빌드 및 실행</p>
-<p><code>$ ng build</code><br><code>$ node server.js</code></p>
-<p><a href="https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli" target="_blank" rel="noopener">참고 페이지</a></p>
-<h2><span id="component">Component</span></h2><p>컴포넌트는 어플리케이션을 구성하는 작은 조각이다.</p>
-<p><code>@Component</code> 를 클래스 위에 선언하여 컴포넌트를 꾸며주고 필요한 정보를 명시한다.</p>
-<p><strong>Selector</strong></p>
-<p>selector는 css선택자이며, 태그의 이름이다.</p>
-<p><strong>template</strong></p>
-<p>우리가 로드하려고 하는 템플릿을 작성한다.</p>
-<p><code>브래킷인 `</code>안에 작성한다.`</p>
-<p>각컴포넌트는 html, css, class를 가진다.</p>
-<p>컴포넌트는 template을 가진 일종의 directive이다.</p>
-<p><code>ng generate component [componentname]</code><br>을 통해 아주 간편하게 컴포넌트를 생성할 수 있다.</p>
-<h2><span id="module">Module</span></h2><p>모듈은 우리의 어플리케이션을 angulr하게 조직하기 위해 필요한 것이다.</p>
-<p>모든 어플리케이션은 앱을 lauch하기 위한 적어도 하나의 root module을 가진다.</p>
-<p>모듈은 기능적으로 관력이 있는 컴포넌트들을 묶어준다.</p>
-<h3><span id="declaration">declaration</span></h3><p>컴포넌트들을 선언한다.</p>
-<h3><span id="imports">imports</span></h3><p>브라우저에서 앱을 런칭하기 위해 필요한 디펜던시를 인젝트해준다.</p>
-<h3><span id="bootstrap">bootstrap</span></h3><p>root component를 명시하여 모듈이 bootstrap될 때 render하도록 한다.</p>
-<h2><span id="service">Service</span></h2><p>컴포넌트 사이에 중복된 코드와 데이터를 교환하는데 사용된다.</p>
-<h3><span id="workflow">WorkFlow</span></h3><ol>
-<li>Service에 @Injectable()을 추가한다.</li>
-</ol>
-<p>뿐만 아니라 import{Injactable} from “@angular/core”도 해주어야 한다.</p>
-<ol start="2">
-<li>Injector 즉, Module에게 Providers를 제공하여 서비스에 대해 알게 해야 한다.</li>
-</ol>
-<p>providers:[Service]</p>
-<ol start="3">
-<li>컴포넌트에 Dependency를 Inject 해준다.<ul>
-<li><code>ngOnInit() :</code></li>
-<li><code>constructor(pricate service:Service){}</code></li>
-</ul>
-</li>
-</ol>
-<h3><span id="maints">main.ts</span></h3><p>필요한 라이브러리를 import해준다.</p>
-<p><strong>BrowserModule</strong></p>
-<p>앵귤러 웹사이트를 동작하기 위한 라이브러리이다.</p>
-<p><strong>platformBrowserDynamic</strong></p>
-<p>웹사이트를 render하기 위한 앵귤러의 라이브러리이다.</p>
-<h1><span id="라이브러리">라이브러리</span></h1><h2><span id="express">Express</span></h2><p>Express는 자체적인 최소한의 기능을 갖춘 라우팅 및 미들웨어 웹 프레임워크이며, Express 애플리케이션은 기본적으로 일련의 미들웨어 함수 호출입니다.</p>
-<p>app.use() 및 app.METHOD() 함수를 이용해 애플리케이션 미들웨어를 앱 오브젝트의 인스턴스에 바인드하십시오.</p>
-<p>이때 METHOD는 미들웨어 함수가 처리하는 요청(GET, PUT 또는 POST 등)의 소문자로 된 HTTP 메소드입니다.</p>
-<p>다음 예에는 마운트 경로가 없는 미들웨어 함수가 표시되어 있습니다. 이 함수는 앱이 요청을 수신할 때마다 실행됩니다.</p>
-<h3><span id="example">Example</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Time:'</span>, <span class="built_in">Date</span>.now());</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h1><span id="활용법">활용법</span></h1><h2><span id="structural-deretive">Structural Deretive</span></h2><p>html element들을 추가 제거 대체하여 레이아웃을 변형한다.<br><br><code>*ngFor = &quot;let carPart of catParts&quot;</code><br><br>어레이를 돌며 객체를 꺼낼때 사용한다.</p>
-<p><code>*ngIf=&quot;carPart.inStock&gt;0&quot;</code></p>
-<p>if문을 사용한다.</p>
-<h3><span id="pipe">Pipe</span></h3><p>template output을 변형하기 위해 쓰인다.</p>
-<h3><span id="method-in-components">Method in Components</span></h3><p>template output을 변형하기 위해 쓰이며, 선언없이 바로 정의한다.</p>
-<h3><span id="model">Model</span></h3><p>특정 객체를 선언하도록 ts에서 선언한다.<br>export const<br>export const를 통해 상수 객체를 선언하고 가져다 쓸 수 있따.</p>
-<h3><span id="property-binding">Property Binding</span></h3><p>프로퍼티 바인딩은 컴포넌트의 property를 any Dom element property로 지정할 수 있게 한다.<br>여기서 컴포넌트의 property가 업데이트 되면 DOM도 자동으로 업데이트 된다.<br>하지만 DOM에서 업데이트 되었다고 컴포넌트의 property가 업데이트 되지는 않는다.</p>
-<h3><span id="class-binding">Class Binding</span></h3><p><code>[class.name]=&quot;property&quot;</code>를 통해 property가 참이면 클래스에 name을 추가할 수 있다.</p>
-<h3><span id="event-binding">Event Binding</span></h3><p>DOM에서 발생하는 다양한 이벤트들을 처리할 수 있다.</p>
-<h3><span id="clickfunc">(click)=”func()”</span></h3><p>클릭이벤가 발생하면 컴포넌트의 func()를 실행시킨다.</p>
-<h3><span id="two-way-binding">Two Way Binding</span></h3><p><code>[(ngModel)}=&quot;property&quot;</code><br><br>이를 통해 two way data binding이 가능하다.<br>이를 쓰기 위해서는 FormModule을 Import해야 한다.</p>
-<h3><span id="routes">Routes</span></h3><p>Angular 내에서 url을 부여하여 옮겨다니기 위함이다.</p>
-<ol>
-<li>RouterModule을 Import 해준다.<br><br><code>import{RouterModule} from &quot;@angular/router&quot;</code></li>
-<li>RouterModule을 imports에 추가해 준다.<br><br><code>.forRoot([{path:&quot;/race&quot;,component:raceComponent},{}])</code></li>
-<li>링크를 걸어준다.<br><br><code>a [routerLink]=&quot;[&#39;/races&#39;]&quot;</code></li>
-<li>router-outlet 태그를 먹여준다.<br><br><code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code></li>
-</ol>
-<h3><span id="http-library">Http Library</span></h3><ol>
-<li>json파일을 만든다.</li>
-<li>HttpModule을 Import 해준다.<br>Http를 위한 library를 추가해야 하지만 HttpModule 내에서 이미 서비스를 provide하므로 할필요 없다.</li>
-<li>injector에 httprovider를 추가해준다.</li>
-<li>서비스에 http를 dependency inject해준다. 그리고 get request를 한다.</li>
-<li>req에 의해 반환되는 data를 listen한다.</li>
-</ol>
-<h3><span id="언디파인-방지">언디파인 방지</span></h3><p><code>if(Array.isArray(this.carParts){}</code>로 감싸 this.carParts가 undefined된 경우를 처리할 수 있다.</p>
-<hr>
 
                         
     </div>

@@ -91,6 +91,60 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/07/28/react의-기본-개념/" itemprop="url">
+                react의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-28T05:25:54.000Z" itemprop="datePublished">
+                9 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/react/">react</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 966 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="react의-기본-개념">react의 기본 개념</span></h1><p>react 란 정적인 html 페이지를 js 라는 스크립트 언어를 통해 동적으로 redering 하기 위한 라이브러리이다.<br>react의 핵심은 단순히 browser라는 환경이 아닌 많은 환경에서 html 페이지를 렌더링 할 수 있게 하여 보다 다양한 환경에 쉽게 rendering 될 수 있는 페이지를 만드는 것이다. js 는 일반적으로 <code>DOM API</code> 를 통해 화면을 렌더링 하는데 흔히 <code>document.createElement</code> 와 같은 명령어들이 대표적이 예이다. 우리는 react가 제공하는 함수들을 통해 렌더링을 제어하며 react 는 우리를 대신하여 효율적으로 <code>DOM APU</code> 를 컨트롤 하여 매우 효과적으로 렌더링을 제어한다. 우리는 react가 제공하는 virtual dom 환경을 통해 렌더링을 조작하며, 이러한 <code>virtual dom</code> 을 사실 단순한 javascript object에 불과하다.</p>
+<h2><span id="dom-rendering">DOM Rendering</span></h2><p>리액트는 매우 효율적으로 <code>DOM API</code> 를 통해 렌더링을 수행하며, 대표적으로 페이지를 리 렌더링하는 시점에 바뀐 부분과 바뀌지 않은 부분들을 파악하여 반드시 필요한 부분에 대해서만 rerendering을 수행하게 되므로 브라우저의 한정된 자원을 효율적으로 사용하여 클라이언트 효율을 올려준다.</p>
+<h2><span id="react-elemnt-and-component">React Elemnt and Component</span></h2><p>react는 <code>DOM API</code> 의 element에 매칭되는 독자적인 element를 가지며 이는 js object이다.<br>이러한 element 및 component들은 직관적으로 html element 를 조작하는 것과 같은 환경을 제공해 준다.</p>
+<h2><span id="react-with-jsx">React with JSX</span></h2><p>facebook 은 보다 직관적인 html 작성을 위해 jsx라는 독자적인 언어를 만들었으며, 이를 통해 우리는 마치 html을 작성하는 것과 같은 환경에서 react 의 virtual dom을 제어할 수 있게 되었다.</p>
+<h2><span id="webpack-loader">Webpack Loader</span></h2><p>여기서 load란 build 과정에서 우리가 작성한 코드를 브라우저가 읽을 수 있도록 변형해주는 것을 의미한다. webpack은 다양한 환경에서 동작하기 위해 막대한 양의 loader 들을 가지고 있으며, 적절한 변환을 위해 우리는 <code>webpack.config.js</code> 파일을 작성하여 webpack에게 어떤 내용을 변형시켜 줄 지를 말해준다. 대표적인 loader 로는 ES6 과 React 분법을 ES5 로 변형시켜 주는 babel-loader와 scss 언어를 css 로 변형시켜주는 css-loader가 있다.</p>
+<h3><span id="webpack-설치하기">webpack 설치하기</span></h3><p>webpack 설치하기</p>
+<p><code>sudo npm install -g webpack</code></p>
+<p>loader 설치하기</p>
+<p><code>npm install babel-core babel-loader babel-preset-env babel-preset-react babel-preset-stage-0 --save-dev</code></p>
+<h3><span id="webpack-설정하기">webpack 설정하기</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 5-20. webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, <span class="comment">//define client entry file</span></span><br><span class="line">    output: &#123;</span><br><span class="line">            path: <span class="string">"dist/assets"</span>, <span class="comment">//export bundler to the dist foler</span></span><br><span class="line">            filename: <span class="string">"bundle.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    devtool: <span class="string">'#source-map'</span>, <span class="comment">// source mapping - should be after output</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [ &#123;</span><br><span class="line">                        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                        exclude: <span class="regexp">/(node_modules)/</span>,</span><br><span class="line">                        loader: [<span class="string">'babel-loader'</span>],</span><br><span class="line">                        query: &#123;</span><br><span class="line">                            presets: [<span class="string">'env'</span>, <span class="string">'stage-0'</span>, <span class="string">'react'</span>]</span><br><span class="line">                        &#125;</span><br><span class="line">        &#125; ]</span><br><span class="line">    &#125;, <span class="attr">plugins</span>: [ <span class="comment">// uglify plugin</span></span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123; <span class="attr">sourceMap</span>: <span class="literal">true</span>,</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">        mangle: <span class="literal">true</span> &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="uglify">uglify</span></h3><p>번들링 되는 파일의 용량을 줄이기 위해 웹팩은 띄어쓰기, 변수명 축약 등의 작업을 수행하는 플러그인을 내포하고 있으며, 이를 사용하기 위해서는 다음 명령어를 통해 webpack을 로컬로 설치해야한다.</p>
+<p><code>npm install webpack --save-dev</code></p>
+<h2><span id="create-react-app">create react app</span></h2><p>위와 같은 웹팩 설정 등의 여타 작업들을 수행하는 것은 상당히 성가신 일이다. facebook은 개발자들이 빠르게 설정을 완료할 수 있도록 cli 환경을 만들어 두었으며, create-react-app 을 통해 간편하게 리액트를 시작할 수 있다.<br>create-react-app 은 transpile 과 uglify 등 webpack 이 수행하는 여타의 작업들을 모두 끝내주기 때문에 가볍게 react 개발을 시작할 수 있다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/07/25/react-시작하기/" itemprop="url">
                 react 시작하기
             </a>
@@ -195,7 +249,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-07-13T09:43:29.000Z" itemprop="datePublished">
-                9 months ago
+                10 months ago
             </time>
         </span>
         
@@ -543,7 +597,7 @@ undefined
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-06-13T15:06:37.000Z" itemprop="datePublished">
-                10 months ago
+                a year ago
             </time>
         </span>
         
@@ -597,7 +651,7 @@ undefined
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-06-13T14:15:17.000Z" itemprop="datePublished">
-                10 months ago
+                a year ago
             </time>
         </span>
         
@@ -622,57 +676,6 @@ undefined
 <h2><span id="instance란">Instance란?</span></h2><p>Instance란 위에서 정의한 class로 찍어낸 실제 객체를 의미한다.<br>가령 현실 세계에서 사과장수는 하나의 추상적인 개념이다. 즉, 사과의 갯수, 나이 처럼 각종 특성을 가지는 하나의 무형의 존재이지만 실제 사과장수는 현실에서 존재한다. 가령 옆집에 사는 사과장수의 경우 정해진 나이와 사과의 갯수를 가지고 실존하는 것이며, 이를 object 또 instance라고 부른다.</p>
 <p>Java에서는 class를 통해 instance를 만들어 낼 수 있으며, 새로운 instance를 생성하면 그 데이터가 저장되고 데이터를 가르치는 참조변수에 그 주소값을 저장한다.</p>
 <h2><span id="생성자constructor-란">생성자(Constructor) 란?</span></h2><p>가령 AppleSeller 라는 class 와 appleSeller1이라는 참조 변수를 가지는 instance를 만들었다고 가정하자.<br>이 만드는 과정에는 그 사과장수의 나이와 사과의 갯수처럼 최초로 설정해 주어야 하는 값들이 있고, 이러한 설정을 Constructor 즉 생성자 내부에서 처리할 수 있다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/06/11/golang-test-code-작성하기/" itemprop="url">
-                golang - test code 작성하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-06-11T03:19:14.000Z" itemprop="datePublished">
-                10 months ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 488 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="go-test-code-작성하기">go test code 작성하기</span></h1><p>이번 포스트에서는 go 언어로 test code를 작성하는 법을 알아보도록 한다.</p>
-<p>먼저, go 에서 test code를 작성하기 위해서는 다음과 같은 규약을 따라야 한다.</p>
-<ul>
-<li>테스트 함수의 이름은 <code>Test...</code> 가 되어야 한다.</li>
-<li>테스트 함수는 <code>t *testing.T</code> 만을 입력값으로 받는다.</li>
-<li>test code가 작성된 파일의 이름은 뒤가 <code>_test.go</code> 가 되어야 한다.</li>
-</ul>
-<h2><span id="유용한-testing-함수와-활용방안">유용한 testing 함수와 활용방안</span></h2><h3><span id="terror-amp-terrorf">t.Error &amp; t.Errorf</span></h3><p>t.Error 함수는 문제가 일어나는 지점에서 에러를 발생시키며 좀 더 자세한 오류의 내용을 명시하고 싶은 경우 t.Errorf 를 사용한다.</p>
-<p><strong>example</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSum</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    total := Sum(<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> total != <span class="number">10</span> &#123;</span><br><span class="line">       t.Errorf(<span class="string">"Sum was incorrect, got: %d, want: %d."</span>, total, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3><span id="tlog">t.Log</span></h3><p>t.Log는 테스트 진행 중 콘솔창에 나타내고 싶은 말들을 명시한다.<br>어떤 입력값이 입력되는 지를 나타내거나 혹은 절차에 관한 간략한 설명을 곁들이는 것이 좋다.</p>
-<p><strong>example</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSum</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    total := Sum(<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">    t.Log(<span class="string">"testing sum function...  input data: %d, %d"</span>, <span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> total != <span class="number">10</span> &#123;</span><br><span class="line">       t.Errorf(<span class="string">"Sum was incorrect, got: %d, want: %d."</span>, total, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="test-table">Test Table</span></h2><p>테스트 하고자 하는 입출력 값을 table에 담아 보다 보기 좋게 명시할 수 있으며 다음과 같이 사용될 수 있다.</p>
-<p><strong>example</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main_test</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"testing"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span><span class="params">(a <span class="keyword">int</span>, b <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSum</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	tests := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">struct</span>&#123;</span><br><span class="line">		input <span class="keyword">struct</span>&#123;</span><br><span class="line">			testData1 <span class="keyword">string</span></span><br><span class="line">			testData2 <span class="keyword">string</span></span><br><span class="line">		&#125;</span><br><span class="line">		output <span class="keyword">struct</span>&#123;</span><br><span class="line">			testOutput1 <span class="keyword">string</span></span><br><span class="line">			testOutput2 <span class="keyword">string</span></span><br><span class="line">		&#125;</span><br><span class="line">		err error</span><br><span class="line">	&#125;&#123;</span><br><span class="line">		input: <span class="keyword">struct</span>&#123;</span><br><span class="line">			testData1: <span class="string">"test data 1"</span>,</span><br><span class="line">			testData2: <span class="string">"test data 2"</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		output: <span class="keyword">struct</span>&#123;</span><br><span class="line">			testOutput1: <span class="string">"test output 1"</span>,</span><br><span class="line">			testOutput2: <span class="string">"test output 2"</span>,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> testName, test := <span class="keyword">range</span> tests&#123;</span><br><span class="line">		Sum(test)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="mock-객체를-활용한-test-시의-dependency-처리">mock 객체를 활용한 test 시의 dependency 처리</span></h2><p>go 함수 내에 dependency injection이 있는 경우 일일히 모든 dependency들을 세팅해 주는 것은 테스트의 코스트가 너무 커진다.<br>때문에 테스트를 위한 fake interface를 구현하여 inject 해 줌으로써 해결한다.</p>
 <hr>
 
                         

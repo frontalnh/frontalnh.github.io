@@ -91,6 +91,55 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/02/getting-started-with-ubuntu/" itemprop="url">
+                Getting started with ubuntu
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
+                5 minutes ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/ubuntu/">ubuntu</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 208 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="installation">Installation</span></h2><p>Git, node.js, aws-cli 를 설치해 준다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt-get install python2.7 &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo python2.7 get-pip.py &amp;&amp; # install pip</span><br><span class="line">sudo pip install awscli &amp;&amp; # install aws-cli</span><br></pre></td></tr></table></figure>
+<h3><span id="aws-configuration">AWS configuration</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
+<h2><span id="problem-solved">Problem solved</span></h2><h3><span id="그래픽-드라이버-호환으로-인해-화면이-정지하는-경우">그래픽 드라이버 호환으로 인해 화면이 정지하는 경우</span></h3><h3><span id="nvidia-driver-installation">NVIDIA Driver installation</span></h3><p>먼저 nvidia 에 들어가서 자신의 PC 에 알맞는 드라이버를 다운 받아 둔다.</p>
+<p><a href="https://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">Download Drivers | NVIDIA</a></p>
+<p>자신의 현재 그래픽 드라이버를 blacklist 에 추가하고 업데이트 후 재부팅 해준다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"echo blacklist nouveau &gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf"</span> &amp;&amp;</span><br><span class="line">sudo bash -c <span class="string">"echo options nouveau modeset=0 &gt;&gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf"</span> &amp;&amp;</span><br><span class="line">cat /etc/modprobe.d/blacklist-nvidia-nouveau.conf <span class="comment"># check configuration </span></span><br><span class="line"></span><br><span class="line">sudo update-initramfs -u <span class="comment"># regenerate initramfs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># reboot</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<p>###</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/04/20/getting-started-with-aws-vpc/" itemprop="url">
                 Getting started with aws vpc
             </a>
@@ -99,7 +148,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                2 hours ago
+                12 days ago
             </time>
         </span>
         
@@ -165,7 +214,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-08T13:48:34.167Z" itemprop="datePublished">
-                12 days ago
+                24 days ago
             </time>
         </span>
         
@@ -256,7 +305,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T12:40:05.000Z" itemprop="datePublished">
-                23 days ago
+                a month ago
             </time>
         </span>
         
@@ -315,7 +364,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T12:00:56.000Z" itemprop="datePublished">
-                23 days ago
+                a month ago
             </time>
         </span>
         
@@ -364,7 +413,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T02:14:34.000Z" itemprop="datePublished">
-                23 days ago
+                a month ago
             </time>
         </span>
         
@@ -406,7 +455,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
-                24 days ago
+                a month ago
             </time>
         </span>
         
@@ -469,7 +518,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-26T23:34:19.000Z" itemprop="datePublished">
-                24 days ago
+                a month ago
             </time>
         </span>
         
@@ -587,7 +636,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-16T09:14:59.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -701,96 +750,6 @@
 <h4><span id="query-string-nested-object">Query string nested object</span></h4><p>기존에는 querystring 라이브러리를 사용하여 nested object 를 처리하지 못하였으나, qs 라이브러리를 사용하면 해결 가능하다.</p>
 <h4><span id="custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@click.native</span><br></pre></td></tr></table></figure>
 <h4><span id="다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</span></h4>
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/12/javascript-cookbook/" itemprop="url">
-                Javascript Cookbook
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-12T03:43:17.000Z" itemprop="datePublished">
-                a month ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1229 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!--toc-->
-<h2><span id="javascript-cookbook">Javascript Cookbook</span></h2><h3><span id="object">Object</span></h3><h4><span id="assign">assign()</span></h4><p>assign 함수는 특정 객체의 값을 복사하는 함수입니다. assign 함수를 통해 두 개 이상의 객체를 병합하는 등의 작업을 수행 가능합니다.</p>
-<p>assign 함수는 아래와 같이 사용되며 대상 객체를 반환합니다.</p>
-<p>example</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.assign(target, ...source)</span><br></pre></td></tr></table></figure>
-<p><strong>객체 복사하기</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, source);</span><br></pre></td></tr></table></figure>
-<p>위와 같이 Object.assign은 객체를 복사하는 데 사용될 수 있으며, {} 처럼 빈 객체를 넣고 반환값을 받음으로써 빈 객체에 source 가 되는 object를 복사할 수 있습니다.</p>
-<p><strong>객체 병합하기</strong></p>
-<p>assign 함수를 통해 객체를 병합 할 수 있습니다. 가령 a, b 객체가 있고 각각의 키값을 하나로 병합하고 싶다면 다음과 같이 수행 할 수 있습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">c</span>:<span class="number">4</span>, <span class="attr">d</span>:<span class="number">5</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br></pre></td></tr></table></figure>
-<p>이처럼 만약 동일한 key를 가졌다면 뒤에 오는 source의 key, value 들로 덮어씌워지는 방식으로 복사될 것입니다.</p>
-<h4><span id="keys">keys()</span></h4><h4><span id="entries">entries()</span></h4><p>entries 함수는 object의 키들을 열거가능한 [key, value] 쌍을 리턴해 주며, 다음과 같이 사용됩니다.</p>
-<p>example</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line"><span class="comment">// [["a", 1],["b", 2],["c", 3]]</span></span><br></pre></td></tr></table></figure>
-<p>객체 내의 다양한 키들을 순환하는 로직을 구현 하는 경우 이는 매우 효과적이며 다음과 같이 사용됩니다.</p>
-<p><strong>exmaple</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line">entries.foreach(<span class="function">(<span class="params">key, value</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff</span></span><br><span class="line">  <span class="built_in">console</span>.log(key, value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3><span id="map">Map</span></h3><p>js에서 Map 이란 일종의 key 와 value의 쌍으로 흔히 object와 비슷한 역할을 수행하지만, object와 달리 어떤 종류의 값도 저장할 수 있는 장점이 있으며, 흔히 대량의 자료가 저장되는 경우 object에 비해 훨씬 좋은 성능을 보인다.</p>
-<p>이번 포스트에서는 Map 이 가진 다양한 함수들과 이에 대한 활용법에 대해 알아보도록 한다.</p>
-<p>example</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Map</span>([iterable]) <span class="comment">//key, value pair</span></span><br></pre></td></tr></table></figure>
-<h4><span id="set">set</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.set(c, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-<h4><span id="get">get</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<h4><span id="deletekey">delete(key)</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var exampleMap = new Map([a, 1], [b, 2]);</span><br><span class="line">exampleMap.delete(a);</span><br></pre></td></tr></table></figure>
-<h4><span id="foreach">foreach</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example = <span class="keyword">new</span> <span class="built_in">Map</span>([a, <span class="number">1</span>], [b, <span class="number">2</span>]);</span><br><span class="line">example.foreach((value, key)&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3><span id="array">Array</span></h3><h4><span id="sort">sort()</span></h4><p>array의 sort는 배열을 정렬하기 위한 아주 좋은 method 입니다.</p>
-<p>sort는 뒤에 오는 콜백함수를 계속 실행하여 callback(a, b)의 값이 0보다 작은 경우 a를 앞으로 보내고, 0보다 큰 경우 a를 뒤로 보내는 방식으로 동작합니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/* 정상 동작 */</span><br><span class="line">score.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a - b;</span><br><span class="line">    // 1, 2, 3, 4, 10, 11</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">score.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return b - a;</span><br><span class="line">    // 11, 10, 4, 3, 2, 1</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a.name &lt; b.name ? -1 : a.name &gt; b.name ? 1 : 0;</span><br><span class="line">    // 광희, 명수, 재석, 형돈</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return a.name &gt; b.name ? -1 : a.name &lt; b.name ? 1 : 0;</span><br><span class="line">    // 형돈, 재석, 명수, 광희</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4><span id="splice">splice()</span></h4><p>array.splice(i,1)를 통해 index i 로 부터 1개의 요소를 제거하고 제거한 자리에 값을 추가한다.</p>
-<p><strong>example</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var array = [0, 1, 2, 3, 4, 5];</span><br><span class="line">array.splice(2, 1);</span><br><span class="line">//array에는 세번째 요소가 빠진 상태가 된다.</span><br><span class="line">[0, 1, 3, 4, 5]</span><br></pre></td></tr></table></figure>
-<h4><span id="delete">delete</span></h4><p>특정 요소를 삭제할 때 사용한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">delete arr[1];</span><br></pre></td></tr></table></figure>
-<h4><span id="pop">pop</span></h4><p>array를 stack으로 사용하는 경우 pop() 함수는 매우 유용하며, 가장 우측의 element를 제거한다.</p>
-<p>example</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let list = [1, 2, 3, 4, 5, 6, 7];</span><br><span class="line"></span><br><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let poped = list.pop();</span><br><span class="line">console.log(&apos;poped item: &apos;, poped);</span><br><span class="line">console.log(&apos;list after pop() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
-<h4><span id="push">Push</span></h4><p>리스트에 특정 아이템을 추가하고 추가된 이후에 총 아이템의 갯수를 반환한다.</p>
-<p>이 함수는 원래의 리스트를 변형한다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'original list: '</span>, list);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> count = list.push(<span class="string">'pushed item'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Total item count after push() executed: '</span>, count);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'list after push() executed: '</span>, list);</span><br></pre></td></tr></table></figure>
-<h4><span id="shift">shift</span></h4><p>shift는 주로 que의 구현에 많이 사용되며, 제일 앞의 element를 제거하고 반환해 준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let shifted = list.shift();</span><br><span class="line">console.log(&apos;shifted item: &apos;, shifted);</span><br><span class="line">console.log(&apos;list after shift() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
-<h4><span id="unshift">unshift()</span></h4><p>제일 앞쪽에 밀어 넣는다.</p>
-<p><strong>example</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var fruits = [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Apple&quot;, &quot;Mango&quot;];</span><br><span class="line">fruits.unshift(&quot;Lemon&quot;);    // Adds a new element &quot;Lemon&quot; to fruits</span><br></pre></td></tr></table></figure>
-<h4><span id="foreachgt">foreach(()=&gt;{})</span></h4><p>모든 어레이값에 대해 연산을 수행하는 함수이며 다음과 같이 사용된다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.foreach(<span class="function">(<span class="params">element, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(element);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4><span id="reduce">reduce</span></h4><p>reduce는 array의 모든 값에 대해 계속해서 callback함수를 실행시키는 함수이며 다음과 같은 용도로 사용합니다.</p>
-<p><strong>syntax</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>여기서 첫번째 인자인 accumulator는 계속해서 다음 callback의 인자로 전달되는 값이며 어떤 변환을 하더라도 해당 변환 내용이 다음으로 전달되며, currentValue는 현재 값을 나타냅니다.</p>
-<p><strong>배열에서 가장 큰 값을 구하기</strong></p>
-<p>accumulator를 통해 계속 앞의 return 값을 받아와 비교하면서 가장 큰 값을 구할 수 있습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> max = arr.reduce(<span class="function">(<span class="params">before, current</span>)=&gt;</span></span><br><span class="line">  <span class="keyword">return</span> before&lt;current ? current : before</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
                         
     </div>
     

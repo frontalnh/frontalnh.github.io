@@ -91,6 +91,96 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/12/javascript-cookbook/" itemprop="url">
+                Javascript Cookbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-12T03:43:17.000Z" itemprop="datePublished">
+                2 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1229 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h2><span id="javascript-cookbook">Javascript Cookbook</span></h2><h3><span id="object">Object</span></h3><h4><span id="assign">assign()</span></h4><p>assign 함수는 특정 객체의 값을 복사하는 함수입니다. assign 함수를 통해 두 개 이상의 객체를 병합하는 등의 작업을 수행 가능합니다.</p>
+<p>assign 함수는 아래와 같이 사용되며 대상 객체를 반환합니다.</p>
+<p>example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.assign(target, ...source)</span><br></pre></td></tr></table></figure>
+<p><strong>객체 복사하기</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, source);</span><br></pre></td></tr></table></figure>
+<p>위와 같이 Object.assign은 객체를 복사하는 데 사용될 수 있으며, {} 처럼 빈 객체를 넣고 반환값을 받음으로써 빈 객체에 source 가 되는 object를 복사할 수 있습니다.</p>
+<p><strong>객체 병합하기</strong></p>
+<p>assign 함수를 통해 객체를 병합 할 수 있습니다. 가령 a, b 객체가 있고 각각의 키값을 하나로 병합하고 싶다면 다음과 같이 수행 할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">c</span>:<span class="number">4</span>, <span class="attr">d</span>:<span class="number">5</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br></pre></td></tr></table></figure>
+<p>이처럼 만약 동일한 key를 가졌다면 뒤에 오는 source의 key, value 들로 덮어씌워지는 방식으로 복사될 것입니다.</p>
+<h4><span id="keys">keys()</span></h4><h4><span id="entries">entries()</span></h4><p>entries 함수는 object의 키들을 열거가능한 [key, value] 쌍을 리턴해 주며, 다음과 같이 사용됩니다.</p>
+<p>example</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line"><span class="comment">// [["a", 1],["b", 2],["c", 3]]</span></span><br></pre></td></tr></table></figure>
+<p>객체 내의 다양한 키들을 순환하는 로직을 구현 하는 경우 이는 매우 효과적이며 다음과 같이 사용됩니다.</p>
+<p><strong>exmaple</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line">entries.foreach(<span class="function">(<span class="params">key, value</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff</span></span><br><span class="line">  <span class="built_in">console</span>.log(key, value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3><span id="map">Map</span></h3><p>js에서 Map 이란 일종의 key 와 value의 쌍으로 흔히 object와 비슷한 역할을 수행하지만, object와 달리 어떤 종류의 값도 저장할 수 있는 장점이 있으며, 흔히 대량의 자료가 저장되는 경우 object에 비해 훨씬 좋은 성능을 보인다.</p>
+<p>이번 포스트에서는 Map 이 가진 다양한 함수들과 이에 대한 활용법에 대해 알아보도록 한다.</p>
+<p>example</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Map</span>([iterable]) <span class="comment">//key, value pair</span></span><br></pre></td></tr></table></figure>
+<h4><span id="set">set</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.set(c, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h4><span id="get">get</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<h4><span id="deletekey">delete(key)</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var exampleMap = new Map([a, 1], [b, 2]);</span><br><span class="line">exampleMap.delete(a);</span><br></pre></td></tr></table></figure>
+<h4><span id="foreach">foreach</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example = <span class="keyword">new</span> <span class="built_in">Map</span>([a, <span class="number">1</span>], [b, <span class="number">2</span>]);</span><br><span class="line">example.foreach((value, key)&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3><span id="array">Array</span></h3><h4><span id="sort">sort()</span></h4><p>array의 sort는 배열을 정렬하기 위한 아주 좋은 method 입니다.</p>
+<p>sort는 뒤에 오는 콜백함수를 계속 실행하여 callback(a, b)의 값이 0보다 작은 경우 a를 앞으로 보내고, 0보다 큰 경우 a를 뒤로 보내는 방식으로 동작합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/* 정상 동작 */</span><br><span class="line">score.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a - b;</span><br><span class="line">    // 1, 2, 3, 4, 10, 11</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">score.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return b - a;</span><br><span class="line">    // 11, 10, 4, 3, 2, 1</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a.name &lt; b.name ? -1 : a.name &gt; b.name ? 1 : 0;</span><br><span class="line">    // 광희, 명수, 재석, 형돈</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return a.name &gt; b.name ? -1 : a.name &lt; b.name ? 1 : 0;</span><br><span class="line">    // 형돈, 재석, 명수, 광희</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4><span id="splice">splice()</span></h4><p>array.splice(i,1)를 통해 index i 로 부터 1개의 요소를 제거하고 제거한 자리에 값을 추가한다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var array = [0, 1, 2, 3, 4, 5];</span><br><span class="line">array.splice(2, 1);</span><br><span class="line">//array에는 세번째 요소가 빠진 상태가 된다.</span><br><span class="line">[0, 1, 3, 4, 5]</span><br></pre></td></tr></table></figure>
+<h4><span id="delete">delete</span></h4><p>특정 요소를 삭제할 때 사용한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">delete arr[1];</span><br></pre></td></tr></table></figure>
+<h4><span id="pop">pop</span></h4><p>array를 stack으로 사용하는 경우 pop() 함수는 매우 유용하며, 가장 우측의 element를 제거한다.</p>
+<p>example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let list = [1, 2, 3, 4, 5, 6, 7];</span><br><span class="line"></span><br><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let poped = list.pop();</span><br><span class="line">console.log(&apos;poped item: &apos;, poped);</span><br><span class="line">console.log(&apos;list after pop() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
+<h4><span id="push">Push</span></h4><p>리스트에 특정 아이템을 추가하고 추가된 이후에 총 아이템의 갯수를 반환한다.</p>
+<p>이 함수는 원래의 리스트를 변형한다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'original list: '</span>, list);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> count = list.push(<span class="string">'pushed item'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Total item count after push() executed: '</span>, count);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'list after push() executed: '</span>, list);</span><br></pre></td></tr></table></figure>
+<h4><span id="shift">shift</span></h4><p>shift는 주로 que의 구현에 많이 사용되며, 제일 앞의 element를 제거하고 반환해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let shifted = list.shift();</span><br><span class="line">console.log(&apos;shifted item: &apos;, shifted);</span><br><span class="line">console.log(&apos;list after shift() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
+<h4><span id="unshift">unshift()</span></h4><p>제일 앞쪽에 밀어 넣는다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var fruits = [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Apple&quot;, &quot;Mango&quot;];</span><br><span class="line">fruits.unshift(&quot;Lemon&quot;);    // Adds a new element &quot;Lemon&quot; to fruits</span><br></pre></td></tr></table></figure>
+<h4><span id="foreachgt">foreach(()=&gt;{})</span></h4><p>모든 어레이값에 대해 연산을 수행하는 함수이며 다음과 같이 사용된다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.foreach(<span class="function">(<span class="params">element, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(element);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4><span id="reduce">reduce</span></h4><p>reduce는 array의 모든 값에 대해 계속해서 callback함수를 실행시키는 함수이며 다음과 같은 용도로 사용합니다.</p>
+<p><strong>syntax</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>여기서 첫번째 인자인 accumulator는 계속해서 다음 callback의 인자로 전달되는 값이며 어떤 변환을 하더라도 해당 변환 내용이 다음으로 전달되며, currentValue는 현재 값을 나타냅니다.</p>
+<p><strong>배열에서 가장 큰 값을 구하기</strong></p>
+<p>accumulator를 통해 계속 앞의 return 값을 받아와 비교하면서 가장 큰 값을 구할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> max = arr.reduce(<span class="function">(<span class="params">before, current</span>)=&gt;</span></span><br><span class="line">  <span class="keyword">return</span> before&lt;current ? current : before</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/03/how-to-start-a-startup/" itemprop="url">
                 How to start a startup
             </a>
@@ -527,7 +617,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-02-08T09:10:51.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -665,92 +755,6 @@
 <p>~/.aws/credential</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = ~</span><br><span class="line">AWS_SECRET_ACCESS_KEY = ~</span><br><span class="line">AWS_SESSION_TOKEN = ~</span><br></pre></td></tr></table></figure>
 <h2><span id="configuration">Configuration</span></h2><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
-<p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
-<p>config</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
-<p>그 중에서도 유저 정보는 credentials 에 다음과 같이 저장되어 있다.</p>
-<p>credentials</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
-<p>이처럼 기본 user 인 [default] 유저와 특정 유저를 나타내는 [profile user_name] 이 나뉘어 있다.</p>
-<p>여기에 정의된 특정 profile 은 command line 에서 <code>--profile user1</code> 과 같이 사용될 수 있다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/01/29/getting-started-with-aws/" itemprop="url">
-                Getting started with AWS
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-01-29T06:45:00.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/aws-cli/">aws cli</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                11 minutes read (About 1665 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="route53">Route53</span></h2><p>Route53 은 AWS 가 제공하는 DNS 서비스이며, 실제 도메인을 구입하고 도메인의 routing 을 설정하고 subdomain 지정 등 많은 일을 수행할 수 있다.</p>
-<p>Route 53은 도메인과 동일한 이름의 퍼블릭 호스팅 영역을 자동으로 생성한다. 퍼블릭 호스팅 영역이란 특정 도메인(예: example.com)과 그 하위 도메인(apex.example.com, acme.example.com)의 트래픽을 인터넷에서 라우팅하는 방식에 대한 정보를 담고 있는 컨테이너로, 호스팅 영역에 레코드를 생성하여 도메인 및 하위 도메인에 대한 트래픽의 라우팅 방법을 지정한다.</p>
-<p>트래픽을 리소스로 라우팅하려면 호스팅 영역에 <strong>리소스 레코드 세트</strong> 라고도 하는 <em>레코드</em>를 생성해야 합니다. 각각의 레코드에는 도메인의 트래픽을 라우팅할 방법에 관한 다음과 같은 정보가 포함되어 있습니다.</p>
-<p><strong>이름</strong></p>
-<p>레코드의 이름은 Route 53을 사용하여 트래픽을 라우팅하려는 도메인 이름(예: example.com) 또는 하위 도메인 이름(예: <a href="http://www.example.com)과" target="_blank" rel="noopener">www.example.com)과</a> 일치합니다.</p>
-<p>호스팅 영역에 있는 모든 레코드의 이름은 반드시 호스팅 영역의 이름으로 끝나야 합니다. 예를 들어 호스팅 영역의 이름이 example.com이라면 모든 레코드 이름이 example.com으로 끝나야 합니다. Route 53 콘솔은 자동으로 이 작업을 수행합니다.</p>
-<p><strong>형식</strong></p>
-<p>레코드 유형은 일반적으로 트래픽을 라우팅할 리소스 유형을 결정합니다. 예를 들어 트래픽을 이메일 서버로 라우팅하려면 [Type]을 [MX]로 지정합니다. IPv4 IP 주소를 가진 웹 서버로 트래픽을 라우팅하려면 [Type]을 [A]로 지정합니다.</p>
-<p><strong>값</strong></p>
-<p>[Value]는 [Type]과 밀접한 관련이 있습니다. [Type]을 [MX]로 지정하는 경우, [Value]에 하나 이상의 이메일 서버의 이름을 지정해야 합니다. [Type]을 [A]로 지정하는 경우, 192.0.2.136과 같은 IPv4 형식의 IP 주소를 지정해야 합니다.</p>
-<p><img src="/images/image-20190328112743282.png" alt="image-20190328112743282"></p>
-<p>* 출처: <a href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/welcome-dns-service.html" target="_blank" rel="noopener">AWS 홈페이지</a></p>
-<h2><span id="load-balancer">Load balancer</span></h2><p>Route53 에서 라우팅 된 요청을 여러 인스턴스에 분배해주는 부하 부산기이다.</p>
-<p>로드 밸런서는 특정 서브도메인을 특정 타겟 그룹으로 보내도록 설정할 수 있으며, 이는 로드밸런서가 특정 프로토콜 통신을 위해 듣고 있는 포트의 rule 을 바꾸어 줌으로써 해결할 수 있다. 가령 80 번 포트 리스너에서 특정 서브 도메인을 특정 타겟 그룹으로 전달 할 수 있으며, 이때 반드시 타겟 그룹을 미리 설정해 두어야 한다.</p>
-<p>타겟 그룹은 여러 인스턴스들과 특정 포트를 등록해 두는 것으로 이를 통해 로드 밸런서가 특정 타겟 그룹의 여러 인스턴스들에게 부하를 분산해서 할당한다.</p>
-<h2><span id="aws-cli">AWS CLI</span></h2><p>AWS 에는 수많은 기능이 있고, 이를 실제 웹사이트에서 console 을 통해 제어하는 것은 개발자에게 매우 비효율적인 일이 아닐 수 없다. AWS 는 이렇게 사용자의 컴퓨터에서 AWS 상의 많은 기능을 제어하기 위해 AWS CLI 프로그램을 제공하며, 본 포스트에서는 AWS CLI 의 기본적인 사용법을 알아보고자 한다.</p>
-<h3><span id="installation">Installation</span></h3><p>Mac OS 에서는 다음과 같이 pip 명령어를 통해 aws cli 를 쉽게 설치할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install awscli</span><br></pre></td></tr></table></figure>
-<h3><span id="authentication">Authentication</span></h3><p>AWS 는 현재 cli 프로그램을 사용하는 내가 어떤 유저인지 모르기 때문에 이를 AWS 에게 알려주어야 하며, 그것이 authentication 자체이다.</p>
-<p>사용자의 PC에는 여러 AWS 유저들에 대한 정보를 저장할 수 있는데, AWS 는 매우 복잡한 유저 관리 체계를 가지기 때문에 이는 매우 필요한 일이다.(가령 특정 AWS 서비스의 조작을 위한 별도 Program user 를 생성하는 경우 여러 개발자가 하나의 계정을 공유하여 사용하는 것은 매우 빈번한 일이다.)</p>
-<p><strong>Command 를 입력할 때 특정 사용자임을 밝히기</strong></p>
-<p>아래 명령어를 통해 aws access key 와 secret key 를 등록하고 사용할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
-<p>다음과 같은 command option 을 통해 내가 어떤 사용자인지 알리고, 미리 configure 되어있는 해당 사용자의 정보로 authentication 을 진행할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws [<span class="built_in">command</span>] --profile 사용자이름</span><br></pre></td></tr></table></figure>
-<p><strong>MFA 를 사용하는 경우의 인증</strong></p>
-<p>콘솔 계정의 경우 cli 를 통한 작업을 진행할 경우 MFA 를 적용했다면 Access Deny 된다.</p>
-<p>이 경우 MFA 유저를 위해 별도의 임시 인증을 거쳐야 하는데 이는 다음 명령어로 해결이 가능하다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws sts get-session-token --serial-number &lt;arn-mfa-device&gt; --token-code 126355 --profile jee</span><br></pre></td></tr></table></figure>
-<p><code>arn-mfa-device</code> 는 각 AWS계정 정보에 들어가서 보안자격증명 탭에 할당된 MFA 디바이스를 보시면 알 수 있다.</p>
-<p><code>token-code</code> 는 Authy와 같은 2FA 토큰 값을 입력해 주면 된다.</p>
-<p>커맨드를 실행하시면 임시 Access Key가 발급되고 Access ID, Secret Access Key, Session Token을 환경변수나 credential에 profile로 등록하신후 사용하면 된다.</p>
-<p>때문에, 만료시간이 있기때문에 매번 재발급받아야하는데 AWS에서는 이를 각자 Cron Tab등으로 만들어서 사용하는 것을 권장한다.</p>
-<p>다음과 같이 credential 에 등록하여 사용하면 된다.</p>
-<p>~/.aws/credential</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = ~</span><br><span class="line">AWS_SECRET_ACCESS_KEY = ~</span><br><span class="line">AWS_SESSION_TOKEN = ~</span><br></pre></td></tr></table></figure>
-<h3><span id="configuration">Configuration</span></h3><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
 <p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
 <p>config</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
