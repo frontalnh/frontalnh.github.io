@@ -91,6 +91,156 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/29/Neural-Network의-기본-개념/" itemprop="url">
+                Neural Network의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T02:49:33.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1216 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#neural-network의-역사">neural network의 역사</a></li>
+<li><a href="#왜-인공신경망이-각광을-받게-되었는가">왜 인공신경망이 각광을 받게 되었는가?</a></li>
+<li><a href="#인공신경망이란">인공신경망이란?</a></li>
+<li><a href="#생체-신경망과-컴퓨터-신경망의-연산속도">생체 신경망과 컴퓨터 신경망의 연산속도</a></li>
+<li><a href="#문자의-인식">문자의 인식</a></li>
+<li><a href="#기초적인-생체-신경망">기초적인 생체 신경망</a></li>
+<li><a href="#neural-network-computation">Neural Network Computation</a></li>
+<li><a href="#mcculloch-pitts-theoryold">McCulloch-Pitts Theory(old)</a></li>
+<li><a href="#hebbian-learning">Hebbian Learning</a></li>
+<li><a href="#general-processing-element">General Processing Element</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="neural-network의-역사">neural network의 역사</span></h2><p>1940년 후반, 디지털 컴퓨터의 출현</p>
+<p>1950년 후반, perceptron과 ADALINE의 출현</p>
+<p>1969년 ~ 1980년 초반, single layer perceptron에서 xor 문제 발생</p>
+<p>1986년, 전환점을 맞이하게 된다.<br>multi layer perceptron이 xor 문제를 해결하다.</p>
+<p>1990년, optical neural network, 디지털 하드웨어</p>
+<h2><span id="왜-인공신경망이-각광을-받게-되었는가">왜 인공신경망이 각광을 받게 되었는가?</span></h2><ol>
+<li>경험, 데이터, 실험을 통해 강력한 학습이 가능하다.</li>
+<li>물체의 분류와 식별이 가능해진다.</li>
+<li>빠른 병렬연산으로 이상적으로 빛의 속도로 연산이 가능하다.</li>
+<li>잠재 지능이 존재한다.</li>
+<li>수많은 범용 어플리케이션이 나오고 있다.</li>
+</ol>
+<h2><span id="인공신경망이란">인공신경망이란?</span></h2><p>인공 신경망이란 processing elements 로 구성된 여러개의 장치들이 connection strength or weight이 다른 여러 개의 연결망을 통해 연결된 복합체이다.<br>많은 패턴들과 수치 데이터들이 학습되고 저장될 수 있다.<br>여기서 weights란 인공 신경만이 학습하고 저장하기 위한 수치값들로 메모리에 저장되는 값이다.</p>
+<p>adaption이란 예제와 실험들로 학습하는 것을 말한다.</p>
+<h2><span id="생체-신경망과-컴퓨터-신경망의-연산속도">생체 신경망과 컴퓨터 신경망의 연산속도</span></h2><p>컴퓨터의 속도가 생체 신경망에 비해 10,000,000배나 더 빠른 속도를 보인다.<br>하지만 컴퓨터는 병렬적 처리를 하지 못하는데 반해 생체신경망은 막대한 병렬연산이 가능하고 복잡하게 연결되어 있기 때문에 컴퓨터가 100msec가 걸려야 풀 수 있는 한번의 인식을 단지 0.1msec 만에 해결한다.</p>
+<h2><span id="문자의-인식">문자의 인식</span></h2><p>손으로 작성되었는가 혹은 컴퓨터로 타이핑 되었는가, 기울기 확대율, 회전율 등에 따라 다른 인식율을 보인다.</p>
+<p>기본적인 패턴인식은 패턴을 픽셀단위로 분해아여 벡터화 시킨다.<br>인공 신경망의 node와 connection strength를 조절하여 분석한다.</p>
+<p><img src="\images\characterRecognition.png" alt="character recognition"></p>
+<h2><span id="기초적인-생체-신경망">기초적인 생체 신경망</span></h2><p>뉴런</p>
+<ol>
+<li>부분적인 투과성을 가진다.</li>
+<li>potential 차이가 존재하며 이온들이 이동한다.</li>
+</ol>
+<p>이온들이 potential차가 평행을 이루는 지점까지 운동한다.</p>
+<p><strong>시냅스</strong></p>
+<p>시냅스는 Neuro-transmitter이다.<br>시냅스가 Ca(+)의 투과성을 높여주면 action potential이 증가한다.</p>
+<p>투과성이 critical point를 넘기게 되면 action potential이 이동하여 다른 뉴런에 연결된다.</p>
+<h2><span id="neural-network-computation">Neural Network Computation</span></h2><blockquote>
+<p>뇌는 수많은 연결을 통해 어떻게 엄청난 능력을 가지게 되었는가?</p>
+</blockquote>
+<h2><span id="mcculloch-pitts-theoryold">McCulloch-Pitts Theory(old)</span></h2><ol>
+<li>뉴런의 활동은 일어나거나 일어나지 않거나 두가지 상태를 가진다. 중간은 없다.</li>
+<li>신경이 흥분되려면 두 개 이상의 시냅스가 흥분되어야 한다.</li>
+<li>delay는 오직 스냅스에서만 발생한다.</li>
+<li>억제 시냅스는 뉴런 활동성을 저해한다.</li>
+<li>연결망의 구조는 시간에 따라 변하지 않는다.</li>
+</ol>
+<blockquote>
+<p>뉴런은 단순한 장치이지만, 적절하게 연결되어 신경 시스템을 구성하면 막대한 계산이 가능하다.</p>
+</blockquote>
+<h2><span id="hebbian-learning">Hebbian Learning</span></h2><blockquote>
+<p>생체신경망은 최초에 직렬적으로 작동할 능력과 지식을 갖추지 못했다.</p>
+</blockquote>
+<p><strong>Pavlov’s Conditioned Response</strong></p>
+<p>뉴런 A 의 축색돌기가 뉴런 B를 자극하기에 충분하고 지속적으로 계속적으로 자극이 발생한다면 하나 혹은 여러개의 뉴런에서 성장 혹은 신진대사가 이루어 지고 뉴런 C의 효율이 높아진다.<br>그리고 마침내 뉴런 C를 자극하는 다른 뉴런인 뉴런 B가 증가하게 된다.</p>
+<p><img src="\images\파블로프의모델.png" alt="파블로프의 모델"></p>
+<p><img src="\images\파블로프의조건적반응.png" alt="파블로프의 조건적 반응"></p>
+<p>Hebb’s assumption says, “The excitation of neuron A has enough stimulus for neuron B, but that of neuron C doesn’t have. Now, with neuron A, the connection strength of neuron C increases, and eventually, without neuron A, neuron B can be excited by neuron C only.”</p>
+<h2><span id="general-processing-element">General Processing Element</span></h2><p>인공 신경세포를 노드 혹은 유닛으로 나타내는 단위이다.</p>
+<p><img src="\images\pE의개념도.png" alt="PE의 개념도"></p>
+<p><img src="\images\pE를이루는기본공식.png" alt="PE를 이루는 기본 공식"></p>
+<p>수학에서 뉴럴 네트워크의 설계는 시간에 따라 변하는 역동적인 시스템이다.</p>
+<p><strong>학습 법칙</strong><br>connection strength는 학습이 진행됨에 따라 업데이트되며, data of weights가 무엇을 배우지에 관한 정보를 기록하게 된다.</p>
+<p>vector notations<br><img src="\images\pE모델링을위한벡터표기.png" alt="PE 모델링을 위한 벡터 표기"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/27/nodejs-mysql-join-데이터를-간편하게-json으로-정제하기/" itemprop="url">
+                nodejs mysql join 데이터를 간편하게  json으로 정제하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-27T04:53:17.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 208 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#arrayforeach-함수의-활용">array.forEach 함수의 활용</a></li>
+<li><a href="#받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="arrayforeach-함수의-활용">array.forEach 함수의 활용</span></h2><p>forEach()는 오름차순으로 배열에 있는 각 요소에 대해 한 번씩 callback을 실행한다.<br>삭제 또는 비초기화된 인덱스 속성에 대해서는 호출되지 않는다.</p>
+<p>callback은 다음 세 인수와 함께 호줄된다.<br>요소 값, 요소 인덱스, 순회될 배열</p>
+<h2><span id="받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</span></h2><p>정제하는 함수<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function(err,rows)&#123;</span><br><span class="line">  var result = [];</span><br><span class="line">  var indexObject = &#123;&#125;;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    rows.forEach(function(row)&#123;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 해당 행의 id가 indexObject의 키값에 없을때 실행 --&gt;</span><br><span class="line">        if(!(row.id in index))&#123;</span><br><span class="line">          index[row.id]=&#123;</span><br><span class="line">            id: row.id,</span><br><span class="line">            name: row.name</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">          &lt;!-- 반환값에 추가 --&gt;</span><br><span class="line">          result.push(index[row.id]);</span><br><span class="line">        &#125;</span><br><span class="line">        해당 행이 인덱스에 있건 없건 간에 해당 인덱스의 내역을 체워줌</span><br><span class="line">        index[row.id].histories.push(&#123;</span><br><span class="line">            historyId:row.historyId,</span><br><span class="line">            historyName:row.historyName</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/26/angular-safe-navigation-operator를-활용한-한전한-null-값-출력하기/" itemprop="url">
                 angular safe navigation operator를 활용한 한전한 null 값 출력하기 
             </a>
@@ -446,96 +596,6 @@ undefined
 <h2><span id="modulets-에-등록">Module.ts 에 등록</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">  ],</span><br><span class="line">  providers: [</span><br><span class="line">   ],</span><br><span class="line">  bootstrap: [],</span><br><span class="line">  entryComponents: [EmailCheckModalComponent]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>app.module의 entryComponents에 등록하여 미리 컴포넌트를 로드시켜 놓는다.</p>
 <p><a href="https://ng-bootstrap.github.io/#/components/modal/examples" target="_blank" rel="noopener">참조하기</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/19/Angular-Production-Build/" itemprop="url">
-                Angular Production Build
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-18T17:41:22.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 6 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ng build --prod</span><br><span class="line"></span><br><span class="line">ng build --aot</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/19/Angular-무한-스크롤-적용하기/" itemprop="url">
-                Angular 무한 스크롤 적용하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-18T17:28:37.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 598 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="알고리즘-pseudo-code">알고리즘 pseudo code</span></h2><ol>
-<li>페이지 로딩 시점에 get(9)</li>
-<li><p>스크롤바가 하단에 가까우면 받아오고, 받아오기 인덱스 true<br>if(height&lt;200px)<br>get(9)<br>getIndex=true</p>
-</li>
-<li><p>받아오는 동안에는 요청 안하기<br>if(getIndex==true)<br>return 0</p>
-</li>
-<li><p>받아온 값이 없을 경우에는 return 0하고 searchEndIndex를 true로 하기<br>if(res.length==0)<br>return 0<br>searchEndIndex=true</p>
-</li>
-</ol>
-<h2><span id="hostlistener-decorator-component-작성">HostListener Decorator Component 작성</span></h2><p>아래와 같이 호스트의 이벤트를 감지한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; HostListener, Inject&#125; from &quot;@angular/core&quot;;</span><br><span class="line">import &#123; DOCUMENT &#125; from &quot;@angular/common&quot;;</span><br><span class="line"></span><br><span class="line">export class LayoutNavComponent implements OnInit &#123;</span><br><span class="line">  constructor(@Inject(DOCUMENT) private document: Document) &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line">@HostListener(&quot;window:scroll&quot;, [&apos;$event.target&apos;])</span><br><span class="line">onWindowScroll() &#123;</span><br><span class="line">  //we&apos;ll do some stuff here when the window is scrolled</span><br><span class="line">  console.log(this.document.body.scrollHeight);</span><br><span class="line">  console.log(&quot;scrollTop:&quot;,this.document.documentElement.scrollTop);</span><br><span class="line">  let scrollHeight=this.document.documentElement.scrollHeight;</span><br><span class="line">  let readHeight=this.document.documentElement.scrollTop+this.document.documentElement.clientHeight;</span><br><span class="line"></span><br><span class="line">  if((-10&lt;=(readHeight-scrollHeight))&amp;&amp;((readHeight-scrollHeight)&lt;=10))&#123;</span><br><span class="line">   this.groupService.getGroupsBySearchKey(this.locationService.locationDepth1, this.locationService.locationDepth2, this.groupService.searchKey);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="scroll-event의-성능향상을-위한-tip">scroll event의 성능향상을 위한 Tip</span></h2><p>모든 이벤트 마다 onScroll 함수를 발생시키면 CPU의 성능을 많이 차지하므로<br>다음과 같이 함수에 delay를 주어 이를 해결할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function () &#123;</span><br><span class="line">    if (waiting) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    waiting = true;</span><br><span class="line"></span><br><span class="line">    scroll();</span><br><span class="line"></span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        waiting = false;</span><br><span class="line">    &#125;, 100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="하드웨어-가속시키기">하드웨어 가속시키기</span></h2><p>하드웨어 가속이란 그래픽 처리 장치를 이용하여 중앙처리 장치의 처리량을 줄이고, 브라우저의 렌더링을 효율화하는 것을 말한다.<br>css 작업에 하드웨어 가속을 활성화하면, 작업처리가 빨라져서 웹페이지의 렌더링을 보다 빠르게 할 수 있다.</p>
-<p>특정 엘레멘트에 어떤 지시를 내리면 엘리먼트는 자신의 레이어에 분류되고 페이지에 있는 다른 엘리멘트와 독립되어 렌더링 된다.<br>결론만 말하면 css에 다음과 같은 속성을 붙이면 하드웨어를 가속화 하여 빨리 렌더링이 가능하다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: 3dtransforms(0,0,0)</span><br></pre></td></tr></table></figure></p>
-<p>위 명령어는 3d가 아닌 엘레먼트에 가짜로 3d속성을 주므로써 해당 element의 렌더링을 cpu가 아닌 gpu가 담당하게 하여 렌더링 속도를 높이며, will-change 명령어는 엘레먼트에 어떤 변경을 할 것인지 브라우저에게 미리 알려주므로써 최적화 하는 것이다. 페이지는 순식간에 갱신돼 부드러운 화면처리가 가능하게 된다.</p>
-<p><a href="https://dev.opera.com/articles/ko/css-will-change-property/" target="_blank" rel="noopener">참조</a></p>
-<hr>
 
                         
     </div>

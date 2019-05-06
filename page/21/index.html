@@ -91,6 +91,87 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/19/Node-js에서의-bcrypt-암호화/" itemprop="url">
+                Node.js에서의 bcrypt 암호화
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:29:46.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 27 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>강력한 암호화 방식인 bcrypt를 node에서 사용한다.</p>
+<p><a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="noopener">NPM 참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/17/Angulr에서의-List-출력과-Pagination/" itemprop="url">
+                Angulr에서의 List 출력과 Pagination
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-17T13:11:01.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 407 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="pagerservice-준비하기">PagerService 준비하기</span></h2><p>출력하고자 하는 데이터를 페이지에 담기 위한 PagerService를 준비한다.</p>
+<p>PagerService<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import * as _ from &apos;underscore&apos;;</span><br><span class="line"></span><br><span class="line">export class PagerService &#123;</span><br><span class="line">    getPager(totalItems: number, currentPage: number = 1, pageSize: number = 10) &#123;</span><br><span class="line">        // calculate total pages</span><br><span class="line">        let totalPages = Math.ceil(totalItems / pageSize);</span><br><span class="line"></span><br><span class="line">        let startPage: number, endPage: number;</span><br><span class="line">        if (totalPages &lt;= 10) &#123;</span><br><span class="line">            // less than 10 total pages so show all</span><br><span class="line">            startPage = 1;</span><br><span class="line">            endPage = totalPages;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // more than 10 total pages so calculate start and end pages</span><br><span class="line">            if (currentPage &lt;= 6) &#123;</span><br><span class="line">                startPage = 1;</span><br><span class="line">                endPage = 10;</span><br><span class="line">            &#125; else if (currentPage + 4 &gt;= totalPages) &#123;</span><br><span class="line">                startPage = totalPages - 9;</span><br><span class="line">                endPage = totalPages;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                startPage = currentPage - 5;</span><br><span class="line">                endPage = currentPage + 4;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // calculate start and end item indexes</span><br><span class="line">        let startIndex = (currentPage - 1) * pageSize;</span><br><span class="line">        let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);</span><br><span class="line"></span><br><span class="line">        // create an array of pages to ng-repeat in the pager control</span><br><span class="line">        let pages = _.range(startPage, endPage + 1);</span><br><span class="line"></span><br><span class="line">        // return object with all pager properties required by the view</span><br><span class="line">        return &#123;</span><br><span class="line">            totalItems: totalItems,</span><br><span class="line">            currentPage: currentPage,</span><br><span class="line">            pageSize: pageSize,</span><br><span class="line">            totalPages: totalPages,</span><br><span class="line">            startPage: startPage,</span><br><span class="line">            endPage: endPage,</span><br><span class="line">            startIndex: startIndex,</span><br><span class="line">            endIndex: endIndex,</span><br><span class="line">            pages: pages</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="componentts-혹은-데이터를-총괄하는-servicets">component.ts 혹은 데이터를 총괄하는 service.ts</span></h2><p>컴포넌트에서 사용할 두 변수를 선언한다<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// pager object</span><br><span class="line">pager: any = &#123;&#125;;</span><br><span class="line">// paged items</span><br><span class="line">pagedItems: any[];</span><br></pre></td></tr></table></figure></p>
+<p>컴포넌트에서 pagerService를 import하고 특정 페이지로 이동하기 위한 함수인 setPage()함수를 정의한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">setPage(page: number) &#123;</span><br><span class="line">    if (page &lt; 1 || page &gt; this.pager.totalPages) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // get pager object from service</span><br><span class="line">    this.pager = this.pagerService.getPager(this.contents.length, page,6);</span><br><span class="line"></span><br><span class="line">    // get current page of items</span><br><span class="line">    this.pagedItems = this.contents.slice(this.pager.startIndex, this.pager.endIndex + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>pagedItems에는 받아온 데이터를 pager의 startIndex와 endIndex+1까지로 잘라 담아준다.</p>
+<h2><span id="componenthtml">component.html</span></h2><p>실제 pagination을 입혀준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;row-wrapper&quot;&gt;</span><br><span class="line">  &lt;nav class=&quot;&quot; style=&quot;display:inline-block&quot;&gt;</span><br><span class="line">    &lt;!-- pager --&gt;</span><br><span class="line">    &lt;ul *ngIf=&quot;paymentService.pager.pages &amp;&amp; paymentService.pager.pages.length&quot; class=&quot;pagination&quot;&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === 1&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction first&quot; (click)=&quot;paymentService.setPage(1)&quot; aria-label=&quot;First&quot;&gt;First&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === 1&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction previous&quot; (click)=&quot;paymentService.setPage(paymentService.pager.currentPage - 1)&quot; aria-label=&quot;Previous&quot;&gt;Prev&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li *ngFor=&quot;let page of paymentService.pager.pages&quot; [ngClass]=&quot;&#123;active:paymentService.pager.currentPage === page&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">      &#123;% raw %&#125;</span><br><span class="line">          &lt;a class=&quot;page-link&quot; (click)=&quot;paymentService.setPage(page)&quot;&gt;&#123;&#123;page&#125;&#125;&lt;/a&gt;</span><br><span class="line">          &#123;% endraw %&#125;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === paymentService.pager.totalPages&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction next&quot; (click)=&quot;paymentService.setPage(paymentService.pager.currentPage + 1)&quot; aria-label=&quot;Next&quot;&gt;Next&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">      &lt;li [ngClass]=&quot;&#123;disabled:paymentService.pager.currentPage === paymentService.pager.totalPages&#125;&quot; class=&quot;page-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;page-link direction last&quot; (click)=&quot;paymentService.setPage(paymentService.pager.totalPages)&quot; aria-label=&quot;Last&quot;&gt;Last&lt;/a&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>다음을 클릭할때에는 service.ts의 setPage()를 호출하여 pagedItems를 바꾸어 준다.<br>만약에 데이터를 index를 통해 나누어 받아오고 싶은 경우에는 setPage()의 if 문에서 범위를 넘는 페이지의 요청에 대해 서버에 요청을 날려 다음 데이터들을 받아올 수 있다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/17/Angular의-기본-개념-및-사용/" itemprop="url">
                 Angular의 기본 개념 및 사용
             </a>

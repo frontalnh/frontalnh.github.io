@@ -91,6 +91,176 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/07/30/it-chain02/" itemprop="url">
+                it-chain 02
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-30T09:20:30.000Z" itemprop="datePublished">
+                9 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1383 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="opensource-blockchain-engine-it-chain-02-blockchain-component">[ Opensource Blockchain Engine, IT-CHAIN] 02. Blockchain Component</span></h1><p>Open Source Blockchain Engine인 It-chain 의 두번째 포스트입니다.</p>
+<p>이번 포스트에서는 IT-CHAIN에서 블록의 합의를 담당하는 Blockchain component에 대해 알아보겠습니다.</p>
+<h2><span id="it-chain의-blockchain-component">It-chain의 Blockchain Component</span></h2><p>블록체인에서 일어나는 모든 거래는 Transaction이라고 불리며, 하나의 블록은 여러 Transaction들의 집합으로 구성됩니다.</p>
+<p>때문에 블록체인에서는 생성된 블록이 올바른 블록인지 확인하고 체인에 추가하는 과정이 필요하며, 이 과정은 It-chain의 Blockchain Component에서 이루어 집니다.</p>
+<p>또한, It-chain에서는 블록의 저장 및 조회를 위한 별도의 라이브러리를 구현하였으며, Blockchain Component는 yggdrasill에서 정의한 interface에 맞게 구조체를 구현한다면 yggdrasill에 block을 저장, 조회할 수 있습니다. </p>
+<p>yggdraill에 연속적으로 저장된 block들을 우리는 blockchain이라고 부릅니다.</p>
+<h2><span id="block-의-상태">Block 의 상태</span></h2><p>Blockchain Component에서 Block은 다음과 같은 상태로 존재합니다.</p>
+<table>
+<thead>
+<tr>
+<th>Block State</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Created</td>
+<td>합의되지 않았고, blockchain에 저장되지 않았다.</td>
+</tr>
+<tr>
+<td>Staged</td>
+<td>합의되었지만, blockchain에 저장되지 않았다.</td>
+</tr>
+<tr>
+<td>Committed</td>
+<td>합의되었고, blockchain에 저장되었다.</td>
+</tr>
+</tbody>
+</table>
+<p>위에서 언급한 바와 같이 블록체인 네트워크를 구성하는 노드들은 계속해서 새로운 블록들을 합의하는 과정중에 있고 합의가 완료되며 오직 <strong>리더 노드</strong> 에서 블록을 생성하여 다른 노드들에게 전파하고 블록을 받은 노드는 자신이 생성한 블록과 비교하여 검증여부를 판단합니다.</p>
+<p>즉, 각 노드에서 막 생성된 블록은 Created 상태에 있으며, 이 블록을 Consensus 알고리즘을 통해 합의를 이루고 합의가 완료되며 Staged 상태로 바뀌게 됩니다. </p>
+<p>Staged 상태의 블록이 실제 yggdrasill 내의 데이터베이스에 저장된다면, 블록은 Commited 상태로 변경됩니다.</p>
+<h2><span id="노드-사이에서-블록의-동기화">노드 사이에서 블록의 동기화</span></h2><p>동기화(Synchronize)는 특정 노드의 블록 체인을 네트워크 내 임의의 노드의 블록 체인과 동일하게 만드는 과정을 의미합니다.</p>
+<p>동기화(Synchronize) 과정의 목적은 모든 블록에 대하여 대표값(Seal), 이전 블록의 대표값(PrevSeal), 트랜잭션 모음(TxList), 트랜잭션 대표값(TxSeal), 블록 생성 시각(TimeStamp), 생성자(Creator), 블록 체인의 길이(Height) 등의 블록 체인과 관련된 모든 정보들을 다른 노드의 것과 같게 만드는 것에 있으며, 이를 통해 블록체인에 참여하는 모든 노드가 같은 블록의 모음을 가지게 될 수 있습니다.</p>
+<p>동기화(Synchronize)는 다음과 같이 <strong>확인(Check)</strong>, <strong>구축(Construct), 재구축(PostConstruct)</strong> 의 과정을 거칩니다.</p>
+<p><strong>확인(Check)</strong> </p>
+<p>특정 노드의 블록 체인이 동기화가 필요한 상태인지를 점검합니다. 이 과정은 임의의 노드에게 Blockchain 길이와 lastSeal을 받아와서 자신의 블록 체인 정보가 같은 지 비교하여, 동기화가 필요한 상태인지 점검하는 것으로, 이미 동기화가 완료된 상태라면, 동기화(Synchronize) 과정을 중단하고, 그렇지 않을 경우, <strong>구축(Construct)</strong> 을 수행합니다.</p>
+<p><strong>구축(Construct)</strong> </p>
+<p>구축에소는 임의의 노드에게 블록 정보를 요청하여, 응답받고, 응답받은 블록을 블록 체인에 저장하는 과정을 반복합니다.</p>
+<p>블록 요청은 특정 노드의 블록 체인 길이(Height)를 활용해, 임의의 노드에 블록을 요청함으로써 수행되며, 특정 노드가 새로 참여하는 노드일 경우 임의의 노드의 블록 체인 내 최초 블록부터 마지막 블록까지 요청하고, 기존에 참여중이던 노드일 경우 보유 중인 블록 체인 내 마지막 블록의 다음 블록부터 임의의 노드의 블록 체인 내 마지막 블록까지 요청합니다.</p>
+<p>임의의 노드의 모든 블록이 특정 노드의 블록체인에 저장되면 <strong>구축(Constrcut)</strong>이 완료됩니다.</p>
+<p>특정 노드는 <strong>구축(Construct)</strong> 의 진행 중에 새롭게 합의되는 블록을 블록 임시 저장소(BlockPool)에 보관하며, <strong>구축(Construct)</strong> 이 완료되고 나면, 블록 임시 저장소에 블록이 보관되어 있는 지 확인합니다. 보관중인 블록이 있다면, <strong>재구축(PostConstruct)</strong>을 수행합니다.</p>
+<p><strong>재구축(PostConstruct)</strong> </p>
+<p>이미 <strong>구축(Construct)</strong> 된 블록 체인에 블록 임시 저장소(BlockFool)에 보관중인 블록들을 부수적으로 추가하는 것을 의미하며, <strong>재구축(PostConstrcut)</strong> 을 수행하고 나면, 동기화(Synchronize) 과정이 모두 완료됩니다.</p>
+<p>이번 포스트에서는 It-chain 내에서 블록의 검증과 저장을 수행하는 Blockchain 컴포넌트에 대해 알아보았습니다.</p>
+<p>다음 포스트에서는 it-chain에서 dApp을 발행하고 실행하는 ivm 컴포넌트에 대해 알아보겠습니다.</p>
+<p>It-chain:  <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a></p>
+<p><strong>Opensource Blockchain Engine It-chain 시리즈</strong></p>
+<ul>
+<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-01-peer-to-peer-network" target="_blank" rel="noopener">01. P2P 네트워크와 합의 알고리즘</a></li>
+</ul>
+<p><strong>LNH</strong></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/07/28/es6의-중요한-핵심-개념들/" itemprop="url">
+                ES6의 중요한 핵심 개념들
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-28T05:35:52.000Z" itemprop="datePublished">
+                9 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/js/">js</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                11 minutes read (About 1683 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="es6의-중요한-핵심-개념들">ES6의 중요한 핵심 개념들</span></h1><h2><span id="es6-에서의-변수-선언">ES6 에서의 변수 선언</span></h2><p>이전 자바스크립트 버전에서는 변수를 선언하는 유일한 방법은 var 이었지만 ES6에서는 다양한 변수선언 방법을 선언하며 다음은 몇가지 새로운 변수 선언 방법이다.</p>
+<h3><span id="const">const</span></h3><p>다른 언어와 마찬가지로 ES6에도 const를 정의할 수 있다.<br>const 를 사용하여 한번 선언된 변수가 덮어씌워질 수 없도록 강제할 수 있다.</p>
+<h3><span id="let">let</span></h3><p>ES6 에서는 let 을 사용하여 전역 변수를 보호할 수 있다.</p>
+<p>가령 var 를 사용하면 다음과 같이 전역 변수가 덮어씌우 지지만</p>
+<p>example</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'global'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(test)&#123;</span><br><span class="line">    <span class="keyword">var</span> test = <span class="string">'overwritten'</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(test) <span class="comment">// overwritten</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(test) <span class="comment">// overwritten</span></span><br></pre></td></tr></table></figure>
+<p>다음과 같이 if 문 안에서 let을 사용하면 전역변수를 보호할 수 있다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'global'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(test)&#123;</span><br><span class="line">    <span class="keyword">let</span> test = <span class="string">'overwritten'</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(test) <span class="comment">// overwritten</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(test) <span class="comment">// global</span></span><br></pre></td></tr></table></figure>
+<h2><span id="template-string">Template String</span></h2><p>기존 javascript 에서는 문자열과 변수를 함치기 위해 string의 덧셈 연산을 통해 수행하였지만.<br>ES6 문법에서는 <code>${}</code> 와 같은 스트링 템플릿을 통해 변수를 스트링에 전달할 수 있다.</p>
+<h3><span id="example">example</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'jhon'</span></span><br><span class="line"><span class="keyword">var</span> text = <span class="string">`my name is <span class="subst">$&#123;name&#125;</span>`</span></span><br><span class="line"><span class="built_in">console</span>.log(text) <span class="comment">// my name is jhon</span></span><br></pre></td></tr></table></figure>
+<h2><span id="arrow-function">Arrow function</span></h2><p>arrow function 을 통해 한 줄에 함수를 선언할 수 있다.<br>arrow function 은 여러 방면에서 매우 편리한데, 가령 리턴을 생략해도 자동으로 해당 내용이 리턴으로 들어가며, 만약 input 변수가 하나인 경우 괄호 마저 생략이 가능하다. 뿐만 아니라 arrow function 은 this의 사용을 방해하지 않기 때문에 this를 사용하면 함수 밖의 context에 바로 접근이 가능하다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Old</span></span><br><span class="line"><span class="keyword">var</span> old = <span class="function"><span class="keyword">function</span>(<span class="params">var1, var2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> var1 + var2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//new</span></span><br><span class="line"><span class="keyword">var</span> arrowFunc = <span class="function">(<span class="params">var1, var2</span>) =&gt;</span>&#123;</span><br><span class="line">    var1 + var2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="transpiling-of-es6">Transpiling of ES6</span></h2><p>아직 많은 브라우저에서 ES6 문법을 지원하지 않고 js는 계속해서 빠른 속도로 변화하고 있기 때문에, 이를 사용하기 위해서는 ES6 문법을 ES5 문법으로 transpile 해주어야 한다. 이러한 작업은 주로 babel 을 통해 이루어 진다.</p>
+<p>이러한 transpile은 브라우저 레벨에서 이루어 질 수 도 있고, 서버단에서 transpile 후에 클라이언트로 전달해 주기도 하는데 전자의 경우 간편하게 처리 가능하다 성능면에서 productiondp 레벨에서 사용하기에는 많은 문제가 있다.</p>
+<p>전자의 경우 다음코드를 html 에 추가함으로써 간편하게 transpile이 가능하다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"script.js"</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="objects-and-arrays">Objects and Arrays</span></h2><p>ES6 에서는 object와 array를 보다 편리하게 사용하기 위한 다양한 문법을 제공한다.</p>
+<h3><span id="destructuring-assignment">Destructuring assignment</span></h3><p>객체 혹은 배열 내의 자료에 접근하기 위한 매우 편리한 방법인 destructuring assignment를 제공한다.<br>과거의 경우 일일히 해당 프로퍼티에 접근하여 하나씩 엔티티를 가져와야 했다면, 이 방법을 통해 간편하게 entity를 추출할 수 있다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// destructuring assignment in object</span></span><br><span class="line"><span class="keyword">var</span> personalInfo = &#123;</span><br><span class="line">    name: <span class="string">'namhoon'</span>,</span><br><span class="line">    age: <span class="number">27</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123; name, age &#125; = personalInfo; <span class="comment">// extracts key value</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// destructuring assignment in array</span></span><br><span class="line"><span class="keyword">var</span> list = [<span class="string">'namhoon'</span>, <span class="string">'jake'</span>, <span class="string">'james'</span>];</span><br><span class="line"><span class="keyword">var</span> [firstItem] = list;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(firstName); <span class="comment">// 'namhoon'</span></span><br></pre></td></tr></table></figure>
+<h3><span id="object-literal-enhancement">Object Literal Enhancement</span></h3><p>ES6 에서는 오브젝트 내에서 함수 및 엔티티를 지정함에 있어 훨씬 편리하다</p>
+<p>다음과 같이 외부의 변수를 간편하게 객체 내에 추가할 수 있고, 함수의 선언도 간편해 졌다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'namhoon'</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">25</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> personalInfo = &#123;name, age&#125;<span class="comment">//&#123;name:'namhoon', age:25&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'my name is $&#123;this.name&#125; and im $&#123;this.age&#125; years old'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// new version</span></span><br><span class="line"><span class="keyword">var</span> personalInfo = &#123;</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">    print()&#123; <span class="comment">// eaily define function!</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'my name is $&#123;this.name&#125; and im $&#123;this.age&#125; years old'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="the-spread-operator">The Spread Operator</span></h2><p>spread operator(…variable) 을 통해 간편하게 배열을 다룰 수 있다.<br>과거 js에서는 배열 혹은 객체 내의 다양한 인자들을 명시하거나 변경하기 위해 필요없는 다를 항목들까지 일일히 명시해야 했다면, spread operator는 우리를 이러한 귀찮음에서 해방시켜 준다.</p>
+<p>이런한 spread operator는 다양한 경우에 사용될 수 있으며, 다음은 그 사용 사례이다.</p>
+<h3><span id="array를-이어-붙이는-경우">array를 이어 붙이는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> peaks = [<span class="string">"Tallac"</span>, <span class="string">"Ralston"</span>, <span class="string">"Rose"</span>] <span class="keyword">var</span> canyons = [<span class="string">"Ward"</span>, <span class="string">"Blackwood"</span>]</span><br><span class="line"><span class="keyword">var</span> tahoe = [...peaks, ...canyons]</span><br></pre></td></tr></table></figure>
+<h3><span id="array를-간편하게-복제하는-경우">array를 간편하게 복제하는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> peaks = [<span class="string">"Tallac"</span>, <span class="string">"Ralston"</span>, <span class="string">"Rose"</span>];</span><br><span class="line"><span class="keyword">var</span> [last] = [...peaks].reverse()</span><br><span class="line"><span class="built_in">console</span>.log(last) <span class="comment">// Rose</span></span><br><span class="line"><span class="built_in">console</span>.log(peaks.join(<span class="string">', '</span>)) <span class="comment">// Tallac, Ralston, Rose</span></span><br></pre></td></tr></table></figure>
+<h3><span id="함수의-인자들을-묶어서-표현하는-경우">함수의 인자들을 묶어서 표현하는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">directions</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> [start, ...remaining] = args</span><br><span class="line">    <span class="keyword">var</span> [finish, ...stops] = remaining.reverse()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`drive through <span class="subst">$&#123;args.length&#125;</span> towns`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`start in <span class="subst">$&#123;start&#125;</span>`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`the destination is <span class="subst">$&#123;finish&#125;</span>`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`stopping <span class="subst">$&#123;stops.length&#125;</span> times in between`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">directions(</span><br><span class="line">    <span class="string">"Truckee"</span>,</span><br><span class="line">    <span class="string">"Tahoe City"</span>,</span><br><span class="line">    <span class="string">"Sunnyside"</span>,</span><br><span class="line">    <span class="string">"Homewood"</span>,</span><br><span class="line">    <span class="string">"Tahoma"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3><span id="객체-내-인자들을-묶어서-표현하는-경우">객체 내 인자들을 묶어서 표현하는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> morning = &#123;</span><br><span class="line">    breakfast: <span class="string">"oatmeal"</span>,</span><br><span class="line">    lunch: <span class="string">"peanut butter and jelly"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> dinner = <span class="string">"mac and cheese"</span></span><br><span class="line"><span class="keyword">var</span> backpackingMeals = &#123;</span><br><span class="line">    ...morning,</span><br><span class="line">    dinner</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(backpackingMeals)</span><br></pre></td></tr></table></figure>
+<h2><span id="classes">Classes</span></h2><p>이전 버전의 js에서는 class 가 존재하지 않았기 대문에 클래스가 필요한 경우 함수를 만들고 해당 함수에 대한 프로토 타입을 정의하는 방식으로 클래스를 만들어 사용했다.<br>하지만 ES6 부터는 정식을로 Class 를 지원하며 다른 클래스를 extends 할 수 있어 인터페이스의 개념도 추가되었다.</p>
+<p>여기서 extends 를 사용하는 경우 construct를 다른 함수에서 super() 를 사용해야 하며, 그 사용사례는 다음과 같다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Expedition</span> <span class="keyword">extends</span> <span class="title">Vacation</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(destination, length, gear) &#123;</span><br><span class="line">        <span class="keyword">super</span>(destination, length)</span><br><span class="line">        <span class="keyword">this</span>.gear = gear</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="keyword">super</span>.print()</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`Bring your <span class="subst">$&#123;<span class="keyword">this</span>.gear.join(<span class="string">" and your "</span>)&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="es6-modules">ES6 Modules</span></h3><p>이전 버전의 js 에서는 외부 라이브러리를 가져오는 방법으로만 import 가 가능했지만, ES6 부터는 정식으로 module 을 제공하고 있다.<br>특히 같은 파일 내에서 여러 개의 모듈을 export 하는 것도 가능하며, object destructuring 을 통해 간편하게 import 할 수 있으며, 특정 모듈을 원하는 이름 으로 import 하는 것도 가능하다.<br>다음은 그 사용사례를 보여준다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; print, log &#125; <span class="keyword">from</span> <span class="string">'./text-helpers'</span></span><br><span class="line"><span class="keyword">import</span> &#123; print <span class="keyword">as</span> p, log <span class="keyword">as</span> l &#125; <span class="keyword">from</span> <span class="string">'./text-helpers'</span></span><br></pre></td></tr></table></figure>
+<p>과거버전의 js와 ES6 에서 통용되는 Common.js는 <code>module.exports</code> 를 사용하여 module을 export 하는데 주의할 점은 이렇게 export된 module은 <code>import</code> 를 통해 import 될 수 없다는 것이다. 그 대신 아래와 같이 require를 사용하여 import를 해야 한다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; log, print &#125; = <span class="built_in">require</span>(<span class="string">'./txt-helpers'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>많은 라이브러리들이 common.js 를 기반으로 export 되었으므로, 외부 라이브러리를 사용할 때 무분별하게 import 문을 사용하면 import 되지 않는 문제가 있으니 특히 주의해야 한다.</strong></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/07/28/react의-기본-개념/" itemprop="url">
                 react의 기본 개념
             </a>
@@ -575,108 +745,6 @@ undefined
 <ul>
 <li>LNH</li>
 </ul>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/06/14/z_어떻게-원하는-바를-얻어낼-것인가-설득의-마법/" itemprop="url">
-                어떻게 원하는 바를 얻어낼 것인가, 설득의 마법
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-06-13T15:06:37.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                15 minutes read (About 2309 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <p>살아가면서 누군가를 설득하여 원하는 바를 이루어 내는 것은 정말 중요하다.</p>
-<p>특히 요즘 사회에는 정보의 홍수와 수많은 미디어의 출현으로 역설적이게도 절대적 진리에 대한 탐구는 점점 더 어려워만 가고있으며, 특정 목적을 가진 많은 기업 및 단체들이 더욱 교묘하게 매체와 심리를 활용하여 상대방을 기술적으로 설득시키는 모습을 흔히 볼 수 있다.</p>
-<p>사실 우리가 알지 못하는 사이 대부분의 정당들은 사람들의 심리를 기술적으로 활용하여 정치적 우호감을 확산시키고 있으며, 수많은 기업들의 상업 광고는 우리의 소비 심리를 교란시키고 소비의 마법 앞에 굴복시키고 있다.</p>
-<p>이런 사회적 현실 속에서 냉철한 판단을 잃지 않기 위해 우리는 그들이 사용하는 설득의 심리를 이해할 필요가 있으며, 이는 인류가 반드시 추구해야할 진리에의 탐구에 한걸음 더 다가갈 수 있는 유용한 수단이 될 수 있다.</p>
-<p>이번 포스트에서는 ‘로버트 치알디니’ 의 저서 ‘설득의 심리학’ 을 기반으로 설득의 심리와 기술에 대해 알아보고 보다 냉철한 현대인으로 거듭나고 한다.</p>
-<h2><span id="설득의-무기">설득의 무기</span></h2><p>문명의 발전은 인간이 무의식적인 사고 없이 자동적으로 수행할 수 있는 작업이 늘면서 이루어 졌다. 대부분의 사람들은 문명의 발전과 복잡한 사회 구조가 현대인을 보다 합리적이고 논리적으로 진화시켰다고 생각하지만, 역설적이게도 복잡한 사회는 수백년간의 사회적 통념이란 비 논리적 허점을 낳았고, 우리는 복잡한 사회를 사회적 통념으로 부터의 추상화를 거쳐 이해하게 되었다. 즉, 너무나 많은 정보를 처리하기 위한 판단근거로 절대적 진리를 통한 냉철한 판단은 점차 어려워 지고 인습적 통념에 의존하여 판단을 내리게 된 것이다.</p>
-<p>이러한 사실은 인간 뿐만 아니라 동물의 세계에서도 쉽게 찾아볼 수 있다. 가령 칠면조는 새끼가 내는 ‘칩칩’ 거리는 소리로만 자식의 유무를 판단하는 데 이는 사실 절대적 진실과 근거에 의거한 것이 아닌 수십 수백년간 새끼는 ‘칩칩’ 거리며 운다라는 사회적 동물적 통념을 근거로 하여 판단을 하는 것이고, 특정 목적을 가진 누군가가 이를 악용할 수 있는 것이다.</p>
-<p>이러한 예는 현실 사회에서도 다양한 형태로 나타난다.<br>비싼 것이 좋은 것이라는 자본주의 사회의 통념, 무언가 이유를 말하면 그 타당성에 관계없이 논리적으로 더 옳아보이는 인습적 통념, 전문가의 말은 진실일 확률이 높다는 전문가에 대한 의존이 바로 그 예이다. 수많은 미디어는 이를 광고에 활용하고 수많은 전문가와 고부가가치 상품들에 대한 프리미엄 전략 등의 모태가 되었다.</p>
-<p>이러한 현상을 좀 더 일반화 하면 <strong>사람의 행동에는 자동화된 패턴이 존재한다.</strong> 라는 결론이 나오게 되는데, 특정 전문가 집단과 사회적 관습에 의존하는 것을 넘어서 전혀 연관이 없어 보이는 특정한 자동화된 패턴이 있음을 알 수 있다. 가령, 비싼 물건을 구매하고 난 뒤에 보여주는 물건은 상대적으로 아주 저렴하게 느껴지는 <strong>대비 효과</strong> 의 경우 등도 오랜 시장 거래의 관습에서 얻어진 비논리적 통념의 예로 볼 수 있다.</p>
-<h2><span id="설득의-원칙">설득의 원칙</span></h2><p>앞의 문단에서 우리는 설득의 기본적인 원리에 대해 알아보았다.<br>이번에는 보다 구체적으로 두 가지의 설득의 원칙에 대해 알아보고자 한다.</p>
-<p>첫번째 원칙은 <strong>상호성의 원칙</strong> 이다.<br>우리는 누군가에게 호의를 받으면 항상 갚으려고 하는 습성이 있는데 이것은 <strong>상호성의 원칙</strong> 의 근간이 된다.<br>이러한 상호성의 원칙은 수많은 판촉의 모델로써 활용되고 있다. 특정 온라인 쇼핑몰에서 회원 가입을 하면 포인트를 준다거나, 값비싼 물건을 50% 파격적으로 할인한다는 점을 강조하여 상대적으로 양보를 하는 포지션을 취하는 것이 그 예이다. 또한, 상인들이 물건을 흥정시 처음에 값비싼 가격을 부르고 차츰 차츰 가격을 내려 원래 팔고자 했던 가격에 매매하는 기법도 이러한 상호성의 원칙을 활용한 설득의 원리라 볼 수 있다.</p>
-<p>두번째 원칙은 <strong>일관성의 원칙</strong> 이다.<br>이를 쉽게 표현하면 우리는 한번 내린 판단을 유지하려 하는 습성이 있다는 것이다.<br>이 원칙 또한 삶의 너무나 많은 부분에 퍼져 있지만 우리는 이것을 알지 못한다.<br>가령, 헬스장을 등록하고 가지 않더라도 우리는 헬스장 등록이라는 선택은 내가 내린 선택이므로 헬스장을 거의 가지 않더라도 이것은 아주 바람직한 선택이었다고 합리화 하는 경향이 매우 강하다. 때문에 헬스장에서는 고객이 오던 오지 않던 최초 결제일 한번만 잘 구스르고 설득하면 남은 기간동안 서비스가 조금 떨어지더라도 기간이 지나면 지날때마다 고객들의 충성도는 올라가게 된다. 또 다른 예로 자동 결제를 하면 파격적으로 상품의 가격을 깍아주는 많은 서비스들이 있는데, 이것은 최초의 한번의 선택이 어렵지 한번 선택을 내린 뒤에는 사람들이 가급적 결정을 유지하려고 하는 습성을 잘 이용한 것이다. 특히 음악 이용권의 경우 최초의 한 두달의 경우 무료에 가까운 가격으로 음악을 들을 수 있는 경우가 많은데, 이는 사람들의 <strong>일관성의 원칙</strong> 을 잘 활용한 예라고 볼 수 있다.</p>
-<p>이러한 <strong>일관성의 원칙</strong> 의 또다른 확장은 <strong>사람들의 자아이미지를 바꾸어 그들이 자신이 스스로 만들어낸 이미지를 지키기 위해 노력하게 할 수 있다</strong> 는 것이다. 이는 어떤 의미에서 <strong>브랜딩</strong> 그 자체의 목적이라고 보아도 무방하다. 유명한 스포츠 브랜드인 ‘나이키’ 의 경우를 생각해 보자. 그들은 운동화를 구매하는 소비자가 자기 스스로 경쟁을 즐기고 열정이 넘치며 활력적인 사람이라는 자아 이미지를 내도록 끊임없이 부추기게 되고, 그들은 그들 스스로가 만들어낸 이미지의 연속성에서 지속적인 구매를 하도록 유도한다.</p>
-<h2><span id="어디를-향해-나아가는가">어디를 향해 나아가는가?</span></h2><p>위의 두가지 원칙 말고도 우리 사회에서는 기술적으로 끊임없이 우리의 심리를 이용하고 활용하는 설득의 기술을 사용하고 있다. 자본주의의 충실한 소비자로써 기존 정치 세력의 충직한 지지자로써 대중을 설득한다.</p>
-<p>수세기가 지나면서 사회 경제적 우위에 서있는 기업과 단체 소수자들은 자신들의 권력을 유지하기 위해 대중을 설득해 왔으며, 미디어의 홍수인 오늘날 이런 현상은 더욱 더 위험하다. 하지만, 인류의 역사를 생각해보자. 인류의 위대한 변혁은 기존의 관습에서 벗어나 절대적 진리와 논리적인 이성에 입각하고 과감히 이를 부수는 것에서 시작되었으며, 오늘날 모든 현대인은 더욱 발전된 미래를 위해 절대로 통념에 대한 관성으로 인해 절대적 진리에 대한 추구를 멈추어서는 안되는 것이라 생각한다.</p>
-<p>필자를 비롯한 오늘날 모든 사람들이 설득의 기술을 이해하고 정의를 설득하고 통념에 설득당하지 않을 수 있었으면 하는 바램이다.</p>
-<hr>
-<p>참조 문헌<br>로버트 치알디니, 설득의 심리학</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/06/13/java-class와-instance에-대해-알아보자/" itemprop="url">
-                java - class와 instance에 대해 알아보자
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-06-13T14:15:17.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/java-강의/">java 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 562 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="class와-instance가-무엇인지-알아보자">Class와 Instance가 무엇인지 알아보자.</span></h1><h2><span id="객체-지향-언어란">객체 지향 언어란?</span></h2><p>객체(Object) 란 실제 세계의 많은 사물들을 컴퓨터 내에서 하나의 객체로써 표현하는 하나의 프로그래밍 패러다임을 의미한다.<br>가령 사과, 사과 장수, 사과의 판매 처럼 실존하는 형태와 형태의 행위들을 표현할 수 있게 된다.</p>
-<h2><span id="class-란">Class 란?</span></h2><p>Class 란 하나의 틀(mold) 라고 보면 된다.<br>가령 현실 세계의 사과 장수는 수없이 많고, 각 사과장수는 공통된 특성을 가지고 공통된 행위가 가능하다.<br>컴퓨터 프로그래밍 에서는 이러한 상태와 특성 그리고 행위를 표현 가능하며 각각을 property와 method 라고 부른다.</p>
-<p>가령 사과 장수라면, 나이, 가지고 있는 사과의 개수, 판매하고자 하는 사과의 가격 등의 특성을 가지고 ‘사과를 판매’ 하거나 ‘사과를 구매’ 하는 등의 행위가 가능할 것이다.</p>
-<h2><span id="instance란">Instance란?</span></h2><p>Instance란 위에서 정의한 class로 찍어낸 실제 객체를 의미한다.<br>가령 현실 세계에서 사과장수는 하나의 추상적인 개념이다. 즉, 사과의 갯수, 나이 처럼 각종 특성을 가지는 하나의 무형의 존재이지만 실제 사과장수는 현실에서 존재한다. 가령 옆집에 사는 사과장수의 경우 정해진 나이와 사과의 갯수를 가지고 실존하는 것이며, 이를 object 또 instance라고 부른다.</p>
-<p>Java에서는 class를 통해 instance를 만들어 낼 수 있으며, 새로운 instance를 생성하면 그 데이터가 저장되고 데이터를 가르치는 참조변수에 그 주소값을 저장한다.</p>
-<h2><span id="생성자constructor-란">생성자(Constructor) 란?</span></h2><p>가령 AppleSeller 라는 class 와 appleSeller1이라는 참조 변수를 가지는 instance를 만들었다고 가정하자.<br>이 만드는 과정에는 그 사과장수의 나이와 사과의 갯수처럼 최초로 설정해 주어야 하는 값들이 있고, 이러한 설정을 Constructor 즉 생성자 내부에서 처리할 수 있다.</p>
-<hr>
 
                         
     </div>

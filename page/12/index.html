@@ -91,6 +91,168 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/03/28/getting-started-with-redux/" itemprop="url">
+                getting started with redux
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-28T05:02:33.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/redux/">redux</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                5 minutes read (About 798 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="flux-란">Flux 란?</span></h2><p>flux 는 하나의 개발 철학이며 기존의 MVC 모델이나 양방향 데이터 바인딩에 대한 대안으로 제안된 개념이다.</p>
+<p>flux에는 다음과 같은 3가지 개념이 있다.</p>
+<ol>
+<li>action</li>
+<li>dispatcher</li>
+<li>stores</li>
+</ol>
+<p>action은 시스템 전체의 상태변화를 묘사하는 다양한 형태의 행위이다. 가령 마우스 클릭이나 axios 요청 등의 행위들이 여기에 포함될 수 있다.</p>
+<p>이러한 일련의 action들의 모음으로 시스템이 흘러가며 이를 통해 일관된 행동 양상을 유지하고 시스템의 다음 행보를 예측이 가능하게 된다.</p>
+<p>일반적인 flux의 플로우는 다음과 같다.</p>
+<ol>
+<li>store는 action의 변화를 인지하도록 준비한다.</li>
+<li>action이 dispatcher를 통해 dispatch 된다.</li>
+<li>dispatcher는 store의 subscriber에게 변화를 알린다.</li>
+<li>store는 해당하는 action에 따라 상태를 업데이트한다.</li>
+<li>어플리케이션의 view는 해당 상태의 변화에 따라 업데이트 된다.</li>
+<li>다음 액션이 실행될 수 있다.</li>
+</ol>
+<p>이렇게 시스템 전체가 일련의 action의 나열로 이루어짐에 따라 개발자들은 다음 시스템의 상태를 예상가능하게 되고 개발자의 통제 내에서 모든 시스템 변화가 이루어 질 수 있게 된다. 여기서 중요한 점은 모든 action이 순차적으로 이루어진다는 것이다.</p>
+<p>이는 기존의 양방향 데이터바인딩 시스템과 매우 대조적인데 양방향 시스템에서는 모든 데이터가 실시간으로 변화하고 있기에 일관된 데이터의 변화 방향을 인지할 수 없지만 시스템의 순간순간의 상태는 각 액션 사이의 상태값의 변화이기에 모든 순간의 상태값에 대해 인지할 수 있다.</p>
+<h2><span id="redux">Redux</span></h2><p>리덕스란 이러한 flux 패턴의 하나의 구현체이며 단 하나의 스토어를 가진다는 점에서 플럭스와 차이가 있다.</p>
+<p>가령 요리책을 다루는 app의 경우 redux 스토어는 모든 요리방법들의 리스트와 상세 내역을 가지게 된다.</p>
+<p>여기서 액션이란 요리방법을 추가하고 특정 레시피에 재료를 추가하는 행위라 할 수 있겠다.</p>
+<p>실제 비즈니스 로직에서는 이런 다양한 액션들을 묶어서 사용자가 사용하는 수준으로 만들어줄 필요가 생기고 그것이</p>
+<p><strong>action</strong></p>
+<p>액션은 애플리케이션에서 스토어로 보내는 데이터 묶음이며, 스토어의 유일한 정보원이다.</p>
+<p>store.dispatch()</p>
+<p>액션의 종류</p>
+<p>{</p>
+<p>type: COMPLETE_TODO,</p>
+<p>index: 5</p>
+<p>}</p>
+<p><strong>리듀서</strong></p>
+<p>이전 상태와 액션을 받아 다음 상태를 반환하는 순수 함수이다.</p>
+<p>(prevState, action)</p>
+<p><strong>스토어</strong></p>
+<p>액션과 리듀서를 함께 가져오는 객체이다.</p>
+<p>createStore(_action) =&gt; store</p>
+<p>store.dispatch(_action)</p>
+<p><strong>프로세스</strong></p>
+<ol>
+<li>Create actionDescribe what happens</li>
+<li>store.dispatch(action)</li>
+<li>Redux store executes reducer function</li>
+<li>Root reducer makes one state tree by merging reducer outputs</li>
+<li>Store.subscribe(listener) =&gt; call all listener</li>
+</ol>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/03/27/자료구조-정렬-sorting/" itemprop="url">
+                자료구조 | 정렬(sorting)
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-27T11:38:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 876 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="개요">개요</span></h1><p>컴퓨터 안에는 수십 수만가지의 데이터 들이 있으며, 이러한 수많은 데이터들을 잘 정리하고 보관하는 것은 빠른 데이터 찾기와 데이터 추가 및 삭제 등의 작업의 효율에 매우 큰 영향을 미친다. 때문에 컴퓨터의 많은 자료들을 효율적으로 분류하고 원하는 자료를 찾고 추가 하기 위해서는 ‘정렬’에 대해 알아야 할 필요가 있다.</p>
+<p>본 강의에서 <strong>리스트</strong> 란 하나 이상의 필드로 된 레코드의 집합이라는 의미로 사용하며, 이때 코드를 서로 구별하기 위해 사용되는 필드를 <strong>키</strong> 라고 한다.</p>
+<h1><span id="일반적인-자료의-탐색-방법">일반적인 자료의 탐색 방법</span></h1><p>흔히 리스트를 탐색하는 가장 직관적인 방법은 앞에서 부터 차례대로 비교하면서 자료를 분류하는 것이다.<br>프로그래밍에서 for 문을 사용하여 리스트의 제일 앞에서 부터 뒤까지 훑어 가면서 equal 문을 통해 데이터를 찾는 작업은 매우 흔한 프로그래밍의 구현이다.</p>
+<p>이렇게 어떤 리스트의 왼편에서 오른편으로 차례대로 데이터를 찾는 것을 <strong>순차 탐색</strong> 이라고 한다.</p>
+<p>다음 C 언어로 순차탐색 프로그램을 구현한 코드이다.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Element</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">seqSearch</span><span class="params">(Element elements[], <span class="built_in">string</span> key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="keyword">sizeof</span>(*elements) / <span class="keyword">sizeof</span>(elements[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"address of the elements: "</span> &lt;&lt; elements &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"count is: "</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (elements[i].key == key)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Element element1 = &#123;<span class="string">"123"</span>&#125;;</span><br><span class="line">    Element element2 = &#123;<span class="string">"namhoon"</span>&#125;;</span><br><span class="line">    Element elements[] = &#123;element1, element2&#125;;</span><br><span class="line">    <span class="keyword">int</span> result = seqSearch(elements, <span class="string">"namhoon"</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>위 프로그램을 살펴보면 for 문을 돌면서 n 개의 레코드를 탐색하는 평균은 (n+1)/2 이므로, O(n)의 시간복잡도를 가진다.</p>
+<p>만약 어떤 리스트가 정렬된 순차 리스트라면 이런 순차 탐색 말고 <strong>이원 탐색</strong> 을 사용하여 자료를 찾을 수 있으며 이 경우 시간 복잡도는 O(logn) 이다.</p>
+<h1><span id="정렬의-종류">정렬의 종류</span></h1><h2><span id="삽입-정렬">삽입 정렬</span></h2><p>i 개의 정렬된 레코드에 새로운 레코드를 끼워넣어 i+1 개의 정렬된 레코드 리스트를 만드는 정렬 방법이다.</p>
+<p>아래 프로그램은 C로 구현한 insert 함수이다.</p>
+<p><img src="/images/삽입정렬시Insert함수의개념도.png" alt="삽입 정렬 시 insert 함수의 개념도"></p>
+<p>정렬된 리스트 a[1:i] 에 e 원소를 집어넣어 a[1:i+1]의 리스트를 만들어 내는 함수이다.</p>
+<p>index 역할을 하는 i가 점차 작아지면서 a[i].key가 e.key 보다 큰 경우 한칸씩 우측으로 밀어내고, a[i].key가 e.key 보다 작아지는 i 값에서 a[i+1]에 e를 넣어준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void insert(element e, element a[], int i)&#123;</span><br><span class="line">  a[0]=e;</span><br><span class="line">  while(e.key&lt;a[i].key)&#123;</span><br><span class="line">    a[i+1] = a[i];</span><br><span class="line">    i--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  a[i+1] = e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>아래 함수는 insert 함수를 활용하여 삽입정렬을 하는 프로그램이다.</p>
+<p><img src="../images/삽입정렬의개념도.png" alt="삽입 정렬의 개념도"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void insertionSort(element a[], int n)&#123;</span><br><span class="line">  int j;</span><br><span class="line">  for(j=2;j&lt;=n;j++)&#123;</span><br><span class="line">    element temp = a[j];</span><br><span class="line">    insert(temp, a, j-1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="병합정렬merge-sort">병합정렬(Merge Sort)</span></h2><p>병합정렬은 입력 리스트를 길이가 1인 n 개의 정렬될 서브트리로 간주하는 것으로 시작합니다.</p>
+<p>아래 merge 함수는 두개의 서로 다른 리스트를 병합하는 것을 보여줍니다.</p>
+<p><img src="\images\merge개념도.png" alt="합병 정렬을 위한 merge 함수 개념도"></p>
+<p><img src="\images\병합정렬의개념도.png" alt="병합 정렬의 개념도"></p>
+<p>merge sort 의 각 단계는 O(n) 의 시간이 걸리고 logn 번의 단계가 적용되므로 O(nlogn) 의 복잡도를 가집니다.</p>
+<p><strong>Time Complexity: O(nlogn)</strong></p>
+<p>또한 각 병합과정에서 새로운 배열이 필요하므로 inplace sort가 아니다.</p>
+<h2><span id="퀵-정렬quick-sort">퀵 정렬(Quick Sort)</span></h2><p>퀵 정렬은 앞서 살펴본 정렬법 중에서 가장 좋은 평균 성능을 가지고 있다.<br>퀵 정렬의 순서는 먼저 피벗 레코드를 선택하여 피벗의 왼쪽에는 레코드 키들이 피벗의 키보다 작거나 같고 피벗의 오른쪽에는 레코드 키들이 피벗의 키보다 크거나 같도록 하는 방법을 사용한다. 최종적으로는 피벗의 왼쪽에 있는 레코드들과 피벗의 오른쪽에 있는 레코드들이 서로 독립적으로 정렬이 된다.</p>
+<p><img src="/images\퀵정렬의개념도.png" alt="퀵정렬의 개념도"></p>
+<p>다음은 퀵 정렬을 수행하는 프로그램이다.<br>i와 j가 각각 왼쪽과 오른쪽에서 가운데 방향으로 진행하며, a[i].key는 pivot 보다 커질 때까지 a[j].key는 pivot 보다 작아질 때 까지<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void quickSort(element a[], int left, int right)&#123;</span><br><span class="line">  int pivot,i,j;</span><br><span class="line">  pivot = a[left].key;</span><br><span class="line">  do&#123;</span><br><span class="line">    do j++;while(a[i].key&lt;pivot);</span><br><span class="line">    do j--;while(a[j].key&gt;pivot);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="히프정렬">히프정렬</span></h2><p><img src="\images\히프정렬을위한Adjust함수.png" alt="히프 정렬을 위한 adjust 함수"></p>
+<p><img src="\images\히프정렬의개념도.png" alt="히프 정렬의 개념도"></p>
+<p><img src="배열에서의히프정렬.png" alt="배열에서의 히프 정렬"></p>
+<p>히프 정렬에서는 최대 길이 [log_2(n+1)] 을 가지고 adjust를 n-1번 호출한다.</p>
+<p>즉, O(nlogn) 이다.</p>
+<h2><span id="버블-정렬">버블 정렬</span></h2><p><img src="\images\버블정렬의개념도.png" alt="버블 정렬의 개념도"></p>
+<h2><span id="선택-정렬">선택 정렬</span></h2><p><img src="\images\선택정렬의개념도.png" alt="선택 정렬의 개념도"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/03/27/자료구조-히프(Heap)/" itemprop="url">
                 자료구조 | 히프 구조
             </a>
@@ -648,170 +810,6 @@
         
                     <p>서비스 소개서를 작성함에 있어 가장 핵심이 되는 것은 바로 청자가 원하는 것이 무엇인지를 명확하게 파악하고 그리고 우리 제품을 가능한한 알기 쉽고 직관적으로 이해 할 수 있도록 하는 것이다.</p>
 <p>서비스 소개서의 시작은 고객의 관심을 사로잡을 수 있도록 상대방의 니즈 혹은 현재 하고있는 비즈니스에 명확하게 도움이 되는 포인트를 설득력있고 알기쉽게 제시한다. 이렇게 독자의 마음을 열었다면, 그 다음으로는 우리의 제품이 해당 니즈에 어떻게 도움이 되며, 아주 쉽게 우리 제품에 대해 명확한 이해가 수반되어야 한다. 이때의 기준은 독자가 우리의 서비스 소개서를 읽은 뒤에 다른 누군가에게 가서 우리의 제품에 대해 명확하게 설명할 수 있을 정도가 바람직하다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/03/18/컴퓨터-구조-강의-01-컴퓨터-추상화-및-관련-기술/" itemprop="url">
-                컴퓨터 구조 강의 01. 컴퓨터 추상화 및 관련 기술
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-03-18T08:31:32.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                14 minutes read (About 2048 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="서론">서론</span></h1><p>1940년 전자식 컴퓨터가 등장한 이래로 컴퓨터는 정보 혁명을 주도하며 컴퓨터와 관련 사업을 빠르게 발전시켰다.<br>스마트 가전제품 부터 슈퍼 컴퓨터 까지 삶의 다양한 분야에서 컴퓨터가 활용되고 있으며 크게 다음과 같은 세가지 응용분야에서 사용된다.</p>
-<ul>
-<li>개인용 컴퓨터</li>
-<li>서버</li>
-<li>임베디드 컴퓨터</li>
-</ul>
-<p>개인용 컴퓨터는 많은 사람들이 잘 알고있듯이 가정 내에 보급된 pc를 말하며, 가정 및 비즈니스에서 산업용으로도 사용되고 있다.<br>서버는 과거 대형 컴퓨터로 불리던 것의 현대적 형태로써 보통 네트워크를 통해 접근되며 소규모 비즈니스 서버 등 주로 산업에서 인터넷을 통한 서비스 공급의 목적으로 사용되고 있다.<br>가장 많이 사용되는 임베디드 컴퓨터는 한 가지 응용을 수행하거나 서로 연관된 일련의 프로그램을 실행하도록 설계된 컴퓨터로 많은 가전기기 및 제품들에 탑재되어 있다.</p>
-<p>단순 컴퓨터의 출생이 가지는 의미를 넘어 컴퓨터의 영향으로 세계 IT 산업은 송두리째 뒤흔들리고 있는 분야가 있는데, 그것은 바로 <strong>개인 휴대용 기기(PMD)</strong> 와 <strong>클라우드 컴퓨팅</strong> 을 기반으로 한 <strong>sass</strong> 이다.</p>
-<p>개인 휴대용 기기를 통해 사람들은 어디에서나 인터넷에 연결되어 진정한 초연결 사회로 거듭나게 되었으며, 엄청난 컴퓨팅 파워가 기반이 되어야 사용 가능했던 많은 컴퓨터 기반의 서비스들이 창고 규모의 컴퓨팅(WSC: Warehouse Scale Computing)으로 알려진 클라우드 컴퓨팅을 통해 서비스 로서의 소프트웨어(sass)로 제공되고 있다.</p>
-<p><strong>본 강의는 David A. Patterson과 John L. Hennessy의 책을 토대로 공부한 내용을 정리하며, 다음과 같은 내용을 배운다.</strong></p>
-<ol>
-<li>상위 수준으로 작성된 프로그램이 어떻게 하드웨어로 번역되고 동작하는가?</li>
-<li>소프트웨어와 하드웨어 사이의 인터페이스는 무엇이며, 소프트웨어는 어떻게 필요한 일을 하드웨어에게 지시하는가?</li>
-<li>프로그램의 성능을 결정하는 요소는 무엇이며, 프로그래머는 어떻게 성능을 개선하는가?</li>
-<li>성능 개선을 위해 하드웨어 설계자는 어떤 기술을 사용하는가?</li>
-<li>에너지 효율성을 개선하기 위해 하드웨어 설계자는 어떤 기술을 사용할 수 있는가?</li>
-<li>최근 순차처리에서 병렬처리로 넘어가는 이유는 무엇이며 결과는 어떠한가?</li>
-<li>컴퓨터 구조 분야의 어떤 위대한 아이디어들이 컴퓨팅의 기초를 닦았는가?</li>
-</ol>
-<h1><span id="컴퓨터를-조작하는-명령어는-어떻게-작동하는가">컴퓨터를 조작하는 명령어는 어떻게 작동하는가?</span></h1><p>컴퓨터 하드웨어는 아주 단순한 명령을 실행 할 수 있도록 설계되어 있으며, 많은 현대 프로그래머들이 작성하는 복잡한 코드는 적절한 변환을 통해 컴퓨터가 알기 쉬운 언어로 번역되어 하드웨어를 동작한다. 프로그래머는 코드를 작성하면서 하드웨어의 구체적인 동작은 배제하고 프로그램을 작성이 가능한데, 이는 인간의 상위 언어인 프로그램 언어를 하드웨어와 무관하게 자유롭게 작성할 수 있도록 하는 <strong>추상화</strong> 의 일환이다.<br>즉, 프로그래머는 추상화된 언어인 상위 언어들을 사용함으로써 컴퓨터 내의 복잡한 일들을 신경쓰지 않고 더욱 정교한 시스템을 만들어 갈 수 있다.</p>
-<p><strong>소프트웨어와 하드웨어의 상호작용은 다음과 같이 일어난다.</strong></p>
-<p>_1. 상위 수준 언어로 코드를 작성</p>
-<ol start="2">
-<li>컴파일러가 상위수준 언어를 하위 언어인 어셈블리어로 변환시켜 줌</li>
-<li>어셈블러가 어셈블리어를 컴퓨터가 알아들을 수 있는 이진수 체계로 변환시켜 줌_</li>
-</ol>
-<h2><span id="컴퓨터-구조-분야의-8가지-위대한-아이디어">컴퓨터 구조 분야의 8가지 위대한 아이디어</span></h2><ol>
-<li>무어의 법칙을 고려한 설계</li>
-<li>설계를 단순화하는 추상화</li>
-<li>자주 생기는 일을 빠르게</li>
-<li>병렬 처리</li>
-<li>파이프라이닝을 통한 성능 개선</li>
-<li>예측을 통한 성능 개선</li>
-<li>메모리 계층구조<br>최상위 계층에는 비트당 가격이 제일 바싸지만 작고 빠른 메모리를 사용하고, 최하위 계층에는 느리지만 크고 비트당 가격이 제일 싼 메모리를 사용한다.</li>
-<li>여유분을 이용한 신용도 개선</li>
-</ol>
-<h1><span id="컴퓨터의-구성과-기본-기능">컴퓨터의 구성과 기본 기능</span></h1><p>컴퓨터는 기본적으로 다음과 같은 5가지 항목으로 구성된다.</p>
-<ol>
-<li>입력 유닛</li>
-<li>출력 유닛</li>
-<li>메모리 유닛</li>
-<li>데이터패스 유닛</li>
-<li>제어 유닛</li>
-</ol>
-<h2><span id="출력">출력</span></h2><p>컴퓨터의 출력은 주로 그래픽 디스플레이를 통해 이루어 진다.<br>오늘날의 LCD 디스플레이는 수만개의 화상으로 이루어져 있으며, 각 화상마다 작은 트랜지스터가 배치되어 있어 전류를 정밀하게 제어하는 능동 행렬을 사용한다.<br>각 화상은 화소의 행렬로 구성되며, 이것을 비트맵이라 부르는 비트들의 행렬로 포현한다.<br>컬러 디스플레이는 각각마다 8비트씩, 모두 24비트를 사용하여 수백만 가지의 색을 표시할 수 있다.</p>
-<p>그래픽을 지원하는 하드웨어의 중심이 되는 것은 비트맵을 기억하는 <strong>프레임 버퍼</strong> 라고 하는 부분이며, 스크린에 표시될 화상을 프레임 버퍼에 자장하였다가, 기억된 각 화소들의 <strong>비트 패턴을 재생 속도에 맞추어 그래픽 디스플레이로 보낸다.</strong></p>
-<h2><span id="프로세서">프로세서</span></h2><p>디바이스 안에는 집적회로라 불리는 장치들이 있는데, 이는 프로그램의 지시대로 일을 하며, 데이터패스와 제어 유닛으로 나뉜다.<br>또한 프로세서 내에서 처리할 데이터를 잠깐 보관하기 위해 이를 <strong>캐시 메모리</strong> 라고 한다.</p>
-<h1><span id="성능">성능</span></h1><p>컴퓨터의 성능이란 두 컴퓨터에서 같은 프로그램을 실행시키는 경우에 먼저 끝나는 쪽이 더 빠른 컴퓨터라고 할 수 있을 것이다.<br>하지만 <strong>사용하는 사람과 컴퓨터의 목적에 따라 다른 성능 척도가 필요</strong> 하다.<br>가령, 개인의 입장에서는 작업 개에서 종료까지의 시간인 <strong>응답시간</strong> 이 성능의 중요한 척도일 것이고, 데이터 센터 관리자에게는 일정 시간동안 처리하는 작업의 양인 <strong>처리량 혹은 대역폭</strong> 이 더 중요한 성능의 척도일 것이다.</p>
-<h3><span id="다양한-성능-인자들">다양한 성능 인자들</span></h3><p><strong>_프로그램의 CPU 실행 시간</strong></p>
-<p>프로그램의 CPU 클럭 사이클 수 * 단위 클럭 사이클 시간 = 프로그램의 CPU 클럭 사이클 수 / 클럭 속도</p>
-<p><strong><em>명령어당 클럭 사이클 수(CPI)</em></strong><br>명령어 수 * 명령어당 평균 클럭 사이클 수</p>
-<p><strong><em>CPU 시간</em></strong><br>명령어 개수 <em> CPI </em> 클럭 사이클 시간</p>
-<p><strong><em>IPC(Instructions Per clock Cycle)</em></strong><br>클럭 사이클 당 명령어 수</p>
-<p><strong><em>MIPS(Million Instructions Per Second)</em></strong><br>명령어 개수 / (실행시간*10^6)</p>
-<h3><span id="예제">예제</span></h3><p>다음은 명령어당 클럭 사이클 수를 통한 성능 비교를 보여주는 표이다.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">시스템 이름</th>
-<th style="text-align:left">명령어 수</th>
-<th>CPI</th>
-<th>소요 시간</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">A</td>
-<td style="text-align:left">5</td>
-<td>2</td>
-<td>250ps</td>
-</tr>
-<tr>
-<td style="text-align:left">B</td>
-<td style="text-align:left">6</td>
-<td>1.2</td>
-<td>500ps</td>
-</tr>
-</tbody>
-</table>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/03/18/express의-기본-개념/" itemprop="url">
-                express 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-03-17T15:36:53.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/nodejs-강의/">nodejs 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 64 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="express란">Express란?</span></h1><p>Express는 자체적인 최소한의 기능을 갖춘 라우팅 및 미들웨어 웹 프레임워크이며, Express 애플리케이션은 기본적으로 일련의 미들웨어 함수 호출이다.</p>
-<h2><span id="installation">Installation</span></h2><p><code>npm install express --save</code></p>
 
                         
     </div>

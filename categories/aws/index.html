@@ -98,6 +98,71 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/06/getting-started-with-aws-lambda/" itemprop="url">
+                Getting started with AWS lambda
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-06T07:17:56.000Z" itemprop="datePublished">
+                6 hours ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws/">aws</a><span>></span><a class="article-category-link" href="/categories/aws/lambda/">lambda</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 480 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="create-iam-user">Create IAM User</span></h2><h3><span id="using-aws-cli">Using AWS CLI</span></h3><p>다음과 같은 AWS CLI 를 확인하여 Administrators 유저 그룹을 만들고 루트 계정을 생성한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew install aws # install aws cli</span><br><span class="line">aws iam create-group --group-name Administrators # create iam group</span><br><span class="line">aws iam list-groups # list groups</span><br><span class="line">aws iam attach-group-policy --group-name Administrators --policy-arn arn:aws:iam::aws:policy/AdministratorAccess # AdministratorAccess Policy 적용</span><br><span class="line">aws iam list-attached-group-policies --group-name Admins # 적용된 Policy 확인</span><br></pre></td></tr></table></figure>
+<h2><span id="create-lambda-function">Create Lambda function</span></h2><p>함수의 확인</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws lambda list-functions</span><br></pre></td></tr></table></figure>
+<h3><span id="serverless-application-managementsam">Serverless Application Management(SAM)</span></h3><p>Lambda Function 을 작성하고 배포하는 일련의 과정을 위해서 SAM 을 사용한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install aws-sam-cli # install SAM</span><br><span class="line">sam init # initialize sam</span><br><span class="line">sam local start-api # test locally</span><br></pre></td></tr></table></figure>
+<h3><span id="local-test">local test</span></h3><p>아래 함수를 실행하면 로컬의 3000번 포트에서 lambda 함수들이 동작된다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sam local start-api</span><br></pre></td></tr></table></figure>
+<h3><span id="create-package">create package</span></h3><p>람다함수가 클라우드 환경에서 실행되기 위해서는 S3 버킷에 배포되어야 하고 이를 위해 package 화를 시켜야 한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sam package \</span><br><span class="line">	--output-template-file packaged.yaml \</span><br><span class="line">	--s3-bucket &lt;bucketname&gt;</span><br></pre></td></tr></table></figure>
+<p>위 명령어를 실행하면 sam-app/hello_world 디렉토리를 압축하여 .zip 파일을 만들고 amazon s3 에 업로드 한다. 여기서 새롭게 생긴 <code>packaged.yaml</code> 파일은 <code>template.yaml</code> 파일과 동일한 내용을 가지지만 차이가 있다면, <code>packaged.yaml</code> 파일의 경우 codeUri 가 실제 클라우드 uri 를 가진다는 것이다.</p>
+<h3><span id="deploy-aws-lambda">Deploy AWS lambda</span></h3><p>패키지화를 다 시키고 s3 를 업데이트 했다면 lambda 함수를 배포할 차례이다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sam deploy \</span><br><span class="line">	--template-file packaged.yaml \</span><br><span class="line">	--stack-name samp-app \</span><br><span class="line">	--capabilities CAPABILIY_IAM \</span><br><span class="line">	--region ap-northeast-2</span><br></pre></td></tr></table></figure>
+<h3><span id="npm-serverless">npm serverless</span></h3><p>SAM 이 아니라 serverless 는 npm 패키지로 좀 더 쉽다.</p>
+<p>아래와 같이 설치하고</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serverless # install serverless</span><br></pre></td></tr></table></figure>
+<p>serverless.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">service:</span> <span class="string">my-app</span></span><br><span class="line"></span><br><span class="line"><span class="attr">provider:</span></span><br><span class="line">	<span class="attr">name:</span> <span class="string">aws</span></span><br><span class="line">	<span class="attr">runtime:</span> <span class="string">nodejs8.10</span></span><br><span class="line">	</span><br><span class="line"><span class="attr">functions:</span></span><br><span class="line">	<span class="attr">helloWorld:</span></span><br><span class="line">		<span class="attr">handler:</span> <span class="string">handler.js</span></span><br></pre></td></tr></table></figure>
+<p>handler.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.run = <span class="function">(<span class="params">event, context, callback</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Debugging..."</span>);</span><br><span class="line">  callback(<span class="literal">null</span>,<span class="string">"hello world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>deploy</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sls deploy # deploy project</span><br><span class="line">sls deploy function --function helloWorld # deploy function</span><br></pre></td></tr></table></figure>
+<p><strong>invoke</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sls invoke --function helloWorld --log</span><br></pre></td></tr></table></figure>
+<h2><span id="what-is-aws-lambda">What is AWS Lambda</span></h2><h2><span id="cli-tool">CLI Tool</span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/04/20/getting-started-with-aws-vpc/" itemprop="url">
                 Getting started with aws vpc
             </a>
@@ -106,7 +171,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                12 days ago
+                16 days ago
             </time>
         </span>
         

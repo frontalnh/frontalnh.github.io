@@ -91,6 +91,107 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/05/09/이더리움-greeter-만들기/" itemprop="url">
+                이더리움 Greeter 만들기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-09T02:41:18.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 283 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="greeter-contract-만들기">Greeter Contract 만들기</span></h1><p>Greeter.sol</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">contract Mortal &#123;</span><br><span class="line">    <span class="comment">/* Define variable owner of the type address */</span></span><br><span class="line">    address owner;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This function is executed at initialization and sets the owner of the contract */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Mortal</span>(<span class="params"></span>) </span>&#123; owner = msg.sender; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Function to recover the funds on the contract */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">kill</span>(<span class="params"></span>) </span>&#123; <span class="keyword">if</span> (msg.sender == owner) selfdestruct(owner); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Greeter is Mortal &#123;</span><br><span class="line">    <span class="comment">/* Define variable greeting of the type string */</span></span><br><span class="line">    string greeting;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This runs when the contract is executed */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Greeter</span>(<span class="params">string _greeting</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        greeting = _greeting;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Main function */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>) <span class="title">constant</span> <span class="title">returns</span> (<span class="params">string</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> greeting;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="solidity-compiler-설치-및-컴파일-하기">solidity compiler 설치 및 컴파일 하기</span></h1><p><strong>solcjs 설치하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g solc</span><br></pre></td></tr></table></figure></p>
+<p><strong>컴파일 하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solcjs -o target --bin --abi Greeter.sol</span><br></pre></td></tr></table></figure></p>
+<h1><span id="js-스크립트-작성">js 스크립트 작성</span></h1><p><strong>main.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var greeterFactory = eth.contract(&lt;contents of the file Greeter.abi&gt;)</span><br><span class="line"></span><br><span class="line">var greeterCompiled = &quot;0x&quot; + &quot;&lt;contents of the file Greeter.bin&gt;&quot;</span><br><span class="line"></span><br><span class="line">var _greeting = &quot;Hello World!&quot;</span><br><span class="line"></span><br><span class="line">var greeter = greeterFactory.new(_greeting,&#123;from:eth.accounts[0],data:greeterCompiled,gas:47000000&#125;, function(e, contract)&#123;</span><br><span class="line">    if(e) &#123;</span><br><span class="line">      console.error(e); // If something goes wrong, at least we&apos;ll know.</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!contract.address) &#123;</span><br><span class="line">      console.log(&quot;Contract transaction send: TransactionHash: &quot; + contract.transactionHash + &quot; waiting to be mined...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      console.log(&quot;Contract mined! Address: &quot; + contract.address);</span><br><span class="line">      console.log(contract);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1><span id="geth-console-에서-스크립트-실행">geth console 에서 스크립트 실행</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loadScript(&quot;main.js&quot;)</span><br></pre></td></tr></table></figure>
+<h1><span id="채굴-시작-및-greeter-실행">채굴 시작 및 greeter 실행</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">miner.start()</span><br></pre></td></tr></table></figure>
+<p>채굴이 완료되면 contract에 address가 부여되고 계약이 발행된다.</p>
+<p>이제는 블록체인 상에 greeter라는 봇이 생성되었으므로 다음과 같이 자유롭게 호출하여 사용이 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">greeter.greet();</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/09/논어에서-배우다-02/" itemprop="url">
+                논어에서 배우다 02
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-09T01:57:52.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 473 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <blockquote>
+<p>공자께서 말씀하셨다. “남이 자신을 알아주지 못할까 걱정하지 말고 내가 남을 제대로 알지 못함을 걱정해야 한다.”</p>
+</blockquote>
+<p>우리는 사회생활을 하면서 이런 생각을 참 많이도 합니다.</p>
+<p>“아 저건 너무한거 아니야?”</p>
+<p>“어떻게 저럴 수 있지?”</p>
+<p>“배려가 너무 부족해”</p>
+<p>이런 많은 상황들을 친구에게 이야기 하면 대부분은 이런식을 대답을 해 주곤 합니다.</p>
+<p>“정말 너무하네!”</p>
+<p>“그건 아니지!”</p>
+<p>이런 태도는 단 한가지의 결론만을 가져다 줍니다.</p>
+<p>“그 사람은 이상한 사람이다.”</p>
+<p>하지만, 이런식의 사고를 통한다면 이 세상에는 얼마나 많은 이상한 사람들이 있는 것일까요?</p>
+<p>우리의 이런 삶은 공자가 본다면 아마도 이렇게 말하지 않을까 싶습니다.</p>
+<p>“상대방의 마음을 잘 헤아려 보았는가?”</p>
+<p>우리가 나와 다른 사람을 둘러싼 상황에서 상대방을 마음을 제대로 헤아리는 경우는 얼마나 될까요?</p>
+<p>이런식의 사고는 사실 단순한 인간 관계를 넘어 국제 외교, 사업 협상 테이블 등 많은 경우에 적용할 수 있는 사고인 것 같아 보입니다.</p>
+<p>누군가를 대할 때 냉철한 판단을 할 수 있는 가장 효과적인 방법은 내가 제안한 훌륭한 제안을 상대방이 이해하지 못하는 것을 탓하는 것이 아니라 바로 상대방을 올바로 아는 것이기 때문이지요</p>
+<p>누군가가 나를 알아주지 않을 때 내가 혹시 상대방을 제대로 알지 못하는 것은 아닐까라고 생각해 볼 수 있는 하루가 되었으면 합니다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/05/09/z_논어에서-배우다-01/" itemprop="url">
                 논어에서 배우다 01. 배움의 자세
             </a>
@@ -560,131 +661,6 @@
 <h2><span id="dijkstra-알고리즘-하나의-출발점에서-모든-목표점-음이-아닌-간선-비용의-경우">Dijkstra 알고리즘, 하나의 출발점에서 모든 목표점: 음이 아닌 간선 비용의 경우</span></h2><p><strong>다이크스트라 알고리즘</strong></p>
 <p><img src="\images\dijkstra알고리즘개념도.png" alt="dijkstra 알고리즘 개념도"></p>
 <hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/23/운영체제-파일-시스템-구현/" itemprop="url">
-                운영체제 | 파일 시스템 구현
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-23T00:38:29.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 413 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#파일-시스템-구현">파일 시스템 구현</a></li>
-<li><a href="#디렉터리-구현">디렉터리 구현</a><ul>
-<li><a href="#선형-리스트">선형 리스트</a></li>
-<li><a href="#해시-테이블">해시 테이블</a></li>
-</ul>
-</li>
-<li><a href="#디스크-할당">디스크 할당</a><ul>
-<li><a href="#연속-할당">연속 할당</a></li>
-<li><a href="#연결-할당">연결 할당</a></li>
-<li><a href="#색인-할당">색인 할당</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h1><span id="파일-시스템-구현">파일 시스템 구현</span></h1><p>운영체제는 파일 내용에 대한 접근을 요청하는 프로세스를 위해 open()과 close() 시스템 호출을 구현합니다.<br>본 장에서는 파일 시스템 연산을 구현하는데 사용되는 구조와 연산에 대해 알아봅시다.</p>
-<p>다음 그림은 파일 시스템에서 <strong>디스크</strong> 와 <strong>메모리</strong> 에 어떤 정보들이 들어있는지를 나타내 줍니다.</p>
-<p><img src="..\images\파일시스템에서디스크와메모리.png" alt="파일 시스템에서 디스크와 메모리"></p>
-<p><img src="..\images\계층적파일시스템구조.png" alt="계층적 파일 시스템 구조"></p>
-<h1><span id="디렉터리-구현">디렉터리 구현</span></h1><h2><span id="선형-리스트">선형 리스트</span></h2><p><img src="..\images\선형리스트디렉터리개념도.png" alt="선형 리스트 디렉터리 개념도"></p>
-<h2><span id="해시-테이블">해시 테이블</span></h2><p><img src="..\images\해시테이블디렉터리개념도.png" alt="해시 테이블 디렉터리 개념도"></p>
-<p><img src="..\images\체인오버플로우해시테이블개념도.png" alt="체인 오버플로우 해시 테이블 개념도"></p>
-<h1><span id="디스크-할당">디스크 할당</span></h1><h2><span id="연속-할당">연속 할당</span></h2><p><img src="..\images\디스크연속할당개념도.png" alt="디스크 연속 할당 개념도"></p>
-<h2><span id="연결-할당">연결 할당</span></h2><p><img src="..\images\디스크연결할당개념도.png" alt="디스크 연결 할당 개념도"></p>
-<p><img src="..\images\fAT개념도.png" alt="FAT 개념도"></p>
-<h2><span id="색인-할당">색인 할당</span></h2><p><img src="..\images\디스크색인할당개념도.png" alt="디스크 색인 할당 개념도"></p>
-<p><img src="..\images\색인블록의연결기법구성.png" alt="색인 블록의 연결 기법 구성"></p>
-<p><img src="색인블록의다중단계색인.png" alt="색인 블록의 다중 단계 색인"></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/23/운영체제-파일-시스템-인터페이스/" itemprop="url">
-                운영체제 | 파일 시스템 인터페이스
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-23T00:36:50.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 80 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#디렉터리-구조">디렉터리 구조</a><ul>
-<li><a href="#single-level-directory">Single Level Directory</a></li>
-<li><a href="#two-level-directory">Two Level Directory</a></li>
-<li><a href="#tree-structured-directory">Tree Structured Directory</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<p><img src="\images\파일Open및Access개념도.png" alt="파일 open 및 access 개념도"></p>
-<h1><span id="디렉터리-구조">디렉터리 구조</span></h1><h2><span id="single-level-directory">Single Level Directory</span></h2><p><img src="\images\1단계디렉터리.png" alt="1단계 디렉터리"></p>
-<h2><span id="two-level-directory">Two Level Directory</span></h2><p><img src="\images\2단계디렉터리.png" alt="2단계 디렉터리"></p>
-<h2><span id="tree-structured-directory">Tree Structured Directory</span></h2><p><img src="\images\트리구조디렉터리.png" alt="트리 구조 디렉터리"></p>
 
                         
     </div>

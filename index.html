@@ -91,6 +91,145 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/06/getting-started-with-aws-lambda/" itemprop="url">
+                Getting started with AWS lambda
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-06T07:17:56.000Z" itemprop="datePublished">
+                6 hours ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws/">aws</a><span>></span><a class="article-category-link" href="/categories/aws/lambda/">lambda</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 480 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="create-iam-user">Create IAM User</span></h2><h3><span id="using-aws-cli">Using AWS CLI</span></h3><p>다음과 같은 AWS CLI 를 확인하여 Administrators 유저 그룹을 만들고 루트 계정을 생성한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew install aws # install aws cli</span><br><span class="line">aws iam create-group --group-name Administrators # create iam group</span><br><span class="line">aws iam list-groups # list groups</span><br><span class="line">aws iam attach-group-policy --group-name Administrators --policy-arn arn:aws:iam::aws:policy/AdministratorAccess # AdministratorAccess Policy 적용</span><br><span class="line">aws iam list-attached-group-policies --group-name Admins # 적용된 Policy 확인</span><br></pre></td></tr></table></figure>
+<h2><span id="create-lambda-function">Create Lambda function</span></h2><p>함수의 확인</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws lambda list-functions</span><br></pre></td></tr></table></figure>
+<h3><span id="serverless-application-managementsam">Serverless Application Management(SAM)</span></h3><p>Lambda Function 을 작성하고 배포하는 일련의 과정을 위해서 SAM 을 사용한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install aws-sam-cli # install SAM</span><br><span class="line">sam init # initialize sam</span><br><span class="line">sam local start-api # test locally</span><br></pre></td></tr></table></figure>
+<h3><span id="local-test">local test</span></h3><p>아래 함수를 실행하면 로컬의 3000번 포트에서 lambda 함수들이 동작된다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sam local start-api</span><br></pre></td></tr></table></figure>
+<h3><span id="create-package">create package</span></h3><p>람다함수가 클라우드 환경에서 실행되기 위해서는 S3 버킷에 배포되어야 하고 이를 위해 package 화를 시켜야 한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sam package \</span><br><span class="line">	--output-template-file packaged.yaml \</span><br><span class="line">	--s3-bucket &lt;bucketname&gt;</span><br></pre></td></tr></table></figure>
+<p>위 명령어를 실행하면 sam-app/hello_world 디렉토리를 압축하여 .zip 파일을 만들고 amazon s3 에 업로드 한다. 여기서 새롭게 생긴 <code>packaged.yaml</code> 파일은 <code>template.yaml</code> 파일과 동일한 내용을 가지지만 차이가 있다면, <code>packaged.yaml</code> 파일의 경우 codeUri 가 실제 클라우드 uri 를 가진다는 것이다.</p>
+<h3><span id="deploy-aws-lambda">Deploy AWS lambda</span></h3><p>패키지화를 다 시키고 s3 를 업데이트 했다면 lambda 함수를 배포할 차례이다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sam deploy \</span><br><span class="line">	--template-file packaged.yaml \</span><br><span class="line">	--stack-name samp-app \</span><br><span class="line">	--capabilities CAPABILIY_IAM \</span><br><span class="line">	--region ap-northeast-2</span><br></pre></td></tr></table></figure>
+<h3><span id="npm-serverless">npm serverless</span></h3><p>SAM 이 아니라 serverless 는 npm 패키지로 좀 더 쉽다.</p>
+<p>아래와 같이 설치하고</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serverless # install serverless</span><br></pre></td></tr></table></figure>
+<p>serverless.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">service:</span> <span class="string">my-app</span></span><br><span class="line"></span><br><span class="line"><span class="attr">provider:</span></span><br><span class="line">	<span class="attr">name:</span> <span class="string">aws</span></span><br><span class="line">	<span class="attr">runtime:</span> <span class="string">nodejs8.10</span></span><br><span class="line">	</span><br><span class="line"><span class="attr">functions:</span></span><br><span class="line">	<span class="attr">helloWorld:</span></span><br><span class="line">		<span class="attr">handler:</span> <span class="string">handler.js</span></span><br></pre></td></tr></table></figure>
+<p>handler.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.run = <span class="function">(<span class="params">event, context, callback</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Debugging..."</span>);</span><br><span class="line">  callback(<span class="literal">null</span>,<span class="string">"hello world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>deploy</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sls deploy # deploy project</span><br><span class="line">sls deploy function --function helloWorld # deploy function</span><br></pre></td></tr></table></figure>
+<p><strong>invoke</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sls invoke --function helloWorld --log</span><br></pre></td></tr></table></figure>
+<h2><span id="what-is-aws-lambda">What is AWS Lambda</span></h2><h2><span id="cli-tool">CLI Tool</span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/03/getting-started-with-gradle/" itemprop="url">
+                Getting started with gradle
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-03T09:30:43.000Z" itemprop="datePublished">
+                3 days ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 616 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="prerequisites">Prerequisites</span></h2><p>Gradle requires Java JDK or JRE</p>
+<p>in Mac</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew tap caskroom/cask &amp;&amp; # only if you didn't install cask</span><br><span class="line">brew cask install java &amp;&amp;</span><br><span class="line">brew cask info java &amp;&amp;</span><br><span class="line">brew tap caskroom/cask</span><br></pre></td></tr></table></figure>
+<p>### </p>
+<p>install gradle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
+<h2><span id="create-new-gradle-project">Create new Gradle Project</span></h2><h3><span id="initialize">Initialize</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle init</span><br></pre></td></tr></table></figure>
+<p>Directory<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├── build.gradle  </span><br><span class="line">├── gradle</span><br><span class="line">│   └── wrapper</span><br><span class="line">│       ├── gradle-wrapper.jar  </span><br><span class="line">│       └── gradle-wrapper.properties  </span><br><span class="line">├── gradlew  </span><br><span class="line">├── gradlew.bat  </span><br><span class="line">└── settings.gradle</span><br></pre></td></tr></table></figure></p>
+<p>build.gradle: Gradle build script for configuring the current project</p>
+<p>gradlew: Gradle wrapper script for unix-based system</p>
+<p>gradle.bat: Gradle wrapper script for Windows</p>
+<p>settings.gradle: Gradle settings script for configuring the Gradle build</p>
+<h3><span id="create-a-task">Create a task</span></h3><p>하나의 Project 는 여러개의 Task 를 포함하며, 각 Task 는 기본적인 연산을 수행한다.</p>
+<p>Gradle 은 task 라이브러리들을 가지고 있으며, 이를 통해 프로젝트를 설정할 수 있다. 가령 <code>COPY</code> 라는 type 은 특정 파일을 특정 위치로 복사해 준다.</p>
+<p>example) build.gradle</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task copy(<span class="string">type:</span> Copy, <span class="string">group:</span> <span class="string">"Custom"</span>, <span class="string">description:</span> <span class="string">"Copies sources to the dest directory"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    into <span class="string">"dest"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 <strong>group</strong> 과 <strong>description</strong> 은 하드코드된 값으로 프로그래머가 원하는 값을 지정하면 된다.</p>
+<p>실행하기</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew copy</span><br></pre></td></tr></table></figure>
+<h3><span id="apply-a-plugin">Apply a plugin</span></h3><p>Gradle 에는 다양한 종류의 plugin 이 존재한다.</p>
+<p>예를 들어  <code>base</code> 플러그인의 <code>Zip</code> type을 활용하여 zip archive 를 생성할 수 있다.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plugins&#123;</span><br><span class="line">  id <span class="string">"base"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task zip(<span class="string">type:</span> Zip, <span class="string">group:</span> <span class="string">"Archive"</span>, <span class="string">description:</span> <span class="string">"Archive sources in a zip file"</span>)&#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    setArchiveName <span class="string">"basic-demo-1.0.zip"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>실행</p>
+<p><code>./gradlew zip</code></p>
+<h2><span id="command">Command</span></h2><h3><span id="show-tasks">Show tasks</span></h3><p>아래 명령어를 통해 존재하는 task 들을 확인할 수 있다.</p>
+<p>task 들은 group 별로 정렬되어 나타나며, 각 task 마다의 description 이 명시되어 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew tasks</span><br></pre></td></tr></table></figure>
+<h3><span id="analyze-and-debug-build">Analyze and debug build</span></h3><p>gradle 은 build scan 이라는 웹 기반의 build 상태 확인을 제공한다.</p>
+<p>아래 명령어는 gradle 에서 확인한다.</p>
+<p>example)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew zip --scan</span><br></pre></td></tr></table></figure>
+<h3><span id="discover-available-properties">Discover available properties</span></h3><p>아래 명령어를 통해 gradle 의 다양한 property 들을 확인할 수 있다.</p>
+<p>property들이란 gradle 을 통해 빌드하는 과정에서 설정되는 다양한 속성들을 의미하며, 가령 build directory, project directory 같은 중요한 사항들이 포함된다.</p>
+<p>아래 명령어를 통해 property 들을 확인할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew properties</span><br></pre></td></tr></table></figure>
+<p>The <code>name</code> of the project matches the name of the folder by default. You can also specify <code>group</code>and <code>version</code> properties, but at the moment they are taking their default values, as is <code>description</code>.</p>
+<p>The <code>buildFile</code> property is the fully-qualified path name to your build script, which resides in the <code>projectDir</code> — by default.</p>
+<p>You can change many of the properties. For example, you might try adding the following lines to your build script file, and re-execute <code>gradle properties</code>.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/05/02/getting-started-with-ubuntu/" itemprop="url">
                 Getting started with ubuntu
             </a>
@@ -99,7 +238,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
-                5 minutes ago
+                4 days ago
             </time>
         </span>
         
@@ -112,14 +251,14 @@
                     <span class="column is-narrow">
                         
                             
-                                a minute read (About 208 words)
+                                a minute read (About 210 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <h2><span id="installation">Installation</span></h2><p>Git, node.js, aws-cli 를 설치해 준다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt-get install python2.7 &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo python2.7 get-pip.py &amp;&amp; # install pip</span><br><span class="line">sudo pip install awscli &amp;&amp; # install aws-cli</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt update &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo apt install python3-pip &amp;&amp; # install pip</span><br><span class="line">sudo pip3 install awscli &amp;&amp; # install aws-cli</span><br><span class="line">sudo apt install awscli</span><br></pre></td></tr></table></figure>
 <h3><span id="aws-configuration">AWS configuration</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
 <h2><span id="problem-solved">Problem solved</span></h2><h3><span id="그래픽-드라이버-호환으로-인해-화면이-정지하는-경우">그래픽 드라이버 호환으로 인해 화면이 정지하는 경우</span></h3><h3><span id="nvidia-driver-installation">NVIDIA Driver installation</span></h3><p>먼저 nvidia 에 들어가서 자신의 PC 에 알맞는 드라이버를 다운 받아 둔다.</p>
 <p><a href="https://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">Download Drivers | NVIDIA</a></p>
@@ -148,7 +287,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                12 days ago
+                16 days ago
             </time>
         </span>
         
@@ -214,7 +353,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-08T13:48:34.167Z" itemprop="datePublished">
-                24 days ago
+                a month ago
             </time>
         </span>
         
@@ -543,213 +682,6 @@
 <h3><span id="basic-usage">Basic Usage</span></h3><p>QApplication.exec() 은 qt 어플리케이션을 시작하고 event loop 에 진입시킨다.</p>
 <h3><span id="ocx">OCX</span></h3><p>Object linking and embedding Custom Control 의 약어로 모듈화된 파일이다.</p>
 
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/22/building-node-api-server-based-on-ddd-architecture/" itemprop="url">
-                Building node API server based on DDD architecture
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-22T07:02:12.000Z" itemprop="datePublished">
-                a month ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                7 minutes read (About 992 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="building-node-api-server-based-on-ddd-architecture">Building node API server based on DDD architecture</span></h1><h2><span id="domain-layer">Domain Layer</span></h2><p>Domain 레이어는 각 서브 도메인 마다 model, service, repository를 가지며 다음과 같은 역할을 수행한다.</p>
-<p>-   Model</p>
-<p>​    해당 도메인의 모델링이 정의되고, 해당 도메인 내에서의 항상성과 유효성을 담당한다.</p>
-<p>-   Service</p>
-<p>​    주로 여러 도메인을 아우르는 로직을 처리한다.</p>
-<p>-   Repository</p>
-<p>​    도메인 단위로 DB 입출력을 담당하며, 실제 구현은 infra layer의 repository implementation에서 이루어 지며, interface만 정의되어 있다.</p>
-<h2><span id="api-layer">API Layer</span></h2><p>도메인의 서비스들을 조합하며 엔드 유저 레벨에서의 기능수행이 이루어 진다.</p>
-<p>가령 특정 재화를 구매함에 따라 결제를 수행하는 어플리케이션이 있다면 본 api 레이어에는 ‘결제’와 같은 엔드 유저 레벨에서의 함수가 들어가며, 결제 데이터 생성, 구매자의 감소 등과 같은 로직은 도메인의 모델 및 서비스 레벨에서 처리된다.</p>
-<h2><span id="infra-layer">Infra layer</span></h2><p>도메인의 비즈니스 로직들이 잘 수행될 수 있도록 DB, http 라우터 등 외부 환경을 다루는 실제 구현이 이루어 진다.</p>
-<p>본 레이어에서 도메인의 repository interface에 정의된 함수들을 실제로 구현하며, express router를 활용하여 외부 요청에 대한 라우팅을 수행한다.</p>
-<p>또한 본 레이어에는 middleware, auth guard, errorHandler 처럼 도메인에 접근하기 전에 전처리되거나 비즈니스 로직 이후 클라이언트에게 반환할 반환값에 대한 후처리 로직이 들어간다.</p>
-<p>auth guard 는 decorator 를 사용하여 제작되었다.</p>
-<h2><span id="branching-model">Branching Model</span></h2><p>모든 작업 내용은 feature/[브랜치 명] 에서 작업하고, dev 서버에 배포하기 위한 버전을 develop 브랜치에 푸시한다.</p>
-<p>Release 브랜치에서 develop 브랜치를 pull 하면서 코드리뷰를 진행하고 모든 코드리뷰 사항이 반영되면 release 브랜치에 머지된다.</p>
-<p>release 브랜치에서 스프린트 및 일정관리, 테스트 작업을 진행하며 안정화되면 master 브랜치로 push 하고 서비스 배포한다.</p>
-<p>-   Master: 실제 서비스 배포를 위한 브랜치</p>
-<p>-   Release: 개발 진행의 경과가 되는 브랜치로 QA 및 일정관리의 지표가 된다.</p>
-<p>-   Develop: 각 개발자들이 실시간으로 머지하는 브랜치로 테스트 서버의 소스코드가 보관된다.</p>
-<p>-   Feature: 각 개발자들이 임의로 자신들의 작업량을 작업한다.</p>
-<h2><span id="input-validation">Input validation</span></h2><p>본 프로젝트에서는 클라이언트의 요청값을 검증함에 있어 모든 요청의 형태를 DTO 형태로 정의하고 해당 DTO 에 값을 넣기 전에 <code>Joi</code> 라이브러리를 사용하여 요청값에 대한 검증을 수행한다.</p>
-<h2><span id="tsconfig-setting">tsconfig setting</span></h2><p>각 파일에서 다른 파일을 import 함에 있어서 보다 가독성을 높이기 위해 @domain과 같이 태그를 하여 손쉽게 import를 할 수 있습니다.</p>
-<p>tsconfig.json 파일의 예</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">"paths"</span>: &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">"@domain/"</span>: [<span class="string">"server/domain/"</span>]</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위처럼 옵션을 설정하면 복잡한 filepath 대신 위의 태그네임을 통해 import 할 수 있습니다.</p>
-<p>이때 위의 태그네임이 잘 반영이 되지 않는 경우가 있는데, 이는 웹팩에서 트랜스파일링을 하는 과정에서 webpack.config.js 세팅을 바꾸어 줌으로써 해결이 가능합니다.</p>
-<p>태그 네이밍을 하기 위해서 tsconfig-paths-webpack-plugin 을 사용하는데 해당 플러그인은 다음과 같이</p>
-<p>루트 plugin이 아닌 resolve 내의 plugin 내에 설정되어야 합니다.</p>
-<p>webpack.config.js의 예</p>
-<p>\<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    resolve: &#123;</span><br><span class="line"></span><br><span class="line">​        plugins: [</span><br><span class="line"></span><br><span class="line">​            <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line"></span><br><span class="line">​                configFile: <span class="string">'./tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line"></span><br><span class="line">​            &#125;)</span><br><span class="line"></span><br><span class="line">​        ];</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\</span><br></pre></td></tr></table></figure></p>
-<h3><span id="author">Author</span></h3><p><a href="https://github.com/frontalnh" target="_blank" rel="noopener">frontalnh(Namhoon Lee)</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/16/nuxt-js-시작하기/" itemprop="url">
-                Nuxt.js 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-16T09:14:59.000Z" itemprop="datePublished">
-                2 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/next/">next</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                13 minutes read (About 1997 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#next-cli">Next CLI</a></li>
-<li><a href="#vuex">Vuex</a></li>
-<li><a href="#global-css">Global CSS</a><ul>
-<li><a href="#setup-vuetify">Setup Vuetify</a></li>
-</ul>
-</li>
-<li><a href="#nuxt-에서-axios-사용하기">Nuxt 에서 axios 사용하기</a><ul>
-<li><a href="#기본-사용법">기본 사용법</a></li>
-<li><a href="#http-helper-plugin-적용">http helper plugin 적용</a></li>
-</ul>
-</li>
-<li><a href="#plugin-사용하기">Plugin 사용하기</a><ul>
-<li><a href="#플러그인-만들기">플러그인 만들기</a></li>
-<li><a href="#플러그인-등록하기">플러그인 등록하기</a></li>
-<li><a href="#vue-instance-contextk-store-에서-사용가능하게-등록하기">Vue instance, Contextk, Store 에서 사용가능하게 등록하기</a></li>
-</ul>
-</li>
-<li><a href="#reverse-proxy">Reverse proxy</a></li>
-<li><a href="#global-modal">Global Modal</a></li>
-<li><a href="#environment-variables">Environment variables</a></li>
-<li><a href="#problem-solving">Problem solving</a><ul>
-<li><a href="#layout-사용하기">layout 사용하기</a></li>
-<li><a href="#unexpected-token-import">Unexpected token import</a></li>
-<li><a href="#cannot-find-module">cannot find module</a></li>
-<li><a href="#query-string-nested-object">Query string nested object</a></li>
-<li><a href="#custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</a></li>
-<li><a href="#다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h2><span id="installation">Installation</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vue init nuxt-community/typescript-template [프로젝트 명];</span><br><span class="line"></span><br><span class="line">yarn add nuxt-property-decorator &amp;&amp; <span class="comment"># property decorator installation</span></span><br><span class="line">yarn add tsconfig-paths-webpack-plugin &amp;&amp;<span class="comment"># webpack 에서 typescript 를 사용하기 위한 세팅</span></span><br><span class="line">yarn add ts-loader &amp;&amp; <span class="comment"># typescript 사용을 위한 ts-loader 설치</span></span><br><span class="line">yarn add vuex-class &amp;&amp; <span class="comment"># Vuex 를 class 타입으로 사용하기 위해 설치</span></span><br><span class="line">yarn add nuxt-sass-resources-loader &amp;&amp; <span class="comment"># For using sass</span></span><br><span class="line">yarn add sass-loader <span class="comment"># for using sass</span></span><br></pre></td></tr></table></figure>
-<p>타입스크립트를 트랜스파일링 하기 위해 webpack configuration을 바꾸어 주어야 한다.</p>
-<p>이는 nuxt.config.js 에서 webpack configuration 을 overriding 함으로써 구현한다.</p>
-<p>nuxt.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ** You can extend webpack config here</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  extend(config, ctx) &#123;</span><br><span class="line">    config.resolve.extensions.push(<span class="string">'.ts'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> tsLoader = &#123;</span><br><span class="line">      loader: <span class="string">'ts-loader'</span>,</span><br><span class="line">      options: &#123; <span class="attr">appendTsSuffixTo</span>: [<span class="regexp">/\.vue$/</span>], <span class="attr">transpileOnly</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">      exclude: [<span class="regexp">/vendor/</span>, /\.nuxt/]</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    config.module.rules.push(&#123; <span class="attr">test</span>: <span class="regexp">/.tsx?$/</span>, ...tsLoader &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> rule <span class="keyword">of</span> config.module.rules) &#123;</span><br><span class="line">      <span class="keyword">if</span> (rule.loader === <span class="string">'vue-loader'</span>) &#123;</span><br><span class="line">        rule.options.loaders = &#123;</span><br><span class="line">          ts: tsLoader</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> plugin = <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line">      configFile: <span class="string">'tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    config.resolve[<span class="string">'plugins'</span>] = [plugin];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="next-cli">Next CLI</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install dependencies</span></span><br><span class="line"></span><br><span class="line">$ npm install <span class="comment"># Or yarn install</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># serve with hot reload at localhost:3000</span></span><br><span class="line"></span><br><span class="line">$ npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># build for production and launch server</span></span><br><span class="line"></span><br><span class="line">$ npm run build</span><br><span class="line"></span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line"><span class="comment"># generate static project</span></span><br><span class="line"></span><br><span class="line">$ npm run generate</span><br></pre></td></tr></table></figure>
-<h2><span id="vuex">Vuex</span></h2><p>store 디렉토리는 어플리케이션에서 사용하는 도메인 객체들의 저장소이다.</p>
-<p>초기 프로젝트는 Vuex 가 disable 된 상태이나 다음과 같이 store/index.js 파일을 작성하면, Vuex 를 사용할 수 있다.</p>
-<p>store/index.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createStore = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">      counter: <span class="number">0</span></span><br><span class="line">    &#125;),</span><br><span class="line">    mutations: &#123;</span><br><span class="line">      increment(state) &#123;</span><br><span class="line">        state.counter++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore;</span><br></pre></td></tr></table></figure>
-<p>Vuex state 의 경우 nested 된 object 의 경우 내부 값만 바뀌면 store 가 업데이트 되지 않는 현상이 있다.</p>
-<p>이를 위한 해결법으로 state.prop[key] ={} 와 같은 연산이 있다면 이를 <code>state.prop={[key]:{}}</code> 와 같이 수정하는 트릭을 쓸 수 있다.</p>
-<h2><span id="global-css">Global CSS</span></h2><p>nuxt.config.js 에서 head 에 추가한다.</p>
-<h3><span id="setup-vuetify">Setup Vuetify</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @nuxtjs/vuetify</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuetify <span class="keyword">from</span> <span class="string">'vuetify'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuetify);</span><br><span class="line"><span class="keyword">import</span> <span class="string">'vuetify/dist/vuetify.min.css'</span>; <span class="comment">// Ensure you are using css-loader</span></span><br></pre></td></tr></table></figure>
-<p>nuxt.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'@nuxtjs/vuetify'</span></span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Vuetify options</span></span><br><span class="line">  vuetify: &#123;</span><br><span class="line">    <span class="comment">//  theme: &#123; &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="nuxt-에서-axios-사용하기">Nuxt 에서 axios 사용하기</span></h2><h3><span id="기본-사용법">기본 사용법</span></h3><p>Nuxt 에서는 기본적으로 다음과 같은 방법을 통해 axios 모듈을 사용할 수 있다.</p>
-<p>여기서, 왜 그냥 axios 를 동적으로 import 해서 사용하지 않고 nuxt 가 제공하는 axios 를 사용해야 하는지 궁금할 수 있다.</p>
-<p>바로 그 이유는, nuxt 는 기본적으로 server redering 방식으로 동작하기 때문에, browser cookie 와 jwt 토큰 등의 중앙적인 데이터에 접근하기가 힘들기 때문이다.</p>
-<p>nuxt 가 제공하는 axios 는 withCredential 등을 통해 간편하게 cookie 데이터에 접근할 수 있는 장점이 있다.</p>
-<p>axios 설치</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @nuxtjs/axios</span><br></pre></td></tr></table></figure>
-<p>axios 모듈 등록</p>
-<p>nuxt.config.ts</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'@nuxtjs/axios'</span>,</span><br><span class="line">  ],</span><br><span class="line">  axios: &#123;</span><br><span class="line">    <span class="comment">// proxyHeaders: false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이를 통해 각 component 의 <code>this.$axios</code> 와 <code>context 의 $axios</code> 를 통해 axios를 사용할 수 있다.</p>
-<p>하지만, 여기서는 범용 logger 혹은 http request 에 있어서 일관된 에러 핸들링 등을 할 수 없기 때문에 이 함수를 사용하는 httpHelper 플러그인을 구현하여 이를 가능하도록 한다.</p>
-<h3><span id="http-helper-plugin-적용">http helper plugin 적용</span></h3><p>여기서 httpHelper의 경우 get, post, put, delete 등의 메소드를 wrapping 하는 다양한 함수들이 존재하며 여기서는 구현을 생략하겠다.</p>
-<p>중요한 점은 이런 HttpHelper 클래스가 plugin 에서 <code>$axios</code> 를 주입받아 새로운 메소드를 구현하며, 이를 <code>inject 함수를 통해 vue instance, store, context 에 바인딩 하여 어느 곳에서나 사용 가능하게 해준다는 것이다.</code></p>
-<p>plugins/httpHelper.ts</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; HttpHelper &#125; <span class="keyword">from</span> <span class="string">'utils/httpHelper'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">context, inject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123; $axios &#125; = context;</span><br><span class="line">  <span class="keyword">let</span> httpHelper = <span class="keyword">new</span> HttpHelper($axios);</span><br><span class="line">  context.$httpHelper = httpHelper;</span><br><span class="line"></span><br><span class="line">  inject(<span class="string">'httpHelper'</span>, httpHelper);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="plugin-사용하기">Plugin 사용하기</span></h2><p>Vue.js 의 자체 기능 뿐 아니라 다양한 외부 라이브러리 혹은 사용자의 external util function 등을 활용하기 위해서 nuxt 는 plugin 이라는 기능을 제공한다.</p>
-<p>이러한 plugin 을 통해서 사용자는 사용하고자 하는 함수 혹은 instance 를 vue root application 혹은 context 에 binding 할 수 있다.</p>
-<h3><span id="플러그인-만들기">플러그인 만들기</span></h3><p>plugins/sample.ts</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (context, inject) =&gt; &#123;</span><br><span class="line">  context.$sample = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="플러그인-등록하기">플러그인 등록하기</span></h3><p>플러그인을 사용하기 위해 nuxt configuration 에 등록시켜 주어야 한다.<br>nuxt.config.ts</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  plugins: [<span class="string">'~/plugins/sample.ts'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="vue-instance-contextk-store-에서-사용가능하게-등록하기">Vue instance, Contextk, Store 에서 사용가능하게 등록하기</span></h3><p>기본적으로 plugin 을 등록하면 오직 context 혹은 vue instance 내에서만 사용 가능하다.<br>하지만 store 혹은 여러 곳에서 이 함수 혹은 인스턴스에 접근하고자 한다면 <code>inject</code> 함수를 이용하여 전역에서 사용가능하게 등록시켜 주어야 한다.</p>
-<p>아래처럼 <code>&#39;sample&#39;</code> 과 같이 <code>$</code> 기호를 생략하고 등록해 주면 <code>$sample</code> 과 같이 변형되어 바인딩 된다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (context, inject) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> sample = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">let</span> sample2 = &#123;</span><br><span class="line">    b: <span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(x);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  inject(<span class="string">'sample'</span>, sample);</span><br><span class="line">  inject(<span class="string">'sample2'</span>, sample2);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>이를 통해 context, Vue 인스턴스 내에서의 this 등 어디에서는 이곳에 접근할 수 있게 된다.</code></p>
-<h2><span id="reverse-proxy">Reverse proxy</span></h2><p>클라이언트가 서버를 호출하는 경우 <code>cors(cross origin resource sharing</code> 문제로 브라우저 내에 렌더링 된 페이지를 준 호스트가 아닌 다른 곳으로의 요청은 기본적으로 막혀있다.</p>
-<p>사실 이는 nuxt.js 뿐만이 아니라 대부분의 웹 어플리케이션 배포 과정에서 나타나는 문제인데, nuxt.js 에서는 그 해결과정이 조금 다르기 때문에 작성한다.</p>
-<p>다른 어플리케이션 배포과정의 경우 일반적으로 nginx 와 같은 web server 를 사용하여 reverse proxy 를 통해 클라이언트 내의 서버 요청 url 을 같은 호스트로 설정하고, 같은 호스트로 오는 요청의 url 을 분석하여 같은 호스트 내의 다른 포트로 리다이렉팅 시켜주는 등의 해결법을 제시하지만, nuxt.js 의 경우 server rendering 프레임워크로 독자적으로 hosing 을 하는 만큼, 자체적으로 reverse proxy 를 제공하며, <code>nuxt.config.js</code> 파일에 다음과 같이 <code>reverse proxy</code> 설정을 주어 해결할 수 있다.</p>
-<p>nuxt.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> serverUrl = <span class="string">"localhost:3002"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    <span class="string">'/api/'</span>: serverUrl</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="global-modal">Global Modal</span></h2><p>전역으로 alert와 dialog를 사용하기 위해 layout 레이어에서 해당 모듈을 구현하였으며, 이는 page store 를 통해 접근이 가능하다.</p>
-<h2><span id="environment-variables">Environment variables</span></h2><p>node.js 서버와는 달리 nuxt 의 경우는 동작환경이 브라우저 이므로, 서버에서 하듯이 <code>process.env</code> 와 같이 환경변수에 접근해도 브라우저의 환경변수이기 때문에 접근이 되지 않는다. 이는 매우 기본적인 사실이지만 서버렌더링을 하는 과정에서 혼동될 수 있다.</p>
-<p>즉, nuxt.js 에서 process.env 를 사용한다면, 이는 빌드시점에 주입되어야 할 것이다.</p>
-<h2><span id="problem-solving">Problem solving</span></h2><h4><span id="layout-사용하기">layout 사용하기</span></h4><p>vue component class 를 사용함에 있어 layout 옵션이 설정되지 않았다면 다음 코드를 index.d.ts 에 추가한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">module</span> 'vue/types/options' &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">interface</span> ComponentOptions&lt;V <span class="keyword">extends</span> Vue&gt; &#123;</span><br><span class="line"></span><br><span class="line">    layout?: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4><span id="unexpected-token-import">Unexpected token import</span></h4><p>모든 기능이 정산인데 갑자기 Unexpected token import 에러가 났다.</p>
-<p>이 경우 최종 문제의 원인은</p>
-<p>nuxt.config.js에서 modules 에 bootstrap-vue 를 import 함에 있어 <code>bootstrap-vue/nuxt</code> 가 아니라 <code>@nuxtjs/bootstrap-vue</code> 를 import 하여 생기는 문제였다.</p>
-<p>bootstrap-vue 공식 홈페이지에도 <code>bootstrap-vue/nuxt</code> 를 import 하라고 하고 있는데, 이를 매우 주의하여야 한다.</p>
-<h4><span id="cannot-find-module">cannot find module</span></h4><p>nuxt property decorator 를 사용할때</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">components</span>:&#123;&#125;&#125; 속성을 추가하지 않으면 모듈을 찾지 못하는 문제가 생긴다.</span><br></pre></td></tr></table></figure>
-<h4><span id="query-string-nested-object">Query string nested object</span></h4><p>기존에는 querystring 라이브러리를 사용하여 nested object 를 처리하지 못하였으나, qs 라이브러리를 사용하면 해결 가능하다.</p>
-<h4><span id="custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@click.native</span><br></pre></td></tr></table></figure>
-<h4><span id="다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</span></h4>
                         
     </div>
     

@@ -3,7 +3,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Getting started with javascript - Jake.Lee&#39;s Blog</title>
+<title>Getting started with AWS lambda - Jake.Lee&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -82,53 +82,70 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-                Getting started with javascript
+                Getting started with AWS lambda
                     
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-01-18T07:20:40.000Z" itemprop="datePublished">
-                4 months ago
+            <time datetime="2019-05-06T07:17:56.000Z" itemprop="datePublished">
+                6 hours ago
             </time>
         </span>
         
             <span class="column is-narrow article-category">
                 <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/javascript/">javascript</a>
+                <a class="article-category-link" href="/categories/aws/">aws</a><span>></span><a class="article-category-link" href="/categories/aws/lambda/">lambda</a>
             </span>
             
                 
                     <span class="column is-narrow">
                         
                             
-                                5 minutes read (About 745 words)
+                                3 minutes read (About 480 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
-                    <h2><span id="how-does-it-works">How does it works</span></h2><p>자바스크립트를 기본적으로 chrome 브라우저에서 실행되는 script 언어로 시작하였으나, node.js 라는 런타임 환경이 나온 이후로 브라우저 밖에서도 javascript를 사용할 수 있게 되었다.</p>
-<p>아무래도 브라우저 내에서 사용되던 언어인 만큼 window 라는 전역 object 가 context의 root 역할을 수행한다.</p>
-<p>런타임 환경 내에서 실행되는 모든 변수는 window 라는 전역 객체에 그 상태가 기록되며, 브라우저에서 동작하는 성격상 브라우저의 창 즉, window 가 런타임 환경에서 최상위 root context 가 된다. 기본적으로 html 이라는 사용자가 보는 가시적인 페이지와 연동되기 위해 <code>event</code> 라는 개념을 사용하며, 사용자가 브라우저에서 하는 모든 활동은 event 를 발생시키며, 각 이벤트가 발생하면 수행되는 일련의 함수의 집합으로 프로그램이 구성된다.</p>
-<p>이러한 <code>event</code> 를 듣고 수행하는 것들을 일컬어 <code>event target</code> 이라고 하며, 이러한 <code>event target</code> 으로는 root context 인 <code>window</code> 객체 이외에도 <code>document, element</code> 객체가 있다.</p>
-<p>각 객체들은 <code>addEventListener</code> 함수를 통해 특정 이벤트가 발생할때 실행할 함수들을 등록할 수 있으며, 이를 통해 web page 와 사용자가 상호작용을 하게 된다.</p>
-<p>또한, javascript runtime environment 인 node.js 는 각종 패키지들을 사용할 수 있는데, 여기서 node 는 실행하는 루트의 package.json 파일을 참조하여 노드 모듈을 참조하고 실행하며, 때문에 실행하는 위치의 root 에 package.json 파일이 있어야만 패키지들을 찾고 실행할 수 있기 때문에 이를 유의하여야 한다.</p>
-<h2><span id="javascript-modules">Javascript modules</span></h2><p>npm 패키지를 사용하기위한 설정을 package.json    에 설정해 준다.</p>
-<h4><span id="path-alias-사용하기">path alias 사용하기</span></h4><p>package.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"_moduleAliases"</span>: &#123;</span><br><span class="line">    <span class="attr">"@domain"</span>: <span class="string">"dist/domain"</span>,</span><br><span class="line">    <span class="attr">"@infra"</span>: <span class="string">"dist/infra"</span>,</span><br><span class="line">    <span class="attr">"@util"</span>: <span class="string">"dist/util"</span>,</span><br><span class="line">    <span class="attr">"@common"</span>: <span class="string">"dist/common"</span>,</span><br><span class="line">    <span class="attr">"@interfaces"</span>: <span class="string">"dist/interfaces"</span>,</span><br><span class="line">    <span class="attr">"@utils"</span>: <span class="string">"dist/utils"</span>,</span><br><span class="line">    <span class="attr">"@api"</span>: <span class="string">"dist/api"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="multithreading">Multithreading</span></h2><p>Javascript 는 기본적으로 single thread 방식으로 동작한다.</p>
-<p>즉, 하나의 프로세스 내에서도 하나의 단일 스레드 내에서 동작하는 것을 기본으로 한다.</p>
-<p>하지만, 브라우저 내에서 데이터를 로드하면서 화면을 전환하거나 혹은 화려한 ui 를 그리는 도중에도 사용자와의 interaction 을 해서 편의를 높이는 등 다양한 부분에 있어 병렬처리에 대한 필요성이 대두되었으며, 브라우저는 <code>Web Worker</code> 라는 개념을 통해 병렬처리를 가능하도록 하였다.</p>
-<p><code>web worker</code> 는 현재 실행중인 <code>main thread</code> 와 병렬적으로 <code>background thread</code> 에서 특정 작업을 수행하여 병렬적으로 특정 task 를 수행할 수 있게 해 준다.</p>
-
+                    <h2><span id="create-iam-user">Create IAM User</span></h2><h3><span id="using-aws-cli">Using AWS CLI</span></h3><p>다음과 같은 AWS CLI 를 확인하여 Administrators 유저 그룹을 만들고 루트 계정을 생성한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew install aws # install aws cli</span><br><span class="line">aws iam create-group --group-name Administrators # create iam group</span><br><span class="line">aws iam list-groups # list groups</span><br><span class="line">aws iam attach-group-policy --group-name Administrators --policy-arn arn:aws:iam::aws:policy/AdministratorAccess # AdministratorAccess Policy 적용</span><br><span class="line">aws iam list-attached-group-policies --group-name Admins # 적용된 Policy 확인</span><br></pre></td></tr></table></figure>
+<h2><span id="create-lambda-function">Create Lambda function</span></h2><p>함수의 확인</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws lambda list-functions</span><br></pre></td></tr></table></figure>
+<h3><span id="serverless-application-managementsam">Serverless Application Management(SAM)</span></h3><p>Lambda Function 을 작성하고 배포하는 일련의 과정을 위해서 SAM 을 사용한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install aws-sam-cli # install SAM</span><br><span class="line">sam init # initialize sam</span><br><span class="line">sam local start-api # test locally</span><br></pre></td></tr></table></figure>
+<h3><span id="local-test">local test</span></h3><p>아래 함수를 실행하면 로컬의 3000번 포트에서 lambda 함수들이 동작된다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sam local start-api</span><br></pre></td></tr></table></figure>
+<h3><span id="create-package">create package</span></h3><p>람다함수가 클라우드 환경에서 실행되기 위해서는 S3 버킷에 배포되어야 하고 이를 위해 package 화를 시켜야 한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sam package \</span><br><span class="line">	--output-template-file packaged.yaml \</span><br><span class="line">	--s3-bucket &lt;bucketname&gt;</span><br></pre></td></tr></table></figure>
+<p>위 명령어를 실행하면 sam-app/hello_world 디렉토리를 압축하여 .zip 파일을 만들고 amazon s3 에 업로드 한다. 여기서 새롭게 생긴 <code>packaged.yaml</code> 파일은 <code>template.yaml</code> 파일과 동일한 내용을 가지지만 차이가 있다면, <code>packaged.yaml</code> 파일의 경우 codeUri 가 실제 클라우드 uri 를 가진다는 것이다.</p>
+<h3><span id="deploy-aws-lambda">Deploy AWS lambda</span></h3><p>패키지화를 다 시키고 s3 를 업데이트 했다면 lambda 함수를 배포할 차례이다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sam deploy \</span><br><span class="line">	--template-file packaged.yaml \</span><br><span class="line">	--stack-name samp-app \</span><br><span class="line">	--capabilities CAPABILIY_IAM \</span><br><span class="line">	--region ap-northeast-2</span><br></pre></td></tr></table></figure>
+<h3><span id="npm-serverless">npm serverless</span></h3><p>SAM 이 아니라 serverless 는 npm 패키지로 좀 더 쉽다.</p>
+<p>아래와 같이 설치하고</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serverless # install serverless</span><br></pre></td></tr></table></figure>
+<p>serverless.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">service:</span> <span class="string">my-app</span></span><br><span class="line"></span><br><span class="line"><span class="attr">provider:</span></span><br><span class="line">	<span class="attr">name:</span> <span class="string">aws</span></span><br><span class="line">	<span class="attr">runtime:</span> <span class="string">nodejs8.10</span></span><br><span class="line">	</span><br><span class="line"><span class="attr">functions:</span></span><br><span class="line">	<span class="attr">helloWorld:</span></span><br><span class="line">		<span class="attr">handler:</span> <span class="string">handler.js</span></span><br></pre></td></tr></table></figure>
+<p>handler.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.run = <span class="function">(<span class="params">event, context, callback</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Debugging..."</span>);</span><br><span class="line">  callback(<span class="literal">null</span>,<span class="string">"hello world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>deploy</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sls deploy # deploy project</span><br><span class="line">sls deploy function --function helloWorld # deploy function</span><br></pre></td></tr></table></figure>
+<p><strong>invoke</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sls invoke --function helloWorld --log</span><br></pre></td></tr></table></figure>
+<h2><span id="what-is-aws-lambda">What is AWS Lambda</span></h2><h2><span id="cli-tool">CLI Tool</span></h2>
                         
     </div>
     
         <div class="columns is-variable is-1 is-multiline is-mobile">
             
                 <span class="column is-narrow">
-                    <a class="tag is-light article-tag" href="/tags/javascript/">#
-                        javascript
+                    <a class="tag is-light article-tag" href="/tags/aws/">#
+                        aws
+                    </a>
+                </span>
+                
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/lambda/">#
+                        lambda
                     </a>
                 </span>
                 
@@ -136,17 +153,13 @@
         
             
                 <div class="columns is-mobile is-multiline article-nav">
-                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                    <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
                         
-                            <a href="/2019/01/18/typescript-시작하기/">
-                                typescript 시작하기
-                            </a>
-                            
                     </span>
                     <span class="column is-12-mobile is-half-desktop  article-nav-next">
                         
-                            <a href="/2019/01/17/12-factor-app-시작하기/">
-                                12 factor app 시작하기
+                            <a href="/2019/05/03/getting-started-with-gradle/">
+                                Getting started with gradle
                             </a>
                             
                     </span>
@@ -171,8 +184,8 @@
                 
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://frontalnh.github.io/2019/01/18/Getting-started-with-javascript/';
-        this.page.identifier = '2019/01/18/Getting-started-with-javascript/';
+        this.page.url = 'http://frontalnh.github.io/2019/05/06/getting-started-with-aws-lambda/';
+        this.page.identifier = '2019/05/06/getting-started-with-aws-lambda/';
         
         this.language = 'en';
         

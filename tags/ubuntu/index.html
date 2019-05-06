@@ -106,7 +106,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
-                5 minutes ago
+                4 days ago
             </time>
         </span>
         
@@ -119,14 +119,14 @@
                     <span class="column is-narrow">
                         
                             
-                                a minute read (About 208 words)
+                                a minute read (About 210 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <h2><span id="installation">Installation</span></h2><p>Git, node.js, aws-cli 를 설치해 준다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt-get install python2.7 &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo python2.7 get-pip.py &amp;&amp; # install pip</span><br><span class="line">sudo pip install awscli &amp;&amp; # install aws-cli</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt update &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo apt install python3-pip &amp;&amp; # install pip</span><br><span class="line">sudo pip3 install awscli &amp;&amp; # install aws-cli</span><br><span class="line">sudo apt install awscli</span><br></pre></td></tr></table></figure>
 <h3><span id="aws-configuration">AWS configuration</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
 <h2><span id="problem-solved">Problem solved</span></h2><h3><span id="그래픽-드라이버-호환으로-인해-화면이-정지하는-경우">그래픽 드라이버 호환으로 인해 화면이 정지하는 경우</span></h3><h3><span id="nvidia-driver-installation">NVIDIA Driver installation</span></h3><p>먼저 nvidia 에 들어가서 자신의 PC 에 알맞는 드라이버를 다운 받아 둔다.</p>
 <p><a href="https://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">Download Drivers | NVIDIA</a></p>

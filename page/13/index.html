@@ -91,6 +91,170 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/03/18/컴퓨터-구조-강의-01-컴퓨터-추상화-및-관련-기술/" itemprop="url">
+                컴퓨터 구조 강의 01. 컴퓨터 추상화 및 관련 기술
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-18T08:31:32.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                14 minutes read (About 2048 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="서론">서론</span></h1><p>1940년 전자식 컴퓨터가 등장한 이래로 컴퓨터는 정보 혁명을 주도하며 컴퓨터와 관련 사업을 빠르게 발전시켰다.<br>스마트 가전제품 부터 슈퍼 컴퓨터 까지 삶의 다양한 분야에서 컴퓨터가 활용되고 있으며 크게 다음과 같은 세가지 응용분야에서 사용된다.</p>
+<ul>
+<li>개인용 컴퓨터</li>
+<li>서버</li>
+<li>임베디드 컴퓨터</li>
+</ul>
+<p>개인용 컴퓨터는 많은 사람들이 잘 알고있듯이 가정 내에 보급된 pc를 말하며, 가정 및 비즈니스에서 산업용으로도 사용되고 있다.<br>서버는 과거 대형 컴퓨터로 불리던 것의 현대적 형태로써 보통 네트워크를 통해 접근되며 소규모 비즈니스 서버 등 주로 산업에서 인터넷을 통한 서비스 공급의 목적으로 사용되고 있다.<br>가장 많이 사용되는 임베디드 컴퓨터는 한 가지 응용을 수행하거나 서로 연관된 일련의 프로그램을 실행하도록 설계된 컴퓨터로 많은 가전기기 및 제품들에 탑재되어 있다.</p>
+<p>단순 컴퓨터의 출생이 가지는 의미를 넘어 컴퓨터의 영향으로 세계 IT 산업은 송두리째 뒤흔들리고 있는 분야가 있는데, 그것은 바로 <strong>개인 휴대용 기기(PMD)</strong> 와 <strong>클라우드 컴퓨팅</strong> 을 기반으로 한 <strong>sass</strong> 이다.</p>
+<p>개인 휴대용 기기를 통해 사람들은 어디에서나 인터넷에 연결되어 진정한 초연결 사회로 거듭나게 되었으며, 엄청난 컴퓨팅 파워가 기반이 되어야 사용 가능했던 많은 컴퓨터 기반의 서비스들이 창고 규모의 컴퓨팅(WSC: Warehouse Scale Computing)으로 알려진 클라우드 컴퓨팅을 통해 서비스 로서의 소프트웨어(sass)로 제공되고 있다.</p>
+<p><strong>본 강의는 David A. Patterson과 John L. Hennessy의 책을 토대로 공부한 내용을 정리하며, 다음과 같은 내용을 배운다.</strong></p>
+<ol>
+<li>상위 수준으로 작성된 프로그램이 어떻게 하드웨어로 번역되고 동작하는가?</li>
+<li>소프트웨어와 하드웨어 사이의 인터페이스는 무엇이며, 소프트웨어는 어떻게 필요한 일을 하드웨어에게 지시하는가?</li>
+<li>프로그램의 성능을 결정하는 요소는 무엇이며, 프로그래머는 어떻게 성능을 개선하는가?</li>
+<li>성능 개선을 위해 하드웨어 설계자는 어떤 기술을 사용하는가?</li>
+<li>에너지 효율성을 개선하기 위해 하드웨어 설계자는 어떤 기술을 사용할 수 있는가?</li>
+<li>최근 순차처리에서 병렬처리로 넘어가는 이유는 무엇이며 결과는 어떠한가?</li>
+<li>컴퓨터 구조 분야의 어떤 위대한 아이디어들이 컴퓨팅의 기초를 닦았는가?</li>
+</ol>
+<h1><span id="컴퓨터를-조작하는-명령어는-어떻게-작동하는가">컴퓨터를 조작하는 명령어는 어떻게 작동하는가?</span></h1><p>컴퓨터 하드웨어는 아주 단순한 명령을 실행 할 수 있도록 설계되어 있으며, 많은 현대 프로그래머들이 작성하는 복잡한 코드는 적절한 변환을 통해 컴퓨터가 알기 쉬운 언어로 번역되어 하드웨어를 동작한다. 프로그래머는 코드를 작성하면서 하드웨어의 구체적인 동작은 배제하고 프로그램을 작성이 가능한데, 이는 인간의 상위 언어인 프로그램 언어를 하드웨어와 무관하게 자유롭게 작성할 수 있도록 하는 <strong>추상화</strong> 의 일환이다.<br>즉, 프로그래머는 추상화된 언어인 상위 언어들을 사용함으로써 컴퓨터 내의 복잡한 일들을 신경쓰지 않고 더욱 정교한 시스템을 만들어 갈 수 있다.</p>
+<p><strong>소프트웨어와 하드웨어의 상호작용은 다음과 같이 일어난다.</strong></p>
+<p>_1. 상위 수준 언어로 코드를 작성</p>
+<ol start="2">
+<li>컴파일러가 상위수준 언어를 하위 언어인 어셈블리어로 변환시켜 줌</li>
+<li>어셈블러가 어셈블리어를 컴퓨터가 알아들을 수 있는 이진수 체계로 변환시켜 줌_</li>
+</ol>
+<h2><span id="컴퓨터-구조-분야의-8가지-위대한-아이디어">컴퓨터 구조 분야의 8가지 위대한 아이디어</span></h2><ol>
+<li>무어의 법칙을 고려한 설계</li>
+<li>설계를 단순화하는 추상화</li>
+<li>자주 생기는 일을 빠르게</li>
+<li>병렬 처리</li>
+<li>파이프라이닝을 통한 성능 개선</li>
+<li>예측을 통한 성능 개선</li>
+<li>메모리 계층구조<br>최상위 계층에는 비트당 가격이 제일 바싸지만 작고 빠른 메모리를 사용하고, 최하위 계층에는 느리지만 크고 비트당 가격이 제일 싼 메모리를 사용한다.</li>
+<li>여유분을 이용한 신용도 개선</li>
+</ol>
+<h1><span id="컴퓨터의-구성과-기본-기능">컴퓨터의 구성과 기본 기능</span></h1><p>컴퓨터는 기본적으로 다음과 같은 5가지 항목으로 구성된다.</p>
+<ol>
+<li>입력 유닛</li>
+<li>출력 유닛</li>
+<li>메모리 유닛</li>
+<li>데이터패스 유닛</li>
+<li>제어 유닛</li>
+</ol>
+<h2><span id="출력">출력</span></h2><p>컴퓨터의 출력은 주로 그래픽 디스플레이를 통해 이루어 진다.<br>오늘날의 LCD 디스플레이는 수만개의 화상으로 이루어져 있으며, 각 화상마다 작은 트랜지스터가 배치되어 있어 전류를 정밀하게 제어하는 능동 행렬을 사용한다.<br>각 화상은 화소의 행렬로 구성되며, 이것을 비트맵이라 부르는 비트들의 행렬로 포현한다.<br>컬러 디스플레이는 각각마다 8비트씩, 모두 24비트를 사용하여 수백만 가지의 색을 표시할 수 있다.</p>
+<p>그래픽을 지원하는 하드웨어의 중심이 되는 것은 비트맵을 기억하는 <strong>프레임 버퍼</strong> 라고 하는 부분이며, 스크린에 표시될 화상을 프레임 버퍼에 자장하였다가, 기억된 각 화소들의 <strong>비트 패턴을 재생 속도에 맞추어 그래픽 디스플레이로 보낸다.</strong></p>
+<h2><span id="프로세서">프로세서</span></h2><p>디바이스 안에는 집적회로라 불리는 장치들이 있는데, 이는 프로그램의 지시대로 일을 하며, 데이터패스와 제어 유닛으로 나뉜다.<br>또한 프로세서 내에서 처리할 데이터를 잠깐 보관하기 위해 이를 <strong>캐시 메모리</strong> 라고 한다.</p>
+<h1><span id="성능">성능</span></h1><p>컴퓨터의 성능이란 두 컴퓨터에서 같은 프로그램을 실행시키는 경우에 먼저 끝나는 쪽이 더 빠른 컴퓨터라고 할 수 있을 것이다.<br>하지만 <strong>사용하는 사람과 컴퓨터의 목적에 따라 다른 성능 척도가 필요</strong> 하다.<br>가령, 개인의 입장에서는 작업 개에서 종료까지의 시간인 <strong>응답시간</strong> 이 성능의 중요한 척도일 것이고, 데이터 센터 관리자에게는 일정 시간동안 처리하는 작업의 양인 <strong>처리량 혹은 대역폭</strong> 이 더 중요한 성능의 척도일 것이다.</p>
+<h3><span id="다양한-성능-인자들">다양한 성능 인자들</span></h3><p><strong>_프로그램의 CPU 실행 시간</strong></p>
+<p>프로그램의 CPU 클럭 사이클 수 * 단위 클럭 사이클 시간 = 프로그램의 CPU 클럭 사이클 수 / 클럭 속도</p>
+<p><strong><em>명령어당 클럭 사이클 수(CPI)</em></strong><br>명령어 수 * 명령어당 평균 클럭 사이클 수</p>
+<p><strong><em>CPU 시간</em></strong><br>명령어 개수 <em> CPI </em> 클럭 사이클 시간</p>
+<p><strong><em>IPC(Instructions Per clock Cycle)</em></strong><br>클럭 사이클 당 명령어 수</p>
+<p><strong><em>MIPS(Million Instructions Per Second)</em></strong><br>명령어 개수 / (실행시간*10^6)</p>
+<h3><span id="예제">예제</span></h3><p>다음은 명령어당 클럭 사이클 수를 통한 성능 비교를 보여주는 표이다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">시스템 이름</th>
+<th style="text-align:left">명령어 수</th>
+<th>CPI</th>
+<th>소요 시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">A</td>
+<td style="text-align:left">5</td>
+<td>2</td>
+<td>250ps</td>
+</tr>
+<tr>
+<td style="text-align:left">B</td>
+<td style="text-align:left">6</td>
+<td>1.2</td>
+<td>500ps</td>
+</tr>
+</tbody>
+</table>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/03/18/express의-기본-개념/" itemprop="url">
+                express 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-17T15:36:53.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/nodejs-강의/">nodejs 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 64 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="express란">Express란?</span></h1><p>Express는 자체적인 최소한의 기능을 갖춘 라우팅 및 미들웨어 웹 프레임워크이며, Express 애플리케이션은 기본적으로 일련의 미들웨어 함수 호출이다.</p>
+<h2><span id="installation">Installation</span></h2><p><code>npm install express --save</code></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/02/22/mysql-trigger의-활용/" itemprop="url">
                 6. mysql trigger의 활용
             </a>
@@ -456,135 +620,6 @@
 <p><strong><em>커뮤니티 목록</em></strong><br><a href="https://www.clien.net/service/" target="_blank" rel="noopener">클리앙</a><br><a href="http://www.slrclub.com/" target="_blank" rel="noopener">SLR 클럽</a><br><a href="http://ruliweb.com/" target="_blank" rel="noopener">루리웹</a><br><a href="http://www.ppomppu.co.kr/search_bbs.php?keyword=%C6%AE%B7%B9%C0%CC%B3%CA" target="_blank" rel="noopener">뽐뿌</a><br><a href="http://pann.nate.com/" target="_blank" rel="noopener">네이트판</a><br><a href="http://www.dcinside.com/" target="_blank" rel="noopener">디시인사이드</a><br><a href="https://reviewrepublic.net/" target="_blank" rel="noopener">리뷰리퍼블릭</a></p>
 <hr>
 <p><a href="http://www.venturesquare.net/559328" target="_blank" rel="noopener">참고 - 벤처스퀘어</a><br><a href="https://brunch.co.kr/@andrewyhc/52" target="_blank" rel="noopener">참고 - 브런치 / 초기 스타트업의 무료 마케팅 채널</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/24/머신러닝강의 5강 - 머신러닝-테스트-및-정확도-향상의-방법론/" itemprop="url">
-                머신러닝강의 5강 - 머신러닝 테스트 및 정확도 향상의 방법론
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-24T02:42:56.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 490 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#머신러닝의-정확도">머신러닝의 정확도</a></li>
-<li><a href="#적당한-learning-rate의-선택">적당한 learning rate의 선택</a></li>
-<li><a href="#정확도-향상을-위한-data-preprocessing">정확도 향상을 위한 data preprocessing</a></li>
-<li><a href="#overfitting">overfitting</a></li>
-</ul>
-<!-- tocstop -->
-<h2><span id="머신러닝의-정확도">머신러닝의 정확도</span></h2><p>머신러닝에서의 정확도는 다양한 변인들에 의하여 판가름 난다.<br>그 중 제일 큰 부분을 차지하는 변수는 바로 learning rate, data preprocessing, overfitting 이며 본 강의에서는 각 요소들이 어떻게 영향을 미치고 정확도를 개선 할 방법에 대해 알아본다.</p>
-<h2><span id="적당한-learning-rate의-선택">적당한 learning rate의 선택</span></h2><p>learning rate는 gradient descent algorithm을 사용할 때에 학습이 진행됨에 따라 학습의 속도 혹은 변화도를 통제하는 변수이다.<br>만약 learning rate이 너무 크다면 최저점을 찾을 때 1회 이동의 정도가 너무 크기 때문에 발산할 가능성 즉 overshooting의 위험이 있으며, 너무 작으면 속도가 매우 느린 단점이 있다.</p>
-<h2><span id="정확도-향상을-위한-data-preprocessing">정확도 향상을 위한 data preprocessing</span></h2><p>만약 입력받은 두 종류의 변수의 크기 차이가 심한 경우 이는 학습에 큰 영향을 미칠 수 있기 때문에 학습 전에 data preprocessing을 거쳐 정확도를 높일 수 있으며, 흔히 normalize라고 불리는 정규화 작업을 거친 뒤 학습을 하게 된다. 이러한 standardize를 위한 수식은 다음과 같다.</p>
-<p><img src="\images\gradientDescentAlgorithm을위한Standardization.png" alt="gradient descent algorithm을 위한 standardization"></p>
-<h2><span id="overfitting">overfitting</span></h2><p>overfitting이란 학습된 결과가 학습을 위한 데이터에 너무 맞추어져 있는 것을 의미한다.<br>이는 주로 적은 수의 학습데이터가 주어져 있을 경우 발생하기 쉬운데, 넓은 범위의 학습데이터가 아니기 때문에 해당 학습데이터에 치우친 결과값이 나와 정확도가 떨어지는 측면이 있다.<br>이러한 overfitting을 해결하기 위해서는 먼저 충분한 양의 학습데이터를 확보를 하고, 학습하는 feature의 수를 줄이는 것, 또 regularization을 하는 것이 도움이 된다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/23/mongodb-시작하기/" itemprop="url">
-                1. mongodb 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-23T09:47:07.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/mongodb-강의/">mongodb 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 769 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="installation">Installation</span></h2><p><strong>installation on ubuntu</strong></p>
-<p>먼저 다음과 같이 mongodb가 설치되어 있는지 확인한다.<br>mongod는 서버, mongo는 클라이언트 이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mongod --version</span><br><span class="line">mongo --version</span><br></pre></td></tr></table></figure>
-<p>만약 설치가 되어있지 않다면 다음 명령어로 설치를 진행한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5</span><br><span class="line">echo &quot;deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.6 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list</span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure></p>
-<p>설치가 완료되었다면 아래의 명령어로 서비스를 실행시킨다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br></pre></td></tr></table></figure></p>
-<p>서비스가 정상적으로 실행되었는지 확인하기 위해 다음과 같은 명령어를 사용한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongodb status</span><br></pre></td></tr></table></figure></p>
-<p>이제 다음 명령어로 mongodb에 접속한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure></p>
-<p>접속이 완료되었다면 database를 관리하기 위한 계정을 만들어야 한다.<br>이 계정을 통해 외부 컴퓨터에서도 본 database에 접근할 수 있게 된다.<br>다음과 같은 admin database에 접근하여 root user를 생성한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">db.createUser(&#123;user: &quot;root&quot;, pwd: &quot;mypassword&quot;, roles: [&#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125;] &#125;);</span><br></pre></td></tr></table></figure></p>
-<p>유저를 생성하였다면 다음 명령어로 설정파일을 열어 authorization을 enabled로 해준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/mongod.conf</span><br></pre></td></tr></table></figure></p>
-<p>설정이 완료되었다면 mongodb를 다시 실행시킨다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod restart</span><br></pre></td></tr></table></figure></p>
-<p>다시 시작한 뒤에는 사용할 계정을 만들어 준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use app    #app 대신에 내가 만들 db명을 선택</span><br><span class="line">db.createUser(</span><br><span class="line"> &#123; user: &quot;app&quot;,</span><br><span class="line"> pwd: &quot;mypassword&quot;,</span><br><span class="line"> roles: [&apos;readWrite&apos;,&apos;userAdmin&apos;] &#125; )</span><br></pre></td></tr></table></figure></p>
-<p>생성한 아이디로 로그인 해본다.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo -uapp -pmypassword app</span><br></pre></td></tr></table></figure></p>
-<h4><span id="connect-to-mongodb">connect to mongodb</span></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --port &lt;포트&gt; -u <span class="string">"&lt;사용자 계정&gt;"</span> -p <span class="string">"&lt;비밀번호&gt;"</span> --authenticationDatabase <span class="string">"admin"</span></span><br></pre></td></tr></table></figure>
-<h2><span id="configuration">Configuration</span></h2><p>보안설정 바꾸기<br>Vim /etc/mongod.conf</p>
-<p><a href="https://velopert.com/457" target="_blank" rel="noopener">https://velopert.com/457</a></p>
-<p>Authoriztion 사용하기<br><a href="http://www.tutorialbook.co.kr/entry/MongoDB-%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%EC%A6%9D-authorization-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0" target="_blank" rel="noopener">http://www.tutorialbook.co.kr/entry/MongoDB-%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%EC%A6%9D-authorization-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0</a></p>
-<h2><span id="basic-concepts">Basic Concepts</span></h2><h3><span id="collection">Collection</span></h3><p>create collection</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(name, [options])</span><br></pre></td></tr></table></figure>
-<p>delete collection</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.COLLECTION_NAME.drop()</span><br></pre></td></tr></table></figure>
-<h3><span id="schema">Schema</span></h3><p>일종의 데이터의 양식이다.<br>이 스키마를 기반으로 모델을 생성한다.</p>
-<h3><span id="model">Model</span></h3><p>일종의 커넥션으로 다른 것들은 이 모델 객체에서 바로 수행한다.<br>여기서 새로운 데이터를 저장하는 save를 하기 위해서는 instance를 생성하여야 하고,<br>다른 경우는 이 모델에서 바로 수행한다.</p>
-<h3><span id="query">Query</span></h3><h4><span id="update">update</span></h4><p><strong>example</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getCollection(&apos;schedule&apos;).update(&#123;&quot;email&quot;:&quot;test&quot;&#125;, &#123;$set:&#123;&quot;email&quot;:&quot;test@test.com&quot;&#125;&#125;, &#123;muti:true&#125;);</span><br></pre></td></tr></table></figure>
-
-위 예제는 query를 만족하는 여러가지 데이터를 한번에 바꾸는 명령이다.
-두번째 인자는 update 할 object 부분인데, {$set:{}} 을 넣어 특정 키값을 변경하고 있다.
-만약 이렇게 $set 을 사용하지 않으면 해당 데이터가 통으로 교체되어 버린다.
-
-<h3><span id="transaction">Transaction</span></h3><p>서버버전 4 이상에서 제공한다.</p>
-<p><a href="https://docs.mongodb.com/manual/reference/command/setFeatureCompatibilityVersion/" target="_blank" rel="noopener">featurecompatibility를 “4.0” 으로 해야한다.</a></p>
-<p>commitTransaction()은 sessionEnd 까지 포함된 개념이다.</p>
-<h2><span id="uninstallation">Uninstallation</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod stop</span><br><span class="line">sudo apt-get purge mongodb-org*</span><br><span class="line">sudo rm -r /var/log/mongodb</span><br><span class="line">sudo rm -r /var/lib/mongodb</span><br></pre></td></tr></table></figure>
-<h2><span id="cookbook">Cookbook</span></h2><h3><span id="위치-찾기">위치 찾기</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.createIndex( &#123; &lt;location field&gt; : <span class="string">"2dsphere"</span> &#125; )</span><br></pre></td></tr></table></figure>
 
                         
     </div>

@@ -3,7 +3,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>typescript 시작하기 - Jake.Lee&#39;s Blog</title>
+<title>Getting started with gradle - Jake.Lee&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -82,13 +82,13 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-                typescript 시작하기
+                Getting started with gradle
                     
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-01-18T07:48:03.000Z" itemprop="datePublished">
-                4 months ago
+            <time datetime="2019-05-03T09:30:43.000Z" itemprop="datePublished">
+                3 days ago
             </time>
         </span>
         
@@ -96,13 +96,50 @@
                     <span class="column is-narrow">
                         
                             
-                                a few seconds read (About 0 words)
+                                4 minutes read (About 616 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
-                    <p>##</p>
+                    <h2><span id="prerequisites">Prerequisites</span></h2><p>Gradle requires Java JDK or JRE</p>
+<p>in Mac</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew tap caskroom/cask &amp;&amp; # only if you didn't install cask</span><br><span class="line">brew cask install java &amp;&amp;</span><br><span class="line">brew cask info java &amp;&amp;</span><br><span class="line">brew tap caskroom/cask</span><br></pre></td></tr></table></figure>
+<p>### </p>
+<p>install gradle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
+<h2><span id="create-new-gradle-project">Create new Gradle Project</span></h2><h3><span id="initialize">Initialize</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle init</span><br></pre></td></tr></table></figure>
+<p>Directory<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├── build.gradle  </span><br><span class="line">├── gradle</span><br><span class="line">│   └── wrapper</span><br><span class="line">│       ├── gradle-wrapper.jar  </span><br><span class="line">│       └── gradle-wrapper.properties  </span><br><span class="line">├── gradlew  </span><br><span class="line">├── gradlew.bat  </span><br><span class="line">└── settings.gradle</span><br></pre></td></tr></table></figure></p>
+<p>build.gradle: Gradle build script for configuring the current project</p>
+<p>gradlew: Gradle wrapper script for unix-based system</p>
+<p>gradle.bat: Gradle wrapper script for Windows</p>
+<p>settings.gradle: Gradle settings script for configuring the Gradle build</p>
+<h3><span id="create-a-task">Create a task</span></h3><p>하나의 Project 는 여러개의 Task 를 포함하며, 각 Task 는 기본적인 연산을 수행한다.</p>
+<p>Gradle 은 task 라이브러리들을 가지고 있으며, 이를 통해 프로젝트를 설정할 수 있다. 가령 <code>COPY</code> 라는 type 은 특정 파일을 특정 위치로 복사해 준다.</p>
+<p>example) build.gradle</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task copy(<span class="string">type:</span> Copy, <span class="string">group:</span> <span class="string">"Custom"</span>, <span class="string">description:</span> <span class="string">"Copies sources to the dest directory"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    into <span class="string">"dest"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 <strong>group</strong> 과 <strong>description</strong> 은 하드코드된 값으로 프로그래머가 원하는 값을 지정하면 된다.</p>
+<p>실행하기</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew copy</span><br></pre></td></tr></table></figure>
+<h3><span id="apply-a-plugin">Apply a plugin</span></h3><p>Gradle 에는 다양한 종류의 plugin 이 존재한다.</p>
+<p>예를 들어  <code>base</code> 플러그인의 <code>Zip</code> type을 활용하여 zip archive 를 생성할 수 있다.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plugins&#123;</span><br><span class="line">  id <span class="string">"base"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task zip(<span class="string">type:</span> Zip, <span class="string">group:</span> <span class="string">"Archive"</span>, <span class="string">description:</span> <span class="string">"Archive sources in a zip file"</span>)&#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    setArchiveName <span class="string">"basic-demo-1.0.zip"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>실행</p>
+<p><code>./gradlew zip</code></p>
+<h2><span id="command">Command</span></h2><h3><span id="show-tasks">Show tasks</span></h3><p>아래 명령어를 통해 존재하는 task 들을 확인할 수 있다.</p>
+<p>task 들은 group 별로 정렬되어 나타나며, 각 task 마다의 description 이 명시되어 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew tasks</span><br></pre></td></tr></table></figure>
+<h3><span id="analyze-and-debug-build">Analyze and debug build</span></h3><p>gradle 은 build scan 이라는 웹 기반의 build 상태 확인을 제공한다.</p>
+<p>아래 명령어는 gradle 에서 확인한다.</p>
+<p>example)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew zip --scan</span><br></pre></td></tr></table></figure>
+<h3><span id="discover-available-properties">Discover available properties</span></h3><p>아래 명령어를 통해 gradle 의 다양한 property 들을 확인할 수 있다.</p>
+<p>property들이란 gradle 을 통해 빌드하는 과정에서 설정되는 다양한 속성들을 의미하며, 가령 build directory, project directory 같은 중요한 사항들이 포함된다.</p>
+<p>아래 명령어를 통해 property 들을 확인할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew properties</span><br></pre></td></tr></table></figure>
+<p>The <code>name</code> of the project matches the name of the folder by default. You can also specify <code>group</code>and <code>version</code> properties, but at the moment they are taking their default values, as is <code>description</code>.</p>
+<p>The <code>buildFile</code> property is the fully-qualified path name to your build script, which resides in the <code>projectDir</code> — by default.</p>
+<p>You can change many of the properties. For example, you might try adding the following lines to your build script file, and re-execute <code>gradle properties</code>.</p>
 
                         
     </div>
@@ -111,15 +148,15 @@
                 <div class="columns is-mobile is-multiline article-nav">
                     <span class="column is-12-mobile is-half-desktop  article-nav-prev">
                         
-                            <a href="/2019/01/18/supertest-를-활용한-typescript-기반-node-js-e2e-테스트/">
-                                supertest 를 활용한 typescript 기반 node.js e2e 테스트
+                            <a href="/2019/05/06/getting-started-with-aws-lambda/">
+                                Getting started with AWS lambda
                             </a>
                             
                     </span>
                     <span class="column is-12-mobile is-half-desktop  article-nav-next">
                         
-                            <a href="/2019/01/18/Getting-started-with-javascript/">
-                                Getting started with javascript
+                            <a href="/2019/05/02/getting-started-with-ubuntu/">
+                                Getting started with ubuntu
                             </a>
                             
                     </span>
@@ -144,8 +181,8 @@
                 
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://frontalnh.github.io/2019/01/18/typescript-시작하기/';
-        this.page.identifier = '2019/01/18/typescript-시작하기/';
+        this.page.url = 'http://frontalnh.github.io/2019/05/03/getting-started-with-gradle/';
+        this.page.identifier = '2019/05/03/getting-started-with-gradle/';
         
         this.language = 'en';
         
