@@ -91,6 +91,53 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/02/01/nodejs-페이스북-회원가입/" itemprop="url">
+                nodejs 페이스북 회원가입
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-01T09:28:12.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 1033 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="개요">개요</span></h2><p>클라이언트에서 웹페이지의 버튼 클릭 등으로 이미 구축해 놓은 server의 url에 페이스북 토큰과 함께 로그인 요청을 보내면, 서버는 passport 모듈을 통해 받은 토큰을 facebook에 보내어 인증을 거치고 페이스북에서 거친 인증값을 담아 서버의 callback 라우터에 요청을 보낸다.<br>서버는 요청을 받고 accessToken을 저장하며 accessToken과 유저정보들을 jwt 암호화를 거쳐 jwt를 발급하여 클라이언트에게 다시 보내어 준다.<br>클라이언트는 받은 jwt를 localStorage에 저장하고 앞으로 자동 로그인시에 해당 jwt 토큰을 사용한다.</p>
+<h2><span id="passport-설치">passport 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save passport</span><br><span class="line">npm install --save passport-facebook</span><br></pre></td></tr></table></figure>
+<h2><span id="모듈-import-하기">모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var NaverStrategy = require(&apos;passport-naver&apos;).Strategy;</span><br><span class="line">var FacebookStrategy = require(&apos;passport-facebook&apos;).Strategy;</span><br><span class="line">var KakaoStrategy = require(&apos;passport-kakao&apos;).Strategy;</span><br></pre></td></tr></table></figure>
+<p>필요한 모듈을 import 해준다.</p>
+<h2><span id="개발자-정보를-비롯한-기밀-정보들-별도-파일에-저장">개발자 정보를 비롯한 기밀 정보들 별도 파일에 저장</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  &apos;secret&apos; :  &apos;&apos;,</span><br><span class="line">  &apos;db_info&apos;: &#123;</span><br><span class="line">    local: &#123; // localhost</span><br><span class="line">    ...</span><br><span class="line">    &#125;,</span><br><span class="line">    real: &#123; // real</span><br><span class="line">    ...</span><br><span class="line">    &#125;,</span><br><span class="line">    dev: &#123; // dev</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;federation&apos; : &#123;</span><br><span class="line">    &apos;naver&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;secret_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/naver/callback&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;facebook&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;secret_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/facebook/callback&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;kakao&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/kakao/callback&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>federation 객체에 네이버, 카카오, 페이스북 Developers 정보를 입력한다.<br>secret.js 민감한 정보를 갖고있는 파일들은 프로젝트 디렉토리에 포함시키지 않는 것이 바람직하다.</p>
+<h2><span id="서버코드-작성">서버코드 작성</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">var secret_config = require(&apos;../commons/secret&apos;);</span><br><span class="line">  var secret_config = require(&apos;../_commons/secret&apos;);</span><br><span class="line">  var FacebookStrategy = require(&apos;passport-facebook&apos;).Strategy;</span><br><span class="line">  passport.serializeUser(function(user, done) &#123;</span><br><span class="line">    done(null, user);</span><br><span class="line">  &#125;);</span><br><span class="line">  passport.deserializeUser(function(user, done) &#123;</span><br><span class="line">    done(null, user);</span><br><span class="line">  &#125;);</span><br><span class="line">  passport.use(new FacebookStrategy(&#123;</span><br><span class="line">      clientID: secret_config.federation.facebook.client_id,</span><br><span class="line">      clientSecret: secret_config.federation.facebook.secret_id,</span><br><span class="line">      callbackURL: secret_config.federation.facebook.callback_url,</span><br><span class="line">      profileFields: [&apos;id&apos;, &apos;emails&apos;, &apos;name&apos;] //This</span><br><span class="line">    &#125;,</span><br><span class="line">    function (accessToken, refreshToken, profile, done)&#123;</span><br><span class="line">      console.log(&quot;profile&quot;, profile);</span><br><span class="line">      console.log(&quot;accessToken:&quot;, accessToken);</span><br><span class="line">      var _profile = profile._json;</span><br><span class="line">      loginByThirdparty(&#123;</span><br><span class="line">        &apos;auth_type&apos;: &apos;facebook&apos;,</span><br><span class="line">        &apos;auth_id&apos;: _profile.id,</span><br><span class="line">        &apos;auth_name&apos;: _profile.first_name+&quot; &quot;+_profile.last_name,</span><br><span class="line">        &apos;auth_email&apos;: _profile.email,</span><br><span class="line">        &apos;auth_token&apos;: accessToken</span><br><span class="line">      &#125;, done);</span><br><span class="line">    &#125;</span><br><span class="line">  ));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  router.get(&apos;/facebook&apos;,</span><br><span class="line">    passport.authenticate(&apos;facebook&apos;,&#123;authType: &apos;rerequest&apos;, scope: [&apos;public_profile&apos;, &apos;email&apos;]&#125;)</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  // facebook 로그인 연동 콜백</span><br><span class="line">  router.get(&apos;/facebook/callback&apos;, passport.authenticate(&apos;facebook&apos;,&#123;failureRedirect: &apos;/login/null/null&apos;&#125;),function(req,res)&#123;</span><br><span class="line">    console.log(&quot;REQ&quot;,req);</span><br><span class="line">    console.log(&quot;RES&quot;,res);</span><br><span class="line">        res.redirect(&apos;http://localhost/login/&apos;+req.user.email+&quot;/&quot;+req.user.jwt)</span><br><span class="line">      &#125;</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+<p>passport.use를 통해 OAuth 요청을 만들어서 네이버 로그인 처리를 진행하고 요청결과를 callback url로 라우팅 시켜줌을 설정한다.<br>먼저 auth/login/facebook으로 요청이 오면 페이스북으로 로그인 요청을 보내고 결과값을 callback url로 보내준다.<br>callback url을 처리하는 라우터는 로그인이 성공할 경우 인덱스 페이지로 리다이렉트 시켜주고 실패할 경우에는 다시 로그인 페이지로 리다이렉트 시켜준다.<br>앵귤러의 경우 특정 페이지에 리다이렉트 되면 컴포넌트가 생성되는 시점에서 query의 뒷부분에 붙은 email 과 jwt를 가지고 jwt는 저장하고 email로 유저의 정보를 받아와 클라이언트에서 사용한다.</p>
+<p>/auth/facebook/callback은 페이스북이 검증을 마치고 난 결과를 전송해주는 주소이다.</p>
+<h2><span id="서버의-로그인-함수-작성">서버의 로그인 함수 작성</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function loginByThirdparty(info, done) &#123;</span><br><span class="line">  console.log(&apos;process : &apos; + info.auth_type);</span><br><span class="line">  var stmt_duplicated = &apos;select *from `user` where `user_id` = ?&apos;;</span><br><span class="line">  connection.query(stmt_duplicated, info.auth_id, function (err, result) &#123;</span><br><span class="line">    if (err) &#123;</span><br><span class="line">      return done(err);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      if (result.length === 0) &#123;</span><br><span class="line">        // 신규 유저는 회원 가입 이후 로그인 처리</span><br><span class="line">        var stmt_thridparty_signup = &apos;insert into `user` set `user_id`= ?, `nickname`= ?&apos;;</span><br><span class="line">        connection.query(stmt_thridparty_signup, [info.auth_id, info.auth_name], function (err, result) &#123;</span><br><span class="line">          if(err)&#123;</span><br><span class="line">            return done(err);</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            done(null, &#123;</span><br><span class="line">              &apos;user_id&apos;: info.auth_id,</span><br><span class="line">              &apos;nickname&apos;: info.auth_name</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        //기존유저 로그인 처리</span><br><span class="line">        console.log(&apos;Old User&apos;);</span><br><span class="line">        done(null, &#123;</span><br><span class="line">          &apos;user_id&apos;: result[0].user_id,</span><br><span class="line">          &apos;nickname&apos;: result[0].nickname</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>auth.id 기반으로 신규 회원인지 기존 회원인지 판단한다.<br>신규 회원일 경우에는 user 테이블에 회원 정보를 저장 시키고 로그인 처리를 진행하고, 기존 유저일 경우에는 쿼리로 조회한 회원정보를 기반으로 로그인 처리를 진행합니다.<br>간단하게 말씀드리면 신규회원이든 기존 회원이든 원클릭으로 회원 가입 절차를 진행하게 할 수 있습니다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/01/31/스타트업-초기-마케팅/" itemprop="url">
                 스타트업 초기 마케팅
             </a>
@@ -573,92 +620,6 @@
 <p>하지만 현재의 경우 국가와 국가 사이에 돈이 오고가기 위해서는 수많은 단계가 필요하며 금융 시스템을 통과하면수 막대한 양의 중간 수수료(약 20% 가량)이 발생하게 되고 이는 후진국의 경제 개발에 큰 걸림돌이 되고 있다. 하지만 최근 생겨나오는 블록체인을 통한 거래를 통해서는 거래 수수료가 2%에 불과하기 때문에 부가 훨씬 더 원활하게 돌 수 있다.</p>
 <h2><span id="데이터의-민주화">데이터의 민주화</span></h2><p>현대 사회에서는 수많은 디지털 정보들이 발생하고 개인의 디지털 정보들이 모이면 디지털 상에서의 자신을 대변할 수 있는 일종의 디지털 트윈이 생겨나게 된다.<br>현대 사회의 많은 기업들은 개인의 이러한 디지털 트윈을 카피하여 어떤 상품을 제공하고 마케팅을 할지에 대한 의사결정을 하며 이는 다시 거대 기업의 이윤증가에 기여하게 된다.<br>하지만 블록체인 기술은 자신의 디지털 트윈을 자신이 소유하고 필요한 부분만을 기업에게 공급함으로써 자신의 개인 정보를 보호받을 수 있고, 기업도 필요한 정보만을 쉽게 취득할 수 있기에 양측에 보탬이 된다.</p>
 <h2><span id="콘텐츠의-가치를-지켜라">콘텐츠의 가치를 지켜라</span></h2><p>인터넷이 발명되어 가장 큰 가치를 잃은 사람들은 아마도 콘텐츠 제작자일 것이다.<br>기존에는 훌륭한 컨텐츠를 만들면 대부분의 수익을 해당 콘텐츠 제작자가 가져갔고, 사실 이것이 자유 경제사회에서 어쩌면 당연한 부분이다.<br>하지만 소수의 독점기업들이 판권을 뒤흔들고 판매처를 확고히 부여잡은 오늘의 사회에서는 컨텐츠 제작자에게 합당한 보상이 돌아가지 못한다.<br>하지만 블록체인 기술은 개인의 지적재산권을 확실하게 지켜주기에 콘텐츠 자체의 가치를 높일 수 있다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/14/linux devnote/" itemprop="url">
-                Getting started with linux
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-14T05:57:05.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                10 minutes read (About 1444 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!--toc-->
-<h2><span id="what-is-user-and-group-in-linux-system">What is User and Group in linux system?</span></h2><p>리눅스 운영체제는 기본적으로 여러 명의 유저가 동시에 접속하여 각자 다른 작업을 수행하여도 잘 동작하도록 설계되었다.</p>
-<p>때문에, 여러 사용자가 각자 프로그램을 제어할때 서로 같은 시스템 자원을 사용하게 되어 생기는 문제를 핸들링 해야 할 필요가 생기게 되었는데, 그러한 권한관리 시스템을 구성하는 개념이 user 와 group 이며, 여기서 permission의 개념이 등장한다.</p>
-<p>때문에 각 파일과 디렉토리는 유저별로 할당된 권한이 있으며 이를 확인하는 명령어는 다음과 같다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l &lt;file or directory&gt;</span><br></pre></td></tr></table></figure>
-<p>위 명령어를 입력하면 다음과 같은 결과가 출력되는데</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- 1 root root 1031 Nov 18 09:22 /etc/passwd</span><br><span class="line">drw-r--r-- 1 root root 1031 Nov 18 09:22 /etc</span><br></pre></td></tr></table></figure>
-<p>여기서 첫번째 <code>-</code> 표시는 해당 파일 혹은 디렉토리가 파일임을 나타내고 만약 두번째처럼 d 로 시작한다면 디렉토리를 나타낸다.</p>
-<p>뒤이어 오는 rw-, r–, r– 는 각각 파일의 소유자와 같은 그룹의 유저들 그리도 나머지 유저들에 대한 권한을 나타낸다.</p>
-<p>r 은 <code>read</code> w 는 <code>write</code> x 는 <code>executre</code> 로써 각각 읽기, 쓰기, 실행하기의 권한을 나타낸다.</p>
-<h4><span id="create-and-delete-user-accounts">Create and Delete User Accounts</span></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd &lt;name&gt; -d /home/&lt;user<span class="string">'s home&gt; -e &lt;YYYY-MM-DD&gt; -f &lt;0 or -1&gt; - s /bin/&lt;shell&gt;</span></span><br></pre></td></tr></table></figure>
-<p>위처럼 유저를 생성 할 수 있으며, d, e, f, s 의 옵션과 내용은 각각 해당 유저의 로그인시 홈 디렉토리, 유효기간, 유효일자, 기본 shell type 을 의미한다.</p>
-<p>이렇게 유저를 생성하며, 누구나 해당 유저에 접근하여 사용할 수 있기 때문에, 실제 사용시에는 다음과 같이 비밀번호를 설정해 주어야 한다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd &lt;username&gt;</span><br></pre></td></tr></table></figure>
-<h4><span id="understanding-sudo">Understanding Sudo</span></h4><p>이렇게 기본 유저의 경우 각 파일과 디렉토리 별로 권한이 있기 때문에, 활동이 상당히 제한적일 수밖에 없다.</p>
-<p>이 때문에, 컴퓨터 시스템을 조작하거나 기타 여러 작업을 수행하기 위해서는 <code>sudo</code> 명령어와 같이 시스템의 루트 권한을 가져오는 명령어가 필요한 경우가 종종 있다.</p>
-<p>이러한 <code>sudo</code> 명령어는 대부분의 운영체제에 기본으로 설치되어 있지만 없는 경우 다음과 같이 설치해 준다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in ubuntu os</span></span><br><span class="line">apt-get install sudo</span><br><span class="line"></span><br><span class="line"><span class="comment"># in centos</span></span><br><span class="line">yum install sudo</span><br></pre></td></tr></table></figure>
-<p>이런 sudo 명령어는 허가된 사용자에 대해서만 사용이 가능하기 때문에 이 리스트를 <code>sudoer</code> 라는 파일을 통해 관리하게 된다. <code>sudoer 파일은 매우 중요한 파일이기 때문에 텍스트 에디터에서 접근하면 치명적인 에러와 접속 불가 상태에 빠질수 있기 때문에 visudo 와 같은 별도 명령어를 사용한다.</code> </p>
-<p>visudo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># User privilege specification</span><br><span class="line">root    ALL=(ALL:ALL) ALL</span><br><span class="line">cjones  ALL=(ALL:ALL) ALL</span><br><span class="line">kbrown  ALL=(ALL:ALL) ALL</span><br><span class="line">lmartin ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
-<h4><span id="working-with-groups">Working with groups</span></h4><p>리눅스는 유저들을 관리하기 위해 group 이라는 개념을 사용하며 그 그룹들은 <code>/etc/group/</code> 파일에서 관리되며, 이 파일에는 어떤 그룹에 어떤 유저들이 포함되어 있는지 명시되어 있다.</p>
-<p>다음 명령어를 통해 그룹을 생성하고 변경할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newgrp &lt;group&gt;</span><br><span class="line">chgrp &lt;new_group&gt;</span><br></pre></td></tr></table></figure>
-<h4><span id="chmod-command">Chmod Command</span></h4><p>이렇게 설정된 permission 을 간편하게 변경하기 위한 명령어로 <code>chmod</code>명령어가 있으며 그 사용법은 다음과 같다.</p>
-<p>앞서 설명한 것처럼 파일 혹은 디렉토리의 권한은 rwx 와 같은 형태로 표현되며 모든 권한이 없는 상태는 — 와 같다.</p>
-<p>이렇게 모든 권한이 있는 상태와 없는 상태를 2진 표기법으로 3자리로 나타내며, 이를 8진수로 표기하여 다음과 같이 설정할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 ./example</span><br></pre></td></tr></table></figure>
-<p>위 명령어는 example 이라는 파일의 권한을 <code>r--------</code> 로 변경하는 명령어이다.</p>
-<p>또 아래와 같은 간편한 명령어도 존재하는데</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +t ./example</span><br></pre></td></tr></table></figure>
-<p>해당 명령어는 sticky bit 라 불리며 자신이 속한 그룹 내에서도 오직 자신만이 해당 파일의 삭제권한을 가지도록 할 수 있다.</p>
-<p>이는 여러 사용자로 구성된 그룹에서 간편하게 자신만이 삭제권한을 가지게 할 수 있어 매우 편리하다.</p>
-<p><a href="https://www.linode.com/docs/tools-reference/linux-users-and-groups/" target="_blank" rel="noopener">참고자료</a></p>
-<h2><span id="터미널-명령어-조합">터미널 명령어 조합</span></h2><p><strong>8080포트에 붙은 프로세스 죽임</strong></p>
-<p><code>fuser -k 8080/tcp</code></p>
-<h2><span id="가상-터미널screen의-활용">가상 터미널(screen의 활용)</span></h2><p><strong>screen -S 세션명</strong></p>
-<p>-S 다음에 주는 세션명으로 시작합니다.</p>
-<p><strong>screen -list</strong></p>
-<p>-list 옵션을 주고 실행하면 이전에 작업했었던 screen 리스트가 있으면 세션명과 함께 리스트를 보여줍니다.</p>
-<p><strong>screen -R 세션명</strong></p>
-<p>이전에 세션이 있을 경우 -R 다음에 오는 세션명으로 이전 작업을 불러옵니다.</p>
-<p>-R 다음에 세션명을 주지 않았을 경우에는 이전 세션이 한개만 있을 경우 그 작업을 불러옵니다.</p>
-<p>이전 작업이 여러개 있을 경우에는 이전 작업 리스트를 보여줍니다.</p>
-<p>세션명을 가진 세션이 없다면 새로운 세션을 만들어서 보여줌.</p>
-<p>(안만들려면 소문자 -r을 사용할 것)</p>
-<p><strong>screen -D -r 세션명</strong></p>
-<p>이전 세션이 Attach 된 상태라면 Detach하고 세션을 복원해 줌.</p>
-<p><a href="http://www.dreamy.pe.kr/zbxe/CodeClip/164809" target="_blank" rel="noopener">출처</a></p>
-<hr>
 
                         
     </div>

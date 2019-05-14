@@ -91,6 +91,59 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/06/30/nestjs-시작하기/" itemprop="url">
+                nestjs 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-30T09:20:30.000Z" itemprop="datePublished">
+                10 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/nestjs/">nestjs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 198 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="nestjs-시작하기">nestjs 시작하기</span></h1><h2><span id="installation">Installation</span></h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm i -g @nestjs/cli</span><br><span class="line">nest <span class="keyword">new</span> project-name</span><br><span class="line"></span><br><span class="line">nest generate module users // generate module</span><br><span class="line">nest g <span class="keyword">co</span> users // generate controller</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+<h2><span id="controllers">Controllers</span></h2><p>request를 받아 response를 반환하는 역할을 한다.</p>
+<p>decorator 를 사용하여 해당 하는 url로 routing을 할 수 있다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Controller, Get &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line">@Controller(<span class="string">'cats'</span>) <span class="comment">//define url</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">CatsController</span> </span>&#123;</span><br><span class="line">  @Get()</span><br><span class="line">  findAll() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'This action returns all cats'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>controller의 request와 response는 <code>@Req()</code>와 <code>@Res()</code> 를 통해 다음과 같이 사용될 수 있다.</p>
+<p>end point decorator</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Controller, Get, Post &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line">@Controller(<span class="string">'cats'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">CatsController</span> </span>&#123;</span><br><span class="line">  @Post()</span><br><span class="line">  create() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'This action adds a new cat'</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Get()</span><br><span class="line">  findAll() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'This action returns all cats'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 <code>@Post()</code> 와 <code>@Get()</code> 등의 decorator를 통해 endpoint를 설정할 수 있다.</p>
+<p><strong>Route parameters</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Get(<span class="string">':id'</span>)</span><br><span class="line">findOne(@Param() params) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(params.id);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`This action returns a #<span class="subst">$&#123;params.id&#125;</span> cat`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Async</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Get()</span><br><span class="line"><span class="keyword">async</span> findAll(): <span class="built_in">Promise</span>&lt;any[]&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Get()</span><br><span class="line">findAll(): Observable&lt;any[]&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">of</span>([]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/06/30/it-chain01/" itemprop="url">
                 it-chain 01
             </a>
@@ -579,58 +632,6 @@
 <h3><span id="protocall-buffer란">protocall buffer란?</span></h3><p>protocall buffer란 어떤 언어와 플랫폼에서도 사용가능하고 확장성이 좋으며, 통신 프로토콜이나 데이터 저장등에 사용하기 위해 정형화된 데이터를 serializing 할 수 있는 좋은 방법이다.<br>protocall buffer 에서는 serialize 하고자 하는 구조체가 .proto 파일에 메세지의 형태로써 정의되어야 한다.</p>
 <p>이러한 .proto file은 protoc 컴파일러를 통하여 접근 가능한 객체로 변환되고, 각 언어에 맞는 protoc가 존재한다.</p>
 <p><strong>.proto 파일의 예</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = 1;</span><br><span class="line">  required int32 id = 2;</span><br><span class="line">  optional string email = 3;</span><br><span class="line"></span><br><span class="line">  enum PhoneType &#123;</span><br><span class="line">    MOBILE = 0;</span><br><span class="line">    HOME = 1;</span><br><span class="line">    WORK = 2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = 1;</span><br><span class="line">    optional PhoneType type = 2 [default = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = 4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/22/event-sourcing-and-cqrs/" itemprop="url">
-                Event Sourcing And CQRS
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-22T04:51:07.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1244 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="event-sourcing">Event Sourcing</span></h1><p>이벤트 소싱이란 기존의 관계형 데이터베이스의 저장 방식과 달리 데이터 저장을 수많은 이벤트들을 묶음으로 저장하는 것을 의미한다.<br>사실 event sourcing 이란 사실 현실에서는 너무도 흔한 방법이다. 가령 회계장부를 기록한다고 할때 우리는 회사의 보유 자금을 현재 상태만을 기록하는 것이 아니라 과거 매출, 비용 등의 합산으로 계산한다. 그래야 과거의 정보가 투명하게 공개되고 다양한 재무 데이터의 활용이 가능하기 때문이다. 이처럼 실제 행위의 집합들을 저장하는 방식을 event sourcing이라 한다.</p>
-<p>하지만, 다음과 같은 경우를 생각해보자<br>만약 과거의 데이터를 수정해야 할 일이 생긴다면 어떨까?<br>이 경우도 실제 회계에서 하는 방법과 같은 원칙을 따른다. 바로 과거의 특정 기록으로 돌아가 해당 부분만을 수정하고 뒤를 전부 다시 작성하는 것이다. 이는 매우 비효율 적이어 보이지만 데이터 그 자체가 매우 중요한 회계에서는 너무도 당연한 진리이다.</p>
-<p>이는 데이터 혹은 이벤틀의 삭제에도 영향을 주는데, event soucing에서는 원칙적으로 delete가 없다. 이는 회계장부 작성과도 그 흐름을 동일시 하는데, 가령 회계장부를 작성할 때에는 잘못된 정보를 기입하면 그 후에 그를 상쇄시키는 추가적인 기록을 추가한다. 그래야만 누군가가 고의로 데이터를 조작했는데와 같은 정보들을 유추할 수 있기 때문이다. 동일한 논리가 event sourcing에서도 적용된다.</p>
-<p><strong>왜 이런 event sourcing이 현대 software에서 중요하게 되었을까?</strong></p>
-<p>그것은 바로 현대 사회에서 데이터의 가치가 너무도 중요하기 때문이다. 과거 쇼핑몰에서는 고객이 단순히 구매 혹은 판매 등의 정보만을 기록한 반면 요즘 사회에서는 장바구니에 물건을 넣었다 빼는 빈도와 주기 시기 등에 대한 데이터를 활용하여 각종 비즈니스 정책들이 결정되며 이 모든 사소한 행위 데이터를 기록하는 것은 너무도 중요하고 그것이 event sourcing의 필요성이다.</p>
-<p>이처럼 event sourcing을 통한다면, 특정 시기의 정확한 상황을 재현할 수 있는데, 가령 우리가 역사를 기록하는 것과 같은 원리이다. 특정 시기의 단편적 정보가 아닌 그 시기에 일어나는 일련의 사건들을 정확히 재구현 할 수 있을때 즉, 마치 타임머신을 타고 여행하듯이 정치 사회 경제에 대한 총체적인 재구성을 통해서만 그 시기의 명확한 사회적 상황을 알 수 있다. 이처럼 비즈니스 세계에서도 event sourcing을 통해 과거의 특정 상황에 대한 명확한 인사이트를 가질 수 있다.</p>
-<p>이러한 event sourcing 은 소프트웨어 테스트 시에도 활용될 수 있다.<br>가령, 기존의 모든 테스트 행위를 event로 기록해 놓으면, 개발이 완료된 뒤에 정확히 같은 테스트를 수천번이고 반복해서 수행해 볼 수 있다.<br>가령 보험 서비스의 경우에 A 라는 사람의 주소가 바뀌면 Manager가 해당 주소가 바뀜을 알리고 회계부서, 지급 부서 등 많은 부서에 해당 사실을 알리고 로직을 처리해야 한다. 하지만 event 를 사용하면 그저 Manager는 쿨하게 “A의 주소가 바뀜!” 만을 외치면 기타 여러 부서에서 주의깊게 관찰하고 있다가 이벤트가 발생하면 그에 맞는 로직을 스스로가 처리하여 Manager의 독립성이 높아지게 된다.</p>
-<p>그 순서는 다음과 같다.</p>
-<ol>
-<li>Command 발생</li>
-<li>Command Hander에 발생한 Command를 전달하고 event 발생</li>
-<li>aggregation 변형</li>
-</ol>
-<h2><span id="cqrs-패턴이란">CQRS 패턴이란?</span></h2><p>위와 같은 event sourcing에 있어 데이터의 읽기와 쓰기는 너무도 다른 기능이다. 쓰기의 경우 특정 이벤트를 저장하는 아주 단순한 로직인데 반해 읽기의 경우 읽기의 구간 특정 시기의 스냅샷과 같은 복잡한 로직이 동반되는 경우가 다반사 이다.</p>
-<p>CQRS에서는 이렇게 이벤트의 저장과 읽기를 위해 두 종류의 명령을 내리는데 하나는 데이터를 저장하는 <code>Command</code> 와 이벤트를 읽어 오는 <code>query</code> 이다.</p>
 <hr>
 
                         

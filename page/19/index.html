@@ -91,6 +91,61 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/29/angular와-nodejs를-활용한-socket-io-사용하기/" itemprop="url">
+                angular와 nodejs를 활용한 socket.io 사용하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T13:57:23.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 330 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#serverjs-작성">server.js 작성</a></li>
+<li><a href="#클라이언트에서-socketio-설치-및-임포트">클라이언트에서 socket.io 설치 및 임포트</a></li>
+<li><a href="#angular-service">angular service</a></li>
+<li><a href="#angular-component">angular component</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="serverjs-작성">server.js 작성</span></h2><p>express 에서 socket.io를 실행하기 위해</p>
+<p>express.io를 설치한다.</p>
+<p>노드 http 서버와 결합시킬 socket.io에 http를 전달하여 initialize한다.</p>
+<p>connection 이벤트가 발생하면 특정 동작을 한다.</p>
+<p>io.emit을 통해 데이터를 전달한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var io = require(&apos;socket.io&apos;).listen(server);</span><br><span class="line"></span><br><span class="line">io.on(&apos;connection&apos;, (socket) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&apos;user connected&apos;);</span><br><span class="line"></span><br><span class="line">    socket.on(&apos;disconnect&apos;, function() &#123;</span><br><span class="line">        console.log(&apos;user disconnected&apos;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    socket.on(&apos;add-message&apos;, (message) =&gt; &#123;</span><br><span class="line">        io.emit(&apos;message&apos;, &#123; type: &apos;new-message&apos;, text: message &#125;);</span><br><span class="line">        // Function above that stores the message in the database</span><br><span class="line">        databaseStore(message)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2><span id="클라이언트에서-socketio-설치-및-임포트">클라이언트에서 socket.io 설치 및 임포트</span></h2><p>소켓 io를 라우터에 전달한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm i socket.io-client --save</span><br><span class="line">npm install socket.io --save</span><br><span class="line"></span><br><span class="line">const server = http.createServer(app);</span><br><span class="line">var io = require(&apos;socket.io&apos;).listen(server);</span><br><span class="line">const all = require(&apos;./server/routes/all&apos;)(mysql, conn, express, io);</span><br></pre></td></tr></table></figure></p>
+<h2><span id="angular-service">angular service</span></h2><p>io()는 socket을 반환한다.</p>
+<p>socket.emit을 통해 이벤트를 발생시킨다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; Subject &#125; from &apos;rxjs/Subject&apos;;</span><br><span class="line">import &#123; Observable &#125; from &apos;rxjs/Observable&apos;;</span><br><span class="line">import * as io from &apos;socket.io-client&apos;;</span><br><span class="line"></span><br><span class="line">@Injectable()</span><br><span class="line">export class ChatService &#123;</span><br><span class="line">  private url = &apos;http://localhost:5000&apos;;</span><br><span class="line">  private socket;</span><br><span class="line"></span><br><span class="line">  sendMessage(message)&#123;</span><br><span class="line">    this.socket.emit(&apos;add-message&apos;, message);    </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getMessages() &#123;</span><br><span class="line">    let observable = new Observable(observer =&gt; &#123;</span><br><span class="line">      this.socket = io(this.url);</span><br><span class="line">      this.socket.on(&apos;message&apos;, (data) =&gt; &#123;</span><br><span class="line">        observer.next(data);    </span><br><span class="line">      &#125;);</span><br><span class="line">      return () =&gt; &#123;</span><br><span class="line">        this.socket.disconnect();</span><br><span class="line">      &#125;;  </span><br><span class="line">    &#125;)     </span><br><span class="line">    return observable;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="angular-component">angular component</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">messages = [];</span><br><span class="line">connection;</span><br><span class="line">message;</span><br><span class="line"></span><br><span class="line">sendMessage()&#123;</span><br><span class="line">  this.chatService.sendMessage(this.message);</span><br><span class="line">  this.message = &apos;&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ngOnInit() &#123;</span><br><span class="line">  this.connection = this.chatService.getMessages().subscribe(message =&gt; &#123;</span><br><span class="line">    this.messages.push(message);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ngOnDestroy() &#123;</span><br><span class="line">  this.connection.unsubscribe();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://stackoverflow.com/questions/16981396/get-http-localhost3000-socket-io-socket-io-js-404-not-found" target="_blank" rel="noopener">참조</a><br><a href="https://stackoverflow.com/questions/29334800/express-js-4-and-sockets-with-express-router" target="_blank" rel="noopener">use with router</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/29/Neural-network-Perceptron과-ADALINE/" itemprop="url">
                 Neural network Perceptron과 ADALINE
             </a>
@@ -594,53 +649,6 @@ undefined
 <h2><span id="정적-파일-요청-양식">정적 파일 요청 양식</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localhost:3000/images/kitten.jpg</span><br><span class="line">localhost:3000/css/style.css</span><br><span class="line">localhost:3000/js/app.js</span><br><span class="line">localhost:3000/images/bg.png</span><br><span class="line">localhost:3000/hello.html</span><br></pre></td></tr></table></figure>
 <p>기본 폴더명인 public은 입력하지 않아도 된다.</p>
 <p><a href="http://expressjs.com/ko/starter/static-files.html" target="_blank" rel="noopener">참조</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/22/여행산업의-모바일화가-우리에게-시사하는-점/" itemprop="url">
-                여행산업의 모바일화가 우리에게 시사하는 점
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-22T02:09:35.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                9 minutes read (About 1416 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="여행-산업의-모바일화가-우리에게-시사하는-점">여행 산업의 모바일화가 우리에게 시사하는 점</span></h1><h2><span id="여행-상품-이제는-모바일에서-더-많이-구매한다">여행 상품, 이제는 모바일에서 더 많이 구매한다</span></h2><p>인터파크 투어는 최근 모바일 거래 비중이 60%를 넘어서며 오프라인 시장을 역전했다.<br>뿐만 아니라 여행 전 꼭 거치는 환전 역시 이미 오프라인을 넘어서고 있다.</p>
-<p>전통적인 오프라인 비즈니스의 대명사인 여행산업 마저 모바일 시대의 흐름에 변혁이 일어나고 있는 것이다.</p>
-<p>또, 여행을 가서도 모든 일정과 맛집, 여행지 정보를 스마트폰을 통해 얻고 있으니 가히 ‘모바일 여행 시대’가 열렸다고 해도 무방할 것이다.</p>
-<h2><span id="sns를-통한-여행지-공유-관광상품-마케팅의-최전선으로-부상">SNS를 통한 여행지 공유, 관광상품 마케팅의 최전선으로 부상</span></h2><p>많은 사람들이 오프라인이 아닌 온라인 상에서 여행 상품을 검색하고 항공권, 숙박 시설, 환전까지 모든 부분을 모바일에서 해결하고 있다.<br>이에따라 많은 항공사와 여행사들은 기존의 TV광고, 지하철 내 광고보다 SNS를 통한 활발한 마케팅에 열을 올리고 있다.</p>
-<p>이렇게 SNS 상에서 인기가 높은 여행지들은 폭발적인 매출의 증가로 이루어 지는데<br>한 예로 인스타그램 해시태그 4만개를 돌파한 인천 네스트 호텔과 2만 5000개를 넘긴 제주 히든 클리프 호텔의 경우 예약률이 평균 17~31%까지 치솟았다.</p>
-<h2><span id="모바일-시대를-대비한-여행사의-새로운-패키지-상품">모바일 시대를 대비한 여행사의 새로운 패키지 상품</span></h2><p>대부분의 사람들이 SNS 등의 매체를 통해 여행지를 결정하고 있으므로, 많은 여행사들은 아예 이런 SNS 마니아 층을 겨냥한 새로운 패키지 상품을 출시하고 있다.<br>실제로 이러한 패키지 상품은 태그, 댓글 등 자발적인 바이럴 마케팅 효과를 거두고 있으며, 매출도 상당히 높은 편이다.</p>
-<h2><span id="sns의-핵심은-무엇인가">SNS의 핵심은 무엇인가</span></h2><p>SNS의 핵심은 무엇인가에 대한 질문에 두가지 답을 내놓는다.<br>첫째는 허영심, 둘째는 과시욕이다.<br>원래 SNS의 시초는 나와 내 주변 사람들의 소식을 듣고 소통하는 용도였으나, 이는 오프라인과 마찬가지로 각종 허례허식을 만들어 내었다.<br>사실 우리가 일상의 살면서 만나는 다양한 사람들과의 관계에는 기본적으로 ‘잘보이고자 하는 욕망’을 내재한다.<br>오랜만에 보는 동창회에는 가장 예쁘고 멋진 옷을 입고, 잘 빠진 차를 타고 가고 싶어하는 것이 인간의 허영이다.<br>이러한 인간의 욕망은 ‘온라인 세계’라는 가상의 세계에서 그 빛을 발하고 있다.<br>온라인 세계에서는 손쉽게 나의 ‘페르소나’를 바꿀 수 있고, 온라인 상에서 만나는 모든 사람들에게 나의 매력적이고 ‘잘 나가는’ 모습을 보여주고자 한다.</p>
-<p>이러한 욕망을 기반으로 다양한 서비스가 성행하게 되었는데, ‘아프리카 TV의 별풍선’, ‘잘나가는 헬스 트레이너 에게 트레이닝 받기’ 처럼 남들에게 인정받는 셀럽들에게 관심을 주고, 그 사람과 온라인 상에서 관계를 맺게 도됨으로써 온라인에서의 자신의 사회적 입지를 올리고자 하는 열망을 반영한다.</p>
-<p>이러한 SNS의 특성을 이해한다면, 우리는 사용자들의 공감을 살 수 있고, 새로운 비즈니스 기회를 발견할 수 있다.</p>
-<h2><span id="우리는-어떻게-해야-하는가">우리는 어떻게 해야 하는가</span></h2><p>이러한 SNS 를 통한 여행사들의 마케팅 방향에 대해서는 생각할 점이 많다.<br>여행사들이 꼼꼼히 정보를 수집하고 각종 여행 자료를 바탕으로 선정하는 여행지 보다 SNS 상에 유포되는 핫한 여행지들이 더욱 신빙성을 가지고 큰 영향력을 가진다는 사실을 우리는 인정해야 한다.<br>한켠으로는 정말 제대로된 정보에 기반하지 않고 단지 SNS상의 이슈화를 통해 매출 증대를 노리려는 약은 여행사들이 대거로 출현할 것인가 하는 우려도 있지만, SNS 시대에서 사람들의 마음을 울릴 다양한 컨텐츠를 개발하고 SNS라는 누구나 접근 가능한 매체를 통해 큰 영향력을 발휘할 수 있게 됨으로써 작은 여행사들은 거대 여행사들에 대항할 힘을 가지게 되었다.</p>
-<p>이러한 풍조는 ‘인터넷’이 추구하는 방향과 그 행로가 일치하는데, 모든 개개인들이 거대 권력에 대항할 큰 힘을 가지게 되었다는 점에서 그러하다.<br>앞으로의 모바일 사회에서 우리는 SNS 를 기반으로 하는 새로운 시장의 원리를 받아들이고 대중을 공감할 훌륭한 SNS 컨텐츠의 개발을 바탕으로 경쟁력을 갖추어 나간다면, 거대 자본을 기반으로 하는 여행산업에서 새로운 비즈니스의 기회를 포착할 수 있을 것이다.</p>
 
                         
     </div>

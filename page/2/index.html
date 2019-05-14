@@ -91,6 +91,69 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/27/marketing-workbook/" itemprop="url">
+                Marketing workbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
+                2 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/marketing/">marketing</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 125 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="sass-marketing-tactic">SASS marketing tactic</span></h2><ol>
+<li>free tool, educational content</li>
+<li>free trial</li>
+<li>Identify ideal customer who is the actual customer</li>
+<li>SEO, content marketing</li>
+<li>collect email(by register in homepage)</li>
+<li>live chat</li>
+</ol>
+<h2><span id="b2b-marketing">B2B marketing</span></h2><ol>
+<li><p>Quora 에서 질답하며 인사이트를 확보하고 고객의 비즈니스를 이해한다.</p>
+</li>
+<li><p>커뮤니티, 포럼에 참석한다.</p>
+<p>inbound.org, growthhackers.com</p>
+<p>Hackers new, insidehackers</p>
+</li>
+<li><p>링크드인과 페이스북 그룹을 통해 기업 관계자들과 친분을 쌓는다.</p>
+</li>
+<li><p>슬랙 커뮤니티에 활동하라</p>
+</li>
+<li><p>다른 브랜드와 협업하라</p>
+</li>
+</ol>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/27/getting-started-with-pyqt/" itemprop="url">
                 Getting started with PyQt
             </a>
@@ -729,56 +792,6 @@
 </ol>
 <p><img src="/images/dex_taker_sell.png" alt="dex_taker_sell"></p>
 <h4><span id="taker-의-매수-주문">Taker 의 매수 주문</span></h4><p><img src="/images/dex_taker_buy.png" alt="dex_taker_buy"></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/02/25/getting-started-with-solidity/" itemprop="url">
-                Getting started with solidity
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-02-25T06:02:34.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 650 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!--toc-->
-<h2><span id="restricting-access">Restricting Access</span></h2><p>하나의 컨트랙트 내의 속성들은 다른 컨트랙트에서 접근 될 수 없는 것이 기본이며, <code>public</code> 키워드를 명식적으로 사용함에 따라 다른 컨트랙트에서도 접근이 가능하게 된다.</p>
-<p>또다른 접근 제한자로는 <code>modifier</code> 가 있는데, 이는 특정 함수에 지정하여 해당 함수를 호출하기 전에 자격에 맞지 않으면 접근을 제한 할 수 있는 기능을 제공한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">contract AccessRestriction &#123;</span><br><span class="line">	modifier onlyBy(address _account)</span><br><span class="line">    &#123;</span><br><span class="line">        require(</span><br><span class="line">            msg.sender == _account,</span><br><span class="line">            &quot;Sender not authorized.&quot;</span><br><span class="line">        );</span><br><span class="line">        // Do not forget the &quot;_;&quot;! It will</span><br><span class="line">        // be replaced by the actual function</span><br><span class="line">        // body when the modifier is used.</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="data-types">Data types</span></h2><h4><span id="memory-and-storage">memory and storage</span></h4><p>solidity 에서 memory 와 storage 를 이루는 데이터 chunk 의 크기는 32bytes 이다.</p>
-<p><strong>memory</strong> 란 모든 함수 call 마다 새롭게 할당되는 임시 데이터 저장소로 이 메모리에 읽기, 쓰기 등의 작업을 수행할 때마다 가스비가 올라간다.</p>
-<h4><span id="variables">variables</span></h4><p>솔리디티에서 변수는 memory address 를 가르치는 포인터이다.</p>
-<h4><span id="array">array</span></h4><p>solidity 에서 array 의 첫번째 인자는 그 array 의 길이값을 저장한다.</p>
-<h4><span id="bytes">Bytes</span></h4><p>solidity 에서 bytes 는 동적으로 할당되는 byte array 이며, 그 크기는 32byte 이다. 또한, solidity 에서 변수는 memory address 를 가르치는 포인터이므로 해당 포인터로 부터 32 바이트를 더해주면 실제로 해당 bytes 의 값이 저장된 주소값을 얻을 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b = new bytes(32);</span><br><span class="line">add(b, 32); // b의 값이 저장된 주소값</span><br><span class="line"></span><br><span class="line">mstore(add(b, 32), x); // b=x</span><br></pre></td></tr></table></figure>
-<h2><span id="events">Events</span></h2><p>Event 는 솔리디티에서 일종의 로깅의 역할을 수행한다. 이더리움 상에서 일어나는 다양한 활동들에 대한 내역을 추적하고, 사용자 데이터를 자정하기 위해 이더리움은 로그 시스템을 적용하였으며, <strong>Event</strong> 의 발생은 일종의 로그 형태로 저장된다.</p>
-<p><strong>DAPP</strong> 개발자는 이더리움의 RPC 인터페이스를 통해 이러한 이벤트들을 구독할 수 있다. <strong>Topic</strong> 은 이러한 이벤트들을 찾을 수 있도록 해주며, 가령 특정 컨트랙트에서 발생한 로그들을 듣는 등의 일들을 할 수 있다.</p>
-<p>여기서 각 이벤트를 정의할 때 다음과 같이 <strong>indexed</strong> 옵션을 주면, 이렇게 구독을 하는 중에 해당 속성을 읽을 수 있다. 만약 <strong>indexed</strong> 옵션을 주지 않으며, ABI 인코딩된 데이터가 내려오게 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">contract ExampleContract &#123;</span><br><span class="line">    event ExampleEvent(</span><br><span class="line">        address indexed _from,</span><br><span class="line">        bytes32 indexed _id,</span><br><span class="line">        uint _value</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                         
     </div>

@@ -91,6 +91,56 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/02/25/getting-started-with-solidity/" itemprop="url">
+                Getting started with solidity
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-02-25T06:02:34.000Z" itemprop="datePublished">
+                3 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 650 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h2><span id="restricting-access">Restricting Access</span></h2><p>하나의 컨트랙트 내의 속성들은 다른 컨트랙트에서 접근 될 수 없는 것이 기본이며, <code>public</code> 키워드를 명식적으로 사용함에 따라 다른 컨트랙트에서도 접근이 가능하게 된다.</p>
+<p>또다른 접근 제한자로는 <code>modifier</code> 가 있는데, 이는 특정 함수에 지정하여 해당 함수를 호출하기 전에 자격에 맞지 않으면 접근을 제한 할 수 있는 기능을 제공한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">contract AccessRestriction &#123;</span><br><span class="line">	modifier onlyBy(address _account)</span><br><span class="line">    &#123;</span><br><span class="line">        require(</span><br><span class="line">            msg.sender == _account,</span><br><span class="line">            &quot;Sender not authorized.&quot;</span><br><span class="line">        );</span><br><span class="line">        // Do not forget the &quot;_;&quot;! It will</span><br><span class="line">        // be replaced by the actual function</span><br><span class="line">        // body when the modifier is used.</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="data-types">Data types</span></h2><h4><span id="memory-and-storage">memory and storage</span></h4><p>solidity 에서 memory 와 storage 를 이루는 데이터 chunk 의 크기는 32bytes 이다.</p>
+<p><strong>memory</strong> 란 모든 함수 call 마다 새롭게 할당되는 임시 데이터 저장소로 이 메모리에 읽기, 쓰기 등의 작업을 수행할 때마다 가스비가 올라간다.</p>
+<h4><span id="variables">variables</span></h4><p>솔리디티에서 변수는 memory address 를 가르치는 포인터이다.</p>
+<h4><span id="array">array</span></h4><p>solidity 에서 array 의 첫번째 인자는 그 array 의 길이값을 저장한다.</p>
+<h4><span id="bytes">Bytes</span></h4><p>solidity 에서 bytes 는 동적으로 할당되는 byte array 이며, 그 크기는 32byte 이다. 또한, solidity 에서 변수는 memory address 를 가르치는 포인터이므로 해당 포인터로 부터 32 바이트를 더해주면 실제로 해당 bytes 의 값이 저장된 주소값을 얻을 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b = new bytes(32);</span><br><span class="line">add(b, 32); // b의 값이 저장된 주소값</span><br><span class="line"></span><br><span class="line">mstore(add(b, 32), x); // b=x</span><br></pre></td></tr></table></figure>
+<h2><span id="events">Events</span></h2><p>Event 는 솔리디티에서 일종의 로깅의 역할을 수행한다. 이더리움 상에서 일어나는 다양한 활동들에 대한 내역을 추적하고, 사용자 데이터를 자정하기 위해 이더리움은 로그 시스템을 적용하였으며, <strong>Event</strong> 의 발생은 일종의 로그 형태로 저장된다.</p>
+<p><strong>DAPP</strong> 개발자는 이더리움의 RPC 인터페이스를 통해 이러한 이벤트들을 구독할 수 있다. <strong>Topic</strong> 은 이러한 이벤트들을 찾을 수 있도록 해주며, 가령 특정 컨트랙트에서 발생한 로그들을 듣는 등의 일들을 할 수 있다.</p>
+<p>여기서 각 이벤트를 정의할 때 다음과 같이 <strong>indexed</strong> 옵션을 주면, 이렇게 구독을 하는 중에 해당 속성을 읽을 수 있다. 만약 <strong>indexed</strong> 옵션을 주지 않으며, ABI 인코딩된 데이터가 내려오게 된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">contract ExampleContract &#123;</span><br><span class="line">    event ExampleEvent(</span><br><span class="line">        address indexed _from,</span><br><span class="line">        bytes32 indexed _id,</span><br><span class="line">        uint _value</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/02/24/getting-started-with-ethereum/" itemprop="url">
                 Getting started with ethereum
             </a>
@@ -257,77 +307,6 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/01/29/getting-started-with-aws-cli/" itemprop="url">
-                Getting started with AWS cli
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-01-29T06:45:00.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/aws-cli/">aws-cli</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                6 minutes read (About 845 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <p>AWS 에는 수많은 기능이 있고, 이를 실제 웹사이트에서 console 을 통해 제어하는 것은 개발자에게 매우 비효율적인 일이 아닐 수 없다. AWS 는 이렇게 사용자의 컴퓨터에서 AWS 상의 많은 기능을 제어하기 위해 AWS CLI 프로그램을 제공하며, 본 포스트에서는 AWS CLI 의 기본적인 사용법을 알아보고자 한다.</p>
-<h2><span id="installation">Installation</span></h2><h3><span id="mac">Mac</span></h3><p>Mac OS 에서는 다음과 같이 pip 명령어를 통해 aws cli 를 쉽게 설치할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install awscli</span><br></pre></td></tr></table></figure>
-<h3><span id="ubuntu">Ubuntu</span></h3><h2><span id="authentication">Authentication</span></h2><p>AWS 는 현재 cli 프로그램을 사용하는 내가 어떤 유저인지 모르기 때문에 이를 AWS 에게 알려주어야 하며, 그것이 authentication 자체이다.</p>
-<p>사용자의 PC에는 여러 AWS 유저들에 대한 정보를 저장할 수 있는데, AWS 는 매우 복잡한 유저 관리 체계를 가지기 때문에 이는 매우 필요한 일이다.(가령 특정 AWS 서비스의 조작을 위한 별도 Program user 를 생성하는 경우 여러 개발자가 하나의 계정을 공유하여 사용하는 것은 매우 빈번한 일이다.)</p>
-<p><strong>Command 를 입력할 때 특정 사용자임을 밝히기</strong></p>
-<p>아래 명령어를 통해 aws access key 와 secret key 를 등록하고 사용할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
-<p>다음과 같은 command option 을 통해 내가 어떤 사용자인지 알리고, 미리 configure 되어있는 해당 사용자의 정보로 authentication 을 진행할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws [<span class="built_in">command</span>] --profile 사용자이름</span><br></pre></td></tr></table></figure>
-<p><strong>MFA 를 사용하는 경우의 인증</strong></p>
-<p>콘솔 계정의 경우 cli 를 통한 작업을 진행할 경우 MFA 를 적용했다면 Access Deny 된다.</p>
-<p>이 경우 MFA 유저를 위해 별도의 임시 인증을 거쳐야 하는데 이는 다음 명령어로 해결이 가능하다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws sts get-session-token --serial-number &lt;arn-mfa-device&gt; --token-code 126355 --profile jee</span><br></pre></td></tr></table></figure>
-<p><code>arn-mfa-device</code> 는 각 AWS계정 정보에 들어가서 보안자격증명 탭에 할당된 MFA 디바이스를 보시면 알 수 있다.</p>
-<p><code>token-code</code> 는 Authy와 같은 2FA 토큰 값을 입력해 주면 된다. </p>
-<p>커맨드를 실행하시면 임시 Access Key가 발급되고 Access ID, Secret Access Key, Session Token을 환경변수나 credential에 profile로 등록하신후 사용하면 된다.</p>
-<p>때문에, 만료시간이 있기때문에 매번 재발급받아야하는데 AWS에서는 이를 각자 Cron Tab등으로 만들어서 사용하는 것을 권장한다.</p>
-<p>다음과 같이 credential 에 등록하여 사용하면 된다.</p>
-<p>~/.aws/credential</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = &lt;aws_access_key_id&gt;</span><br><span class="line">AWS_SECRET_ACCESS_KEY = &lt;aws_secret_access_key&gt;</span><br><span class="line">AWS_SESSION_TOKEN = &lt;asw_session_token&gt;</span><br></pre></td></tr></table></figure>
-<h2><span id="configuration">Configuration</span></h2><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
-<p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
-<p>config</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
-<p>그 중에서도 유저 정보는 credentials 에 다음과 같이 저장되어 있다.</p>
-<p>credentials</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
-<p>이처럼 기본 user 인 [default] 유저와 특정 유저를 나타내는 [profile user_name] 이 나뉘어 있다.</p>
-<p>여기에 정의된 특정 profile 은 command line 에서 <code>--profile user1</code> 과 같이 사용될 수 있다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
             <a href="/2019/01/29/getting-started-with-aws/" itemprop="url">
                 Getting started with AWS
             </a>
@@ -392,6 +371,77 @@
 <p>~/.aws/credential</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = ~</span><br><span class="line">AWS_SECRET_ACCESS_KEY = ~</span><br><span class="line">AWS_SESSION_TOKEN = ~</span><br></pre></td></tr></table></figure>
 <h3><span id="configuration">Configuration</span></h3><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
+<p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
+<p>config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
+<p>그 중에서도 유저 정보는 credentials 에 다음과 같이 저장되어 있다.</p>
+<p>credentials</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+<p>이처럼 기본 user 인 [default] 유저와 특정 유저를 나타내는 [profile user_name] 이 나뉘어 있다.</p>
+<p>여기에 정의된 특정 profile 은 command line 에서 <code>--profile user1</code> 과 같이 사용될 수 있다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/01/29/getting-started-with-aws-cli/" itemprop="url">
+                Getting started with AWS cli
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-29T06:45:00.000Z" itemprop="datePublished">
+                3 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws-cli/">aws-cli</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 845 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>AWS 에는 수많은 기능이 있고, 이를 실제 웹사이트에서 console 을 통해 제어하는 것은 개발자에게 매우 비효율적인 일이 아닐 수 없다. AWS 는 이렇게 사용자의 컴퓨터에서 AWS 상의 많은 기능을 제어하기 위해 AWS CLI 프로그램을 제공하며, 본 포스트에서는 AWS CLI 의 기본적인 사용법을 알아보고자 한다.</p>
+<h2><span id="installation">Installation</span></h2><h3><span id="mac">Mac</span></h3><p>Mac OS 에서는 다음과 같이 pip 명령어를 통해 aws cli 를 쉽게 설치할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install awscli</span><br></pre></td></tr></table></figure>
+<h3><span id="ubuntu">Ubuntu</span></h3><h2><span id="authentication">Authentication</span></h2><p>AWS 는 현재 cli 프로그램을 사용하는 내가 어떤 유저인지 모르기 때문에 이를 AWS 에게 알려주어야 하며, 그것이 authentication 자체이다.</p>
+<p>사용자의 PC에는 여러 AWS 유저들에 대한 정보를 저장할 수 있는데, AWS 는 매우 복잡한 유저 관리 체계를 가지기 때문에 이는 매우 필요한 일이다.(가령 특정 AWS 서비스의 조작을 위한 별도 Program user 를 생성하는 경우 여러 개발자가 하나의 계정을 공유하여 사용하는 것은 매우 빈번한 일이다.)</p>
+<p><strong>Command 를 입력할 때 특정 사용자임을 밝히기</strong></p>
+<p>아래 명령어를 통해 aws access key 와 secret key 를 등록하고 사용할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
+<p>다음과 같은 command option 을 통해 내가 어떤 사용자인지 알리고, 미리 configure 되어있는 해당 사용자의 정보로 authentication 을 진행할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws [<span class="built_in">command</span>] --profile 사용자이름</span><br></pre></td></tr></table></figure>
+<p><strong>MFA 를 사용하는 경우의 인증</strong></p>
+<p>콘솔 계정의 경우 cli 를 통한 작업을 진행할 경우 MFA 를 적용했다면 Access Deny 된다.</p>
+<p>이 경우 MFA 유저를 위해 별도의 임시 인증을 거쳐야 하는데 이는 다음 명령어로 해결이 가능하다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws sts get-session-token --serial-number &lt;arn-mfa-device&gt; --token-code 126355 --profile jee</span><br></pre></td></tr></table></figure>
+<p><code>arn-mfa-device</code> 는 각 AWS계정 정보에 들어가서 보안자격증명 탭에 할당된 MFA 디바이스를 보시면 알 수 있다.</p>
+<p><code>token-code</code> 는 Authy와 같은 2FA 토큰 값을 입력해 주면 된다. </p>
+<p>커맨드를 실행하시면 임시 Access Key가 발급되고 Access ID, Secret Access Key, Session Token을 환경변수나 credential에 profile로 등록하신후 사용하면 된다.</p>
+<p>때문에, 만료시간이 있기때문에 매번 재발급받아야하는데 AWS에서는 이를 각자 Cron Tab등으로 만들어서 사용하는 것을 권장한다.</p>
+<p>다음과 같이 credential 에 등록하여 사용하면 된다.</p>
+<p>~/.aws/credential</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = &lt;aws_access_key_id&gt;</span><br><span class="line">AWS_SECRET_ACCESS_KEY = &lt;aws_secret_access_key&gt;</span><br><span class="line">AWS_SESSION_TOKEN = &lt;asw_session_token&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="configuration">Configuration</span></h2><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
 <p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
 <p>config</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
@@ -788,60 +838,6 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <p>##</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/01/18/Getting-started-with-javascript/" itemprop="url">
-                Getting started with javascript
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-01-18T07:20:40.000Z" itemprop="datePublished">
-                4 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/javascript/">javascript</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 745 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="how-does-it-works">How does it works</span></h2><p>자바스크립트를 기본적으로 chrome 브라우저에서 실행되는 script 언어로 시작하였으나, node.js 라는 런타임 환경이 나온 이후로 브라우저 밖에서도 javascript를 사용할 수 있게 되었다.</p>
-<p>아무래도 브라우저 내에서 사용되던 언어인 만큼 window 라는 전역 object 가 context의 root 역할을 수행한다.</p>
-<p>런타임 환경 내에서 실행되는 모든 변수는 window 라는 전역 객체에 그 상태가 기록되며, 브라우저에서 동작하는 성격상 브라우저의 창 즉, window 가 런타임 환경에서 최상위 root context 가 된다. 기본적으로 html 이라는 사용자가 보는 가시적인 페이지와 연동되기 위해 <code>event</code> 라는 개념을 사용하며, 사용자가 브라우저에서 하는 모든 활동은 event 를 발생시키며, 각 이벤트가 발생하면 수행되는 일련의 함수의 집합으로 프로그램이 구성된다.</p>
-<p>이러한 <code>event</code> 를 듣고 수행하는 것들을 일컬어 <code>event target</code> 이라고 하며, 이러한 <code>event target</code> 으로는 root context 인 <code>window</code> 객체 이외에도 <code>document, element</code> 객체가 있다.</p>
-<p>각 객체들은 <code>addEventListener</code> 함수를 통해 특정 이벤트가 발생할때 실행할 함수들을 등록할 수 있으며, 이를 통해 web page 와 사용자가 상호작용을 하게 된다.</p>
-<p>또한, javascript runtime environment 인 node.js 는 각종 패키지들을 사용할 수 있는데, 여기서 node 는 실행하는 루트의 package.json 파일을 참조하여 노드 모듈을 참조하고 실행하며, 때문에 실행하는 위치의 root 에 package.json 파일이 있어야만 패키지들을 찾고 실행할 수 있기 때문에 이를 유의하여야 한다.</p>
-<h2><span id="javascript-modules">Javascript modules</span></h2><p>npm 패키지를 사용하기위한 설정을 package.json    에 설정해 준다.</p>
-<h4><span id="path-alias-사용하기">path alias 사용하기</span></h4><p>package.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"_moduleAliases"</span>: &#123;</span><br><span class="line">    <span class="attr">"@domain"</span>: <span class="string">"dist/domain"</span>,</span><br><span class="line">    <span class="attr">"@infra"</span>: <span class="string">"dist/infra"</span>,</span><br><span class="line">    <span class="attr">"@util"</span>: <span class="string">"dist/util"</span>,</span><br><span class="line">    <span class="attr">"@common"</span>: <span class="string">"dist/common"</span>,</span><br><span class="line">    <span class="attr">"@interfaces"</span>: <span class="string">"dist/interfaces"</span>,</span><br><span class="line">    <span class="attr">"@utils"</span>: <span class="string">"dist/utils"</span>,</span><br><span class="line">    <span class="attr">"@api"</span>: <span class="string">"dist/api"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="multithreading">Multithreading</span></h2><p>Javascript 는 기본적으로 single thread 방식으로 동작한다.</p>
-<p>즉, 하나의 프로세스 내에서도 하나의 단일 스레드 내에서 동작하는 것을 기본으로 한다.</p>
-<p>하지만, 브라우저 내에서 데이터를 로드하면서 화면을 전환하거나 혹은 화려한 ui 를 그리는 도중에도 사용자와의 interaction 을 해서 편의를 높이는 등 다양한 부분에 있어 병렬처리에 대한 필요성이 대두되었으며, 브라우저는 <code>Web Worker</code> 라는 개념을 통해 병렬처리를 가능하도록 하였다.</p>
-<p><code>web worker</code> 는 현재 실행중인 <code>main thread</code> 와 병렬적으로 <code>background thread</code> 에서 특정 작업을 수행하여 병렬적으로 특정 task 를 수행할 수 있게 해 준다.</p>
 
                         
     </div>

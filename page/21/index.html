@@ -91,6 +91,68 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/19/NodeJs-mongoose-라이브러리를-활용한-mongodb-통신/" itemprop="url">
+                NodeJs mongoose 라이브러리를 활용한 mongodb 통신
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:34:20.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 293 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#세팅하기">세팅하기</a></li>
+<li><a href="#objectid-이용하기">ObjectId 이용하기</a></li>
+<li><a href="#model을-사용하여-update-하기">Model을 사용하여 update 하기</a></li>
+<li><a href="#inc-를-활용하여-increase-하기">$inc 를 활용하여 increase 하기</a></li>
+<li><a href="#없으면-create하고-있으면-update하기">없으면 create하고 있으면 update하기</a></li>
+<li><a href="#or를-활용하여-or-서치하기">$or를 활용하여 or 서치하기</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="세팅하기">세팅하기</span></h2><ol>
+<li>mongoose 설치<br><code>npm install mongoose</code></li>
+<li>mongoose 임포트 해주기<br><code>var mongoose = require(&#39;mongoose&#39;);</code></li>
+<li>몽구를 이용하여 db 연결<br><code>mongoose.connect(&#39;mongodb://username:password@host:port/database?options...&#39;);</code><br><a href="https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications" target="_blank" rel="noopener">mongoose를 활용한 nodeje mongodb 연결</a></li>
+</ol>
+<h2><span id="objectid-이용하기">ObjectId 이용하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoose.Types.ObjectId(req.params._id)</span><br></pre></td></tr></table></figure>
+<h2><span id="model을-사용하여-update-하기">Model을 사용하여 update 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Apply.update(&#123;_id:saved_id&#125;,req.body,&#123;upsert:true&#125;,function(err,docs)&#123;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">    res.sendStatus(500);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    res.sendStatus(200);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2><span id="inc-를-활용하여-increase-하기">$inc 를 활용하여 increase 하기</span></h2>
+undefined
+
+
+<h2><span id="없으면-create하고-있으면-update하기">없으면 create하고 있으면 update하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">router.put(&apos;/&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;스케줄 업데이트 처리 req.body:&quot;, req.body);</span><br><span class="line">  delete req.body._id;</span><br><span class="line"></span><br><span class="line">  Schedule.findOneAndUpdate(&#123;day:req.body.day, time:req.body.time&#125;,req.body,&#123;upsert:true&#125;,function(err,docs)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">      console.log(err);</span><br><span class="line">      res.sendStatus(500);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      res.sendStatus(200);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>upsert: true 항목을 추가한다.</p>
+<h2><span id="or를-활용하여-or-서치하기">$or를 활용하여 or 서치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ar userExists = function(u, callback) &#123;</span><br><span class="line">  User.find(&#123;$or:[ &#123;&apos;username&apos;: u.username&#125;, &#123;&apos;email&apos;: u.email&#125;]&#125; , function(err,user) &#123;</span><br><span class="line">    if (err || user.length &gt; 0) &#123;     // user does not come back null, so check length</span><br><span class="line">        callback(1);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    //no error, no user</span><br><span class="line">    callback(0);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a href="https://www.npmjs.com/package/mongoose" target="_blank" rel="noopener">NPM mongoose package Document</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/19/NodeJs-nodemailer를-활용한-이메일-보내기/" itemprop="url">
                 NodeJs nodemailer를 활용한 이메일 보내기
             </a>
@@ -779,64 +841,6 @@ hexo 에서 {{}} 처럼 이중 브래킷을 사용하는 경우 컴파일 에러
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <h5><span id="환경변수-설정">환경변수 설정</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line">Source ~/.bash_profile</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/01/14/mysql-시작하기/" itemprop="url">
-                1. mysql 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-01-14T05:48:56.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 728 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="mysql-시작하기">Mysql 시작하기</span></h1><h2><span id="개요">개요</span></h2><p>ubuntu 서버에 mysql 서버를 설치하고 환경을 설정하고 실제 운용까지 필요한 모든 내용을 담았다.</p>
-<h2><span id="설치">설치</span></h2><h3><span id="window">window</span></h3><p>아래와 같이 mysql-server를 설치해 준다.<br>주의 할 점은 mysql 서버에 접근하기 위해서는 3306포트가 열려있어야 하는데 만약 서버 컴퓨터를 cafe24나 aws를 통해 만드는 경우 반드시 인바운드 규칙에서 3306포트를 추가시켜 주어야 한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install mysql-server // 이 과정에서 아이디랑 비밀번호를 물어본다.</span><br><span class="line">mysql_secure_installation //mysql 보안 설정을 세팅한다.</span><br><span class="line">systemctl status mysql.service //mysql이 실행되었는지 확인한다.</span><br><span class="line">sudo systemctl start mysql //mysql이 실행되고 있지 않다면 실행한다.</span><br><span class="line">mysqladmin -p -u root version // mysql을 관리할 수 있다 이경우 버전을 확인하는 명령어이다.</span><br></pre></td></tr></table></figure>
-<h3><span id="macos">macOS</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install mysql // 서버 설치하기</span><br><span class="line">mysql.server start // 실행하기</span><br><span class="line">mysql -u root // 로그인하기</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED WITH mysql_native_password BY &apos;password&apos; // 비밀번호 재설정하기</span><br></pre></td></tr></table></figure>
-<h2><span id="환경설정">환경설정</span></h2><h3><span id="window">window</span></h3><p>먼저 다음 명령어를 통해 mysql 에 접속한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u 사용자_이름 -p 비밀번호</span><br></pre></td></tr></table></figure>
-<p>mysql에 접속한 뒤 해야 할 첫번째는 바로 외부 접속이 가능한 계정을 만드는 것이다.<br>본 계정을 통해 다른 컴퓨터에서 workbench 등의 프로그램을 통해 연결하여 db를 세팅하기 용이하다.<br>다음 명령어를 통해 새로운 mysql 계정을 비밀번호와 함께 만들어 준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user [user명]@&apos;%&apos; identified by &apos;패스워드&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>위 계정으로 다른 컴퓨터에서 접근을 하면 권한이 없다는 말이 나타날 것이다.<br>이는 바로 mysql server의 초기 세팅이 내부 ip 에서만 접근 가능하도록 세팅되어 있기 때문인데<br>아래와 같은 방법으로 외부에서도 접근이 가능하게 바꾸어 준다.</p>
-<p>먼저 mysql의 mysqld.cnf라는 설정파일을 vi 에디터로 열어준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cd /etc/mysql/mysql.conf.d</span><br><span class="line">sudo vi mysqld.cnf</span><br></pre></td></tr></table></figure></p>
-<p>bind-address =127.0.0.1 부분을 주석처리 후 아래의 명령어를 통해 mysql 서버를 재시작 시켜준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/mysql restart</span><br></pre></td></tr></table></figure>
-<p>위 설정을 완료하였다면 생성한 계정이 데이터베이스에 대한 모든 권한을 가지도록 권한을 설정해 준다.<br>아래는 권한을 설정하는 예제이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on exampledb.* to admin@&apos;%&apos; identified by &apos;password&apos; with grant option;</span><br></pre></td></tr></table></figure>
-<h2><span id="mysqladmin-을-사용한-mysql-조작">MYSQLADMIN 을 사용한 MYSQL 조작</span></h2><p>MYSQL 콘솔이 아닌 그냥 컴퓨터 커맨드 라인에서 MSYQL 콘솔에 접근하기 위한 훌륭한 명령어인 mysqladmin이 있으며 다음과 같이 사용합니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u _user_name_ -p _password_ CREATE DB_NAME</span><br></pre></td></tr></table></figure>
-<p><strong>명령어 사용하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u _user_name_ -p _password_ -e &quot;_statement_&quot;</span><br></pre></td></tr></table></figure></p>
-<hr>
 
                         
     </div>

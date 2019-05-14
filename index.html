@@ -91,6 +91,52 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/14/deploying-bch-node-on-linux/" itemprop="url">
+                Deploying BCH node on linux
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-14T08:07:36.000Z" itemprop="datePublished">
+                an hour ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/bch/">bch</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 135 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="brief-explanation">Brief explanation</span></h2><p>Binary: /usr/bin/bitcoind<br>Configuration file: /etc/bitcoin/bitcoin.conf<br>Data directory: /var/lib/bitcoind<br>PID file: /var/run/bitcoind/bitcoind.pid (OpenRC and Upstart) or /var/lib/bitcoind/bitcoind.pid (systemd)<br>Lock file: /var/lock/subsys/bitcoind (CentOS)</p>
+<h2><span id="run-node-with-bitcoind">Run node with bitcoind</span></h2><p>아래 명령어를 통해 bitcoin node 를 백그라운드에서 실행시킨다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitcoind -daemon -rpcuser=&lt;user_name&gt; -rpcpassword=&lt;user_password&gt; -rpcport=&lt;port&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://en.bitcoin.it/wiki/Running_Bitcoin" target="_blank" rel="noopener">additional bitcoind options</a></p>
+<h2><span id="interact-with-chain-with-bitcoin-cli">Interact with chain with bitcoin-cli</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bitcoin-cli getinfo</span><br><span class="line">bitcoin-cli getnetworkinfo # 네트워크 정보 받아옴.</span><br><span class="line">bitcoin-cli getblockchaininfo # 블록체인 정보 받아옴.</span><br><span class="line">bitcoin-cli listtrasactions # 트랜잭션 목록 나열</span><br><span class="line">bitcoin-cli stop # stop bitcoin daemon</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/05/14/getting-started-with-iost/" itemprop="url">
                 Getting started with IOST
             </a>
@@ -99,7 +145,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-14T00:51:23.000Z" itemprop="datePublished">
-                10 minutes ago
+                8 hours ago
             </time>
         </span>
         
@@ -620,69 +666,6 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <h2><span id="setup">Setup</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/27/marketing-workbook/" itemprop="url">
-                Marketing workbook
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
-                2 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/marketing/">marketing</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 125 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="sass-marketing-tactic">SASS marketing tactic</span></h2><ol>
-<li>free tool, educational content</li>
-<li>free trial</li>
-<li>Identify ideal customer who is the actual customer</li>
-<li>SEO, content marketing</li>
-<li>collect email(by register in homepage)</li>
-<li>live chat</li>
-</ol>
-<h2><span id="b2b-marketing">B2B marketing</span></h2><ol>
-<li><p>Quora 에서 질답하며 인사이트를 확보하고 고객의 비즈니스를 이해한다.</p>
-</li>
-<li><p>커뮤니티, 포럼에 참석한다.</p>
-<p>inbound.org, growthhackers.com</p>
-<p>Hackers new, insidehackers</p>
-</li>
-<li><p>링크드인과 페이스북 그룹을 통해 기업 관계자들과 친분을 쌓는다.</p>
-</li>
-<li><p>슬랙 커뮤니티에 활동하라</p>
-</li>
-<li><p>다른 브랜드와 협업하라</p>
-</li>
-</ol>
 
                         
     </div>

@@ -91,6 +91,112 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/03/19/git-시작하기/" itemprop="url">
+                git 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-18T16:45:57.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/git-강의/">git 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                14 minutes read (About 2047 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h1><span id="git-시작하기">git 시작하기</span></h1><h2><span id="git-설치하기">git 설치하기</span></h2><h3><span id="git-cli-와-gui를-모두-설치한다">git cli 와 gui를 모두 설치한다</span></h3><p>이때 gui를 설치하지 않아도 되지만, 이런 경우 ssh 설정이 복잡하므로 간단하게 설치를 마쳐준다.<br>만약 ubuntu의 경우는 패키지 매니저인 apt-get을 사용하여 다음과 같이 설치한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
+<h3><span id="git-home-디렉토리-변경하기">git home 디렉토리 변경하기</span></h3><p>git 아이콘을 우클릭하여 대상 뒤의 –cd-home을 없애고</p>
+<p>시작위치에 원하는 위치를 넣어준다.</p>
+<h2><span id="로그인-및-권한설정">로그인 및 권한설정</span></h2><p>git을 사용하기 위해 로그인 및 계정을 설정해 준다.<br>먼저, 다음과 같이 global 한 계정 정보를 설정해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;YOUR_USERNAME&quot;</span><br><span class="line">git config --global user.email &quot;your_email@youremail.com&quot;</span><br><span class="line">git pull https://username:password@mygithost.com/my/repository</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list //설정한 내용 확인하기</span><br></pre></td></tr></table></figure>
+<h3><span id="ssh-기반-인증">ssh 기반 인증</span></h3><p>만약 특정 레포지토리가 공개키 방식의 인증과정을 거치고 특정 키를 레포지토리에 등록시켜 두었다면, 해당 인증서를 통해 인증하여 레포지토리와 통신할 수 있다. 이때 여러 레포지토리들은 각각 다른 키를 사용할 수 있는데 이러한 ssh 연결 정보를 특정 레포지토리의 <code>.git/config</code> 파일에 설정해 둘 수 있으며, 그 명령어는 다음과 같다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
+<p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">sshCommand = &quot;ssh -i ~/.ssh/keyfile&quot;</span><br></pre></td></tr></table></figure>
+<p>w</p>
+<h2><span id="원격-repo-연결하기">원격 repo 연결하기</span></h2><p>git 세팅을 완료했다면 온라인 상의 코드들을 조작하기 위해 git 서버에 연결한다.<br>git 서버에 연결하는 방법은 2가지가 있는데, 하나는 http 방식이고 다른 하나는 ssh 방식이다.</p>
+<p>먼저, ssh를 활용하여 연결하기 위해서 컴퓨터의 ssh key를 생성하고, 생성된 공개키는 git에 등록한다.<br>공개키를 사용하려면 일단 공개키를 만들어야 하는데, 공개키를 만드는 방법은 모든 운영체제가 비슷하다.<br>먼저 키가 있는지부터 확인하자. 사용자의 SSH 키들은 기본적으로 사용자의 ~/.ssh 디렉토리에 저장한다.</p>
+<p>리눅스 혹은 ubuntu의 경우 ssh-keygen을 통해 공개키/개인키 쌍을 생성할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>위 명령어를 통해 공개키를 생성하였으면 ~/.ssh 디렉토리에 id_rsa.pub가 생성되었을 것이다.<br>해당 공개키를 git 홈페이지의 repository의 설정에서 등록해 주면 된다.</p>
+<p><a href="https://git-scm.com/book/ko/v1/Git-%EC%84%9C%EB%B2%84-SSH-%EA%B3%B5%EA%B0%9C%ED%82%A4-%EB%A7%8C%EB%93%A4%EA%B8%B0" target="_blank" rel="noopener">참조</a></p>
+<p>git pull 명령을 수행하는 동중 permission denied가 되는 경우가 있는데 이는 특정 유저에게 해당 파일에 대한 변경 권한이 없는 것으로 다음과 같이 해결한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown &lt;USER&gt;.&lt;GROUP&gt; -R /home/&lt;USER&gt;/.config</span><br><span class="line">chown &lt;USER&gt;.&lt;GROUP&gt; -R /home/&lt;USER&gt;/.gitconfig</span><br></pre></td></tr></table></figure>
+<p>만약 위처럼 ssh를 통해 연결이 어렵다면 pull 혹은 clone 시에 https를 기반으로 받으면 ssh 연결이 아닌 https를 통해 받을 수 있으니 시도해 보기 바란다.</p>
+<h2><span id="git-명령어-모음">git 명령어 모음</span></h2><h3><span id="브랜치-생성-및-변경">브랜치 생성 및 변경</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch [브랜치명]</span><br><span class="line">git checkout [브랜치명]</span><br></pre></td></tr></table></figure>
+<p>git branch [브랜치명] 명령어로 브랜치를 생성하고<br>git checkout [브랜치명] 명령어를 통해 브랜치를 변경한다.<br>여기서 checkout은 단순히 브랜치를 옮기는 것으로 지금까지의 변경내용이 바뀌지 않고 해당 브랜치로 이동하기 때문에<br>해당 브랜치에 지금의 변경내용이 전부 반영된다.</p>
+<h3><span id="브랜치-삭제하기">브랜치 삭제하기</span></h3><p><code>git branch -d [branch Name]</code></p>
+<h3><span id="추가된-파일-포함시키고-커밋하기">추가된 파일 포함시키고 커밋하기</span></h3><p>파일 추가<br><code>git add</code></p>
+<p>커밋하기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;메세지&quot;</span><br></pre></td></tr></table></figure>
+<h3><span id="원격저장소에-사용하기">원격저장소에 사용하기</span></h3><p>업스트림(upstream) 브랜치 설정<br>로컬 저장소를 init 명령어로 생성했을땐 수동으로 업스트림 브랜치를 설정할 필요가 있다. 업스트림 브랜치란 원격 저장소와 바로 연결된 로컬 저장소를 말하며 push나 pull 명령등에서 원격 저장소 이름을 생략할 수 있게 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>
+<p>원격 저장소와 코드를 주고 받기 위해 가장 먼저 해야 할 일은 원격 저장소가 어디에 있는지를 알려주는 일이다.<br>다음과 같은 코드를 입력하기 원격저장소 origin의 위치를 등록해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:hea9549/expiritAdmin.git</span><br></pre></td></tr></table></figure>
+<p>밀어넣기<br><code>git push origin [branch]</code></p>
+<p>강제로 밀어넣기<br><code>git push -u origin master</code></p>
+<p>머지하기<br><code>git checkout master</code>를 통해 마스터로 이동한다<br><code>git merge [commit name]</code></p>
+<p>풀받기<br><code>git pull [remote 저장소] [브랜치]</code></p>
+<h3><span id="커밋을-되돌리기">커밋을 되돌리기</span></h3><p>이번에는 기존에 한 커밋을 되돌리는 법을 배운다.</p>
+<p>먼저 커밋 내역을 확인할 수 있도록 log를 확인한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>뒤로 돌리기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD</span><br></pre></td></tr></table></figure>
+<p>명령어를 통해 HEAD에 마지막으로 커밋된 내용을 뒤로 돌린다.</p>
+<h3><span id="원격-브랜치-가져오기">원격 브랜치 가져오기</span></h3><p><code>git checkout -t origin/eventsource</code></p>
+<h3><span id="로컬-작업-내용-버리기-혹은-저장하기">로컬 작업 내용 버리기 혹은 저장하기</span></h3><p>당신이 어떤 프로젝트에서 한 부분을 담당하고 있다고 하자. 그리고 여기에서 뭔가 작업하던 일이 있고 다른 요청이 들어와서 잠시 브랜치를 변경해야 할 일이 생겼다고 치자. 아직 완료하지 않은 일을 커밋하는 것은 좀 껄끄럽다. 이런 상황에서는 커밋하지 않고 나중에 다시 돌아와서 작업을 다시 하고 싶을 것이다. 이 문제는 git stash라는 명령으로 해결할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash // stash difference</span><br><span class="line">git stash clear // deled stased</span><br><span class="line">git stash list // list up stashed</span><br></pre></td></tr></table></figure>
+<h2><span id="과거의-커밋-내용을-수정하기">과거의 커밋 내용을 수정하기</span></h2><p>open source 활동을 하거나 혹은 대규모의 프로젝트를 진행할때 겪는 가장 큰 문제는 내가 작성한 과거의 코드내용, 즉 과거의 커밋 내용을 수정하는 것이다.</p>
+<p>대부분의 경우 feature 브랜치에서 많은 내용을 수정하고 중간중간 변경 사항에 대해 commit 으로 기록하기 때문에 과거의 커밋을 바꾸기 위해서는 까마득한 예전의 코드로 돌아가 그 특정 부분을 수정하고 그 뒤의 변경사항을 다시 재적용 시키는 일이 필요하다.</p>
+<p>이 경우에는 <code>git rebase</code> 명령을 사용하여 해결할 수 있으며 다음과 같은 절차를 거친다.</p>
+<ol>
+<li><p><code>git log</code> 를 통해 나의 이전 커밋 내용을 확인한다.</p>
+</li>
+<li><p><code>git rebase -i HEAD~n</code> 를 통해 HEAD로 부터 얼마나 뒤 내용을 수정하고 rebase를 진행할지 정해준다. 가령 HEAD 로 부터 3 번째 커밋부터의 커밋들에 수정사항이 있다면 <code>git rebase -i HEAD~3</code> 명령어를 입력한다.</p>
+</li>
+<li><p>위 명령어를 입력하면 과거의 커밋들이 나타나고 커밋명 앞에 pick 이라는 키워드가 있다. 여기서 우리가 수정하기를 원하는 커밋의 pick 키워드를 e(edit) 으로 바꿔준다.</p>
+</li>
+<li><p>이제 git이 edit 하고자 하는 커밋으로 코드를 돌려주고 원하는 내용을 수정한 뒤에 <code>git commit --amend</code> 를 해주면 해당 커밋을 수정하여 다시 커밋하고 <code>git rebase --continue</code> 명령을 통해 뒤의 커밋들을 쭉 적용시켜 줄 수 있다.</p>
+</li>
+</ol>
+<h2><span id="유용한-기능들">유용한 기능들</span></h2><p><strong>CLI 에서 비밀번호 저장하기</strong></p>
+<p><code>git config credential.helper store</code></p>
+<p><strong>변경내용 임시 저장하기</strong></p>
+<p><code>git stash</code></p>
+<p><strong>임시 저장내용 불러오기</strong></p>
+<p><code>git stash pop</code></p>
+<h2><span id="2fa-인증">2FA 인증</span></h2><p>git authentication</p>
+<p>git 에서 2FA 인증을 하는 경우 personal access token을 발급받아서 해야한다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/03/18/how-to-write-a-service-introduction/" itemprop="url">
                 How to write a service introduction
             </a>
@@ -560,53 +666,6 @@
 <h1><span id="insert-ignoe를-이용한-중복키-단순히-무시하기">INSERT IGNOE를 이용한 중복키 단순히 무시하기</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 정보는 아예 입력하지 않는 것이 필요한 경우가 있다.<br>이 경우에는 다음과 같이 insert ignore 문을 활용하여 중복된 키를 가지면 입력을 시키지 않도록 할 수 있다.</p>
 <p>아래 예제는 unique 키가 두개의 키값에 걸려있는 경우 첫번째 id 값이 입력되지 않아도 insert 문이 동작하기에 다음과 같은 예제를 사용한다.<br>아래의 경우 가령 james라는 키값과 barkely라는 키값에 unique 키가 걸려있고 해당 데이터가 이미 존재하는 경우 아래의 insert 문은 그냥 무시된다.</p>
 <p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person ADD UNIQUE INDEX (first_name, last_name)</span><br><span class="line">INSERT IGNORE INTO person VALUES (NULL, 15, &apos;James&apos;, &apos;Barkely&apos;)</span><br></pre></td></tr></table></figure></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/02/01/nodejs-페이스북-회원가입/" itemprop="url">
-                nodejs 페이스북 회원가입
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-02-01T09:28:12.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                7 minutes read (About 1033 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="개요">개요</span></h2><p>클라이언트에서 웹페이지의 버튼 클릭 등으로 이미 구축해 놓은 server의 url에 페이스북 토큰과 함께 로그인 요청을 보내면, 서버는 passport 모듈을 통해 받은 토큰을 facebook에 보내어 인증을 거치고 페이스북에서 거친 인증값을 담아 서버의 callback 라우터에 요청을 보낸다.<br>서버는 요청을 받고 accessToken을 저장하며 accessToken과 유저정보들을 jwt 암호화를 거쳐 jwt를 발급하여 클라이언트에게 다시 보내어 준다.<br>클라이언트는 받은 jwt를 localStorage에 저장하고 앞으로 자동 로그인시에 해당 jwt 토큰을 사용한다.</p>
-<h2><span id="passport-설치">passport 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save passport</span><br><span class="line">npm install --save passport-facebook</span><br></pre></td></tr></table></figure>
-<h2><span id="모듈-import-하기">모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var NaverStrategy = require(&apos;passport-naver&apos;).Strategy;</span><br><span class="line">var FacebookStrategy = require(&apos;passport-facebook&apos;).Strategy;</span><br><span class="line">var KakaoStrategy = require(&apos;passport-kakao&apos;).Strategy;</span><br></pre></td></tr></table></figure>
-<p>필요한 모듈을 import 해준다.</p>
-<h2><span id="개발자-정보를-비롯한-기밀-정보들-별도-파일에-저장">개발자 정보를 비롯한 기밀 정보들 별도 파일에 저장</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  &apos;secret&apos; :  &apos;&apos;,</span><br><span class="line">  &apos;db_info&apos;: &#123;</span><br><span class="line">    local: &#123; // localhost</span><br><span class="line">    ...</span><br><span class="line">    &#125;,</span><br><span class="line">    real: &#123; // real</span><br><span class="line">    ...</span><br><span class="line">    &#125;,</span><br><span class="line">    dev: &#123; // dev</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;federation&apos; : &#123;</span><br><span class="line">    &apos;naver&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;secret_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/naver/callback&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;facebook&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;secret_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/facebook/callback&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;kakao&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/kakao/callback&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>federation 객체에 네이버, 카카오, 페이스북 Developers 정보를 입력한다.<br>secret.js 민감한 정보를 갖고있는 파일들은 프로젝트 디렉토리에 포함시키지 않는 것이 바람직하다.</p>
-<h2><span id="서버코드-작성">서버코드 작성</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">var secret_config = require(&apos;../commons/secret&apos;);</span><br><span class="line">  var secret_config = require(&apos;../_commons/secret&apos;);</span><br><span class="line">  var FacebookStrategy = require(&apos;passport-facebook&apos;).Strategy;</span><br><span class="line">  passport.serializeUser(function(user, done) &#123;</span><br><span class="line">    done(null, user);</span><br><span class="line">  &#125;);</span><br><span class="line">  passport.deserializeUser(function(user, done) &#123;</span><br><span class="line">    done(null, user);</span><br><span class="line">  &#125;);</span><br><span class="line">  passport.use(new FacebookStrategy(&#123;</span><br><span class="line">      clientID: secret_config.federation.facebook.client_id,</span><br><span class="line">      clientSecret: secret_config.federation.facebook.secret_id,</span><br><span class="line">      callbackURL: secret_config.federation.facebook.callback_url,</span><br><span class="line">      profileFields: [&apos;id&apos;, &apos;emails&apos;, &apos;name&apos;] //This</span><br><span class="line">    &#125;,</span><br><span class="line">    function (accessToken, refreshToken, profile, done)&#123;</span><br><span class="line">      console.log(&quot;profile&quot;, profile);</span><br><span class="line">      console.log(&quot;accessToken:&quot;, accessToken);</span><br><span class="line">      var _profile = profile._json;</span><br><span class="line">      loginByThirdparty(&#123;</span><br><span class="line">        &apos;auth_type&apos;: &apos;facebook&apos;,</span><br><span class="line">        &apos;auth_id&apos;: _profile.id,</span><br><span class="line">        &apos;auth_name&apos;: _profile.first_name+&quot; &quot;+_profile.last_name,</span><br><span class="line">        &apos;auth_email&apos;: _profile.email,</span><br><span class="line">        &apos;auth_token&apos;: accessToken</span><br><span class="line">      &#125;, done);</span><br><span class="line">    &#125;</span><br><span class="line">  ));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  router.get(&apos;/facebook&apos;,</span><br><span class="line">    passport.authenticate(&apos;facebook&apos;,&#123;authType: &apos;rerequest&apos;, scope: [&apos;public_profile&apos;, &apos;email&apos;]&#125;)</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  // facebook 로그인 연동 콜백</span><br><span class="line">  router.get(&apos;/facebook/callback&apos;, passport.authenticate(&apos;facebook&apos;,&#123;failureRedirect: &apos;/login/null/null&apos;&#125;),function(req,res)&#123;</span><br><span class="line">    console.log(&quot;REQ&quot;,req);</span><br><span class="line">    console.log(&quot;RES&quot;,res);</span><br><span class="line">        res.redirect(&apos;http://localhost/login/&apos;+req.user.email+&quot;/&quot;+req.user.jwt)</span><br><span class="line">      &#125;</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
-<p>passport.use를 통해 OAuth 요청을 만들어서 네이버 로그인 처리를 진행하고 요청결과를 callback url로 라우팅 시켜줌을 설정한다.<br>먼저 auth/login/facebook으로 요청이 오면 페이스북으로 로그인 요청을 보내고 결과값을 callback url로 보내준다.<br>callback url을 처리하는 라우터는 로그인이 성공할 경우 인덱스 페이지로 리다이렉트 시켜주고 실패할 경우에는 다시 로그인 페이지로 리다이렉트 시켜준다.<br>앵귤러의 경우 특정 페이지에 리다이렉트 되면 컴포넌트가 생성되는 시점에서 query의 뒷부분에 붙은 email 과 jwt를 가지고 jwt는 저장하고 email로 유저의 정보를 받아와 클라이언트에서 사용한다.</p>
-<p>/auth/facebook/callback은 페이스북이 검증을 마치고 난 결과를 전송해주는 주소이다.</p>
-<h2><span id="서버의-로그인-함수-작성">서버의 로그인 함수 작성</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function loginByThirdparty(info, done) &#123;</span><br><span class="line">  console.log(&apos;process : &apos; + info.auth_type);</span><br><span class="line">  var stmt_duplicated = &apos;select *from `user` where `user_id` = ?&apos;;</span><br><span class="line">  connection.query(stmt_duplicated, info.auth_id, function (err, result) &#123;</span><br><span class="line">    if (err) &#123;</span><br><span class="line">      return done(err);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      if (result.length === 0) &#123;</span><br><span class="line">        // 신규 유저는 회원 가입 이후 로그인 처리</span><br><span class="line">        var stmt_thridparty_signup = &apos;insert into `user` set `user_id`= ?, `nickname`= ?&apos;;</span><br><span class="line">        connection.query(stmt_thridparty_signup, [info.auth_id, info.auth_name], function (err, result) &#123;</span><br><span class="line">          if(err)&#123;</span><br><span class="line">            return done(err);</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            done(null, &#123;</span><br><span class="line">              &apos;user_id&apos;: info.auth_id,</span><br><span class="line">              &apos;nickname&apos;: info.auth_name</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        //기존유저 로그인 처리</span><br><span class="line">        console.log(&apos;Old User&apos;);</span><br><span class="line">        done(null, &#123;</span><br><span class="line">          &apos;user_id&apos;: result[0].user_id,</span><br><span class="line">          &apos;nickname&apos;: result[0].nickname</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>auth.id 기반으로 신규 회원인지 기존 회원인지 판단한다.<br>신규 회원일 경우에는 user 테이블에 회원 정보를 저장 시키고 로그인 처리를 진행하고, 기존 유저일 경우에는 쿼리로 조회한 회원정보를 기반으로 로그인 처리를 진행합니다.<br>간단하게 말씀드리면 신규회원이든 기존 회원이든 원클릭으로 회원 가입 절차를 진행하게 할 수 있습니다.</p>
 
                         
     </div>
