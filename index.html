@@ -91,6 +91,54 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/14/getting-started-with-iost/" itemprop="url">
+                Getting started with IOST
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-14T00:51:23.000Z" itemprop="datePublished">
+                10 minutes ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/iost/">iost</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 164 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h3><span id="deployment-of-full-node">Deployment of full node</span></h3><p>스크립트로 설치하기</p>
+<p>아래처럼 환경변수를 사용자의 기호에 따라 설정할 수 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/iost-official/go-iost/master/script/boot.sh | PREFIX=/data/iserver bash</span><br></pre></td></tr></table></figure>
+<p>위 스크립트를 실행하면 필요한 도커 이미지를 받아오고 아래 커맨드로 도커 이미지를 실행시킨다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># start</span></span></span><br><span class="line">docker start iserver</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># stop</span></span></span><br><span class="line">docker stop iserver</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># restart</span></span></span><br><span class="line">docker restart iserver</span><br></pre></td></tr></table></figure>
+<h3><span id="checking-node">Checking node</span></h3><p>로그는 <code>$PREFIX/logs/iost.log</code> 에 기록되며 도커 컨테이너 로그 확인을 다음과 같이 수행 할 수 도 있다. <code>docker logs -f isserver</code> </p>
+<p>블록체인 데이터는 <code>$PREFIX/storage</code> 에 저장된다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/05/06/getting-started-with-aws-lambda/" itemprop="url">
                 Getting started with AWS lambda
             </a>
@@ -99,7 +147,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-06T07:17:56.000Z" itemprop="datePublished">
-                7 hours ago
+                8 days ago
             </time>
         </span>
         
@@ -164,7 +212,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-03T09:30:43.000Z" itemprop="datePublished">
-                3 days ago
+                11 days ago
             </time>
         </span>
         
@@ -238,7 +286,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
-                4 days ago
+                12 days ago
             </time>
         </span>
         
@@ -287,7 +335,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                16 days ago
+                24 days ago
             </time>
         </span>
         
@@ -444,7 +492,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T12:40:05.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -503,7 +551,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T12:00:56.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -552,7 +600,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T02:14:34.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -594,7 +642,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -646,52 +694,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/27/getting-started-with-pyqt/" itemprop="url">
-                Getting started with PyQt
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-26T23:34:19.000Z" itemprop="datePublished">
-                a month ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/python/">python</a><span>></span><a class="article-category-link" href="/categories/python/pyqt/">pyqt</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 131 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="what-is-pyqt">What is PyQt?</span></h2><p>Qt 란 GUI 크로스 플랫폼 프레임워크로 운영체제에 관계없이 같은 코드로 동작하는 프레임워크이다.</p>
-<p>PyQt 는 이러한 Qt 프레임워크의 python 바인딩이다.</p>
-<p>Qt Designer 는 WYSIWYG(What You See Is What You Get) 방식의 간편한 디자인 툴도 제공한다.</p>
-<h3><span id="basic-usage">Basic Usage</span></h3><p>QApplication.exec() 은 qt 어플리케이션을 시작하고 event loop 에 진입시킨다.</p>
-<h3><span id="ocx">OCX</span></h3><p>Object linking and embedding Custom Control 의 약어로 모듈화된 파일이다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -709,7 +711,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        <li><a class="pagination-link" href="/page/22/">22</a></li>
         
     </ul>
 </nav>

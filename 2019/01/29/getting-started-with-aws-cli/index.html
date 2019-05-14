@@ -101,16 +101,16 @@
                     <span class="column is-narrow">
                         
                             
-                                6 minutes read (About 843 words)
+                                6 minutes read (About 845 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <p>AWS 에는 수많은 기능이 있고, 이를 실제 웹사이트에서 console 을 통해 제어하는 것은 개발자에게 매우 비효율적인 일이 아닐 수 없다. AWS 는 이렇게 사용자의 컴퓨터에서 AWS 상의 많은 기능을 제어하기 위해 AWS CLI 프로그램을 제공하며, 본 포스트에서는 AWS CLI 의 기본적인 사용법을 알아보고자 한다.</p>
-<h3><span id="installation">Installation</span></h3><p>Mac OS 에서는 다음과 같이 pip 명령어를 통해 aws cli 를 쉽게 설치할 수 있다.</p>
+<h2><span id="installation">Installation</span></h2><h3><span id="mac">Mac</span></h3><p>Mac OS 에서는 다음과 같이 pip 명령어를 통해 aws cli 를 쉽게 설치할 수 있다.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install awscli</span><br></pre></td></tr></table></figure>
-<h2><span id="authentication">Authentication</span></h2><p>AWS 는 현재 cli 프로그램을 사용하는 내가 어떤 유저인지 모르기 때문에 이를 AWS 에게 알려주어야 하며, 그것이 authentication 자체이다.</p>
+<h3><span id="ubuntu">Ubuntu</span></h3><h2><span id="authentication">Authentication</span></h2><p>AWS 는 현재 cli 프로그램을 사용하는 내가 어떤 유저인지 모르기 때문에 이를 AWS 에게 알려주어야 하며, 그것이 authentication 자체이다.</p>
 <p>사용자의 PC에는 여러 AWS 유저들에 대한 정보를 저장할 수 있는데, AWS 는 매우 복잡한 유저 관리 체계를 가지기 때문에 이는 매우 필요한 일이다.(가령 특정 AWS 서비스의 조작을 위한 별도 Program user 를 생성하는 경우 여러 개발자가 하나의 계정을 공유하여 사용하는 것은 매우 빈번한 일이다.)</p>
 <p><strong>Command 를 입력할 때 특정 사용자임을 밝히기</strong></p>
 <p>아래 명령어를 통해 aws access key 와 secret key 를 등록하고 사용할 수 있다.</p>
@@ -127,7 +127,7 @@
 <p>때문에, 만료시간이 있기때문에 매번 재발급받아야하는데 AWS에서는 이를 각자 Cron Tab등으로 만들어서 사용하는 것을 권장한다.</p>
 <p>다음과 같이 credential 에 등록하여 사용하면 된다.</p>
 <p>~/.aws/credential</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = ~</span><br><span class="line">AWS_SECRET_ACCESS_KEY = ~</span><br><span class="line">AWS_SESSION_TOKEN = ~</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[profile name]</span><br><span class="line">AWS_ACCESS_KEY_ID = &lt;aws_access_key_id&gt;</span><br><span class="line">AWS_SECRET_ACCESS_KEY = &lt;aws_secret_access_key&gt;</span><br><span class="line">AWS_SESSION_TOKEN = &lt;asw_session_token&gt;</span><br></pre></td></tr></table></figure>
 <h2><span id="configuration">Configuration</span></h2><p>AWS 사용자 및 기타 전역 설정에 대한 정보는 /.aws 의 config 파일에 저장되어 있다.</p>
 <p>해당 파일을 열어보면 다음과 같이 세팅되어 있다.</p>
 <p>config</p>

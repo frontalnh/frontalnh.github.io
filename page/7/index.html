@@ -91,6 +91,124 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/06/30/it-chain01/" itemprop="url">
+                it-chain 01
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-30T09:20:30.000Z" itemprop="datePublished">
+                10 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                22 minutes read (About 3347 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="opensource-blockchain-engine-it-chain-01-peer-to-peer-network">[ Opensource Blockchain Engine, IT-CHAIN] 01. Peer To Peer Network</span></h1><p>현재 블록체인 기술은 가장 빠르게 확산되고 있는 유망한 기술 중 하나이며, Bitcoin, Ethereum, EOS 등 수많은 외산 블록체인 엔진들이 입지를 굳혀가는 가운데 국내에서도 블록체인 코어 기술을 위한 많은 연구가 진행이 되고 있습니다. </p>
+<p>이번 글에서는 수많은 블록체인 엔진들 중에서도 Lightweight Customizable Chain을 목표로 활발하게 개발이 진행중인 <strong>국내 오픈소스 블록체인 엔진인 IT-CHAIN</strong>에 대해 살펴보고자 합니다.</p>
+<p>본 포스트는 연재 형식으로 IT-CHAIN의 핵심적인 component인 p2p, consensus, blockchain, authentication, txpool, iCode 를 다루는 총 4~6편의 포스트로 이루어 질 예정이며, 오늘은 it-chain의 전체적인 구조와 더불어 그 첫번째 component 인 p2p component에 대한 소개를 하고자 합니다.</p>
+<h2><span id="what-is-it-chain">What is it-chain?</span></h2><p>많은 블록체인 엔진들 중에서 it-chain을 소개하게 된 계기는 무엇보다 구조적으로 매우 직관적이고 이해하기 쉽게 설계되어 있기 때문입니다. 가령, ethereum과 hyperledger처럼 당장 상용화를 목적으로 개발이 진행중인 엔진들은 실용적 문제들에 봉착하여 다양한 기법과 최신 기술을 도입하여 코드를 당장 이해하기 어려움이 있기에 블록체인을 처음 접하는 사람들의 경우 전체 코드를 한눈에 이해하는 것은 매우 어려운 일이 아닐 수 없습니다. 하지만, it-chain은 전체 설계 및 핵심적인 컴포넌트들이 비교적 상세하게 문서화가 되어 있고, 블록체인의 핵심이 되는 기본적인 기능만을 구현하였기 때문에, 블록체인 엔진이 움직이는 큰 그림을 보다 직관적이고 쉽게 이해할 수 있는 장점이 있습니다.  만약 블록체인 엔진 개발에 관심이 있는 엔지니어라면 그 시작으로 it-chain 의 구현을 살펴보는 것을 추천합니다. (it-chain의 github 주소, <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a>)</p>
+<p>it-chain이 지향하는 바는 블록체인을 개발하는 누구든지 쉽고 가볍게 커스터마이징이 가능한 엔진을 만드는 것 입니다. 만약 누군가가 ethereum의 코드를 가져다가 자신만의 블록체인 엔진을 만든다고 한다면 그것은 매우 어려운 일일 것 입니다. 합의 알고리즘 하나를 변경하더도 관련된 모든 코드에 대한 이해가 필요하며 얼기설기 얽혀있는 수많은 코드들을 재정리 해야 합니다. 하지만, it-chain 은 event-sourcing을 기반으로 모든 동작이 event를 기반으로 이루어 지기에 다른 구성요소들의 동작에 구애받지 않고 원하는 파트만 손쉽게 변형하여 자신만의 engine을 만들 수 있습니다.</p>
+<h2><span id="it-chain의-전체-구조">it-chain의 전체 구조</span></h2><p> <code>it-chain</code>은 6개의 독립적으로 동작하는 핵심 컴포넌트들로 구현되며, 각각은 AMQP(Asynchronous Message Queue Protocol) 를 통해 커뮤니케이션을 합니다. AMQP는 이벤트 버스로서 각 컴포넌트들에서 일어난 모든 일들은 이벤트 형태로 전파되어 다른 컴포넌트들이 해당 이벤트에 맞는 동작을 수행함으로써 전체 기능이 동작하는 방식입니다.</p>
+<p>다음은 it-chain의 각 컴포넌트의 간단한 역할을 보여줍니다.</p>
+<ul>
+<li>TxPool 컴포넌트: 트랜잭션을 임시로 저장하고 관리하는 컴포넌트로, 합의되어 블록에 저장되지 않은 트랜잭션들을 모아둡니다.</li>
+<li>Consensus 컴포넌트: 합의를 담당하는 컴포넌트이며, 현재는 PBFT(Practical Byzantine Fault Tolerance) 알고리즘을 따릅니다.</li>
+<li>BlockChain 컴포넌트: 블록을 생성하고 관리하는 컴포넌트입니다.</li>
+<li>P2P 컴포넌트: 네트워크의 참여하는 Peer들을 찾고, 유지하는 컴포넌트입니다.</li>
+<li>Auth 컴포넌트: 각종 인증을 담당합니다.</li>
+<li>iCode 컴포넌트: it-chain의 스마트 컨트랙트인 iCode 관련 기능을 담당합니다.</li>
+</ul>
+<h2><span id="it-chain의-peer-to-peer-네트워크">It-chain의 Peer to Peer 네트워크</span></h2><p>이번 포스트에서는 it-chain에서 여러 노드들 사이의 네트워크 정보를 동기화하고 커넥션을 관리하는 p2p component와 노드 사이의 합의를 이루는 consensus 컴포넌트에 대해 알아보고자 합니다.</p>
+<p>먼저, P2p 컴포넌트가 하는 일은 다음과 같습니다.</p>
+<ul>
+<li>블록체인 네트워크 내의 다른 노드들의 존재를 인지하고 저장합니다.</li>
+<li>네트워크 내의 노드들 사이의 connection정보와 ip 주소 정보를 <strong>Peer</strong> 라는 이름으로 저장하고 여러 <strong>Peer</strong> 들의 집합인 <strong>PeerTable</strong> 을 형성합니다.</li>
+<li>모든 노드들이 네트워크 내의 모든 노드들에 대한 정보인 <strong>PeerTable</strong> 을 공유하고 동기화 합니다.</li>
+</ul>
+<p>예를 들어 현재 블록체인 네트워크가 A, B, C 노드로 이루어져있다고 가정해 봅시다.</p>
+<p>여기서 D라는 새로운 노드가 A라는 노드에게 접속을 요청을 하게 된다면 D 노드는 A 노드의 정보만을 알고 있게 될 것이며, 마찬가지로 B, C 노드도 D노드에 대한 정보를 알지 못할 것입니다.</p>
+<p>하지만 private 블록체인에서는 모든 노드들이 계속해서 서로 통신을 위해 연결되어 있어야 하기 때문에 새롭게 연결된 노드의 정보를 다른 노드들에게 전파해 주어야 하며 각 노드들은 전체 네트워크에 대한 일관된 정보를 공유해야 합니다.</p>
+<p><strong>네트워크 정보는 어떻게 저장되나요?</strong></p>
+<p>p2p 컴포넌트 내의 연결 정보는 <strong>Peer</strong> 라는 이름으로 저장이 되며, 그 안에는 특정 노드와의 연결에 대한 고유값인 <strong>connectionId</strong>와 상대 노드의 <strong>ip 주소</strong> 를 저장합니다.</p>
+<p>가령 A, B, C 노드로 구성된 네트워크가 있다면 A 노드는 B, C 노드와 연결됨에 따른 고유한 connection과 B, C 노드의 ip 주소를 <strong>Peer A, Peer B</strong> 라는 이름으로 저장하며 모든 노드는 이러한 peer들의 정보를 peer 들의 정보의 집합인 <strong>PeerTable</strong> 에 저장합니다.</p>
+<p><strong>네트워크 정보는 어떻게 공유되나요?</strong></p>
+<p>블록체인 네트워크에 새로운 노드가 접속하는 것은 네트워크 내의 특정 노드에게 연결을 요청하는 것에서 시작됩니다.</p>
+<p>노드 A, B, C 로 구성된 네트워크에서 D라는 노드가 접속되는 상황을 가정해 봅시다.</p>
+<p>노드 D는 A, B, C 노드 중 임의의 노드인 A 노드에게 연결을 요청하고 만약 연결이 이루어 진다면 노드 D의 정보는 노드 A의 <strong>PeerTable</strong> 에 저장되고, 노드 A 는 새롭게 바뀐 <strong>PeerTable</strong> 을 노드 D에게 전달해 줍니다. </p>
+<p>노드 D는 A에게 받은 PeerTable을 살펴보고 아직 자신이 연결하지 않은 노드인 B와 C 노드에 대해 알게되고 해당 노드의 ip 주소로 연결을 요청하게 됩니다.</p>
+<p>B, C 노드가 새로 접근한 노드인 D 노드에게 연결을 요청받고 승인하는 것으로 네트워크 내의 모든 노드는 새로 접근한 노드인 D 노드와 연결이 이루어지게 됩니다.</p>
+<h2><span id="it-chain의-consensus-컴포넌트">It-chain의 Consensus 컴포넌트</span></h2><p>블록체인에서 핵심은 바로 consensus 입니다.</p>
+<p>consensus 컴포넌트는 특정 블록을 생성하기 위해 다른 노드들에게 해당 블록을 생성해도 되는지 검증을 요구하고 네트워크 구성원들의 합의가 이루어지면 새로운 블록을 생성합니다.</p>
+<p>It-chain 에서 이러한 합의 알고리즘은 설정을 통해 간편하게 교체할 수 있으며 기본적으로 pbft 알고리즘에 따라 합의가 이루어 지게 됩니다.</p>
+<h3><span id="pbft-합의-알고리즘">pbft 합의 알고리즘</span></h3><p><img src="/Users/namhoonlee/Desktop/git/blog/source/images/consensus-PBFT.png" alt="consensus-PBFT"></p>
+<p>기본적인 PBFT 알고리즘은 다음과 같은 순서로 이루어지게 됩니다.</p>
+<ol>
+<li>클라이언트가 네트워크 구성원에게 어떤 합의문에 대해 합의할 것을 요청합니다.</li>
+<li>합의 요청을 받은 노드들 중 리더 노드는 네트워크 내의 모든 구성원에게 특정 합의에 대한 합의를 시작할 것을 알리는 <strong>preprepare message</strong> 를 전달합니다. </li>
+<li><strong>preprepare message</strong> 를 전달받은 모든 노드는 다시 모든 노드에게 <strong>prepare message</strong> 를 전달합니다.</li>
+<li>전체 네트워크 구성원들 중 정족수(2/3) 이상의 노드에게 받은 <strong>preparemessage</strong> 인 <strong>commit message</strong> 를 모든 노드들에게 전달합니다.</li>
+<li>위 과정이 끝나면 모든 노드들은 정족수이상이 합의한 결과를 가지게 됩니다.</li>
+</ol>
+<p><strong>하지만 It-chain 에서는 오직 리더만이 새롭게 생성될 블록을 제안하고 실제로 생성할 수 있으므로 위 과정에서 클라이언트 및 요청 응답이 존재하지 않습니다.</strong></p>
+<h2><span id="it-chain에서-pbft-알고리즘의-구현">It-chain에서 pbft 알고리즘의 구현</span></h2><p>It-chain에서는 위와 같은 pfft 알고리즘 구현을 위해 다음과 같은 몇가지 개념을 도입합니다.</p>
+<ul>
+<li>Parliament: 의회, 즉, 합의에 참여할 노드들의 집합을 의미합니다.</li>
+<li>Representative: 대표자, 즉 합의에 참여할 실제 노드 구성원을 의미합니다.</li>
+<li>Leader: 의장, 즉 의회 구성원의 대표인 리더를 의미합니다.</li>
+</ul>
+<p>pbft의 목적은 어디까지나 합의하고자 하는 블록에 대한 합의이기에 다음과 같은 과정에 따라 pbft 기반의 합의 알고리즘이 동작됩니다.</p>
+<ol>
+<li>리더 노드의 consensus 컴포넌트가 블록 생성을 담당하는 blockchain 컴포넌트로 부터 합의하고자 하는 블록을 제안받습니다.</li>
+<li>리더 노드는 해당 블록에 대한 합의를 진행하기 위해 현재 네트워크를 구성하고 있는 정보를 담고 있는 <strong>PeerTable</strong> 에서 전부 혹은 부분적인 노드를 선출하여 <strong>Parliament</strong> 를 구성합니다.</li>
+<li>리더 노드가 <strong>Parliament</strong> 에 속한 모든 <strong>Representative</strong> 들에게 <strong>preprepare message</strong> 를 전달합니다.</li>
+<li><strong>preprepare message</strong> 를 받은 모든 <strong>representative</strong> 들은 받은 정보를 통해 각자의 <strong>Parliament</strong> 를 구축하고 다른 <strong>Representative</strong> 들에게 <strong>prepare message</strong> 를 전달합니다.</li>
+<li>각 <strong>Representative</strong> 들은 정족수 이상의 prepare 메세지를 받기 까지 받은 모든 <strong>prepare message</strong> 를 <strong>prepare message pool</strong> 에 저장하고 정족수 이상이 넘으면 <strong>commit message</strong> 를 전파합니다.</li>
+<li>전체 의회 구성원의 1/3 이상에게 commit message를 받은 각 <strong>Representative</strong> 들은 <strong>Commit message</strong> 내의 <strong>Proposed Block</strong> 에 대한 승인을 하는 이벤트를 발생시키고 블록체인 컴포넌트는 해당 블록에 대한 검증을 시작합니다.<br><strong>Proposed Block</strong> 이 confirm 되기 까지 <strong>Commit message</strong> 들은 <strong>Commit message pool</strong> 에 저장됩니다.</li>
+</ol>
+<h2><span id="it-chain에서-리더의-선출">It-chain에서 리더의 선출</span></h2><p>it-chain 에서의 리더 선출은 <strong>RAFT</strong> 라는 알고리즘을 통해 진행되며 consensus 컴포넌트에 구현되어 있습니다.</p>
+<p>다음은 RAFT 알고리즘의 간단한 프로세스입니다.</p>
+<ol>
+<li>리더가 사라지면 노드는 의회를 구성합니다.</li>
+<li>150ms ~ 300ms 사이의 랜덤 값으로 모든 노드가 타이머를 동작시킵니다.</li>
+<li>노드의 타이머가 다 되면 그 노드는 자신의 상태를 <strong>Candidate</strong> 으로 바꾸고  <code>RequestVoteProtocol</code>을 통해 의회 내의 다른 노드에게 투표 요청 message 를 전달합니다.</li>
+<li><code>RequestVoteProtocol</code> 로 메세지를 받은 노드는 아직 타이머가 다 되지 않은 경우 타이머를 리셋하고, 송신한 노드에게  <code>VoteLeaderProtocol</code>을 통해 메세지를 전달하여 리더로 투표합니다.</li>
+<li>만약 상태가 <strong>CANDIDATE</strong> 인 노드가<code>VoteLeaderProtocol</code>를 통해 다른 모든 노드에게 투표 메세지를 받는다면 그 노드는 스스로 리더가 되고 다른 모든 노드들에게 리더가 됨을 선포합니다.</li>
+</ol>
+<p>위와 같은 과정을 통해 물리적으로 떨어져 있는 여러 개의 노드들이 서로 합의를 이루고 리더를 선출 할 수 있게 됩니다.</p>
+<p>이번 포스트에서는 국내 블록체인 엔진인 it-chain 의 p2p network 와 consensus 알고리즘, 그리고 리더 선출에 대해 알아보았습니다.</p>
+<p>다음 포스트에서는 it-chain에서 블록을 합의하는 컴포넌트인 Blockchain 컴포넌트에 대해 알아보겠습니다.</p>
+<ul>
+<li>LNH</li>
+</ul>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/06/14/z_어떻게-원하는-바를-얻어낼-것인가-설득의-마법/" itemprop="url">
                 어떻게 원하는 바를 얻어낼 것인가, 설득의 마법
             </a>
@@ -525,58 +643,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/22/나만의-발자국을-남겨라/" itemprop="url">
-                나만의 발자국을 남겨라
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-21T23:36:42.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 766 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <p>나는 벤저민 프랭클린을 참 좋아한다.</p>
-<p>철저한 자기관리와 건국의 아버지로 알려진 프랭클린, 나는 그의 자기 관리를 위한 노력이나 훌륭한 일을 하려 하는 긍지보다 다른 부분에 집중하고자 한다.</p>
-<p>그것은 바로 그는 변치않는 신념과 스스로에 대한 믿음으로 묵묵히 자신의 길을 걸었다는 것이다.</p>
-<p>주변의 시선과 자신이 처한 환경, 미래에 대한 불안에 대해 그는 거의 언급하지 않았다.</p>
-<p>그저 자신이 처한 환경에서 조금 더 나아질 수 있는 방법을 찾았고, 끊임없이 내가 필요하고 더 나은 사람이 되기위해 정진해 나갔다.</p>
-<p>인생을 살아가는 정도라는 것이 무의미해 지고, 한치앞을 내다 볼 수 없는 오늘의 사회에는 더욱더 가장 본받아야 할 점이 아닌가 생각된다.</p>
-<p>흔히 인생을 살아나가는 것은 눈덮힌 산을 오르는 것에 비유된다.</p>
-<p>가장 연륜있고, 실력있는 선구자는 우리를 앞서 오르고 대부분의 우리는 선구자가 남긴 발자국을 따라 오르며 끊임없이 내가 올바른 발걸음을 디뎠는지 생각한다.</p>
-<p>내 눈앞의 수많은 발자국을 보며 어느 길이 가장 쉽고 효과적인 길인지를 가늠하려 하고, 내가 걸어온 발자국을 보며 산턱 언저리에서 후회와 불안에 이따금 뒤돌아 우두커니 서있는 것이다.</p>
-<p>하지만, 정말 산을 잘 오르는 사람들은 오로지 정상만을 바라보고 오를 뿐이다.</p>
-<p>우리 앞을 지나간 선구자는 물론 도움이 될 수 있지만, 그 사람이 어떤 상황에 있었는지 그때의 날씨는 어땠는지 우리는 알지 못하며, 가장 올바른 선택은 목적지에 시선을 던져두고 나를 믿고 신중하게 한걸음 한걸음을 옮기는 것인 것을 그들은 잘 아는 것이다.</p>
-<p>요즘 세상을 무한 경쟁사회라고 한다.</p>
-<p>주변을 달려가는 수많은 주자들을 바라보며 조바심을 느끼게 만드는 사회에서 많은 사람들이 고작 한치 앞에 있는 사람을 꽁무니 만을 쫓게도 되고, 한발작 뒤에 있는 주자들을 보며 가끔은 안도하기도 할 것이다.</p>
-<p>이 글을 쓰는 필자도 또 마음을 다잡고자 이런글을 쓰는지 모른다.</p>
-<p>오늘 하루도 앞서나가는 자에대한 조바심을 뒤따라 오는 자에 대한 오만함을 내려놓고 정상만을 바라보며 누구의 발자국도 아닌 나의 발자국을 남길 수 있는 하루, 내면의 단단함이 더해지는 하루가 되기를 바란다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -600,7 +666,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        <li><a class="pagination-link" href="/page/22/">22</a></li>
         
     </ul>
 </nav>

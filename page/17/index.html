@@ -91,6 +91,55 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/12/16/Angular-hmr-적용하기/" itemprop="url">
+                Angular hmr 적용하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-16T12:20:02.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 339 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="hmr-이란">hmr 이란?</span></h2><p>Hot Module Replacement의 약자로 모듈의 변경사항을 실시간으로 어플리케이션에 반영한다.</p>
+<h2><span id="angular에-environment-추가하기">angular에 environment 추가하기</span></h2><p><strong><em>environment.hmr.ts 파일 만들기</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export const environment = &#123;</span><br><span class="line"> production: false,</span><br><span class="line"> hmr: true</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>src/environments/environment.prod.ts 수정하기</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export const environment = &#123;</span><br><span class="line"> production: true,</span><br><span class="line"> hmr: false</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>src/environments/environment.ts 수정하기</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export const environment = &#123;</span><br><span class="line"> production: false,</span><br><span class="line"> hmr: false</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="angular-clijson-수정하기">angular-cli.json 수정하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;environmentSource&quot;: &quot;environments/environment.ts&quot;,</span><br><span class="line">&quot;environments&quot;: &#123;</span><br><span class="line">  &quot;dev&quot;: &quot;environments/environment.ts&quot;,</span><br><span class="line">  &quot;hmr&quot;: &quot;environments/environment.hmr.ts&quot;,</span><br><span class="line">  &quot;prod&quot;: &quot;environments/environment.prod.ts&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2><span id="packagejson-수정하기">package.json 수정하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;start&quot;: &quot;ng serve&quot;,</span><br><span class="line">  &quot;hmr&quot;: &quot;ng serve --hmr -e=hmr&quot;,</span><br><span class="line">  &quot;lint&quot;: &quot;tslint \&quot;src/**/*.ts\&quot;&quot;,</span><br><span class="line">  &quot;test&quot;: &quot;ng test&quot;,</span><br><span class="line">  &quot;pree2e&quot;: &quot;webdriver-manager update&quot;,</span><br><span class="line">  &quot;e2e&quot;: &quot;protractor&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>npm run hmr 명령어를 통해 environment를 적용할 수 있다.</p>
+<h2><span id="hmr-모듈-import-하기">hmr 모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @angularclass/hmr</span><br></pre></td></tr></table></figure>
+<h2><span id="srchmrts-생성하기">src/hmr.ts 생성하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModuleRef, ApplicationRef &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; createNewHosts &#125; from &apos;@angularclass/hmr&apos;;</span><br><span class="line"></span><br><span class="line">export const hmrBootstrap = (module: any, bootstrap: () =&gt; Promise&lt;NgModuleRef&lt;any&gt;&gt;) =&gt; &#123;</span><br><span class="line">  let ngModule: NgModuleRef&lt;any&gt;;</span><br><span class="line">  module.hot.accept();</span><br><span class="line">  bootstrap().then(mod =&gt; ngModule = mod);</span><br><span class="line">  module.hot.dispose(() =&gt; &#123;</span><br><span class="line">    const appRef: ApplicationRef = ngModule.injector.get(ApplicationRef);</span><br><span class="line">    const elements = appRef.components.map(c =&gt; c.location.nativeElement);</span><br><span class="line">    const makeVisible = createNewHosts(elements);</span><br><span class="line">    ngModule.destroy();</span><br><span class="line">    makeVisible();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2><span id="srcmaints-수정하기">src/main.ts 수정하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import &#123; enableProdMode &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; platformBrowserDynamic &#125; from &apos;@angular/platform-browser-dynamic&apos;;</span><br><span class="line"></span><br><span class="line">import &#123; AppModule &#125; from &apos;./app/app.module&apos;;</span><br><span class="line">import &#123; environment &#125; from &apos;./environments/environment&apos;;</span><br><span class="line"></span><br><span class="line">import &#123; hmrBootstrap &#125; from &apos;./hmr&apos;;</span><br><span class="line"></span><br><span class="line">if (environment.production) &#123;</span><br><span class="line">  enableProdMode();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const bootstrap = () =&gt; platformBrowserDynamic().bootstrapModule(AppModule);</span><br><span class="line"></span><br><span class="line">if (environment.hmr) &#123;</span><br><span class="line">  if (module[ &apos;hot&apos; ]) &#123;</span><br><span class="line">    hmrBootstrap(module, bootstrap);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    console.error(&apos;HMR is not enabled for webpack-dev-server!&apos;);</span><br><span class="line">    console.log(&apos;Are you using the --hmr flag for ng serve?&apos;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  bootstrap();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="새로운-환경-반영하기">새로운 환경 반영하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run hmr</span><br></pre></td></tr></table></figure>
+<p><a href="https://medium.com/@beeman/tutorial-enable-hmr-in-angular-cli-apps-1b0d13b80130" target="_blank" rel="noopener">출처</a></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/12/13/마케팅의-기본-개념/" itemprop="url">
                 마케팅 강의 01. 마케팅의 기본 개념
             </a>
@@ -643,42 +692,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/04/Angular-에러-처리/" itemprop="url">
-                Angular 에러 처리
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-04T12:46:09.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 0 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -702,7 +715,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        <li><a class="pagination-link" href="/page/22/">22</a></li>
         
     </ul>
 </nav>

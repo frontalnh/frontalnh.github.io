@@ -91,6 +91,87 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/01/17/12-factor-app-시작하기/" itemprop="url">
+                12 factor app 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-17T07:41:27.000Z" itemprop="datePublished">
+                4 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1360 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#1-codebase">1. codebase</a><ul>
+<li><a href="#introduction-of-git-flow">Introduction of git flow</a></li>
+<li><a href="#start-programming-with-a-feature-branch">Start programming with a feature branch</a></li>
+<li><a href="#release-version">release version</a></li>
+<li><a href="#hotfix">hotfix</a></li>
+</ul>
+</li>
+<li><a href="#2-dependencies">2. Dependencies</a></li>
+<li><a href="#3-configuration">3. Configuration</a></li>
+<li><a href="#4-backing-services">4. Backing services</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="1-codebase">1. codebase</span></h2><p>모든 어플리케이션 코드는 version control system 을 통해 하나로 관리되어야 한다.</p>
+<p>가령 여러개의 루트 repository 가 있다면 이것은 앱이 아니라 하나의 분산 시스템에 가까울 것이다.</p>
+<p>하나의 코드베이스에서 여러개의 배포를 진행할 수 있고, 각 배포버전별로 코드 버전이 관리된다면 훌륭할 것이다.</p>
+<h4><span id="introduction-of-git-flow">Introduction of git flow</span></h4><p>일반적인 프로젝트에서 이러한 버전관리는 훌륭한 버전관리 툴인 git 을 사용해서 진행하며 git flow 는 훌륭한 워크플로우를 제공한다.</p>
+<p>install git flow on Mac</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install git-flow</span><br></pre></td></tr></table></figure>
+<p>start git flow project</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git flow init</span><br></pre></td></tr></table></figure>
+<p>다음은 git flow 에서 브랜치의 종류와 그 역할에 대해 알려준다.</p>
+<p><strong>master branch</strong> 는 실제 공식 배포버전을 관리하며 일반적으로 production deploy 버전을 관리한다.</p>
+<p><strong>feature branch</strong> 는 실제 각 개발자들이 작업을 하는 브랜치이며, 이는 <code>develop</code> 브랜치에서 갈라져 나오고 추후 다시 <code>develop</code> 브랜치로 병합된다.</p>
+<p><strong>develop</strong> 브랜치는 각 개발자들이 작업한 브랜치들이 머지되는 장소이며 모든 커밋의 내용이 기록된다.</p>
+<p><strong>release branch</strong> 는 develop 브랜치로 부터 당겨져오며 여기에서는 오직 버그 수정이나 혹은 documentation 수정 등 release 와 관련된 작업들만 수행된다. 이를 통해 특정 팀에서 해당 release 버전으로 테스트 혹은 출시준비과정을 진행하는 동안 다른 브랜치에서 작업을 수행하며, 다음 release 전까지 해결될 사항들을 정리할 수 있다. 해당 브랜치는 develop 으로부터 갈라져 나온다. <code>만약 코드리뷰를 한다면 해당 브랜치에서 하는 것이 가장 깔끔해 보인다.</code></p>
+<p><strong>hotfix branch</strong> hotfix 브랜치는 바로 master branch 에서 갈라져 나와 빠른 버그 수정 등을 수행하는 branch 이며, 버그가 수정되면 재빨리 다시 master 브랜치로 머지되어야 한다. <code>이 브랜치는 master 브랜치로부터 갈라져 나오는 유일한 브랜치이다.</code></p>
+<h4><span id="start-programming-with-a-feature-branch">Start programming with a feature branch</span></h4><p>아래 명령어로 새로운 develop 브랜치로 부터 feature 브랜치를 만들어서 갈라져 나온다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 로컬에 새 브랜치 생성</span></span><br><span class="line">git flow feature start branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 리모트 브랜치에 배포</span></span><br><span class="line">git flow feature publish branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 새로운 내용을 커밋</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"content"</span></span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line"><span class="comment"># 머지를 요청하기 전에 반드시 리베이스를 받는다</span></span><br><span class="line">git pull -r origin develop</span><br><span class="line"></span><br><span class="line"><span class="comment"># feature 브랜치 머지</span></span><br><span class="line">git feature finish branch_name</span><br></pre></td></tr></table></figure>
+<h4><span id="release-version">release version</span></h4><p>새로운 버전을 출시하기 위한 git flow 코드는 다음과 같다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from develop branch</span></span><br><span class="line">git flow release start 0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># from release branch</span></span><br><span class="line">git flow release finish 0.0.1</span><br></pre></td></tr></table></figure>
+<h4><span id="hotfix">hotfix</span></h4><p>공식 배포 버전에서 빠른 버그 수정을 위한 hotfix 브랜치에서 작업을 하는 과정은 다음과 같다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git flow hotfix start hotfix_branch</span><br><span class="line">git flow hotfix finish hotfix_branch</span><br></pre></td></tr></table></figure>
+<h2><span id="2-dependencies">2. Dependencies</span></h2><p>어플리케이션을 작성함에 있어 다양한 외부 라이브러리들에 의존하게 된다.</p>
+<p>특히 각 언어별로 존재하는 패키지 매니저를 사용한다면 글로벌하게 설치되는 패키지도 있고 내부적으로 설치되는 패키지도 있는데 이처럼 글로벌하게 설치되는 패키지의 경우 시스템 환경에 어플리케이션이 의존하게 되는 문제가 있다.</p>
+<p>12 factor app 에서는 이러한 시스템 환경에 전혀 의존하지 않는 프로그램을 작성함을 원칙으로 한다.</p>
+<p>가령 node.js 환경에서 어플리케이션을 개발하는 경우 npm 패키지를 설치함에 있어 package.json 이라는 패키지 관리 documentation 을 하게 된다. 이처럼 의존하는 dependency 를 명확하게 명시하여서 다른 시스템 환경에서도 바로 빌드가 되어 오류없이 프로그램이 실행하도록 한다.</p>
+<h2><span id="3-configuration">3. Configuration</span></h2><p>대부분의 경우 어플리케이션은 배포할때마다 다른 configuration 이 필요하게 된다.</p>
+<p>가령 develop server 의 경우 develop database 에 연결되어야 하고, production server의 경우 production database에 연결되어야 하는 것처럼 어플리케이션의 소스코드와는 달리 이러한 설정 값들은 배포마다 달라지게 된다.</p>
+<p>때문에, 12 factor app 에서는 이러한 설정값을 코드베이스에 포함시키는 것을 엄격하게 금지하고 있으며, 이러한 모든 설정들을 environment variable 에 저장하는 것을 추천한다.</p>
+<p>이러한 env variable 들은 여러 deployment setting 에 대해 혼합된 정보를 절대 가지지 않으며 각 배포환경마다 독립되게 존재하여야 한다.</p>
+<h2><span id="4-backing-services">4. Backing services</span></h2><p>가령 이메일 서버나 혹은 데이터 베이스와 같이 어플리케이션이 동작하는데 필요한 부수적인 다른 서비스들을 backing service 라고 부른다.</p>
+<p>이러한 backing service 들은 언제나 장애가 생길 수 있으므로 12 factor app 에서는 그 어떤 코드의 변경 없이 백업으로 준비된 backing service 에 붙을 부 있어야 한다.</p>
+<p><a href="https://12factor.net/" target="_blank" rel="noopener">참조 - 12 factor app</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/01/16/rabbitmq-시작하기/" itemprop="url">
                 rabbitmq 시작하기
             </a>
@@ -388,7 +469,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-11-28T14:32:30.000Z" itemprop="datePublished">
-                5 months ago
+                6 months ago
             </time>
         </span>
         
@@ -440,7 +521,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-11-27T00:04:22.000Z" itemprop="datePublished">
-                5 months ago
+                6 months ago
             </time>
         </span>
         
@@ -492,7 +573,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-11-22T14:47:05.000Z" itemprop="datePublished">
-                5 months ago
+                6 months ago
             </time>
         </span>
         
@@ -604,109 +685,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/11/10/두나무의-블록체인-개발-플랫폼-루니버스/" itemprop="url">
-                두나무의 블록체인 개발 플랫폼, 루니버스
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-11-10T07:18:39.000Z" itemprop="datePublished">
-                6 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                18 minutes read (About 2724 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="두나무의-블록체인-개발-플랫폼-루니버스">두나무의 블록체인 개발 플랫폼, 루니버스</span></h1><p>이번 포스트에서는 두나무의 블록체인 개발 플랫폼 루니버스에 대해 알아보고자 합니다.</p>
-<h2><span id="루니버스란">루니버스란?</span></h2><p>블록체인 기술에 대한 관심은 계속해서 증가하고 있지만, 블록체인의 특성상 메인넷을 구성하고 자체 코인을 발행하는 것은 상당한 기술력을 필요로 하고, 네트워크를 구축했다 하더라도 다른 블록체인 네트워크와 접점을 만들고 블록체인 플랫폼의 참여자를 만들어 나가는 것 또한 매우 어려운 일이기에, 국내에서 성공적으로 운영되고 있는 블록체인 서비스는 사실상 전무하다고 볼 수 있습니다.</p>
-<p>두나무의 루니버스란 이처럼 개발의 진입장벽이 높은 블록체인 기술의 장벽을 낮추고 개발자라면 누구나 쉽게 Decentralized Application을 만들 수 있도록 하겠다는 목표로 블록체인 서비스 개발 플랫폼인 ‘루니버스’ 의 출시를 준비하고 있습니다.</p>
-<p>루니버스는 마치 아마존의 클라우드 서버처럼 클릭 몇번으로 네트워크 상에 자체적인 블록체인 네트워크를 구축하도록 도와주며, 해당 블록체인 네트워크에 토큰을 발행하고 Dapp 을 올리는 등의 일련의 작업을 매우 쉽게 만들어주어 개발자들에게 인종의 블록체인 네트워크에 대한 쉽고 간편한 인터페이스를 제공해 줍니다.</p>
-<p>루니버스 플랫폼을 통해서 개발자는 간편한 REST API를 통해 블록체인 상의 대부분의 기능을 수행할 수 있게 되기에 오직 비즈니스 로직에만 집중하여 블록체인 서비스를 만들 수 있는 환경을 제공받습니다. 즉, 루니버스를 이용하면 블록체인 개발에 대한 전문 지식이 없어도 쉽게 컨소시엄 블록체인 네트워크를 구축하고 토큰을 발행, 운영할 수 있습니다.</p>
-<h2><span id="루니버스-체인">루니버스 체인</span></h2><p>루니버스 체인은 파트너들 모여 분산화된 네트워크 구성합니다. 각 개발사들은 루니버스를 통해 간편하게 자신의 체인을 만들고 루니버스 체인 내의 다른 체인들에 쉽게 deploy 및 transaction 발행할 수 있습니다.</p>
-<p>루니버스 체인을 이해하기 전에 3가지 종류의 체인에 대해 이해할 필요가 있으며, 루니버스 체인, 컨소시엄 블록체인, 프로턱트 체인이 바로 그것입니다.</p>
-<p>먼저, 루니버스 체인은 전체 블록체인 네트워크를 포함하는 개념이며, 루니버스의 블록체인 위에서 여러 개발사들의 블록체인 네트워크가 운영되며, 여러 블록체인 사이의 인터페이스를 만들어 주어 여러 블록체인 네트워크 사이에서 통신이 가능하게 해줍니다.</p>
-<p>다음은 컨소시엄 블록체인인데, 루니버스를 통해 블록체인을 개발하는 개발사들은 루니버스 체인 위에 자신만의 별도의 컨소시엄 블록체인을 구축할 수 있습니다. 루니버스 체인은 이러한 여러개의 컨소시엄 블록체인들을 이어주는 역할을 수행합니다.</p>
-<p>마지막으로 <strong>프로덕트 체인</strong> 이 있는데, 이러한 프로덕트 체인 위에서 실제적인 Dapp 과 Token이 운영되게 됩니다. 각 개발사들은 자신들의 컨소시엄 블록체인 위에 다수의 프로덕트 체인을 구축하여 운영하거나 혹은 루니버스 체인 위에 바로 자신만의 프로덕트 체인을 구축하는 방식으로 서비스를 운영할 수 있습니다.</p>
-<p>루니버스에서 프로덕트 체인은 아이콘과 협력하여 만들어지고 있으며, 12월에 정식으로 루니버스 체인의 메인넷이 가동될 예정입니다.</p>
-<p>뿐만 아니라 루니버스 네트워크는 <strong>이더리움, 이오스 등 다른 대형 블록체인 네트워크</strong> 와의 인터페이스를 구축할 예정으로 루니버스 내의 블록체인을 다른 거대 메인넷과 손쉽게 연동할 수 있는 다리 역할을 해줄 것으로 기대됩니다.</p>
-<p>종합하자면, 루니버스는 일종의 sass 로 볼 수 있으며, 블록체인 기술을 추상화 시켜 개발자들이 비즈니스 로직에만 집중하여 블록체인 서비스를 만들수 있게 해줍니다.</p>
-<h2><span id="블록체인과-루니버스의-활용">블록체인과 루니버스의 활용</span></h2><p>현시점에서 블록체인 기술은 블록체인 인프라에 그 관심이 집중되었습니다. 이더리움, 이오스 등 계속해서 새로운 블록체인 메인넷들이 출시되었으며, 해당 메인넷 위에서 다양한 서비스가 운영되기 보다는 우수한 메인넷 자체를 개발하는 것에 전 세계의 관심이 집중되었습니다.</p>
-<p>즉, 이제까지의 블록체인산업은 블록체인 인프라에 집중되었다고 볼 수 있습니다.</p>
-<p>하지만, 과거 산업의 발전 행태를 볼 때 현 시점에서 가장 중요한 것은 바로 블록체인을 활용한 킬러앱의 출시가 블록체인 인프라의 발전방향을 결정짓는 다고 볼 수 있습니다. 가령 인터넷이 처음 나왔을때 인터넷 상의 전자 상거래 서비스 혹은 각종 게임의 발전이 인터넷 산업과 인프라의 발전을 가속화한 것처럼 블록체인 기술을 활용한 상용적인 서비스가 계속 생겨나야 블록체인 인프라도 그에 발맞추어 발전할 전망입니다.</p>
-<h2><span id="블록체인에서의-게임-산업">블록체인에서의 게임 산업</span></h2><p>루니버스는 블록체인의 여러 산업방면에서도 <strong>게임 산업</strong> 에 상당한 관심을 가지고 있습니다. 현재 블록체인 기반의 게임산업의 규모는 빠르게 성장하고 있으며, 크게 다음과 같은 3가지 활용처가 존재합니다.</p>
-<p><strong>게임의 블록체인화</strong></p>
-<ol>
-<li>인게임 재화 ⇒ fungible token</li>
-<li>아이템 경재 ⇒ non fungible token</li>
-<li>게임의 규칙 ⇒ smart contract</li>
-</ol>
-<p>이미 블록체인 기반의 다양한 게임들을 성공리에 운영되고 있는데, 게임회사 뿐 아니라 게임 스트리밍, 게임 마켓 등 다양한 게임 관련 산업분야가 성장하고 있습니다.</p>
-<p><strong>블록체인 게임 사례</strong></p>
-<ul>
-<li>eos 기반의 한 방치형 rpg 게임<br>인게임 상에서 재화를 획들할 수 있고 이를 게임 내에서 다시 소비하는 방식으로 토큰 이코노미가 만들어짐</li>
-<li>이더몬<br>각 사이트를 10명의 유저가 호스트가 되어 공동 소유할 수 있고 일반 유저는 입장료를 내고 탐험하는 방식의 새로운 비즈니스 모델을 선보였으며, 입장료 중 90%는 호스트에게 돌아가고 나머지는 개발자에게 돌아가는 방식으로 운영</li>
-<li>게임 스킨<br>사용자와 디자이너가 각종 게임 스킨을 만들고 이를 여러 게임에서 사용 가능 =&gt; 게임 스킨은 조단위 시장을 형성</li>
-<li>토너먼트 형 게임<br>좋은 아이템을 구매해서 경기에서 승리하여 상금을 얻는다 =&gt; 게임을 통한 수익창출을 위한 기회 비용으로 아이템을 구매한다.</li>
-</ul>
-<p><strong>루니버스는 무엇을 해결하는가?</strong></p>
-<p>크립토 키티의 경우 메타마스크를 통해 로그인하면서 이탈되는 유저가 전체의 99%에 달할만큼 편리한 유저 인터페이스의 필요성이 대두되고 있습니다. 루니버스는 간편한 사용자 경험을 제공하여 손쉽게 블록체인 서비스를 이용할 수 있도록 할 것입니다.</p>
-<p>또한, 기존의 메인넷에서 게임을 하기 위해 필요한 막대한 거래 비용을 게임산업 발전을 저해하고 있으며, 루니버스는 0에 가까운 트랜잭션 fee를 지향하여 서비스를 만들고 있으며, 거래 비용을 줄여 게임에 진입장벽을 낮추어 줍니다.</p>
-<h2><span id="또-무엇을-제공하나요">또 무엇을 제공하나요?</span></h2><p><strong>기업 운영</strong></p>
-<ol>
-<li>투자자 네트워크 연계</li>
-<li>올비트 상장 패스트 트랙</li>
-<li>글로벌 마케팅</li>
-<li>공동 PR 진행 및 지원</li>
-</ol>
-<p><strong>편리한 개발 프로세스</strong></p>
-<p>루니버스 이전의 개발 프로세스에서는 프라이빗 체인 구축 및 디앱개발 및 웹3 작성 및 배포등 일련의 과정에 몇달의 기간이 소요되지만 루니버스를 통한 개발 프로세스에서는 30분 내에 체인을 만들고 토큰을 발행할 수 있습니다. 체인 생성 및 토큰을 버튼 몇번으로 생성하고, 이를 rest api 를 호출함으로써 편리하게 개발이 가능합니다.</p>
-<p><strong>개발 프로세스</strong></p>
-<ol>
-<li>메인 체인 만들고 메인 토큰 발행</li>
-<li>프로덕 체인 구축</li>
-<li>메인 토큰과 매칭 되는 프로덕 토큰 발행</li>
-<li>트랜잭션 정의</li>
-<li>REST api 를 call 함으로써 서비스 구현</li>
-</ol>
-<p><strong>가상화폐 지갑</strong></p>
-<p>비트베리와 협업하여 안전하고 편리한 가상화폐 지갑을 제공합니다.</p>
-<p><strong>편리한 암호화폐 상장</strong></p>
-<p>Allbit Alliance Program ⇒ 루니버스를 이용하기 전의 플로우</p>
-<ol>
-<li>토큰 경제 설계, 백서 검토</li>
-<li>파운데이션 컨설팅</li>
-<li>리갈 펀드 매칭</li>
-</ol>
-<p>현재 암호화폐 거래소의 문제였던 <strong>과도한 리스팅 비용, 복잡한 절차, 리스팅 네트워킹, 리스팅 사후 관리(가격 방어, 거래량 확보)</strong> 를 해결해주고, 루니버스 이용하여 서비스를 개발하여 탈중앙화 거래소인 올비트와 협력하여 간편하게 리스팅이 가능합니다.</p>
-<p>또한 올비트가 제공하는 머미넷, 비트 고수, cmt group, Dr. Node&amp;mainblock 등을 통해 리스팅 후의 마케팅 까지 지원합니다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -730,7 +708,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/21/">21</a></li>
+        <li><a class="pagination-link" href="/page/22/">22</a></li>
         
     </ul>
 </nav>
