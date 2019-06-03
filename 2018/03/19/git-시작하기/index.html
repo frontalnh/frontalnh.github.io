@@ -101,7 +101,7 @@
                     <span class="column is-narrow">
                         
                             
-                                14 minutes read (About 2047 words)
+                                12 minutes read (About 1801 words)
                     </span>
                     
     </div>
@@ -112,13 +112,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
 <h3><span id="git-home-디렉토리-변경하기">git home 디렉토리 변경하기</span></h3><p>git 아이콘을 우클릭하여 대상 뒤의 –cd-home을 없애고</p>
 <p>시작위치에 원하는 위치를 넣어준다.</p>
-<h2><span id="로그인-및-권한설정">로그인 및 권한설정</span></h2><p>git을 사용하기 위해 로그인 및 계정을 설정해 준다.<br>먼저, 다음과 같이 global 한 계정 정보를 설정해 준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;YOUR_USERNAME&quot;</span><br><span class="line">git config --global user.email &quot;your_email@youremail.com&quot;</span><br><span class="line">git pull https://username:password@mygithost.com/my/repository</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list //설정한 내용 확인하기</span><br></pre></td></tr></table></figure>
-<h3><span id="ssh-기반-인증">ssh 기반 인증</span></h3><p>만약 특정 레포지토리가 공개키 방식의 인증과정을 거치고 특정 키를 레포지토리에 등록시켜 두었다면, 해당 인증서를 통해 인증하여 레포지토리와 통신할 수 있다. 이때 여러 레포지토리들은 각각 다른 키를 사용할 수 있는데 이러한 ssh 연결 정보를 특정 레포지토리의 <code>.git/config</code> 파일에 설정해 둘 수 있으며, 그 명령어는 다음과 같다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
-<p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">sshCommand = &quot;ssh -i ~/.ssh/keyfile&quot;</span><br></pre></td></tr></table></figure>
-<p>w</p>
 <h2><span id="원격-repo-연결하기">원격 repo 연결하기</span></h2><p>git 세팅을 완료했다면 온라인 상의 코드들을 조작하기 위해 git 서버에 연결한다.<br>git 서버에 연결하는 방법은 2가지가 있는데, 하나는 http 방식이고 다른 하나는 ssh 방식이다.</p>
 <p>먼저, ssh를 활용하여 연결하기 위해서 컴퓨터의 ssh key를 생성하고, 생성된 공개키는 git에 등록한다.<br>공개키를 사용하려면 일단 공개키를 만들어야 하는데, 공개키를 만드는 방법은 모든 운영체제가 비슷하다.<br>먼저 키가 있는지부터 확인하자. 사용자의 SSH 키들은 기본적으로 사용자의 ~/.ssh 디렉토리에 저장한다.</p>
 <p>리눅스 혹은 ubuntu의 경우 ssh-keygen을 통해 공개키/개인키 쌍을 생성할 수 있다.</p>
@@ -164,6 +157,7 @@
 <li><p>이제 git이 edit 하고자 하는 커밋으로 코드를 돌려주고 원하는 내용을 수정한 뒤에 <code>git commit --amend</code> 를 해주면 해당 커밋을 수정하여 다시 커밋하고 <code>git rebase --continue</code> 명령을 통해 뒤의 커밋들을 쭉 적용시켜 줄 수 있다.</p>
 </li>
 </ol>
+<h3><span id="특정-파일만-특정-커밋으로-되돌리기">특정 파일만 특정 커밋으로 되돌리기</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;COMMIT_HASH&gt; &lt;FILE_NAME&gt;</span><br></pre></td></tr></table></figure>
 <h2><span id="유용한-기능들">유용한 기능들</span></h2><p><strong>CLI 에서 비밀번호 저장하기</strong></p>
 <p><code>git config credential.helper store</code></p>
 <p><strong>변경내용 임시 저장하기</strong></p>

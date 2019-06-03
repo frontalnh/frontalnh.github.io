@@ -88,7 +88,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
-                12 days ago
+                a month ago
             </time>
         </span>
         
@@ -101,7 +101,7 @@
                     <span class="column is-narrow">
                         
                             
-                                a minute read (About 210 words)
+                                2 minutes read (About 230 words)
                     </span>
                     
     </div>
@@ -109,12 +109,15 @@
         
                     <h2><span id="installation">Installation</span></h2><p>Git, node.js, aws-cli 를 설치해 준다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt update &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo apt install python3-pip &amp;&amp; # install pip</span><br><span class="line">sudo pip3 install awscli &amp;&amp; # install aws-cli</span><br><span class="line">sudo apt install awscli</span><br></pre></td></tr></table></figure>
-<h3><span id="aws-configuration">AWS configuration</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
-<h2><span id="problem-solved">Problem solved</span></h2><h3><span id="그래픽-드라이버-호환으로-인해-화면이-정지하는-경우">그래픽 드라이버 호환으로 인해 화면이 정지하는 경우</span></h3><h3><span id="nvidia-driver-installation">NVIDIA Driver installation</span></h3><p>먼저 nvidia 에 들어가서 자신의 PC 에 알맞는 드라이버를 다운 받아 둔다.</p>
-<p><a href="https://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">Download Drivers | NVIDIA</a></p>
-<p>자신의 현재 그래픽 드라이버를 blacklist 에 추가하고 업데이트 후 재부팅 해준다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"echo blacklist nouveau &gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf"</span> &amp;&amp;</span><br><span class="line">sudo bash -c <span class="string">"echo options nouveau modeset=0 &gt;&gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf"</span> &amp;&amp;</span><br><span class="line">cat /etc/modprobe.d/blacklist-nvidia-nouveau.conf <span class="comment"># check configuration </span></span><br><span class="line"></span><br><span class="line">sudo update-initramfs -u <span class="comment"># regenerate initramfs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># reboot</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-<p>###</p>
+<h2><span id="setup-terminal">Setup Terminal</span></h2><h3><span id="installation">installation</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install terminator &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt upgrade &amp;&amp;</span><br><span class="line">sudo apt-get install zsh &amp;&amp;</span><br><span class="line">sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" &amp;&amp;</span><br><span class="line">chsh -s /usr/bin/zsh root&amp;&amp; # update default shell</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh &amp;&amp; # download template</span><br><span class="line">sudo su&amp;&amp;</span><br><span class="line">cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc ## copy .zshrc template</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+<h3><span id="install-plugin">install plugin</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> zsh-syntax-highlighting</span></span><br><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-autosuggestions</span></span><br><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+<p>~/.zshrc</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plugins=(</span><br><span class="line">  git</span><br><span class="line">  zsh-syntax-highlighting</span><br><span class="line">  zsh-autosuggestions</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3><span id="install-fzf">install fzf</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf</span><br><span class="line">~/.fzf/install</span><br></pre></td></tr></table></figure>
+<h3><span id="shortcuts">shortcuts</span></h3><p>split terminals horizontally: <code>ctrl shift o</code></p>
+<p>split terminals vertically: <code>ctrl shift e</code></p>
+<p>close current panel: <code>ctrl shift w</code></p>
+<p>move terminal: <code>alt + arrow</code></p>
 
                         
     </div>

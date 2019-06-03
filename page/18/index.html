@@ -91,6 +91,234 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/12/09/Neural-network-back-propagation/" itemprop="url">
+                Neural network back propagation
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-09T04:15:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 653 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#back-propagation-이란">back propagation 이란?</a></li>
+<li><a href="#back-propagation-algorithm">Back propagation Algorithm</a></li>
+<li><a href="#작동-원리">작동 원리</a></li>
+<li><a href="#bpn-learning-processencoding">BPN Learning Process(Encoding)</a></li>
+<li><a href="#bpn-retrieving-processdecoding">BPN Retrieving Process(Decoding)</a></li>
+<li><a href="#bpn">BPN</a></li>
+<li><a href="#gdrgeneralized-delta-rule">GDR(Generalized Delta Rule)</a></li>
+<li><a href="#bpn-learning-algorithm">BPN Learning Algorithm</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="back-propagation-이란">back propagation 이란?</span></h2><p>multi layer perceptron에서의 학습 알고리즘 이다.</p>
+<h2><span id="back-propagation-algorithm">Back propagation Algorithm</span></h2><p>다음과 같은 이유로  multi layer perceptron에서 BP를 사용한다.</p>
+<ol>
+<li>넓은 입력공간에서 복잡한 패턴을 가진다.</li>
+<li>병렬 처리를 통해 빠른 계산속도를 가진다.</li>
+<li>adaption을 위해 error back propagation을 한다.</li>
+</ol>
+<p>Back propagation을 하는 MLP의 구조를 BPN(Back Propagation Network)라고 한다.</p>
+<h2><span id="작동-원리">작동 원리</span></h2><p>BPN은 다음과 같은 복잡한 패턴 매칭 문제를 해결할 수 있다.</p>
+<ol>
+<li>입출력 쌍 패턴 분석을 propagation adoption 방식을 사용하고 학습할 수 있다.</li>
+<li>입력 자극이 hidden layer로 그리고 output layer 로 전달된다.</li>
+</ol>
+<p>다음과 같은 순서로 학습이 이루어 진다.</p>
+<ol>
+<li>패턴 입력이 인풋으로 주어짐</li>
+<li>히든 레이어로 전달된</li>
+<li>출력 레이어로 전달되고 출력 패턴이 나옴</li>
+<li>desired pattern에서 output pattern의 차를 통해 error를 검출</li>
+<li>검출된 error가 출력 레이어로 부터 히든 레이어로 전달되고 다시 입력단으로 전달됨</li>
+<li>히든 레이어에서 에러의 상대적 기여도가 사용되고, 모든 노드에 대해 수행됨</li>
+<li>connection strength가 업데이트 되고, 트레이닝 패턴이 다시 encode됨</li>
+</ol>
+<h2><span id="bpn-learning-processencoding">BPN Learning Process(Encoding)</span></h2><p>히든 레이어의 노드가 모든 입력 패턴을 인식할 수 있도록 스스로 재구성됨</p>
+<h2><span id="bpn-retrieving-processdecoding">BPN Retrieving Process(Decoding)</span></h2><ol>
+<li>입력된 입력패턴이 학습된 패턴과 같거나 유사하면 output layer에 나타남</li>
+<li>입력된 입력 패턴이 학습된 데이터가 아니면, 히든 레이어에서 자극값을 생성하는 것이 억제됨</li>
+</ol>
+<h2><span id="bpn">BPN</span></h2><p>Back propagation 알고리즘의 핵심은 error가 weight를 스스로 업데이트 하는 것이다.<br>error BP는 지도 학습(supervised learning)의 핵심이다.<br>여러개의 입출력 쌍을 통해 출력을 예상할 수 있다.</p>
+<p>Mapping network<br>:input과 output을 계산하는 함수</p>
+<p><img src="\images\bpnImage.png" alt="bpn image"></p>
+<h2><span id="gdrgeneralized-delta-rule">GDR(Generalized Delta Rule)</span></h2><p>입력 벡터를 통해 i 번체 히든 노드의 입력의 합을 구한다.</p>
+<p><img src="\images\gdnImage.png" alt="gdr image"></p>
+<p><img src="\images\gdn2.png" alt="gdr2"></p>
+<p>output of th k^th output unit<br><img src="\images\outputOfKthOutputUnit.png" alt="output of kth output unit"></p>
+<h2><span id="bpn-learning-algorithm">BPN Learning Algorithm</span></h2><ol>
+<li>적용된 input으로 부터 전달된 신호를 기반으로 관련 출력을 계산하라</li>
+<li>에러를 계산하라(desired-actual)</li>
+<li>error 를 감소시키기 위한 weight update의 방향을 결정하라.</li>
+<li>weight update의 양을 계산하라</li>
+<li>weight를 업데이트 하라</li>
+<li>1~5의 과정을 에러가 tolerance ranges 안에 들어갈 때 까지 반복하라.</li>
+</ol>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/08/Nodejs-Google-Api를-활용한-push-서버-구축/" itemprop="url">
+                Nodejs Google Api를 활용한 push 서버 구축
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-08T07:12:04.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 20 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="code-flow">Code Flow</span></h2><p><code>NPM install fcm-node</code></p>
+<ol start="2">
+<li>Usage<br><a href="https://www.npmjs.com/package/fcm-node" target="_blank" rel="noopener">Api 서버 만들기</a></li>
+</ol>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/08/nodejs에서-thumbnail-만들기/" itemprop="url">
+                nodejs thumbnail 만들기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-08T02:26:11.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 229 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#개요">개요</a></li>
+<li><a href="#설치">설치</a></li>
+<li><a href="#서버-코드">서버 코드</a></li>
+<li><a href="#default-options">default options</a></li>
+<li><a href="#referencehttpswwwnpmjscompackagenode-thumbnail">reference</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="개요">개요</span></h2><p>먼저 multiparty로 req를 받아 파일과 필드값으로 나누어 준 뒤에 노드 썸네일을 통해 변환을 해 준다.</p>
+<h2><span id="설치">설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install node-thumbnail</span><br></pre></td></tr></table></figure>
+<h2><span id="서버-코드">서버 코드</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">var multiparty = require(&apos;multiparty&apos;);</span><br><span class="line">var thumb = require(&apos;node-thumbnail&apos;).thumb;</span><br><span class="line"></span><br><span class="line">router.post(&apos;/thumbnail&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;썸네일 변경!&quot;);</span><br><span class="line">  var form = new multiparty.Form();</span><br><span class="line">  form.parse(req,function(err,fields, files)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">      console.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.keys(fields).forEach(function(name) &#123;</span><br><span class="line">      console.log(&apos;got field named &apos; + name);</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(&quot;files:&quot;, files);</span><br><span class="line"></span><br><span class="line">    var fileName=fields.fileName[0];</span><br><span class="line">    var oldPath = files.imageFile[0].path;</span><br><span class="line">    console.log(fileName);</span><br><span class="line">    // 서버에서 돌리는 부분</span><br><span class="line">    var newPath = &apos;/root/imageServer/public/images&apos;;</span><br><span class="line">    </span><br><span class="line">    thumb(&#123;</span><br><span class="line">      basename:fileName.split(&quot;.&quot;)[0],</span><br><span class="line">      suffix:&apos;&apos;,</span><br><span class="line">      source: oldPath,</span><br><span class="line">      destination: newPath,</span><br><span class="line">      width: 300</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">      console.log(&apos;Success&apos;);</span><br><span class="line">      res.sendStatus(200)</span><br><span class="line">    &#125;).catch(function(e) &#123;</span><br><span class="line">      console.log(&apos;Error&apos;, e.toString());</span><br><span class="line">      res.sendStatus(500);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2><span id="default-options">default options</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">defaults = &#123;</span><br><span class="line">  prefix: &apos;&apos;,</span><br><span class="line">  suffix: &apos;_thumb&apos;,</span><br><span class="line">  digest: false,</span><br><span class="line">  hashingType: &apos;sha1&apos;, // &apos;sha1&apos;, &apos;md5&apos;, &apos;sha256&apos;, &apos;sha512&apos;</span><br><span class="line">  width: 800,</span><br><span class="line">  concurrency: &lt;num of cpus&gt;,</span><br><span class="line">  quiet: false, // if set to &apos;true&apos;, console.log status messages will be supressed</span><br><span class="line">  overwrite: false,</span><br><span class="line">  basename: undefined, // basename of the thumbnail. If unset, the name of the source file is used as basename.</span><br><span class="line">  ignore: false, // Ignore unsupported files in &quot;dest&quot;</span><br><span class="line">  logger: function(message) &#123;</span><br><span class="line">    console.log(message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2><span id="reference"></span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/07/Rxjs-기본-개념/" itemprop="url">
+                Rxjs 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-06T16:09:55.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 244 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#observable과-observer">Observable과 Observer</a></li>
+<li><a href="#subject란">Subject란?</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="observable과-observer">Observable과 Observer</span></h2><p>Rx 는 동기적이고 이벤트 기반의 데이터 소스들 즉, Observable Object로 추상화된 push-based, observable sequences 이다.<br>이것은 observed 될 수 있는 데이터 소스를 의미하며, 이것은 관심이 있는 누구에게나 데이터를 전송할 수 있음을 의미한다.</p>
+<p>Observer는 subscription을 통해 관심사를 등록하는 것이다.<br>Observer가 subscribe 하는 observable 시퀀스의 내용들은 observer에게 차례로 전달된다.</p>
+<p>observable한 집합들로부터 알림을 받기 위해 Observer Object에게 observable들을 전달하는 Observable의 subscribe 함수를 사용한다.</p>
+<p>Observer는 3가지의 publication event를 지원한다.<br>observable 데이터 소스가 가능한 데이터가 있을 때, onNext()가 호출될 수 있다.<br>observer에게 새로운 데이터를 제공한다.</p>
+<h2><span id="subject란">Subject란?</span></h2><p>Subject란 observer 또는 Observable 모두 처럼 행동 가능한 구현체이다.<br>observer이기 때문에 하나 혹은 ㄷ</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/12/06/Angular-ngx-infinite-scroll을-이용한-무한-스크롤-구현/" itemprop="url">
                 Angular ngx infinite scroll을 이용한 무한 스크롤 구현
             </a>
@@ -216,7 +444,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2017-12-02T00:31:57.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -254,7 +482,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2017-12-01T15:13:10.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -298,7 +526,7 @@ undefined
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2017-12-01T00:26:09.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -319,189 +547,6 @@ undefined
 <h2><span id="파이프를-사용하기-위한-intl-설치">파이프를 사용하기 위한 intl 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save intl</span><br></pre></td></tr></table></figure>
 <h2><span id="애니메이션-사용을-위한-web-animation설치">애니메이션 사용을 위한 web-animation설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save web-animations-js</span><br></pre></td></tr></table></figure>
 <h2><span id="ngclass-사용을-위한-classlist설치">ngClass 사용을 위한 classlist설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save classlist.js</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/30/css-애니메이션의-활용/" itemprop="url">
-                css 애니메이션의 활용
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-30T13:28:08.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 20 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="transition을-활용한-사이즈-애니메이션">transition을 활용한 사이즈 애니메이션</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transition: height 2s;</span><br><span class="line">-webkit-transition: height 2s;</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/30/Business-strategy-시장-세분화/" itemprop="url">
-                Business strategy 시장 세분화
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-30T06:27:36.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1192 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="현재-시장에서-기업의-위치를-명확하게-설정하라">현재 시장에서 기업의 위치를 명확하게 설정하라</span></h2><p>다른 시각으로 비즈니스 세계를 들여다보고 공략할 시장의 범주를 정해서 기업을 운영해야 한다.</p>
-<p>예를 들어 사우스웨스트 항공은 다른 항공사들이 시도하지 않던 방법으로 비행기 내의 기내식을 없애고 다른 기타의 불필요한 서비스도 없애 버렸는데, 이는 바로 특정 고객에 집중하여 성공한 예이다.</p>
-<blockquote>
-<p>모든 고객을 만족시킬 필요는 없다.<br>나아가 모든 고객을 목표로 삼을 필요도 없다.</p>
-</blockquote>
-<h2><span id="지배할-시장을-찾아라">지배할 시장을 찾아라</span></h2><p>비즈니스시장에서 시장을 지배하는 것은 큰 의미를 가진다.<br>내가 운영하는 기업이 중소기업이라서, 기업의 규모가 작아서라는 이유로 시장을 지배하지 못한다면 그 기업은 반드시 망한다.<br>시장 세분화가 중요한 이유는 바로 한 산업의 시장을 극도로 세분화 한다면, 그 세분화된 시장 안에서는 시장을 지배할 수 있기 때문이다.</p>
-<blockquote>
-<p>시장을 바라보는 방식에 변화를 주고 지배할 수 있는 시장을 찾아 선점하라.</p>
-</blockquote>
-<h2><span id="일용품-시장인가-특제품-시장인가">일용품 시장인가 특제품 시장인가?</span></h2><p>사용자들은 크게 두 부류로 나누어 진다.<br>예를 들어 펜 시장의 경우 단순히 글씨만 잘 써지면 된다 하는 고객들이 있다. 이들이 바로 <strong>일용품 구매자</strong> 이다.<br>이 고객들은 아주 기본적인 기능에 집중하고 가격에 매우 민감하다.</p>
-<p>다른 부류는 펜의 디자인, 그립감 등 가격 외의 것에 민감한 부류이다. 이 고객들은 가격을 넘어서 기본적인 펜 이상의 품질을 원한다. 이들이 바로 <strong>특제품 구매자</strong> 이다.</p>
-<p>이렇게 가격에 따른 민감도에 따라 그래프를 그리면 U자 형태의 그래프를 보이게 되는데, 대부분의 경우 그래프의 양끝을 겨냥해야 성공 가능성이 높다.<br>하지만, 수많은 회사가 그 중간 고객을 겨냥하고 있다.<br>중간 고객은 충성도가 높지 않고, 이 시장을 지배할 방법을 찾기란 불가능에 가깝다.</p>
-<h2><span id="시장-세분화의-법칙">시장 세분화의 법칙</span></h2><p>여러가지 방법이 있으나 다음과 같은 기준에 따라 세분화 하는 것이 바람직하다.</p>
-<ol>
-<li>고객의 니즈와 기호</li>
-<li>일용품과 특제품</li>
-<li>제품 유형</li>
-<li>시장 유형</li>
-<li>인구 통계적 유형</li>
-<li>지리적 조건</li>
-<li>고객 유형 또는 구매 경로</li>
-</ol>
-<p>다음과 같은 질문이 시장 세분화에 도움이 된다.</p>
-<ol>
-<li>고객들은 무엇을 구매하는가?</li>
-<li>누가 구매하는가?</li>
-<li>그들은 왜 구매하는가?</li>
-<li>어떤 방법으로 구매하는가</li>
-<li>구매한 제품을 어떻게 이용하는가?</li>
-<li>어디에서 높은 수익을 올리고 있는가?</li>
-<li>어디에서 낮은 수익을 올리고 있는가?</li>
-</ol>
-<blockquote>
-<p>집중할 세준시장을 찾아내는 것은 매우 중요하다.</p>
-</blockquote>
-<h2><span id="세분시장-분석서-예시">세분시장 분석서 예시</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">1. 세분 시장의 정의</span><br><span class="line">지역: 오하이오, 인디애나, 일리노이,</span><br><span class="line">특성: 대형 소매업체에서 연간 5천만 달러 이상의 캔디를 판매하는 제조업체</span><br><span class="line"></span><br><span class="line">2. 고객의 니즈</span><br><span class="line">캔디가 깨지지 않도록 잘 보호해야 하고, 내용물이 오염되지 않도록 위생 상태가 좋아야 하며, 납품 기일을 준수해야 한다.</span><br><span class="line"></span><br><span class="line">3. 고객의 기호</span><br><span class="line">색 배합이 바래지 않아야 한다.</span><br><span class="line">가격이 저렴해야 한다.</span><br><span class="line">공급이 안정적이어야 한다.</span><br><span class="line"></span><br><span class="line">4. 세분시장의 총매출액: 5000만 달러</span><br><span class="line"></span><br><span class="line">5. 회사의 현시장 점유율: 120만 달러(24%)</span><br><span class="line"></span><br><span class="line">6. 특제품 또는 일용품의 구분</span><br><span class="line">특제품 구매자 90%, 일용품 구매자는 극소수</span><br><span class="line"></span><br><span class="line">7. 잠재고객의 수</span><br><span class="line">5개 회사만으로 이루어진 집중화 시장</span><br><span class="line"></span><br><span class="line">8. 경쟁사의 시장 점유율</span><br><span class="line">브라운 사:33%</span><br><span class="line">ABC 사: 10%</span><br><span class="line"></span><br><span class="line">9. 시장의 5년 평균 연간 실질 성장률</span><br><span class="line">5년 전 250만 달러, 지난해 460만 달러였으며 과거 5년간 이 시장의 매출총액 규모가 2배로 성장했다. 하지만 현재 연간 실질성장률은 8%에 불과한 것으로 추정된다.</span><br><span class="line"></span><br><span class="line">10. 최근 시장의 주요 사건</span><br><span class="line">최대 구매업체인 존스 사가 가장 가까운 경쟁사를 인수하려 하고 있다.</span><br><span class="line"></span><br><span class="line">11. 간접 경쟁</span><br><span class="line">열성형 플라스틱 용기</span><br><span class="line">다이컷 종이 커버</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/30/Business-strategy-비즈니스-전략-수립의-프로세스/" itemprop="url">
-                Business strategy 비즈니스 전략 수립의 프로세스
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-30T06:23:33.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 0 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/30/Neural-network-Bidirectional-Associative-Memory-BAM/" itemprop="url">
-                Neural network Bidirectional Associative Memory(BAM)
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-29T17:07:12.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 1 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<!-- tocstop -->
 
                         
     </div>

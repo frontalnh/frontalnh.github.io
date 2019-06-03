@@ -320,65 +320,6 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2018/02/06/mysql-select-문의-모든것/" itemprop="url">
-                3. mysql select 문의 모든것
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-02-06T00:18:52.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 407 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#특정-문자열이-포함된-데이터-찾기">특정 문자열이 포함된 데이터 찾기</a></li>
-<li><a href="#not-exists-존재하지-않는-것만-추가하기">NOT EXISTS / 존재하지 않는 것만 추가하기</a></li>
-<li><a href="#left-join-with-group-by">LEFT JOIN WITH GROUP BY</a></li>
-<li><a href="#index-부터-특정-갯수만-받아오기">index 부터 특정 갯수만 받아오기</a></li>
-<li><a href="#order-by의-활용">ORDER BY의 활용</a></li>
-</ul>
-<!-- tocstop -->
-<h1><span id="특정-문자열이-포함된-데이터-찾기">특정 문자열이 포함된 데이터 찾기</span></h1><p><code>select * from tb_table where name LIKE &#39;%영%&#39;</code></p>
-<h1><span id="not-exists-존재하지-않는-것만-추가하기">NOT EXISTS / 존재하지 않는 것만 추가하기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO table_listnames (name, address, tele)</span><br><span class="line">VALUES (&apos;Rupert&apos;, &apos;Somewhere&apos;, &apos;022&apos;)</span><br><span class="line">WHERE NOT EXISTS (</span><br><span class="line">    SELECT name FROM table_listnames WHERE name=&apos;value&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h1><span id="left-join-with-group-by">LEFT JOIN WITH GROUP BY</span></h1><p>여기서 users u가 left table, cars c가 right table이다.</p>
-<p>GROUP BY를 활용하여 하나의 유저가 여러개의 엔트리를 가지고 있는데 여기서 가장 큰 값을 기준으로 묶을 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT u.userName, MAX(c.carPrice)</span><br><span class="line">FROM users u</span><br><span class="line">    LEFT JOIN cars c ON u.id = c.belongsToUser</span><br><span class="line">WHERE u.id = 4;</span><br><span class="line">GROUP BY u.userName;</span><br></pre></td></tr></table></figure></p>
-<h1><span id="index-부터-특정-갯수만-받아오기">index 부터 특정 갯수만 받아오기</span></h1><p>index 부터 number개를 받아온다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table limit (index),(number)</span><br></pre></td></tr></table></figure></p>
-<h1><span id="order-by의-활용">ORDER BY의 활용</span></h1><p>받아오는 데이터의 순서를 정렬하기 위해 ORDER BY 구문을 사용한다.<br>기본적인 문법은 다음과 같다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM TB_TABLE WHERE [조건] ORDER BY [열 이름] DESC</span><br><span class="line">SELECT * FROM TB_TABLE WHERE [조건] ORDER BY [열 이름] ASC</span><br></pre></td></tr></table></figure></p>
-<p>여기서 ASC의 경우 작은 숫자 혹은 빠른 알파벳부터 큰 수자 혹은 뒤의 알파벳 순으로 정렬하여 받아오며,<br>DESC의 경우는 반대로 정렬하여 받아온다.</p>
-<p>만약 받아오는 데이터의 여러가지 COLUMN 값에 따라 2회 이상 정렬하고 싶은 경우는 다음과 같이 나열하면 2개 이상의 ORDER BY를 사용할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM TB_TABLE WHERE [조건] ORDER BY [칼럼명1] DESC, [칼럼명2] ASC</span><br></pre></td></tr></table></figure></p>
-<p>위 명령어는 칼럼명1에 대해 먼저 정렬하고 동일 조건인 경우 칼럼명2를 기준으로 정렬한다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
             <a href="/2018/02/06/mysql-insert-문의-모든것/" itemprop="url">
                 2. mysql insert 문의 모든것
             </a>
@@ -435,7 +376,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2017-11-27T04:53:17.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         

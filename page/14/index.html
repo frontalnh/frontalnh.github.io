@@ -91,6 +91,184 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/02/06/mongodb-데이터-마이그레이션/" itemprop="url">
+                2. mongodb 데이터 마이그레이션
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T03:19:14.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 112 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#개요">개요</a></li>
+<li><a href="#데이터-export-하기">데이터 export 하기</a></li>
+<li><a href="#export한-데이터-import-하기">export한 데이터 import 하기</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="개요">개요</span></h1><p>몽고디비를 서버 이전시에 필요한 코드이다.</p>
+<h1><span id="데이터-export-하기">데이터 export 하기</span></h1><p>필요한 데이터베이스의 collection을 json 형태로 내보내는 코드이다.<br>이 경우 -u를 반드시 부쳐 로그인 후에 dump를 수행하도록 하여 authentication을 해 준다.<br>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mongoexport -h -h 127.0.0.1:27017 -d databaseName -c collectionName -u userName -o fileName.json</span><br></pre></td></tr></table></figure></p>
+<h1><span id="export한-데이터-import-하기">export한 데이터 import 하기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mongoimport -h 127.0.0.1:27017 -d databaseName -c collectionName --file fileName.json</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/06/mysql-delete-문의-모든것/" itemprop="url">
+                5. mysql delete 문의 모든것
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T00:19:09.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 0 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/06/mysql-update-문의-모든것/" itemprop="url">
+                Mysql 강의 04. mysql update 문의 모든것
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T00:19:00.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">Mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 39 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="기본-구문">기본 구문</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 테이블명 SET 필드명 = &quot;바꿀 값&quot; WHERE 필드명= &quot;조건 값&quot;</span><br></pre></td></tr></table></figure>
+<h1><span id="특정-column-값을-increase-시키기">특정 column 값을 increase 시키기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE mytable</span><br><span class="line">  SET logins = logins + 1</span><br><span class="line">  WHERE id = 12</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/06/mysql-insert-문의-모든것/" itemprop="url">
+                2. mysql insert 문의 모든것
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T00:18:29.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 449 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="auto_increment의-시작값-변경해-주기">AUTO_INCREMENT의 시작값 변경해 주기</span></h1><p>데이터를 정리하기 위해 시작 하는 primary 키의 AUTO_INCREMENT 값을 변경해 주어야 할 경우가 있다.<br>다음 명령어를 통해 원하는 값부터 다시 AUTO_INCREMENT가 시작되도록 할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE [테이블명] AUTO_INCREMENT=[시작할려는 순서]</span><br></pre></td></tr></table></figure>
+<h1><span id="on-duplicate-key를-이용한-중복키-관리">ON DUPLICATE KEY를 이용한 중복키 관리</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 데이터는 키값은 유지하고 내용만 변경해야 할 경우가 있다.<br>이 경우는 on duplicate key 를 활용하면 기존에 있던 데이터를 유지하면서 변경된 내용만 업데이트를 시켜줄 수 있다.</p>
+<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO mytable (id, a, b, c)</span><br><span class="line">VALUES (1, &apos;a1&apos;, &apos;b1&apos;, &apos;c1&apos;),</span><br><span class="line">(2, &apos;a2&apos;, &apos;b2&apos;, &apos;c2&apos;),</span><br><span class="line">(3, &apos;a3&apos;, &apos;b3&apos;, &apos;c3&apos;),</span><br><span class="line">(4, &apos;a4&apos;, &apos;b4&apos;, &apos;c4&apos;),</span><br><span class="line">(5, &apos;a5&apos;, &apos;b5&apos;, &apos;c5&apos;),</span><br><span class="line">(6, &apos;a6&apos;, &apos;b6&apos;, &apos;c6&apos;)</span><br><span class="line">ON DUPLICATE KEY UPDATE id=VALUES(id),</span><br><span class="line">a=VALUES(a),</span><br><span class="line">b=VALUES(b),</span><br><span class="line">c=VALUES(c);</span><br></pre></td></tr></table></figure></p>
+<h1><span id="insert-ignoe를-이용한-중복키-단순히-무시하기">INSERT IGNOE를 이용한 중복키 단순히 무시하기</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 정보는 아예 입력하지 않는 것이 필요한 경우가 있다.<br>이 경우에는 다음과 같이 insert ignore 문을 활용하여 중복된 키를 가지면 입력을 시키지 않도록 할 수 있다.</p>
+<p>아래 예제는 unique 키가 두개의 키값에 걸려있는 경우 첫번째 id 값이 입력되지 않아도 insert 문이 동작하기에 다음과 같은 예제를 사용한다.<br>아래의 경우 가령 james라는 키값과 barkely라는 키값에 unique 키가 걸려있고 해당 데이터가 이미 존재하는 경우 아래의 insert 문은 그냥 무시된다.</p>
+<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person ADD UNIQUE INDEX (first_name, last_name)</span><br><span class="line">INSERT IGNORE INTO person VALUES (NULL, 15, &apos;James&apos;, &apos;Barkely&apos;)</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/02/01/nodejs-페이스북-회원가입/" itemprop="url">
                 nodejs 페이스북 회원가입
             </a>
@@ -414,212 +592,6 @@
 <p>여기서 운영서버의 경우 docker image 를 생성하는 시점에서 사용되는 <code>Dockerfile</code> 에 운영시에 사용되는 <code>environment variable</code> 을 저장</p>
 <p>서버를 여러 배포환경에서 배포하기 위해 <code>dotenv</code> 라이브러리를 사용하여 <code>.env</code> 파일 내의 환경 변수를 프로세스 환경변수로 사용할 수 있다.</p>
 <p>여기서 만약 <code>.env</code> 파일 내의 변수가 기존의 환경 변수와 충돌이 난다면 <code>.env</code> 파일에서 설정한 변수는 무시된다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/18/머신러닝강의 4강 - multinomial-classification/" itemprop="url">
-                머신러닝강의 4강 - multinomial classification
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-18T01:32:21.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 642 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="multinomial-classification이란">multinomial classification이란?</span></h2><p>저번 포스트에서는 logistic classification 중에서 binary classification에 대해서만 다루었으나, 오늘은 보다 많은 변수값을 기준으로 보다 많은 종류의 결과값들 중에서 선택을 하는 알고리즘인 multinomial classification에 대해 학습한다.<br>가령 학생들의 시험성적의 경우 각 과목의 점수를 종합하여 전체 평점이 A~D 사이로 결정이 되는데, 이러한 복수의 결과값 중 하나를 선택하는 학습 알고리즘이다.<br>다음 그림은 각 결과값을 위한 다양한 Weight 값을 종합으로 판단을 하는 것을 그림을 통해 보여주고 있다.<br>각 결과값이 true이냐 혹은 false이냐를 결정짓는 Weight를 종합하여 hypothesis function을 만들어 낼 수 있다.</p>
-<p><img src="..\images\multinomialClassification.png" alt="multinomial classification"></p>
-<p>위 내용을 식과 다이어그램으로 표현하면 다음과 같다.<br><img src="..\images\multinomialClassification의표현.png" alt="multinomial classification 의 표현"></p>
-<p>이는 matrix를 이용하여 간략하게 표현될 수 있다.<br><img src="..\images\multinomialClassificationMatrix표현.png" alt="multinomial classification matrix 표현"></p>
-<p>위와 같이 결과값의 예측값을 구하면 그 범위는 0에서 1사이의 구간이 아니라 많은 편차를 나타내게 된다.<br>하지만, multinomial classification에서의 최대 관심사는 특정 입력값이 들어갔을 때에 결과적은 어떤 결과값이 선택되는 가에 대한 것이기 때문에, 특정 결과값이 나올 확률에 대한 궁금증을 가지기 시작했고 softmax 를 통해 결과값을 확률값으로 변환시켰다.<br>softmax 함수와 그 방식은 다음과 같다.<br><img src="..\images\softmax함수의적용.png" alt="softmax 함수의 적용"></p>
-<h2><span id="multinomial-classification에서의-cost-function-cross-entry-cost-function">multinomial classification에서의 cost function / cross entry cost function</span></h2><p>위와 같은 softmax 함수를 통해 나온 값의 cost function을 구해 이를 최소화 시키는 gradient descent 알고리즘을 적용시키기 위해서 정확한 cost function을 구해야 할 필요가 생기게 되었고, 그 식은 일명 cross entry cost function이라 불리는 다음의 식을 따른다.</p>
-<p><img src="..\images\crossEntryCostFunction.png" alt="cross entry cost function"></p>
-<p>위 사례를 통해 위 식은 cost function가 충족해야 할 조건인 참인 경우 0 참이 아닌경우 무한대라는 조건을 훌륭하게 만족시키며, 비록 형태는 다르지만 binary classification에서의 cost function과 비교해 볼 때 특정 결과값의 요소만 반영하는 방식에 있어서 결국은 같은 형태의 식이다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/17/머신러닝강의 3강 - logistic-classification/" itemprop="url">
-                머신러닝강의 3강 - logistic classification
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-17T03:42:55.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1207 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="logistic-classification">logistic classification</span></h1><h2><span id="logistic-classification이란-무엇인가">Logistic Classification이란 무엇인가</span></h2><p>logistic classification이란 학습을 통해 특정 상황에 대한 선택지를 고르는 것이다.<br>이 중에서 true or false 중 하나를 고르는 것을 binary classification 이라고 하는데, 본 글에서는 이러한 binary classification을 기준으로 학습한다.<br>이러한 binary classification의 활용범위는 매우 넓은데, 가령 수신함의 메일이 스팸인지 아닌지를 구분한다던가, 페이스북과 같은 SNS 매체에서 특정 사용자의 타임라인에 어떤 게시물을 show 할것인지 혹은 hide 할 것인지를 결정하는 것은 이러한 binary classification을 활용한 것이라 할 수 있다.</p>
-<p>이러한 binary classification의 활용도는 점차 높아지고 있으며, 신용카드 사용패턴을 분석하여 사기 거래인지 아닌지를 판단하거나 혹은 주식시장에서 특정 주식을 매입할 것인가 매도할 것인가를 결정짓는 중요한 역할을 담당할 수도 있다. 사실 이미 많은 사람들이 주식시장에 머신러닝을 활용하여 큰 수익을 내고 있는 사례가 있다.</p>
-<p>이전 글에서의 linear regression과 같은 모델에서는 어떤 입력값의 정도에 따라 출력값을 정도가 변화하는 일종의 선형적인 관계를 나타내는 반면 이러한 의사결정 모델에서는 특정 임계치를 넘기는 순간 결과는 true로 그 정도가 달라지지 않기 때문에 linear regression 모델을 사용할 경우 많은 오차가 발생할 확률이 높아지게 된다.</p>
-<p>아래 그림은 linear regression을 이러한 classification에 활용하였을 때 나타날 수 있는 문제를 보여준다.<br>아래 그림과 같이 다양한 사례들을 통해 학습을 지속하면 어떤 임계치보다 상당히 큰 값이 입력으로 들어갈 경우 weight에 큰 영향을 주기 때문에 적당한 W 값을 찾는데에 큰 어려움이 발생하게 된다.<br>가령 공부를 5시간만 해도 시험에 합격할 수 있는데, 어떤 학생이 공부를 100시간을 하고서 시험에 합격한 사례가 있을 경우 합격에 필요한 시험의 절대적인 공부시간이 실제보다 상당히 크게 예상할 수 있는 상황이 나타난다.</p>
-<p><img src="\images\linearRegression의한계.png" alt="linear regression 의 한계"></p>
-<h2><span id="logistic-classification의-cost-function">logistic classification의 cost function</span></h2><p>linear regression과 마찬가지로 logistic classification의 경우에도 적합한 hypothesis가 필요해졌다.<br>앞에서 설명한 바와 같이 linear regression에 도입된 hypothesis의 경우에 도입된 수식이 아닌 0~1 사이에서 좁게 움직일 수 있는 새로운 hypothesis를 위해 새로운 function이 필요하게 되었고, 이에 가장 적합한 sigmoid 함수로 이를 표현하기로 했다.<br>sigmoid 함수의 경우 0을 기준으로 기울기가 급변하기 때문에 이러한 classification의 표현에 아주 적합한 모델이다.</p>
-<p>아래는 sigmoid함수와 logistic classification에서의 hypothesis function 을 나타낸다.</p>
-<p><img src="\images\sigmoid함수와Hypothesis함수.png" alt="sigmoid 함수와 hypothesis 함수"></p>
-<p>logistic classification에서의 hypothesis를 도출하기 위한 과정은 다음과 같다<br><img src="\images\logisticClassificationHypothesis의도출.png" alt="logistic classification hypothesis의 도출"></p>
-<p>이러한 sigmoid 기반의 hyphthesis의 cost를 구할 때에 기존처럼 차의 제곱을 도입하면 다음과 같은 문제가 생기게 된다.<br>sigmoid의 exponential 부분에 의해 다음과 같이 그래프가 출러이게 되고, 각 부분마다 local minimum 값이 나오게 되어 gradient descent algorithm을 적용하면 cost의 최소값이 어디부터 시작하느냐에 따라 전체 함수의 최소값은 global minimum값이 아니라 local minimum으로 수렴할 가능성이 높아진다.<br>아래 그림은 차의 제곱을 기반으로 한 linear regression 에서의 cost function 모델의 도입했을 때의 그래프 이다.</p>
-<p><img src="\images\logisticClassification에서의잘못된CostFunction.png" alt="logistic classification에서의 잘못된 cost function"></p>
-<p>따라서 cost 함수도 바뀌어야 할 필요가 생기게 되었고 다음과 같은 새로운 cost function이 제시되었다.<br><img src="\images\logisticClassification에서의새로운CostFunction.png" alt="logistic classification에서의 새로운 cost function"></p>
-<p>이러한 새로운 cost function에서는 local minimum은 존재하지 않고 global minimum 값만 있기 때문에 gradient descent algorithm을 적용할 수 있게 된다.<br>하지만 위와 같은 식에서는 python으로 코드를 만들 때 if 문을 계속해서 돌려줘야 하기 때문에 다음과 같은 식으로 변형한다.</p>
-<p><img src="\images\변형된CostFunction의Element.png" alt="변형된 cost function의 element"></p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/16/머신러닝강의 2강 - linear regression/" itemprop="url">
-                머신러닝강의 2강 - Linear Regression
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-16T01:44:37.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 452 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="linear-regression">linear regression</span></h2><p>linear regression 이란 말은 입력값이 변할때 출력값이 linear하다는 가설을 기반으로 한 regression 이다.<br>가령 공부를 오래하면 공부를 잘한다와 같은 명제는 사실일 확률이 높은데, 이렇든 linear한 모델을 의미한다.</p>
-<p>linear regression에서는 training data를 받아 학습을 하며 결과적으로 다음과 같이 적당한 직선을 찾는 것이 주 목적이다.</p>
-<p><img src="..\images\linearRegressionAndCostFunction.png" alt="linear regression and cost function"></p>
-<p>위의 cost function은 W와 b에 관한 함수인데, 이 cost function을 최소로 하는 w와 b를 찾는것이 linear regression의 핵심 목표이다.</p>
-<h2><span id="gradient-descent-algorithm">Gradient Descent Algorithm</span></h2><p>linear regression에서의 핵심은 cost function을 최소값을 찾아내는 것이며, 대부분의 convex function에서는<br>경사로 타고 내려가는 알고리즘을 의미하는 gradient descent algorithm을 많이 사용한다.<br>이 알고리즘은 마치 산을 내려갈 때 경사가 아래인 방향으로 계속 이동하는 것 처럼 미분값을 기준으로 아래 방향으로 이동하는 알고리즘이다.<br>cost가 최소인 지점을 찾기 위해 수행하는 알고리즘으로 최소값이 유일해야 하므로 convex function에서만 적용이 가능하다.</p>
-<p><img src="../images/gradientDescentAlgorithm.png" alt="gradient descent algorithm"></p>
-<h2><span id="multi-variable-regression">multi variable regression</span></h2><p>weight와 x가 vector의 형태를 가진다.</p>
-<p><img src="..\images\multiVariableMatrixRegression.png" alt="multi variable matrix regression"></p>
-<p>파이썬에서 array를 선언할 때<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A=[[x1(1), x2(2)], [x1(1), x2(2)], ...]</span><br></pre></td></tr></table></figure></p>
-<p>이런식으로 나열을 하면 이는 실제로는 다음과 같다.</p>
-<p><img src="..\images\매트릭스곱셈의실제형태.png" alt="매트릭스 곱셈의 실제 형태"></p>
-<h2><span id="load-data-from-file">load data from file</span></h2><p><img src="..\images\trainDataFile.png" alt="train data file"></p>
-<p><strong><em>example</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">xy = np.loadtxt(&apos;train.txt&apos;, unpack=True, dtype=&apos;float32&apos;)</span><br><span class="line">x_data = xy[0:-1]</span><br><span class="line">y_data = xy[]</span><br></pre></td></tr></table></figure></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/15/five-changes-that-blockchain-technology-will-bring/" itemprop="url">
-                Five changes that blockchain technology will bring
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-15T03:02:01.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                10 minutes read (About 1490 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="five-changes-that-blockchain-technology-will-bring">Five changes that blockchain technology will bring</span></h1><h2><span id="the-rise-of-blockchain-technology">The rise of blockchain technology</span></h2><p>One of the hottest topics of the day is AI technology.<br>The intellectual ability of AI surpasses human experts overwhelmingly in certain areas, and the effects of AI in many areas are astonishing.<br>However I think that the technology that will transform our lifestyle in the near future is by far the blockchain.<br>Block chain technology is a technology that blocks transaction ledger, stores them on their computers and smartphones, and binds them with chains.<br>These blockchain technologies completely transform existing online platforms that require existing central DBs and central servers, and are expected to make the following significant changes</p>
-<h2><span id="decentralized-database">Decentralized database</span></h2><p>The Internet was created and all the internet service and products were consists of servers who keeps all the data and the clients who provide data and can use very small amount of data.</p>
-<p>Although all the information is freely available through the Internet, in fact, there have been many problems in the context of the fact that a small number of companies can run businesses with their own database and generate huge profits from these data. </p>
-<p>어떤 경우에는 </p>
-<p>For example, in Honduras, the ownership of land in certain parts of Honduras is based solely on information stored in the central database, and thus, in many underdeveloped countries, personal ownership, if exploited by a third party or government, was virtually a piece of waste paper that existed only.<br>But blockchain technology does not need a central DB and it is safe to call it democratization of information because everyone can know, share, and preserve personal information and ownership because all participants on the platform act as notaries.<br>Through these blockchain technologies, individuals can escape the gull of exploitation of large enterprises, and realize the democratization of information in the real sense.</p>
-<h2><span id="진정한-의미의-공유경제의-실현">진정한 의미의 공유경제의 실현</span></h2><p>최근에는 많은 공유기업들의 전성시대 였다. 가령 우버, AirBnb 등과 같은 기업은 개인의 유휴자산을 다른 사람들에게 판매할 수 있는 창구를 만들어 주고, 사회 전체의 입장에서 재화의 효율적인 사용을 해 줄 수 있는 창구가 되었지만, 기업의 입장에서 보면 수많은 유휴자산을 거래하는 중심자 역할을 하고 막대한 양의 수수료로 수익을 거두었다. 사실상 공유경제라기 보다는 새로운 시장을 창출해 내었다고 하는 편이 무방하겠다.</p>
-<p>하지만 블록체인 기술은 이러한 공유경제 기술의 최고봉이라 할 수 있다.<br>가령 숙방업을 공유하는 블록체인 플랫폼을 만들었다고 가정하다. 만약 누군가가 집을 공유하고 싶다면 이러한 블록체인에 자신의 집을 등록하기만 하면 모든 시스템 적인 부분을 제공받을 수 있다.<br>누가 어떤 숙소를 이용하는 지에 대한 모든 정보는 플랫폼에 남게 되고 모두가 공증을 서므로 기존에 비해 훨씬 안전하다.<br>또한 블록체인을 통한 결제가 이루어 지므로 매우 저렴하고 안전하게 결제까지 이루어 질 수 있다.<br>기존에는 자신의 재화를 판매하기 위해 마케팅 등 다양한 노력이 필요했지만, 블록체인 이후의 사회에서는 재화 자체가 하나의 비즈니스를 뜻하게 된다 해도 무방하다.</p>
-<h2><span id="세계의-부의-흐름">세계의 부의 흐름</span></h2><p>바람직한 사회라면 선진국에서 후진국으로의 자금의 흐름이 원활해야 한다는 것은 그 누구도 이견이 없을 것이다.<br>하지만 이러한 자금의 흐름을 살펴보면 대부분은 기업의 원조, 혹은 사회 단체의 원조가 아닌 개인의 송금이 가장 크다.<br>후진국의 국민이 다른 나라에 가서 취업을 하고 받은 임금을 다른 나라로 송금하는 경우가 매우 많고 이것이 선진국에서 후진국으로의 화폐이동의 가장 큰 부분을 담당한다.</p>
-<p>하지만 현재의 경우 국가와 국가 사이에 돈이 오고가기 위해서는 수많은 단계가 필요하며 금융 시스템을 통과하면수 막대한 양의 중간 수수료(약 20% 가량)이 발생하게 되고 이는 후진국의 경제 개발에 큰 걸림돌이 되고 있다. 하지만 최근 생겨나오는 블록체인을 통한 거래를 통해서는 거래 수수료가 2%에 불과하기 때문에 부가 훨씬 더 원활하게 돌 수 있다.</p>
-<h2><span id="데이터의-민주화">데이터의 민주화</span></h2><p>현대 사회에서는 수많은 디지털 정보들이 발생하고 개인의 디지털 정보들이 모이면 디지털 상에서의 자신을 대변할 수 있는 일종의 디지털 트윈이 생겨나게 된다.<br>현대 사회의 많은 기업들은 개인의 이러한 디지털 트윈을 카피하여 어떤 상품을 제공하고 마케팅을 할지에 대한 의사결정을 하며 이는 다시 거대 기업의 이윤증가에 기여하게 된다.<br>하지만 블록체인 기술은 자신의 디지털 트윈을 자신이 소유하고 필요한 부분만을 기업에게 공급함으로써 자신의 개인 정보를 보호받을 수 있고, 기업도 필요한 정보만을 쉽게 취득할 수 있기에 양측에 보탬이 된다.</p>
-<h2><span id="콘텐츠의-가치를-지켜라">콘텐츠의 가치를 지켜라</span></h2><p>인터넷이 발명되어 가장 큰 가치를 잃은 사람들은 아마도 콘텐츠 제작자일 것이다.<br>기존에는 훌륭한 컨텐츠를 만들면 대부분의 수익을 해당 콘텐츠 제작자가 가져갔고, 사실 이것이 자유 경제사회에서 어쩌면 당연한 부분이다.<br>하지만 소수의 독점기업들이 판권을 뒤흔들고 판매처를 확고히 부여잡은 오늘의 사회에서는 컨텐츠 제작자에게 합당한 보상이 돌아가지 못한다.<br>하지만 블록체인 기술은 개인의 지적재산권을 확실하게 지켜주기에 콘텐츠 자체의 가치를 높일 수 있다.</p>
 
                         
     </div>

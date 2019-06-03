@@ -88,7 +88,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-01-29T06:45:00.000Z" itemprop="datePublished">
-                3 months ago
+                4 months ago
             </time>
         </span>
         
@@ -101,7 +101,7 @@
                     <span class="column is-narrow">
                         
                             
-                                6 minutes read (About 845 words)
+                                6 minutes read (About 859 words)
                     </span>
                     
     </div>
@@ -133,8 +133,8 @@
 <p>config</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[profile user1]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[default]</span><br><span class="line">region = ap-northeast-2</span><br></pre></td></tr></table></figure>
 <p>그 중에서도 유저 정보는 credentials 에 다음과 같이 저장되어 있다.</p>
-<p>credentials</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+<p>~/.aws/credentials</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">region = ap-northeast-2</span><br><span class="line"></span><br><span class="line">[&lt;profile_name&gt;]</span><br><span class="line">aws_access_key_id = XXXXXXXXXXXXXXXXXXXX</span><br><span class="line">aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
 <p>이처럼 기본 user 인 [default] 유저와 특정 유저를 나타내는 [profile user_name] 이 나뉘어 있다.</p>
 <p>여기에 정의된 특정 profile 은 command line 에서 <code>--profile user1</code> 과 같이 사용될 수 있다.</p>
 
@@ -155,15 +155,15 @@
                 <div class="columns is-mobile is-multiline article-nav">
                     <span class="column is-12-mobile is-half-desktop  article-nav-prev">
                         
-                            <a href="/2019/01/29/getting-started-with-aws/">
-                                Getting started with AWS
+                            <a href="/2019/02/08/getting-started-with-nginx/">
+                                Getting started with NGINX
                             </a>
                             
                     </span>
                     <span class="column is-12-mobile is-half-desktop  article-nav-next">
                         
-                            <a href="/2019/01/25/getting-started-with-elastic-stack/">
-                                Getting started with elastic stack
+                            <a href="/2019/01/29/getting-started-with-aws/">
+                                Getting started with AWS
                             </a>
                             
                     </span>
