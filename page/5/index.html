@@ -91,6 +91,99 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/01/15/beanstalk-시작하기/" itemprop="url">
+                Beanstalk 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-15T06:13:41.000Z" itemprop="datePublished">
+                5 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 418 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="installation">Installation</span></h2><p>Eb 를 설치하기 위해 awscli 와 awsebcli 를 설치해 준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install awscli</span><br><span class="line">pip install awsebcli --upgrade --user</span><br><span class="line">brew install awsebcli</span><br></pre></td></tr></table></figure>
+<p>elastic beanstalk 을 초기화 하고 생성 및 배포한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eb init</span><br><span class="line">eb create</span><br><span class="line">eb deploy</span><br></pre></td></tr></table></figure>
+<h2><span id="configuration">Configuration</span></h2><p>Beanstalk 을 통해 어플리케이션을 배포하게 되면 여러개의 </p>
+<h2><span id="filebeat-와-함께-배포하기">filebeat 와 함께 배포하기</span></h2><p>만약 프로젝트 내에서 Elastic Stack 을 사용하여 어플리케이션에서 나오는 모든 로그 및 데이터를 filebeat 를 통해서 배포해야 할 필요가 있다면, filebeat 와 함께 multi docker 모드를 사용하여 beanstalk 에 배포할 수 있다.</p>
+<p>먼저, filebeat 를 단독으로 ECR(Elastic Container Resistry) 에 올린다.</p>
+<p>이 과정에서 반드시 아마존에 로그인이 되어야 하며, 다음과 같은 명령어를 통해 ecr 에 별도로 로그인을 수행한다.</p>
+<p>아래 명령어는 기본 aws 유저가 아닌 eb cli 접근이 가능한 프로그램 유저를 설정해 두고 해당 유저의 정보로 로그인을 함을 의미한다. 아래 명령어를 입력하면 AWS 에서 로그인을 하기 위한 명령어를 output 으로 제공하는데 해당 문자열을 복사하여 다시 cli에 입력하면 로그인이 완료된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ecr get-login --no-include-email --profile eb-cli</span><br></pre></td></tr></table></figure>
+<p>아래 명령어를 통해 aws access key 와 secret key 를 등록하고 사용할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br></pre></td></tr></table></figure>
+<p>다음과 같은 command option 을 통해 내가 어떤 사용자인지 알리고, 미리 configure 되어있는 해당 사용자의 정보로 authentication 을 진행할 수 있다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws [<span class="built_in">command</span>] --profile 사용자이름</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/01/15/vs-code-debugging-시작하기/" itemprop="url">
+                VS Code Debugging 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-15T04:50:05.000Z" itemprop="datePublished">
+                5 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/vscode/">vscode</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 80 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="vs-code-debugging-시작하기">VS Code Debugging 시작하기</span></h1><p>vs code 에서 디버깅을 함에 있어 Launch 와 Attach 모드가 존재한다.</p>
+<p>우리는 .vscode 의 launch.json 설정파일을 수정함으로써 디버거를 attach 하시 전에 디버그 모드에서 어떻게 앱을 실행할지를 알려주는 것이다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/01/12/medium-사토시-나카모토의-bitcoin-논문/" itemprop="url">
                 사토시 나카모토의 Bitcoin 논문
             </a>
@@ -282,7 +375,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-11-27T00:04:22.000Z" itemprop="datePublished">
-                6 months ago
+                7 months ago
             </time>
         </span>
         
@@ -334,7 +427,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-11-22T14:47:05.000Z" itemprop="datePublished">
-                6 months ago
+                7 months ago
             </time>
         </span>
         
@@ -678,126 +771,6 @@ undefined
 <p>minikube start</p>
 <p>kubectl cluster-info</p>
 <p>kubectl get nodes</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/09/30/it-chain04/" itemprop="url">
-                it-chain 04
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-09-30T09:20:30.000Z" itemprop="datePublished">
-                8 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                2 minutes read (About 317 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="opensource-blockchain-engine-it-chain-04-authentication">[ Opensource Blockchain Engine, IT-CHAIN] 04. Authentication</span></h1><p>Open Source Blockchain Engine인 It-chain 의 네번째 포스트입니다.</p>
-<p>이번 포스트에서는 IT-CHAIN에서 블록의 인증과정에 대해 알아보겠습니다.</p>
-<h2><span id="어떻게-노드들의-신분을-인증하는가">어떻게 노드들의 신분을 인증하는가?</span></h2><p>모든 노드는 각자 고유의 private key와 public key를 발행하며 이는 it-chain의 자체 라이브러리인 heimdal을 통해 이루어 집니다. heimdal를 통해 키를 생성하면 private key 와 public key 두 쌍의 키가 생기게 되는데, 여기서 public key를 활용하여 각 노드들의 id를 만들어 노드들의 신분을 보장하며, 각 노드는 트랜잭션을 발행하는 시점에 해당 트랜잭션을 자신의 private key로 sign한 signature를 함께 동봉합니다.</p>
-<h2><span id="트랜잭션의-signing">트랜잭션의 Signing</span></h2><p>트랜잭션을 발행할 때 TX와 함께 signatature를 동봉하게 되는데 이는 보내는 사람의 private key로 sign한 정보이다.</p>
-<p>It-chain:  <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a></p>
-<p><strong>Opensource Blockchain Engine It-chain 시리즈</strong></p>
-<ul>
-<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-01-peer-to-peer-network" target="_blank" rel="noopener">01. P2P 네트워크와 합의 알고리즘</a></li>
-<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-02-blockchain-component" target="_blank" rel="noopener">02. 블록의 생성과 동기화</a></li>
-</ul>
-<p><strong>LNH</strong></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/08/30/it-chain03/" itemprop="url">
-                it-chain 03
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-08-30T09:20:30.000Z" itemprop="datePublished">
-                9 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                9 minutes read (About 1371 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="opensource-blockchain-engine-it-chain-03-ivm-component">[ Opensource Blockchain Engine, IT-CHAIN] 03. IVM Component</span></h1><p>Open Source Blockchain Engine인 It-chain 의 세번째 포스트입니다.</p>
-<p>이번 포스트에서는 IT-CHAIN에서 Smart Contract 의 배포와 실행을 담당하는 IVM COMPONENT에 대해 알아보겠습니다.</p>
-<h2><span id="it-chain의-ivm-component">It-chain의 IVM Component</span></h2><p>It-chain 에서는 icode라 불리는 smart contract을 배포할 수 있으며, It-chain 위에서 일어나는 Transaction 이 내포하는 의미는 바로 어떤 노드에서 어떤 smart contract의 어떤 함수를 실행시켰는가에 관한 정보이며 그 구조 중 일부는 다음과 같습니다.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	icodeId: _icodeid,</span><br><span class="line">	type: invoke | query</span><br><span class="line">	function: _functionName</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>여기서 트랜잭션을 실행시킨다는 것은 해당하는 icode 에게 특정 요청을 전달하는 것입니다.</p>
-<p>transaction의 종류에는  invoke와 query가 있는데, 여기서 invoke는 데이터를 쓰는 작업이고 query는 데이터를 읽는 작업이라고 볼 수 있습니다. 각 아이코드는 특정 함수에 대한 handler를 가지고 있으며 특정 함수를 실행하면 그에 매칭되는 핸들러가 동작하여 아이코드 내에서 일련의 작업이 일어나게 됩니다.</p>
-<h2><span id="icode-들은-어디에-저장되나요">Icode 들은 어디에 저장되나요?</span></h2><p>각 노드에서 배포된 Smart contract인 icode 들은 자신의 고유값을 기준으로 한 git repository에 자장되며, 어떤 노드에서 특정 icode를 실행하기 위해서는 git repository에서 해당 icode 를 받아와서 자신의 노드에 docker container를 구축하여 그 내부에서 icode를 실행시킵니다.</p>
-<p>즉, 새로운 스마트 컨트랙이 생성되면 이는 특정 git repository 로 업로드되고 사용되기 전까지 해당 git repository에 저장되어 있습니다.</p>
-<h2><span id="docker-container-관리를-위한-tesseract-library">Docker Container 관리를 위한 Tesseract Library</span></h2><p>블록체인 노드에서 여러개의 icode 가 하나의 노드에서 실행되어야 하며, 각 icode는 서로에게 독립적으로 작동하기 위해서 각 icode가 실행되는 환경을 가상화하여 독립시킬 필요성이 생기게 되었으며, 이를 해결하기 위해 it-chain 에서는 리눅스 컨테이너 기술인 <strong>Docker</strong> 를 사용하게 됩니다.</p>
-<p><strong>Docker</strong> 란 하나의 노드에서 여러개의 독립 실행 환경을 구성해 줄 수 있으며, 각 실행환경을 Container라는 단위로 부릅니다.</p>
-<p>IVM에서 각 icode는 각각 저마다의 독립된 실행공간인 <strong>Container</strong> 를 가지며 it-chain에서는 각 컨테이너를 생성하고 관리하는 별도의 라이브러리인 <strong>Tesseract</strong> 라는 독자적인 라이브러리를 사용하고 있으며, <strong>Tesseract</strong> 라이브러리는 각 컨테이너의 DB에 데이터를 저장하고 출력하는 작업을 수행합니다.</p>
-<h2><span id="smart-contract-작성을-위한-sdk-library">Smart Contract 작성을 위한 SDK Library</span></h2><p>Smart Contract 이란 사용자가 특정 함수나 요청을 전달하였을 때 항상 동일한 결과를 내놓는 일종의 블랙박스라고 볼 수 있습니다. icode는 docker위에서 동작하며 위의 invoke 등을 처리함에 있어 sdk의 함수들을 사용하는데 여기서 sdk는 ivm의 tesseract에게 grpc 통신을 통해 데이터를 쓰고 읽는 작업을 처리합니다.</p>
-<h2><span id="icode-는-언제-실행되나요">Icode 는 언제 실행되나요?</span></h2><p>먼저, icode 의 각 함수는 transaction을 만들어내고 이 tx는 리더에게 전달됩니다.</p>
-<p>리더는 tx를 받아 블록을 만들고 해당 블록을 받아 내부에 있는 tx를 실행시킴으로서 실제 icode 가 실행이 됩니다.</p>
-<p>현재 잇체인 팀은 계속해서 icode의 실행의 유효성을 보장하기 위한 다양한 시도들을 하고 있습니다.</p>
-<p>가령, 현재 it-chain은 transaction 내의 임의 함수로 인해 각 노드에서 다른 결과가 나오는 등 노드 별로 같은 결과값을 가지고 공유하기 위한 연구와 시도등이 있으며, it-chain 팀은 이를 해결하기 위해 각 노드에서 생성된 블록의 transaction 들을 바로 실행시키고 반영하기 전에 미리 한번 각 transaction을 실행시킨 뒤 상대방이 실행시킨 결과값과 나의 결과값이 일치할 때에만 icode 를 실행시키는 등의 장치를 구현중에 있습니다.</p>
-<h2><span id="스마트-컨트랙의-실행과-world-state-database">스마트 컨트랙의 실행과 World State Database</span></h2><p>실행된 스마트 컨트랙트는 각 노드의 상태를 변경시키고 변경된 상태들에 각 컨테이너가 접근할 수 있어야 하기에 공용으로 사용할 상태값 저장 공간이 필요하게 되었으며 이를 World State Database 라고 부릅니다.</p>
-<p>it-chain에서 world state database 는 키밸류 DB 인 Level DB를 사용하여 구현되었습니다.</p>
-<p>이번 포스트에서는 It-chain 내에서 Smart Contract을 배포 및 실행, 관리하는 IVM Component에 대해 알아보았습니다.</p>
-<p>다음 포스트에서는 it-chain에서 노드의 인증을 담당하는 Authentication에 대해 알아보겠습니다.</p>
-<p>It-chain:  <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a></p>
-<p><strong>Opensource Blockchain Engine It-chain 시리즈</strong></p>
-<ul>
-<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-01-peer-to-peer-network" target="_blank" rel="noopener">01. P2P 네트워크와 합의 알고리즘</a></li>
-<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-02-blockchain-component" target="_blank" rel="noopener">02. 블록의 생성과 동기화</a></li>
-</ul>
-<p><strong>LNH</strong></p>
 
                         
     </div>

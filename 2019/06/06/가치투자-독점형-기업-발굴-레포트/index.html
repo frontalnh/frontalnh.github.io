@@ -3,7 +3,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Getting started with solidity - Jake.Lee&#39;s Blog</title>
+<title>가치투자, 독점형 기업 발굴 레포트 - Jake.Lee&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -82,13 +82,13 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-                Getting started with solidity
+                가치투자, 독점형 기업 발굴 레포트
                     
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-02-25T06:02:34.000Z" itemprop="datePublished">
-                4 months ago
+            <time datetime="2019-06-06T04:47:49.000Z" itemprop="datePublished">
+                6 days ago
             </time>
         </span>
         
@@ -96,26 +96,31 @@
                     <span class="column is-narrow">
                         
                             
-                                4 minutes read (About 650 words)
+                                13 minutes read (About 1932 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
-                    <!--toc-->
-<h2><span id="restricting-access">Restricting Access</span></h2><p>하나의 컨트랙트 내의 속성들은 다른 컨트랙트에서 접근 될 수 없는 것이 기본이며, <code>public</code> 키워드를 명식적으로 사용함에 따라 다른 컨트랙트에서도 접근이 가능하게 된다.</p>
-<p>또다른 접근 제한자로는 <code>modifier</code> 가 있는데, 이는 특정 함수에 지정하여 해당 함수를 호출하기 전에 자격에 맞지 않으면 접근을 제한 할 수 있는 기능을 제공한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">contract AccessRestriction &#123;</span><br><span class="line">	modifier onlyBy(address _account)</span><br><span class="line">    &#123;</span><br><span class="line">        require(</span><br><span class="line">            msg.sender == _account,</span><br><span class="line">            &quot;Sender not authorized.&quot;</span><br><span class="line">        );</span><br><span class="line">        // Do not forget the &quot;_;&quot;! It will</span><br><span class="line">        // be replaced by the actual function</span><br><span class="line">        // body when the modifier is used.</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="data-types">Data types</span></h2><h4><span id="memory-and-storage">memory and storage</span></h4><p>solidity 에서 memory 와 storage 를 이루는 데이터 chunk 의 크기는 32bytes 이다.</p>
-<p><strong>memory</strong> 란 모든 함수 call 마다 새롭게 할당되는 임시 데이터 저장소로 이 메모리에 읽기, 쓰기 등의 작업을 수행할 때마다 가스비가 올라간다.</p>
-<h4><span id="variables">variables</span></h4><p>솔리디티에서 변수는 memory address 를 가르치는 포인터이다.</p>
-<h4><span id="array">array</span></h4><p>solidity 에서 array 의 첫번째 인자는 그 array 의 길이값을 저장한다.</p>
-<h4><span id="bytes">Bytes</span></h4><p>solidity 에서 bytes 는 동적으로 할당되는 byte array 이며, 그 크기는 32byte 이다. 또한, solidity 에서 변수는 memory address 를 가르치는 포인터이므로 해당 포인터로 부터 32 바이트를 더해주면 실제로 해당 bytes 의 값이 저장된 주소값을 얻을 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b = new bytes(32);</span><br><span class="line">add(b, 32); // b의 값이 저장된 주소값</span><br><span class="line"></span><br><span class="line">mstore(add(b, 32), x); // b=x</span><br></pre></td></tr></table></figure>
-<h2><span id="events">Events</span></h2><p>Event 는 솔리디티에서 일종의 로깅의 역할을 수행한다. 이더리움 상에서 일어나는 다양한 활동들에 대한 내역을 추적하고, 사용자 데이터를 자정하기 위해 이더리움은 로그 시스템을 적용하였으며, <strong>Event</strong> 의 발생은 일종의 로그 형태로 저장된다.</p>
-<p><strong>DAPP</strong> 개발자는 이더리움의 RPC 인터페이스를 통해 이러한 이벤트들을 구독할 수 있다. <strong>Topic</strong> 은 이러한 이벤트들을 찾을 수 있도록 해주며, 가령 특정 컨트랙트에서 발생한 로그들을 듣는 등의 일들을 할 수 있다.</p>
-<p>여기서 각 이벤트를 정의할 때 다음과 같이 <strong>indexed</strong> 옵션을 주면, 이렇게 구독을 하는 중에 해당 속성을 읽을 수 있다. 만약 <strong>indexed</strong> 옵션을 주지 않으며, ABI 인코딩된 데이터가 내려오게 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">contract ExampleContract &#123;</span><br><span class="line">    event ExampleEvent(</span><br><span class="line">        address indexed _from,</span><br><span class="line">        bytes32 indexed _id,</span><br><span class="line">        uint _value</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                    <h2><span id="독점-기업을-발굴하라">독점 기업을 발굴하라</span></h2><p>독점기업은 정부의 입장에서 보면 사회 전체의 이익에 반하는 행동을 할 수 있다는 점에서 제재의 대상이 될 수 있지만, 투자자의 입장에서 보면 상당히 매력적인 기업이다. 이런 기업은 마케팅 비용을 줄여 영업 이익을 극대화 할 수 있으면, 다른 대안이 없고 다른 모든 사람이 사용하기 때문에 가격 인상을 통해 추가적인 영업이익 확보도 가능하다.</p>
+<p>독점기업을 찾는 방법은 상당히 단순한데, 주변에서 그 제품을 좋아하지 않음에도 불구하고 어쩔수없이 구매해야 하는 제품들을 찾는 것이다. 가령 내가 ms 의 워드 프로그램을 사용하기 싫더라도 다른 모든 사람들이 문서 프로그램으로 워드를 사용하기 때문에 어쩔수 없이 구매해야 한다.</p>
+<h3><span id="자연-독점형-기업">자연 독점형 기업</span></h3><p>먼저 독점 기업 중에서 인위적으로 독점기업이 된 경우가 아닌 자연적으로 독점 지위를 누리게 된 ‘자연 독점형 기업’ 으로 기 범위를 제한한다.</p>
+<p>가령, 한전과 같이 정부차원에서 라이센스를 부과한다던가 하는 사유로 독점적 지위를 누리게 된 기업은 정부나 혹은 경제 상황에 따라 그 독점 지위가 존속 가능하지 않을 수 있기 때문에, 이는 배제한다.</p>
+<p>이러한 자연독점형 기업들은 몇가지 종류로 나눌수가 있는데, 그 종류는 <strong>표준화로 인한 독점, 기술적 독점, 마케팅 독점, 규모의 독점, 경쟁사 몰락으로 인한 독점</strong>의 경우가 있다.</p>
+<h5><span id="표준화">표준화</span></h5><p><em>먼저 표준화 독점이란, 특정 제품이 이미 그 서비스의 표준이 되어 내가 사용하고 싶지 않아도 다른 많은 사람들이 사용하기 때문에 어쩔 수 없이 사용해야 하는 제품을 의미한다.</em></p>
+<p>가령 마이크로 소프트의 워드, 엑셀과 같은 프로그램은 내가 아무리 다른 문서 에디터를 사용하고 싶다 하더라도 그 문서를 함께 공유하는 모든 사람들이 이미 마이크로소프트의 제품을 사용하기 때문에, 어쩔 수 없이 사용해야 하는데, 이것이 가장 대표적인 표준화 독점의 사례이다.</p>
+<p>필자가 생각하는 국내의 표준화 독과점 기업 중 하나는 <strong>리디북스</strong> 이다. <strong>리디북스</strong> 는 이미 전자책 시장의 60% 를 장악하고 있으며, 필자 또한 리디북스 전자책 단말기의 사용자이다. 리디북스는 다른 전자책 플랫폼과 다르게 타 서비스의 기기에 호환되지 않고, 독자적인 DRM 이 들어가기 때문에, 한번 리디북스 책을 구매했다면, 그 유저는 큰 문제가 있지 않는 한, 계속해서 리디북스에서 전자책을 구매하게 된다. 또한 리디는 도서 정액제 서비스등 유저를 묶어들 많은 서비스들을 내놓고 있으며, 이는 그 독과점 지위를 유지할 수 있는 큰 해자가 된다. 또한, 리디북스의 단말기는 현 유저들에게 많은 사랑을 받고 있으며, 기존에 전자책을 보급하던 많은 업체들(YES24 를 비롯한 대형 서점들) 의 경우 전자책을 판매하고 있지만, 전자책을 읽을 수 있는 디바이스나 어플리케이션들이 비교적 열악하기에 많은 고객이 이탈하여 리디북스로 올 것이라 예상한다.</p>
+<p>현재 리디북스의 재무현황의 경우 아직까지 매년 영업 손실을 내고 있지만, 향후 전자책 시장이 성장할 경우 점유율 60% 를 점유중인 리디북스의 영업이익은 꾸준히 성장할 것으로 판단되며, 전자책 공급업의 특성상 연구 개발비를 비롯한 각종 판관비를 매출 증가량에 비해 다소 낮은 비율로 증가할 것으로 예상되기에 영업 성과가 개선될 것으로 판단된다.</p>
+<p>하지만, 현재 리디북스는 <strong>비상장 기업</strong> 으로 주식시장에서 거래가 불가능하여, 주식을 구매하기 위해서는 장외주식을 구매하거나 상장할 때까지 기다리는 것 외에는 매수가 불가능 하다.</p>
+<h5><span id="기술적-독점">기술적 독점</span></h5><p>기술적 독점은 기업의 뛰어난 기술을 기반으로한 특허 등의 장치로 말미암아 다른 기업이 따라올 수 없는 기술력을 가지는 경우이다. 예로는 비아그라나 퀄컴의 CDMA 칩 등이 있다. 이러한 제품들은 다른 기업이 만들고자 해도 기술력 부족과 특허 문제로 제작이 불가능 하기 때문에, 해당 제품을 독점할 수 있다.</p>
+<h5><span id="마케팅-독점">마케팅 독점</span></h5><p>마케팅 독점이란 넓은 유통망을 기반으로한 브랜드 효과로 독점을 누리고 있는 기업이다.</p>
+<p>가령 코카콜라나 맥도날드 등의 기업들은 전 세계적인 유통망으로 원가절감을 비롯한 규모의 경제를 누릴 뿐 아니라, 그 브랜드 파워로 인해 소비자들과 좋은 관계를 유지합니다. 이러한 마케팅 파워는 그 자체로 막대한 독점적 지위를 가지게 됩니다.</p>
+<p>국내에 이런 마케팅 파워를 통한 브랜드가 있다면, 바로 백종원씨의 더본 코리아가 아닐까 싶습니다. 더본 코리아는 수십개의 프랜차이즈를 운영하고 있으며, 각 프랜차이즈는 백종원의 브랜드를 달고 소비자에게 다가가며, 소비자는 ‘백종원’ 이라는 이름을 믿고 매장에 방문하게 됩니다. 또, 백종원씨가 최근 많은 TV 프로그램에 나오면서, 소비자들에 대한 마케팅 파워를 강화했으며, 그 효과는 그대로 영업 실적에 반영되어 매년 영업이익이 폭발적으로 성장하고 있습니다.</p>
+<p>백종원씨의 더본 코리아는 현재 요식업 뿐만이 아니라 호텔 사업등 다양한 라이프 스타일 브랜드를 운영하고 수익을 낼 것으로 보이며, 더본 코리아의 상장 유무에 많은 투자자들의 관심이 집중되고 있습니다.</p>
+<h5><span id="규모의-독점">규모의 독점</span></h5><p>막대한 설비 투자처럼 큰 자본을 들여서 생산 환경을 구축해야 하는 사업의 경우 다른 기업이 참여하기 힘들다.</p>
+<p>가령 삼성의 반도체라인의 경우 막대한 반도체 공정을 위한 설비투자가 선행되어야 하며, 이는 다른 기업이 들어오지 못하는 큰 독점적 지위를 발생시킨다.</p>
+<p>현재 중국의 경우처럼 국가 단위로 설비 투자에 자금을 투입하는 등의 막대한 투자가 뒷바침 되지 않는 이상 삼성전자의 반도체를 꺾는 것은 매우 어렵다.</p>
+<h5><span id="경쟁사-몰락">경쟁사 몰락</span></h5><h3><span id="지역-독점형-기업">지역 독점형 기업</span></h3><h3><span id="일류-제품형-기업">일류 제품형 기업</span></h3><p>###</p>
 
                         
     </div>
@@ -124,15 +129,15 @@
                 <div class="columns is-mobile is-multiline article-nav">
                     <span class="column is-12-mobile is-half-desktop  article-nav-prev">
                         
-                            <a href="/2019/02/25/getting-started-with-dex/">
-                                Getting started with DEX
+                            <a href="/2019/06/06/가치투자-시장의-왜곡에서-기회를-잡아라/">
+                                가치투자, 시장의 왜곡에서 기회를 잡아라.
                             </a>
                             
                     </span>
                     <span class="column is-12-mobile is-half-desktop  article-nav-next">
                         
-                            <a href="/2019/02/24/getting-started-with-ethereum/">
-                                Getting started with ethereum
+                            <a href="/2019/06/03/aws-sdk-cookbook/">
+                                aws sdk cookbook
                             </a>
                             
                     </span>
@@ -157,8 +162,8 @@
                 
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://frontalnh.github.io/2019/02/25/getting-started-with-solidity/';
-        this.page.identifier = '2019/02/25/getting-started-with-solidity/';
+        this.page.url = 'http://frontalnh.github.io/2019/06/06/가치투자-독점형-기업-발굴-레포트/';
+        this.page.identifier = '2019/06/06/가치투자-독점형-기업-발굴-레포트/';
         
         this.language = 'en';
         

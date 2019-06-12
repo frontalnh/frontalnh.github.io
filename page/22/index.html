@@ -91,6 +91,194 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/17/Angular의-기본-개념-및-사용/" itemprop="url">
+                Angular의 기본 개념 및 사용
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-16T17:39:10.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1202 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#기본-명령어">기본 명령어</a></li>
+<li><a href="#component">Component</a></li>
+<li><a href="#module">Module</a><ul>
+<li><a href="#declaration">declaration</a></li>
+<li><a href="#imports">imports</a></li>
+<li><a href="#bootstrap">bootstrap</a></li>
+</ul>
+</li>
+<li><a href="#service">Service</a><ul>
+<li><a href="#workflow">WorkFlow</a></li>
+<li><a href="#maints">main.ts</a></li>
+</ul>
+<ul>
+<li><a href="#라이브러리">라이브러리</a></li>
+</ul>
+</li>
+<li><a href="#express">Express</a><ul>
+<li><a href="#example">Example</a></li>
+</ul>
+<ul>
+<li><a href="#활용법">활용법</a></li>
+</ul>
+</li>
+<li><a href="#structural-deretive">Structural Deretive</a><ul>
+<li><a href="#pipe">Pipe</a></li>
+<li><a href="#method-in-components">Method in Components</a></li>
+<li><a href="#model">Model</a></li>
+<li><a href="#property-binding">Property Binding</a></li>
+<li><a href="#class-binding">Class Binding</a></li>
+<li><a href="#event-binding">Event Binding</a></li>
+<li><a href="#clickfunc">(click)=”func()”</a></li>
+<li><a href="#two-way-binding">Two Way Binding</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#http-library">Http Library</a></li>
+<li><a href="#언디파인-방지">언디파인 방지</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="기본-명령어">기본 명령어</span></h2><p>새 프로젝트 만들기</p>
+<p><code>ng new [project name]</code></p>
+<p>빌드 및 실행</p>
+<p><code>$ ng build</code><br><code>$ node server.js</code></p>
+<p><a href="https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli" target="_blank" rel="noopener">참고 페이지</a></p>
+<h2><span id="component">Component</span></h2><p>컴포넌트는 어플리케이션을 구성하는 작은 조각이다.</p>
+<p><code>@Component</code> 를 클래스 위에 선언하여 컴포넌트를 꾸며주고 필요한 정보를 명시한다.</p>
+<p><strong>Selector</strong></p>
+<p>selector는 css선택자이며, 태그의 이름이다.</p>
+<p><strong>template</strong></p>
+<p>우리가 로드하려고 하는 템플릿을 작성한다.</p>
+<p><code>브래킷인 `</code>안에 작성한다.`</p>
+<p>각컴포넌트는 html, css, class를 가진다.</p>
+<p>컴포넌트는 template을 가진 일종의 directive이다.</p>
+<p><code>ng generate component [componentname]</code><br>을 통해 아주 간편하게 컴포넌트를 생성할 수 있다.</p>
+<h2><span id="module">Module</span></h2><p>모듈은 우리의 어플리케이션을 angulr하게 조직하기 위해 필요한 것이다.</p>
+<p>모든 어플리케이션은 앱을 lauch하기 위한 적어도 하나의 root module을 가진다.</p>
+<p>모듈은 기능적으로 관력이 있는 컴포넌트들을 묶어준다.</p>
+<h3><span id="declaration">declaration</span></h3><p>컴포넌트들을 선언한다.</p>
+<h3><span id="imports">imports</span></h3><p>브라우저에서 앱을 런칭하기 위해 필요한 디펜던시를 인젝트해준다.</p>
+<h3><span id="bootstrap">bootstrap</span></h3><p>root component를 명시하여 모듈이 bootstrap될 때 render하도록 한다.</p>
+<h2><span id="service">Service</span></h2><p>컴포넌트 사이에 중복된 코드와 데이터를 교환하는데 사용된다.</p>
+<h3><span id="workflow">WorkFlow</span></h3><ol>
+<li>Service에 @Injectable()을 추가한다.</li>
+</ol>
+<p>뿐만 아니라 import{Injactable} from “@angular/core”도 해주어야 한다.</p>
+<ol start="2">
+<li>Injector 즉, Module에게 Providers를 제공하여 서비스에 대해 알게 해야 한다.</li>
+</ol>
+<p>providers:[Service]</p>
+<ol start="3">
+<li>컴포넌트에 Dependency를 Inject 해준다.<ul>
+<li><code>ngOnInit() :</code></li>
+<li><code>constructor(pricate service:Service){}</code></li>
+</ul>
+</li>
+</ol>
+<h3><span id="maints">main.ts</span></h3><p>필요한 라이브러리를 import해준다.</p>
+<p><strong>BrowserModule</strong></p>
+<p>앵귤러 웹사이트를 동작하기 위한 라이브러리이다.</p>
+<p><strong>platformBrowserDynamic</strong></p>
+<p>웹사이트를 render하기 위한 앵귤러의 라이브러리이다.</p>
+<h1><span id="라이브러리">라이브러리</span></h1><h2><span id="express">Express</span></h2><p>Express는 자체적인 최소한의 기능을 갖춘 라우팅 및 미들웨어 웹 프레임워크이며, Express 애플리케이션은 기본적으로 일련의 미들웨어 함수 호출입니다.</p>
+<p>app.use() 및 app.METHOD() 함수를 이용해 애플리케이션 미들웨어를 앱 오브젝트의 인스턴스에 바인드하십시오.</p>
+<p>이때 METHOD는 미들웨어 함수가 처리하는 요청(GET, PUT 또는 POST 등)의 소문자로 된 HTTP 메소드입니다.</p>
+<p>다음 예에는 마운트 경로가 없는 미들웨어 함수가 표시되어 있습니다. 이 함수는 앱이 요청을 수신할 때마다 실행됩니다.</p>
+<h3><span id="example">Example</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Time:'</span>, <span class="built_in">Date</span>.now());</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1><span id="활용법">활용법</span></h1><h2><span id="structural-deretive">Structural Deretive</span></h2><p>html element들을 추가 제거 대체하여 레이아웃을 변형한다.<br><br><code>*ngFor = &quot;let carPart of catParts&quot;</code><br><br>어레이를 돌며 객체를 꺼낼때 사용한다.</p>
+<p><code>*ngIf=&quot;carPart.inStock&gt;0&quot;</code></p>
+<p>if문을 사용한다.</p>
+<h3><span id="pipe">Pipe</span></h3><p>template output을 변형하기 위해 쓰인다.</p>
+<h3><span id="method-in-components">Method in Components</span></h3><p>template output을 변형하기 위해 쓰이며, 선언없이 바로 정의한다.</p>
+<h3><span id="model">Model</span></h3><p>특정 객체를 선언하도록 ts에서 선언한다.<br>export const<br>export const를 통해 상수 객체를 선언하고 가져다 쓸 수 있따.</p>
+<h3><span id="property-binding">Property Binding</span></h3><p>프로퍼티 바인딩은 컴포넌트의 property를 any Dom element property로 지정할 수 있게 한다.<br>여기서 컴포넌트의 property가 업데이트 되면 DOM도 자동으로 업데이트 된다.<br>하지만 DOM에서 업데이트 되었다고 컴포넌트의 property가 업데이트 되지는 않는다.</p>
+<h3><span id="class-binding">Class Binding</span></h3><p><code>[class.name]=&quot;property&quot;</code>를 통해 property가 참이면 클래스에 name을 추가할 수 있다.</p>
+<h3><span id="event-binding">Event Binding</span></h3><p>DOM에서 발생하는 다양한 이벤트들을 처리할 수 있다.</p>
+<h3><span id="clickfunc">(click)=”func()”</span></h3><p>클릭이벤가 발생하면 컴포넌트의 func()를 실행시킨다.</p>
+<h3><span id="two-way-binding">Two Way Binding</span></h3><p><code>[(ngModel)}=&quot;property&quot;</code><br><br>이를 통해 two way data binding이 가능하다.<br>이를 쓰기 위해서는 FormModule을 Import해야 한다.</p>
+<h3><span id="routes">Routes</span></h3><p>Angular 내에서 url을 부여하여 옮겨다니기 위함이다.</p>
+<ol>
+<li>RouterModule을 Import 해준다.<br><br><code>import{RouterModule} from &quot;@angular/router&quot;</code></li>
+<li>RouterModule을 imports에 추가해 준다.<br><br><code>.forRoot([{path:&quot;/race&quot;,component:raceComponent},{}])</code></li>
+<li>링크를 걸어준다.<br><br><code>a [routerLink]=&quot;[&#39;/races&#39;]&quot;</code></li>
+<li>router-outlet 태그를 먹여준다.<br><br><code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code></li>
+</ol>
+<h3><span id="http-library">Http Library</span></h3><ol>
+<li>json파일을 만든다.</li>
+<li>HttpModule을 Import 해준다.<br>Http를 위한 library를 추가해야 하지만 HttpModule 내에서 이미 서비스를 provide하므로 할필요 없다.</li>
+<li>injector에 httprovider를 추가해준다.</li>
+<li>서비스에 http를 dependency inject해준다. 그리고 get request를 한다.</li>
+<li>req에 의해 반환되는 data를 listen한다.</li>
+</ol>
+<h3><span id="언디파인-방지">언디파인 방지</span></h3><p><code>if(Array.isArray(this.carParts){}</code>로 감싸 this.carParts가 undefined된 경우를 처리할 수 있다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/17/웹-어플리케이션-제작에-필요한-기본-DB-구성/" itemprop="url">
+                웹 어플리케이션 제작에 필요한 기본 DB 구성
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-16T17:33:35.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 342 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h3><span id="기본-db-세팅">기본 db 세팅</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">create database angular;</span><br><span class="line">use angular;</span><br><span class="line">CREATE TABLE `tb_airport` (</span><br><span class="line">  `AIRPORT_ID` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `AIRPORT_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `CONTINENT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `NATION` varchar(45) DEFAULT NULL,</span><br><span class="line">  `CITY` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`AIRPORT_ID`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_ticket` (</span><br><span class="line">  `TICKET_ID` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `TICKET_NM` varchar(100) DEFAULT NULL,</span><br><span class="line">  `TICKET_PRICE` int(11) DEFAULT NULL,</span><br><span class="line">  `TICKET_DEPARTURE` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_ARRIVAL` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_DEPARTURE_TIME` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_ARRIVAL_TIME` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_DEPARTURE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_ARRIVAL_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `CRE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`TICKET_ID`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_usage` (</span><br><span class="line">  `USAGE_ID` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `USER_EMAIL` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_ENG_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_PHONE` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_ENTITY` int(11) DEFAULT NULL,</span><br><span class="line">  `USAGE_STATUS` varchar(6) DEFAULT NULL COMMENT &apos;003001	신청완료(입금대기)\n003002	입금완료\n003003	환불대기\n003004	환불완료\n003005	종료&apos;,</span><br><span class="line">  `USAGE_NATION` varchar(45) DEFAULT NULL COMMENT &apos;도착 국가&apos;,</span><br><span class="line">  `USAGE_CITY` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_DEPARTURE_CITY` varchar(45) DEFAULT NULL COMMENT &apos;출발 도시&apos;,</span><br><span class="line">  `USAGE_DEPARTURE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_ARRIVAL_DT` varchar(45) DEFAULT NULL COMMENT &apos;도착일&apos;,</span><br><span class="line">  `USAGE_MEMO` text,</span><br><span class="line">  `CRE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`USAGE_ID`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_wishlist` (</span><br><span class="line">  `WL_ID` int(11) DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=latin1;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_user` (</span><br><span class="line">  `USER_EMAIL` varchar(100) CHARACTER SET latin1 NOT NULL,</span><br><span class="line">  `USER_PWD` varchar(100) DEFAULT NULL,</span><br><span class="line">  `USER_TYPE` varchar(6) DEFAULT NULL COMMENT &apos;002001	일반 회원\n002002	어드민\n&apos;,</span><br><span class="line">  `USER_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_ENG_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_GENDER` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_BIRTHDAY` varchar(100) DEFAULT NULL,</span><br><span class="line">  `USER_PHONE` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_USING_FREQ` int(11) DEFAULT NULL,</span><br><span class="line">  `CRE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`USER_EMAIL`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/17/Angular-시작하기/" itemprop="url">
                 1. Angular Framework 시작하기
             </a>

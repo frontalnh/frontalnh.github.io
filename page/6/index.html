@@ -91,6 +91,126 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/09/30/it-chain04/" itemprop="url">
+                it-chain 04
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-30T09:20:30.000Z" itemprop="datePublished">
+                8 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 317 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="opensource-blockchain-engine-it-chain-04-authentication">[ Opensource Blockchain Engine, IT-CHAIN] 04. Authentication</span></h1><p>Open Source Blockchain Engine인 It-chain 의 네번째 포스트입니다.</p>
+<p>이번 포스트에서는 IT-CHAIN에서 블록의 인증과정에 대해 알아보겠습니다.</p>
+<h2><span id="어떻게-노드들의-신분을-인증하는가">어떻게 노드들의 신분을 인증하는가?</span></h2><p>모든 노드는 각자 고유의 private key와 public key를 발행하며 이는 it-chain의 자체 라이브러리인 heimdal을 통해 이루어 집니다. heimdal를 통해 키를 생성하면 private key 와 public key 두 쌍의 키가 생기게 되는데, 여기서 public key를 활용하여 각 노드들의 id를 만들어 노드들의 신분을 보장하며, 각 노드는 트랜잭션을 발행하는 시점에 해당 트랜잭션을 자신의 private key로 sign한 signature를 함께 동봉합니다.</p>
+<h2><span id="트랜잭션의-signing">트랜잭션의 Signing</span></h2><p>트랜잭션을 발행할 때 TX와 함께 signatature를 동봉하게 되는데 이는 보내는 사람의 private key로 sign한 정보이다.</p>
+<p>It-chain:  <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a></p>
+<p><strong>Opensource Blockchain Engine It-chain 시리즈</strong></p>
+<ul>
+<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-01-peer-to-peer-network" target="_blank" rel="noopener">01. P2P 네트워크와 합의 알고리즘</a></li>
+<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-02-blockchain-component" target="_blank" rel="noopener">02. 블록의 생성과 동기화</a></li>
+</ul>
+<p><strong>LNH</strong></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/08/30/it-chain03/" itemprop="url">
+                it-chain 03
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-08-30T09:20:30.000Z" itemprop="datePublished">
+                9 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1371 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="opensource-blockchain-engine-it-chain-03-ivm-component">[ Opensource Blockchain Engine, IT-CHAIN] 03. IVM Component</span></h1><p>Open Source Blockchain Engine인 It-chain 의 세번째 포스트입니다.</p>
+<p>이번 포스트에서는 IT-CHAIN에서 Smart Contract 의 배포와 실행을 담당하는 IVM COMPONENT에 대해 알아보겠습니다.</p>
+<h2><span id="it-chain의-ivm-component">It-chain의 IVM Component</span></h2><p>It-chain 에서는 icode라 불리는 smart contract을 배포할 수 있으며, It-chain 위에서 일어나는 Transaction 이 내포하는 의미는 바로 어떤 노드에서 어떤 smart contract의 어떤 함수를 실행시켰는가에 관한 정보이며 그 구조 중 일부는 다음과 같습니다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	icodeId: _icodeid,</span><br><span class="line">	type: invoke | query</span><br><span class="line">	function: _functionName</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 트랜잭션을 실행시킨다는 것은 해당하는 icode 에게 특정 요청을 전달하는 것입니다.</p>
+<p>transaction의 종류에는  invoke와 query가 있는데, 여기서 invoke는 데이터를 쓰는 작업이고 query는 데이터를 읽는 작업이라고 볼 수 있습니다. 각 아이코드는 특정 함수에 대한 handler를 가지고 있으며 특정 함수를 실행하면 그에 매칭되는 핸들러가 동작하여 아이코드 내에서 일련의 작업이 일어나게 됩니다.</p>
+<h2><span id="icode-들은-어디에-저장되나요">Icode 들은 어디에 저장되나요?</span></h2><p>각 노드에서 배포된 Smart contract인 icode 들은 자신의 고유값을 기준으로 한 git repository에 자장되며, 어떤 노드에서 특정 icode를 실행하기 위해서는 git repository에서 해당 icode 를 받아와서 자신의 노드에 docker container를 구축하여 그 내부에서 icode를 실행시킵니다.</p>
+<p>즉, 새로운 스마트 컨트랙이 생성되면 이는 특정 git repository 로 업로드되고 사용되기 전까지 해당 git repository에 저장되어 있습니다.</p>
+<h2><span id="docker-container-관리를-위한-tesseract-library">Docker Container 관리를 위한 Tesseract Library</span></h2><p>블록체인 노드에서 여러개의 icode 가 하나의 노드에서 실행되어야 하며, 각 icode는 서로에게 독립적으로 작동하기 위해서 각 icode가 실행되는 환경을 가상화하여 독립시킬 필요성이 생기게 되었으며, 이를 해결하기 위해 it-chain 에서는 리눅스 컨테이너 기술인 <strong>Docker</strong> 를 사용하게 됩니다.</p>
+<p><strong>Docker</strong> 란 하나의 노드에서 여러개의 독립 실행 환경을 구성해 줄 수 있으며, 각 실행환경을 Container라는 단위로 부릅니다.</p>
+<p>IVM에서 각 icode는 각각 저마다의 독립된 실행공간인 <strong>Container</strong> 를 가지며 it-chain에서는 각 컨테이너를 생성하고 관리하는 별도의 라이브러리인 <strong>Tesseract</strong> 라는 독자적인 라이브러리를 사용하고 있으며, <strong>Tesseract</strong> 라이브러리는 각 컨테이너의 DB에 데이터를 저장하고 출력하는 작업을 수행합니다.</p>
+<h2><span id="smart-contract-작성을-위한-sdk-library">Smart Contract 작성을 위한 SDK Library</span></h2><p>Smart Contract 이란 사용자가 특정 함수나 요청을 전달하였을 때 항상 동일한 결과를 내놓는 일종의 블랙박스라고 볼 수 있습니다. icode는 docker위에서 동작하며 위의 invoke 등을 처리함에 있어 sdk의 함수들을 사용하는데 여기서 sdk는 ivm의 tesseract에게 grpc 통신을 통해 데이터를 쓰고 읽는 작업을 처리합니다.</p>
+<h2><span id="icode-는-언제-실행되나요">Icode 는 언제 실행되나요?</span></h2><p>먼저, icode 의 각 함수는 transaction을 만들어내고 이 tx는 리더에게 전달됩니다.</p>
+<p>리더는 tx를 받아 블록을 만들고 해당 블록을 받아 내부에 있는 tx를 실행시킴으로서 실제 icode 가 실행이 됩니다.</p>
+<p>현재 잇체인 팀은 계속해서 icode의 실행의 유효성을 보장하기 위한 다양한 시도들을 하고 있습니다.</p>
+<p>가령, 현재 it-chain은 transaction 내의 임의 함수로 인해 각 노드에서 다른 결과가 나오는 등 노드 별로 같은 결과값을 가지고 공유하기 위한 연구와 시도등이 있으며, it-chain 팀은 이를 해결하기 위해 각 노드에서 생성된 블록의 transaction 들을 바로 실행시키고 반영하기 전에 미리 한번 각 transaction을 실행시킨 뒤 상대방이 실행시킨 결과값과 나의 결과값이 일치할 때에만 icode 를 실행시키는 등의 장치를 구현중에 있습니다.</p>
+<h2><span id="스마트-컨트랙의-실행과-world-state-database">스마트 컨트랙의 실행과 World State Database</span></h2><p>실행된 스마트 컨트랙트는 각 노드의 상태를 변경시키고 변경된 상태들에 각 컨테이너가 접근할 수 있어야 하기에 공용으로 사용할 상태값 저장 공간이 필요하게 되었으며 이를 World State Database 라고 부릅니다.</p>
+<p>it-chain에서 world state database 는 키밸류 DB 인 Level DB를 사용하여 구현되었습니다.</p>
+<p>이번 포스트에서는 It-chain 내에서 Smart Contract을 배포 및 실행, 관리하는 IVM Component에 대해 알아보았습니다.</p>
+<p>다음 포스트에서는 it-chain에서 노드의 인증을 담당하는 Authentication에 대해 알아보겠습니다.</p>
+<p>It-chain:  <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a></p>
+<p><strong>Opensource Blockchain Engine It-chain 시리즈</strong></p>
+<ul>
+<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-01-peer-to-peer-network" target="_blank" rel="noopener">01. P2P 네트워크와 합의 알고리즘</a></li>
+<li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-02-blockchain-component" target="_blank" rel="noopener">02. 블록의 생성과 동기화</a></li>
+</ul>
+<p><strong>LNH</strong></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/08/28/golang-cookbook/" itemprop="url">
                 Golang cookbook
             </a>
@@ -99,7 +219,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-08-28T05:09:11.000Z" itemprop="datePublished">
-                9 months ago
+                10 months ago
             </time>
         </span>
         
@@ -607,137 +727,6 @@
 <li><a href="https://steemit.com/blockchain/@keepit/keep-t-column-opensource-blockchain-engine-it-chain-01-peer-to-peer-network" target="_blank" rel="noopener">01. P2P 네트워크와 합의 알고리즘</a></li>
 </ul>
 <p><strong>LNH</strong></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/07/28/es6의-중요한-핵심-개념들/" itemprop="url">
-                ES6의 중요한 핵심 개념들
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-07-28T05:35:52.000Z" itemprop="datePublished">
-                10 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/js/">js</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                11 minutes read (About 1683 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="es6의-중요한-핵심-개념들">ES6의 중요한 핵심 개념들</span></h1><h2><span id="es6-에서의-변수-선언">ES6 에서의 변수 선언</span></h2><p>이전 자바스크립트 버전에서는 변수를 선언하는 유일한 방법은 var 이었지만 ES6에서는 다양한 변수선언 방법을 선언하며 다음은 몇가지 새로운 변수 선언 방법이다.</p>
-<h3><span id="const">const</span></h3><p>다른 언어와 마찬가지로 ES6에도 const를 정의할 수 있다.<br>const 를 사용하여 한번 선언된 변수가 덮어씌워질 수 없도록 강제할 수 있다.</p>
-<h3><span id="let">let</span></h3><p>ES6 에서는 let 을 사용하여 전역 변수를 보호할 수 있다.</p>
-<p>가령 var 를 사용하면 다음과 같이 전역 변수가 덮어씌우 지지만</p>
-<p>example</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'global'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(test)&#123;</span><br><span class="line">    <span class="keyword">var</span> test = <span class="string">'overwritten'</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(test) <span class="comment">// overwritten</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(test) <span class="comment">// overwritten</span></span><br></pre></td></tr></table></figure>
-<p>다음과 같이 if 문 안에서 let을 사용하면 전역변수를 보호할 수 있다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'global'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(test)&#123;</span><br><span class="line">    <span class="keyword">let</span> test = <span class="string">'overwritten'</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(test) <span class="comment">// overwritten</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(test) <span class="comment">// global</span></span><br></pre></td></tr></table></figure>
-<h2><span id="template-string">Template String</span></h2><p>기존 javascript 에서는 문자열과 변수를 함치기 위해 string의 덧셈 연산을 통해 수행하였지만.<br>ES6 문법에서는 <code>${}</code> 와 같은 스트링 템플릿을 통해 변수를 스트링에 전달할 수 있다.</p>
-<h3><span id="example">example</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'jhon'</span></span><br><span class="line"><span class="keyword">var</span> text = <span class="string">`my name is <span class="subst">$&#123;name&#125;</span>`</span></span><br><span class="line"><span class="built_in">console</span>.log(text) <span class="comment">// my name is jhon</span></span><br></pre></td></tr></table></figure>
-<h2><span id="arrow-function">Arrow function</span></h2><p>arrow function 을 통해 한 줄에 함수를 선언할 수 있다.<br>arrow function 은 여러 방면에서 매우 편리한데, 가령 리턴을 생략해도 자동으로 해당 내용이 리턴으로 들어가며, 만약 input 변수가 하나인 경우 괄호 마저 생략이 가능하다. 뿐만 아니라 arrow function 은 this의 사용을 방해하지 않기 때문에 this를 사용하면 함수 밖의 context에 바로 접근이 가능하다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Old</span></span><br><span class="line"><span class="keyword">var</span> old = <span class="function"><span class="keyword">function</span>(<span class="params">var1, var2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> var1 + var2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//new</span></span><br><span class="line"><span class="keyword">var</span> arrowFunc = <span class="function">(<span class="params">var1, var2</span>) =&gt;</span>&#123;</span><br><span class="line">    var1 + var2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="transpiling-of-es6">Transpiling of ES6</span></h2><p>아직 많은 브라우저에서 ES6 문법을 지원하지 않고 js는 계속해서 빠른 속도로 변화하고 있기 때문에, 이를 사용하기 위해서는 ES6 문법을 ES5 문법으로 transpile 해주어야 한다. 이러한 작업은 주로 babel 을 통해 이루어 진다.</p>
-<p>이러한 transpile은 브라우저 레벨에서 이루어 질 수 도 있고, 서버단에서 transpile 후에 클라이언트로 전달해 주기도 하는데 전자의 경우 간편하게 처리 가능하다 성능면에서 productiondp 레벨에서 사용하기에는 많은 문제가 있다.</p>
-<p>전자의 경우 다음코드를 html 에 추가함으로써 간편하게 transpile이 가능하다.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"script.js"</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2><span id="objects-and-arrays">Objects and Arrays</span></h2><p>ES6 에서는 object와 array를 보다 편리하게 사용하기 위한 다양한 문법을 제공한다.</p>
-<h3><span id="destructuring-assignment">Destructuring assignment</span></h3><p>객체 혹은 배열 내의 자료에 접근하기 위한 매우 편리한 방법인 destructuring assignment를 제공한다.<br>과거의 경우 일일히 해당 프로퍼티에 접근하여 하나씩 엔티티를 가져와야 했다면, 이 방법을 통해 간편하게 entity를 추출할 수 있다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// destructuring assignment in object</span></span><br><span class="line"><span class="keyword">var</span> personalInfo = &#123;</span><br><span class="line">    name: <span class="string">'namhoon'</span>,</span><br><span class="line">    age: <span class="number">27</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123; name, age &#125; = personalInfo; <span class="comment">// extracts key value</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// destructuring assignment in array</span></span><br><span class="line"><span class="keyword">var</span> list = [<span class="string">'namhoon'</span>, <span class="string">'jake'</span>, <span class="string">'james'</span>];</span><br><span class="line"><span class="keyword">var</span> [firstItem] = list;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(firstName); <span class="comment">// 'namhoon'</span></span><br></pre></td></tr></table></figure>
-<h3><span id="object-literal-enhancement">Object Literal Enhancement</span></h3><p>ES6 에서는 오브젝트 내에서 함수 및 엔티티를 지정함에 있어 훨씬 편리하다</p>
-<p>다음과 같이 외부의 변수를 간편하게 객체 내에 추가할 수 있고, 함수의 선언도 간편해 졌다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'namhoon'</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">25</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> personalInfo = &#123;name, age&#125;<span class="comment">//&#123;name:'namhoon', age:25&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'my name is $&#123;this.name&#125; and im $&#123;this.age&#125; years old'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// new version</span></span><br><span class="line"><span class="keyword">var</span> personalInfo = &#123;</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">    print()&#123; <span class="comment">// eaily define function!</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'my name is $&#123;this.name&#125; and im $&#123;this.age&#125; years old'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="the-spread-operator">The Spread Operator</span></h2><p>spread operator(…variable) 을 통해 간편하게 배열을 다룰 수 있다.<br>과거 js에서는 배열 혹은 객체 내의 다양한 인자들을 명시하거나 변경하기 위해 필요없는 다를 항목들까지 일일히 명시해야 했다면, spread operator는 우리를 이러한 귀찮음에서 해방시켜 준다.</p>
-<p>이런한 spread operator는 다양한 경우에 사용될 수 있으며, 다음은 그 사용 사례이다.</p>
-<h3><span id="array를-이어-붙이는-경우">array를 이어 붙이는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> peaks = [<span class="string">"Tallac"</span>, <span class="string">"Ralston"</span>, <span class="string">"Rose"</span>] <span class="keyword">var</span> canyons = [<span class="string">"Ward"</span>, <span class="string">"Blackwood"</span>]</span><br><span class="line"><span class="keyword">var</span> tahoe = [...peaks, ...canyons]</span><br></pre></td></tr></table></figure>
-<h3><span id="array를-간편하게-복제하는-경우">array를 간편하게 복제하는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> peaks = [<span class="string">"Tallac"</span>, <span class="string">"Ralston"</span>, <span class="string">"Rose"</span>];</span><br><span class="line"><span class="keyword">var</span> [last] = [...peaks].reverse()</span><br><span class="line"><span class="built_in">console</span>.log(last) <span class="comment">// Rose</span></span><br><span class="line"><span class="built_in">console</span>.log(peaks.join(<span class="string">', '</span>)) <span class="comment">// Tallac, Ralston, Rose</span></span><br></pre></td></tr></table></figure>
-<h3><span id="함수의-인자들을-묶어서-표현하는-경우">함수의 인자들을 묶어서 표현하는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">directions</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> [start, ...remaining] = args</span><br><span class="line">    <span class="keyword">var</span> [finish, ...stops] = remaining.reverse()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`drive through <span class="subst">$&#123;args.length&#125;</span> towns`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`start in <span class="subst">$&#123;start&#125;</span>`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`the destination is <span class="subst">$&#123;finish&#125;</span>`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`stopping <span class="subst">$&#123;stops.length&#125;</span> times in between`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">directions(</span><br><span class="line">    <span class="string">"Truckee"</span>,</span><br><span class="line">    <span class="string">"Tahoe City"</span>,</span><br><span class="line">    <span class="string">"Sunnyside"</span>,</span><br><span class="line">    <span class="string">"Homewood"</span>,</span><br><span class="line">    <span class="string">"Tahoma"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h3><span id="객체-내-인자들을-묶어서-표현하는-경우">객체 내 인자들을 묶어서 표현하는 경우</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> morning = &#123;</span><br><span class="line">    breakfast: <span class="string">"oatmeal"</span>,</span><br><span class="line">    lunch: <span class="string">"peanut butter and jelly"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> dinner = <span class="string">"mac and cheese"</span></span><br><span class="line"><span class="keyword">var</span> backpackingMeals = &#123;</span><br><span class="line">    ...morning,</span><br><span class="line">    dinner</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(backpackingMeals)</span><br></pre></td></tr></table></figure>
-<h2><span id="classes">Classes</span></h2><p>이전 버전의 js에서는 class 가 존재하지 않았기 대문에 클래스가 필요한 경우 함수를 만들고 해당 함수에 대한 프로토 타입을 정의하는 방식으로 클래스를 만들어 사용했다.<br>하지만 ES6 부터는 정식을로 Class 를 지원하며 다른 클래스를 extends 할 수 있어 인터페이스의 개념도 추가되었다.</p>
-<p>여기서 extends 를 사용하는 경우 construct를 다른 함수에서 super() 를 사용해야 하며, 그 사용사례는 다음과 같다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Expedition</span> <span class="keyword">extends</span> <span class="title">Vacation</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(destination, length, gear) &#123;</span><br><span class="line">        <span class="keyword">super</span>(destination, length)</span><br><span class="line">        <span class="keyword">this</span>.gear = gear</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="keyword">super</span>.print()</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`Bring your <span class="subst">$&#123;<span class="keyword">this</span>.gear.join(<span class="string">" and your "</span>)&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="es6-modules">ES6 Modules</span></h3><p>이전 버전의 js 에서는 외부 라이브러리를 가져오는 방법으로만 import 가 가능했지만, ES6 부터는 정식으로 module 을 제공하고 있다.<br>특히 같은 파일 내에서 여러 개의 모듈을 export 하는 것도 가능하며, object destructuring 을 통해 간편하게 import 할 수 있으며, 특정 모듈을 원하는 이름 으로 import 하는 것도 가능하다.<br>다음은 그 사용사례를 보여준다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; print, log &#125; <span class="keyword">from</span> <span class="string">'./text-helpers'</span></span><br><span class="line"><span class="keyword">import</span> &#123; print <span class="keyword">as</span> p, log <span class="keyword">as</span> l &#125; <span class="keyword">from</span> <span class="string">'./text-helpers'</span></span><br></pre></td></tr></table></figure>
-<p>과거버전의 js와 ES6 에서 통용되는 Common.js는 <code>module.exports</code> 를 사용하여 module을 export 하는데 주의할 점은 이렇게 export된 module은 <code>import</code> 를 통해 import 될 수 없다는 것이다. 그 대신 아래와 같이 require를 사용하여 import를 해야 한다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; log, print &#125; = <span class="built_in">require</span>(<span class="string">'./txt-helpers'</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>많은 라이브러리들이 common.js 를 기반으로 export 되었으므로, 외부 라이브러리를 사용할 때 무분별하게 import 문을 사용하면 import 되지 않는 문제가 있으니 특히 주의해야 한다.</strong></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/07/28/react의-기본-개념/" itemprop="url">
-                react의 기본 개념
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-07-28T05:25:54.000Z" itemprop="datePublished">
-                10 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/react/">react</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                6 minutes read (About 966 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="react의-기본-개념">react의 기본 개념</span></h1><p>react 란 정적인 html 페이지를 js 라는 스크립트 언어를 통해 동적으로 redering 하기 위한 라이브러리이다.<br>react의 핵심은 단순히 browser라는 환경이 아닌 많은 환경에서 html 페이지를 렌더링 할 수 있게 하여 보다 다양한 환경에 쉽게 rendering 될 수 있는 페이지를 만드는 것이다. js 는 일반적으로 <code>DOM API</code> 를 통해 화면을 렌더링 하는데 흔히 <code>document.createElement</code> 와 같은 명령어들이 대표적이 예이다. 우리는 react가 제공하는 함수들을 통해 렌더링을 제어하며 react 는 우리를 대신하여 효율적으로 <code>DOM APU</code> 를 컨트롤 하여 매우 효과적으로 렌더링을 제어한다. 우리는 react가 제공하는 virtual dom 환경을 통해 렌더링을 조작하며, 이러한 <code>virtual dom</code> 을 사실 단순한 javascript object에 불과하다.</p>
-<h2><span id="dom-rendering">DOM Rendering</span></h2><p>리액트는 매우 효율적으로 <code>DOM API</code> 를 통해 렌더링을 수행하며, 대표적으로 페이지를 리 렌더링하는 시점에 바뀐 부분과 바뀌지 않은 부분들을 파악하여 반드시 필요한 부분에 대해서만 rerendering을 수행하게 되므로 브라우저의 한정된 자원을 효율적으로 사용하여 클라이언트 효율을 올려준다.</p>
-<h2><span id="react-elemnt-and-component">React Elemnt and Component</span></h2><p>react는 <code>DOM API</code> 의 element에 매칭되는 독자적인 element를 가지며 이는 js object이다.<br>이러한 element 및 component들은 직관적으로 html element 를 조작하는 것과 같은 환경을 제공해 준다.</p>
-<h2><span id="react-with-jsx">React with JSX</span></h2><p>facebook 은 보다 직관적인 html 작성을 위해 jsx라는 독자적인 언어를 만들었으며, 이를 통해 우리는 마치 html을 작성하는 것과 같은 환경에서 react 의 virtual dom을 제어할 수 있게 되었다.</p>
-<h2><span id="webpack-loader">Webpack Loader</span></h2><p>여기서 load란 build 과정에서 우리가 작성한 코드를 브라우저가 읽을 수 있도록 변형해주는 것을 의미한다. webpack은 다양한 환경에서 동작하기 위해 막대한 양의 loader 들을 가지고 있으며, 적절한 변환을 위해 우리는 <code>webpack.config.js</code> 파일을 작성하여 webpack에게 어떤 내용을 변형시켜 줄 지를 말해준다. 대표적인 loader 로는 ES6 과 React 분법을 ES5 로 변형시켜 주는 babel-loader와 scss 언어를 css 로 변형시켜주는 css-loader가 있다.</p>
-<h3><span id="webpack-설치하기">webpack 설치하기</span></h3><p>webpack 설치하기</p>
-<p><code>sudo npm install -g webpack</code></p>
-<p>loader 설치하기</p>
-<p><code>npm install babel-core babel-loader babel-preset-env babel-preset-react babel-preset-stage-0 --save-dev</code></p>
-<h3><span id="webpack-설정하기">webpack 설정하기</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 5-20. webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">"./src/index.js"</span>, <span class="comment">//define client entry file</span></span><br><span class="line">    output: &#123;</span><br><span class="line">            path: <span class="string">"dist/assets"</span>, <span class="comment">//export bundler to the dist foler</span></span><br><span class="line">            filename: <span class="string">"bundle.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    devtool: <span class="string">'#source-map'</span>, <span class="comment">// source mapping - should be after output</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [ &#123;</span><br><span class="line">                        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                        exclude: <span class="regexp">/(node_modules)/</span>,</span><br><span class="line">                        loader: [<span class="string">'babel-loader'</span>],</span><br><span class="line">                        query: &#123;</span><br><span class="line">                            presets: [<span class="string">'env'</span>, <span class="string">'stage-0'</span>, <span class="string">'react'</span>]</span><br><span class="line">                        &#125;</span><br><span class="line">        &#125; ]</span><br><span class="line">    &#125;, <span class="attr">plugins</span>: [ <span class="comment">// uglify plugin</span></span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123; <span class="attr">sourceMap</span>: <span class="literal">true</span>,</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">        mangle: <span class="literal">true</span> &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="uglify">uglify</span></h3><p>번들링 되는 파일의 용량을 줄이기 위해 웹팩은 띄어쓰기, 변수명 축약 등의 작업을 수행하는 플러그인을 내포하고 있으며, 이를 사용하기 위해서는 다음 명령어를 통해 webpack을 로컬로 설치해야한다.</p>
-<p><code>npm install webpack --save-dev</code></p>
-<h2><span id="create-react-app">create react app</span></h2><p>위와 같은 웹팩 설정 등의 여타 작업들을 수행하는 것은 상당히 성가신 일이다. facebook은 개발자들이 빠르게 설정을 완료할 수 있도록 cli 환경을 만들어 두었으며, create-react-app 을 통해 간편하게 리액트를 시작할 수 있다.<br>create-react-app 은 transpile 과 uglify 등 webpack 이 수행하는 여타의 작업들을 모두 끝내주기 때문에 가볍게 react 개발을 시작할 수 있다.</p>
 
                         
     </div>

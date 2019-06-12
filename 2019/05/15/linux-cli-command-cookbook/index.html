@@ -88,7 +88,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-15T01:06:49.000Z" itemprop="datePublished">
-                19 days ago
+                a month ago
             </time>
         </span>
         
@@ -96,7 +96,7 @@
                     <span class="column is-narrow">
                         
                             
-                                3 minutes read (About 402 words)
+                                3 minutes read (About 497 words)
                     </span>
                     
     </div>
@@ -104,7 +104,7 @@
         
                     <!--toc-->
 <h3><span id="ps">ps</span></h3><p>ps 명령어는 현재 실행중인 프로세스의 목록을 보여준다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep &lt;content&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep &lt;content&gt;</span><br><span class="line">ps -aux # 모든 그룹과 유저가 실행한 프로세스를 본다.</span><br></pre></td></tr></table></figure>
 <h6><span id="주요옵션">주요옵션</span></h6><p>이외에도 많은 옵션이 있지만 실제로는 grep명령어와 함께 사용하기 때문에 잘 사용하지 않는다.</p>
 <table>
 <thead>
@@ -157,6 +157,27 @@
 <p>last line: <code>G</code> <code>&gt;</code></p>
 <p>Search: <code>/&lt;search keyword&gt;</code></p>
 <p>go to line: <code>&lt;number of the line&gt;g</code></p>
+<h3><span id="dd">dd</span></h3><p>On <a href="https://www.computerhope.com/jargon/u/unix-like.htm" target="_blank" rel="noopener">Unix-like</a> operating systems, the <strong>dd</strong> command copies a file, <a href="https://www.computerhope.com/jargon/c/conversi.htm" target="_blank" rel="noopener">converting</a> the format of the data in the process, according to the <a href="https://www.computerhope.com/jargon/o/operand.htm" target="_blank" rel="noopener">operands</a> specified.</p>
+<table>
+<thead>
+<tr>
+<th>Operand</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>if=FILE</td>
+<td>input file</td>
+</tr>
+<tr>
+<td>iflag=FLAGS</td>
+<td><strong>sync</strong> <br>likewise, but also for metadata</td>
+</tr>
+</tbody>
+</table>
+<p>example</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=blockchain/block_log iflag=nocache count=0</span><br></pre></td></tr></table></figure>
 
                         
     </div>

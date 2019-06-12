@@ -91,6 +91,135 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/03/27/자료구조-정렬-sorting/" itemprop="url">
+                자료구조 | 정렬(sorting)
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-27T11:38:10.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 876 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="개요">개요</span></h1><p>컴퓨터 안에는 수십 수만가지의 데이터 들이 있으며, 이러한 수많은 데이터들을 잘 정리하고 보관하는 것은 빠른 데이터 찾기와 데이터 추가 및 삭제 등의 작업의 효율에 매우 큰 영향을 미친다. 때문에 컴퓨터의 많은 자료들을 효율적으로 분류하고 원하는 자료를 찾고 추가 하기 위해서는 ‘정렬’에 대해 알아야 할 필요가 있다.</p>
+<p>본 강의에서 <strong>리스트</strong> 란 하나 이상의 필드로 된 레코드의 집합이라는 의미로 사용하며, 이때 코드를 서로 구별하기 위해 사용되는 필드를 <strong>키</strong> 라고 한다.</p>
+<h1><span id="일반적인-자료의-탐색-방법">일반적인 자료의 탐색 방법</span></h1><p>흔히 리스트를 탐색하는 가장 직관적인 방법은 앞에서 부터 차례대로 비교하면서 자료를 분류하는 것이다.<br>프로그래밍에서 for 문을 사용하여 리스트의 제일 앞에서 부터 뒤까지 훑어 가면서 equal 문을 통해 데이터를 찾는 작업은 매우 흔한 프로그래밍의 구현이다.</p>
+<p>이렇게 어떤 리스트의 왼편에서 오른편으로 차례대로 데이터를 찾는 것을 <strong>순차 탐색</strong> 이라고 한다.</p>
+<p>다음 C 언어로 순차탐색 프로그램을 구현한 코드이다.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Element</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">seqSearch</span><span class="params">(Element elements[], <span class="built_in">string</span> key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="keyword">sizeof</span>(*elements) / <span class="keyword">sizeof</span>(elements[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"address of the elements: "</span> &lt;&lt; elements &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"count is: "</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (elements[i].key == key)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Element element1 = &#123;<span class="string">"123"</span>&#125;;</span><br><span class="line">    Element element2 = &#123;<span class="string">"namhoon"</span>&#125;;</span><br><span class="line">    Element elements[] = &#123;element1, element2&#125;;</span><br><span class="line">    <span class="keyword">int</span> result = seqSearch(elements, <span class="string">"namhoon"</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>위 프로그램을 살펴보면 for 문을 돌면서 n 개의 레코드를 탐색하는 평균은 (n+1)/2 이므로, O(n)의 시간복잡도를 가진다.</p>
+<p>만약 어떤 리스트가 정렬된 순차 리스트라면 이런 순차 탐색 말고 <strong>이원 탐색</strong> 을 사용하여 자료를 찾을 수 있으며 이 경우 시간 복잡도는 O(logn) 이다.</p>
+<h1><span id="정렬의-종류">정렬의 종류</span></h1><h2><span id="삽입-정렬">삽입 정렬</span></h2><p>i 개의 정렬된 레코드에 새로운 레코드를 끼워넣어 i+1 개의 정렬된 레코드 리스트를 만드는 정렬 방법이다.</p>
+<p>아래 프로그램은 C로 구현한 insert 함수이다.</p>
+<p><img src="/images/삽입정렬시Insert함수의개념도.png" alt="삽입 정렬 시 insert 함수의 개념도"></p>
+<p>정렬된 리스트 a[1:i] 에 e 원소를 집어넣어 a[1:i+1]의 리스트를 만들어 내는 함수이다.</p>
+<p>index 역할을 하는 i가 점차 작아지면서 a[i].key가 e.key 보다 큰 경우 한칸씩 우측으로 밀어내고, a[i].key가 e.key 보다 작아지는 i 값에서 a[i+1]에 e를 넣어준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void insert(element e, element a[], int i)&#123;</span><br><span class="line">  a[0]=e;</span><br><span class="line">  while(e.key&lt;a[i].key)&#123;</span><br><span class="line">    a[i+1] = a[i];</span><br><span class="line">    i--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  a[i+1] = e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>아래 함수는 insert 함수를 활용하여 삽입정렬을 하는 프로그램이다.</p>
+<p><img src="../images/삽입정렬의개념도.png" alt="삽입 정렬의 개념도"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void insertionSort(element a[], int n)&#123;</span><br><span class="line">  int j;</span><br><span class="line">  for(j=2;j&lt;=n;j++)&#123;</span><br><span class="line">    element temp = a[j];</span><br><span class="line">    insert(temp, a, j-1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="병합정렬merge-sort">병합정렬(Merge Sort)</span></h2><p>병합정렬은 입력 리스트를 길이가 1인 n 개의 정렬될 서브트리로 간주하는 것으로 시작합니다.</p>
+<p>아래 merge 함수는 두개의 서로 다른 리스트를 병합하는 것을 보여줍니다.</p>
+<p><img src="\images\merge개념도.png" alt="합병 정렬을 위한 merge 함수 개념도"></p>
+<p><img src="\images\병합정렬의개념도.png" alt="병합 정렬의 개념도"></p>
+<p>merge sort 의 각 단계는 O(n) 의 시간이 걸리고 logn 번의 단계가 적용되므로 O(nlogn) 의 복잡도를 가집니다.</p>
+<p><strong>Time Complexity: O(nlogn)</strong></p>
+<p>또한 각 병합과정에서 새로운 배열이 필요하므로 inplace sort가 아니다.</p>
+<h2><span id="퀵-정렬quick-sort">퀵 정렬(Quick Sort)</span></h2><p>퀵 정렬은 앞서 살펴본 정렬법 중에서 가장 좋은 평균 성능을 가지고 있다.<br>퀵 정렬의 순서는 먼저 피벗 레코드를 선택하여 피벗의 왼쪽에는 레코드 키들이 피벗의 키보다 작거나 같고 피벗의 오른쪽에는 레코드 키들이 피벗의 키보다 크거나 같도록 하는 방법을 사용한다. 최종적으로는 피벗의 왼쪽에 있는 레코드들과 피벗의 오른쪽에 있는 레코드들이 서로 독립적으로 정렬이 된다.</p>
+<p><img src="/images\퀵정렬의개념도.png" alt="퀵정렬의 개념도"></p>
+<p>다음은 퀵 정렬을 수행하는 프로그램이다.<br>i와 j가 각각 왼쪽과 오른쪽에서 가운데 방향으로 진행하며, a[i].key는 pivot 보다 커질 때까지 a[j].key는 pivot 보다 작아질 때 까지<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void quickSort(element a[], int left, int right)&#123;</span><br><span class="line">  int pivot,i,j;</span><br><span class="line">  pivot = a[left].key;</span><br><span class="line">  do&#123;</span><br><span class="line">    do j++;while(a[i].key&lt;pivot);</span><br><span class="line">    do j--;while(a[j].key&gt;pivot);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="히프정렬">히프정렬</span></h2><p><img src="\images\히프정렬을위한Adjust함수.png" alt="히프 정렬을 위한 adjust 함수"></p>
+<p><img src="\images\히프정렬의개념도.png" alt="히프 정렬의 개념도"></p>
+<p><img src="배열에서의히프정렬.png" alt="배열에서의 히프 정렬"></p>
+<p>히프 정렬에서는 최대 길이 [log_2(n+1)] 을 가지고 adjust를 n-1번 호출한다.</p>
+<p>즉, O(nlogn) 이다.</p>
+<h2><span id="버블-정렬">버블 정렬</span></h2><p><img src="\images\버블정렬의개념도.png" alt="버블 정렬의 개념도"></p>
+<h2><span id="선택-정렬">선택 정렬</span></h2><p><img src="\images\선택정렬의개념도.png" alt="선택 정렬의 개념도"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/03/27/자료구조-히프(Heap)/" itemprop="url">
+                자료구조 | 히프 구조
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-27T11:34:03.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                5 minutes read (About 763 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="히프heap란">히프(heap)란?</span></h1><p>히프는 우선순위 큐를 구현하는 데 자주 사용된다. 우선순위 큐에서는 우선순위가 가장 높은(또는 낮은) 원소를 먼저 삭제한다.<br>히프에 대한 설명을 하기 전에 최대 트리와 최소 트리에 대한 설명을 먼저 진행한다.</p>
+<p><strong>최대 트리</strong> 란 각 노드의 키 값이 그 자식의 키 값보다 작지 않은 트리이며,<br><strong>최소 트리</strong> 란 각 노드의 키 값이 그 자식의 키 값보다 크지 않은 트리를 말한다.</p>
+<p>여기서 <strong>최대 히프</strong> 란 최대 트리이면서 완전 이진트리이며, <strong>최소 히프</strong> 란 최소 트리이면서 완전 이진트리를 의미한다.</p>
+<p>이러한 최대 히프 및 최소 히프에서는 부모를 쉽게 찾아 삽입이 가능하다.</p>
+<p>히프의 생성은 C를 통하여 다음과 같이 구현한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#define MAX_ELEMENTS 200</span><br><span class="line">#define HEAP_FULL(n) (n==MAX_ELEMENTS-1)</span><br><span class="line">#define HEAP_EMPTY(n) (!n)</span><br><span class="line">typedef struct&#123;</span><br><span class="line">  int key;</span><br><span class="line">  &#125; element;</span><br><span class="line"></span><br><span class="line">element heap[MAX_ELEMENTS];</span><br><span class="line">int n=0;</span><br></pre></td></tr></table></figure></p>
+<h1><span id="최대-히프에서의-삽입">최대 히프에서의 삽입</span></h1><p>최대 히프에서 원소를 삽입하는 경우 추가되는 원소가 가장 아래부터 루트 쪽으로 올라가는 bubbling up 기법이 사용된다.<br>다음은 최대 히프에서의 원소의 삽입을 구현한 C 프로그램이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#define MAX_ELEMENTS 200 /*최대 히프 크기 +1*/</span><br><span class="line">#define HEAP_FULL(n) (n == MAX_ELEMENTS-1)</span><br><span class="line">#define HEAP_EMPTY(n) (!n)</span><br><span class="line"></span><br><span class="line">typedef struct element&#123;</span><br><span class="line">  int key;</span><br><span class="line">&#125;element;</span><br><span class="line"></span><br><span class="line">element heap[MAX_ELEMENTS];</span><br><span class="line">int n=0;</span><br><span class="line"></span><br><span class="line">void push(element item, int *n)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line">  if(HEAP_FULL(*n))&#123;</span><br><span class="line">    fprintf(stderr, &quot;The heap is full. \n&quot;);</span><br><span class="line">    exit(EXIT_FAILURE);</span><br><span class="line">  &#125;</span><br><span class="line">  i = ++(*n);</span><br><span class="line">  while ((i != 1) &amp;&amp; (item.key &gt; heap[i/2].key))&#123;</span><br><span class="line">    heap[i] = heap[i/2];</span><br><span class="line">    i /= 2;</span><br><span class="line">  &#125;</span><br><span class="line">  heap[i] = item;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    struct element node1 = &#123;7&#125;;</span><br><span class="line">    struct element node2 = &#123;16&#125;;</span><br><span class="line">    struct element node3 = &#123;49&#125;;</span><br><span class="line">    struct element node4 = &#123;82&#125;;</span><br><span class="line">    struct element node5 = &#123;5&#125;;</span><br><span class="line">    struct element node6 = &#123;31&#125;;</span><br><span class="line">    struct element node7 = &#123;6&#125;;</span><br><span class="line">    struct element node8 = &#123;2&#125;;</span><br><span class="line">    struct element node9 = &#123;44&#125;;</span><br><span class="line">    push(node1, &amp;n);</span><br><span class="line">    push(node2, &amp;n);</span><br><span class="line">    push(node3, &amp;n);</span><br><span class="line">    push(node4, &amp;n);</span><br><span class="line">    push(node5, &amp;n);</span><br><span class="line">    push(node6, &amp;n);</span><br><span class="line">    push(node7, &amp;n);</span><br><span class="line">    push(node8, &amp;n);</span><br><span class="line">    push(node9, &amp;n);</span><br><span class="line">    for(int k=1;k&lt;10;k++)&#123;</span><br><span class="line">        printf(&quot;%d &quot;,heap[k].key);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="\images\최대히프에서의삽입.png" alt="최대 히프에서의 삽입"></p>
+<h1><span id="최대-히프에서의-삭제">최대 히프에서의 삭제</span></h1><p>최대 히프에서 원소의 삭제는 제일 위에서 이루어 진다.<br>먼저, 키값이 가장 큰 원소를 삭제하고 마지막 원소를 제거하고 두 자식 노드중 큰 값이 위로 올라가고 아래를 메꾸는 방식으로 진행된다.<br>최대 히프의 삭제를 구현한 프로그램은 다음과 같다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">element pop(int *n)</span><br><span class="line">&#123;</span><br><span class="line">  int parent, child;</span><br><span class="line">  element item, temp;</span><br><span class="line">  if(HEAP_EMPTY(*n))&#123;</span><br><span class="line">    fprintf(stderr, &quot;The heap is empty\n&quot;);</span><br><span class="line">    exit(EXIT_FAILURE);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  item=heap[1];</span><br><span class="line">  temp = heap[(*n)--];</span><br><span class="line">  parent = 1;</span><br><span class="line">  child = 2;</span><br><span class="line">  while(child &lt;= *n)&#123;</span><br><span class="line">    if((child &lt; *n) &amp;&amp; (heap[child].key &lt; heap[child+1].key))</span><br><span class="line">      child++;</span><br><span class="line">    if(temp.key &gt; heap[child].key) break;</span><br><span class="line">    heap[parent] = heap[child];</span><br><span class="line">    parent = child;</span><br><span class="line">    child *= 2;</span><br><span class="line">  &#125;</span><br><span class="line">  heap[parent] = temp;</span><br><span class="line">  return item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="\images\최대히프에서의삭제개념도.png" alt="최대 히프에서의 삭제 개념도"></p>
+<h1><span id="b-히프">B - 히프</span></h1><p>B - 히프란 최소 트리의 집합이다.</p>
+<p><img src="\images\b히프.png" alt="B 히프"></p>
+<p><img src="\images\b히프에서의삽입.png" alt="B 히프에서의 삽입"></p>
+<p><img src="\images\b히프에서의삭제.png" alt="B 히프에서의 삭제"></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/03/27/자료구조-트리/" itemprop="url">
                 자료구조 | 트리(Tree)
             </a>
@@ -708,93 +837,6 @@
 </tbody>
 </table>
 <hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/03/18/express의-기본-개념/" itemprop="url">
-                express 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-03-17T15:36:53.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/nodejs-강의/">nodejs 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 64 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="express란">Express란?</span></h1><p>Express는 자체적인 최소한의 기능을 갖춘 라우팅 및 미들웨어 웹 프레임워크이며, Express 애플리케이션은 기본적으로 일련의 미들웨어 함수 호출이다.</p>
-<h2><span id="installation">Installation</span></h2><p><code>npm install express --save</code></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/02/22/mysql-trigger의-활용/" itemprop="url">
-                6. mysql trigger의 활용
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-02-22T04:20:59.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                2 minutes read (About 268 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="trigger의-생성과-삭제">trigger의 생성과 삭제</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">DROP TRIGGER IF EXISTS `sport`.`tr_update_gameresult`;</span><br><span class="line"></span><br><span class="line">CREATE TRIGGER `sport`.`tr_update_gameresult` BEFORE UPDATE ON sport.tb_game</span><br><span class="line">FOR EACH ROW</span><br><span class="line">BEGIN</span><br><span class="line">  -- 게임이 종료 되었는지 판단</span><br><span class="line">  IF NEW.COMP_CODE = &apos;3&apos; THEN</span><br><span class="line">    SET @exception = (select EXPECATE from tb_reg_game where GAME_NO = NEW.GAME_NO);</span><br><span class="line"></span><br><span class="line">    IF @exception = NEW.VIC_CODE THEN</span><br><span class="line">      update tb_reg_game set `HIT_RESULT` = &apos;1&apos; where GAME_NO = NEW.GAME_NO;</span><br><span class="line">    ELSE</span><br><span class="line">      update tb_reg_game set `HIT_RESULT` = &apos;2&apos; where GAME_NO = NEW.GAME_NO;</span><br><span class="line">    END IF;</span><br><span class="line"></span><br><span class="line">  END IF;</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
-<h1><span id="새로-들어온-데이터-선택자-new와-기존에-있던-데이터-선택자-old">새로 들어온 데이터 선택자 new와 기존에 있던 데이터 선택자 OLD</span></h1><p>새로 들어온 데이터를 new로 지칭하여 attribute를 뽑아서 사용할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tb_group set MEMBER_NUM=@memberNum where GROUP_ID = new.GM_GROUP_ID;</span><br></pre></td></tr></table></figure></p>
-<h1><span id="특정-데이터-생성-혹은-삭제시에-상위-테이블의-전체-개수-인덱스-변경하기">특정 데이터 생성 혹은 삭제시에 상위 테이블의 전체 개수 인덱스 변경하기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create trigger trx_updates_atrig</span><br><span class="line">after insert on trx_updates for each row begin</span><br><span class="line"></span><br><span class="line">&lt;!-- 트리거 동작에 필요한 변수 선언 --&gt;</span><br><span class="line">DECLARE memverNum INT;</span><br><span class="line">  &lt;!-- 변수에 값 넣는 sql --&gt;</span><br><span class="line">  set @memberNum = ( select count(*) from tb_group_member where GM_GROUP_ID=new.GM_GROUP_ID );</span><br><span class="line"></span><br><span class="line">  &lt;!-- 인덱스 변경 SQL --&gt;</span><br><span class="line">  update tb_group set MEMBER_NUM=@memberNum where GROUP_ID = new.GM_GROUP_ID;</span><br><span class="line">end//</span><br></pre></td></tr></table></figure>
 
                         
     </div>

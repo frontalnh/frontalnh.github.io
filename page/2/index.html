@@ -91,6 +91,134 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/03/getting-started-with-gradle/" itemprop="url">
+                Getting started with gradle
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-03T09:30:43.000Z" itemprop="datePublished">
+                a month ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 616 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="prerequisites">Prerequisites</span></h2><p>Gradle requires Java JDK or JRE</p>
+<p>in Mac</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew tap caskroom/cask &amp;&amp; # only if you didn't install cask</span><br><span class="line">brew cask install java &amp;&amp;</span><br><span class="line">brew cask info java &amp;&amp;</span><br><span class="line">brew tap caskroom/cask</span><br></pre></td></tr></table></figure>
+<p>### </p>
+<p>install gradle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
+<h2><span id="create-new-gradle-project">Create new Gradle Project</span></h2><h3><span id="initialize">Initialize</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle init</span><br></pre></td></tr></table></figure>
+<p>Directory<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├── build.gradle  </span><br><span class="line">├── gradle</span><br><span class="line">│   └── wrapper</span><br><span class="line">│       ├── gradle-wrapper.jar  </span><br><span class="line">│       └── gradle-wrapper.properties  </span><br><span class="line">├── gradlew  </span><br><span class="line">├── gradlew.bat  </span><br><span class="line">└── settings.gradle</span><br></pre></td></tr></table></figure></p>
+<p>build.gradle: Gradle build script for configuring the current project</p>
+<p>gradlew: Gradle wrapper script for unix-based system</p>
+<p>gradle.bat: Gradle wrapper script for Windows</p>
+<p>settings.gradle: Gradle settings script for configuring the Gradle build</p>
+<h3><span id="create-a-task">Create a task</span></h3><p>하나의 Project 는 여러개의 Task 를 포함하며, 각 Task 는 기본적인 연산을 수행한다.</p>
+<p>Gradle 은 task 라이브러리들을 가지고 있으며, 이를 통해 프로젝트를 설정할 수 있다. 가령 <code>COPY</code> 라는 type 은 특정 파일을 특정 위치로 복사해 준다.</p>
+<p>example) build.gradle</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task copy(<span class="string">type:</span> Copy, <span class="string">group:</span> <span class="string">"Custom"</span>, <span class="string">description:</span> <span class="string">"Copies sources to the dest directory"</span>) &#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    into <span class="string">"dest"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 <strong>group</strong> 과 <strong>description</strong> 은 하드코드된 값으로 프로그래머가 원하는 값을 지정하면 된다.</p>
+<p>실행하기</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew copy</span><br></pre></td></tr></table></figure>
+<h3><span id="apply-a-plugin">Apply a plugin</span></h3><p>Gradle 에는 다양한 종류의 plugin 이 존재한다.</p>
+<p>예를 들어  <code>base</code> 플러그인의 <code>Zip</code> type을 활용하여 zip archive 를 생성할 수 있다.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plugins&#123;</span><br><span class="line">  id <span class="string">"base"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task zip(<span class="string">type:</span> Zip, <span class="string">group:</span> <span class="string">"Archive"</span>, <span class="string">description:</span> <span class="string">"Archive sources in a zip file"</span>)&#123;</span><br><span class="line">    from <span class="string">"src"</span></span><br><span class="line">    setArchiveName <span class="string">"basic-demo-1.0.zip"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>실행</p>
+<p><code>./gradlew zip</code></p>
+<h2><span id="command">Command</span></h2><h3><span id="show-tasks">Show tasks</span></h3><p>아래 명령어를 통해 존재하는 task 들을 확인할 수 있다.</p>
+<p>task 들은 group 별로 정렬되어 나타나며, 각 task 마다의 description 이 명시되어 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew tasks</span><br></pre></td></tr></table></figure>
+<h3><span id="analyze-and-debug-build">Analyze and debug build</span></h3><p>gradle 은 build scan 이라는 웹 기반의 build 상태 확인을 제공한다.</p>
+<p>아래 명령어는 gradle 에서 확인한다.</p>
+<p>example)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew zip --scan</span><br></pre></td></tr></table></figure>
+<h3><span id="discover-available-properties">Discover available properties</span></h3><p>아래 명령어를 통해 gradle 의 다양한 property 들을 확인할 수 있다.</p>
+<p>property들이란 gradle 을 통해 빌드하는 과정에서 설정되는 다양한 속성들을 의미하며, 가령 build directory, project directory 같은 중요한 사항들이 포함된다.</p>
+<p>아래 명령어를 통해 property 들을 확인할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew properties</span><br></pre></td></tr></table></figure>
+<p>The <code>name</code> of the project matches the name of the folder by default. You can also specify <code>group</code>and <code>version</code> properties, but at the moment they are taking their default values, as is <code>description</code>.</p>
+<p>The <code>buildFile</code> property is the fully-qualified path name to your build script, which resides in the <code>projectDir</code> — by default.</p>
+<p>You can change many of the properties. For example, you might try adding the following lines to your build script file, and re-execute <code>gradle properties</code>.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/02/getting-started-with-ubuntu/" itemprop="url">
+                Getting started with ubuntu
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
+                a month ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/ubuntu/">ubuntu</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 260 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="installation">Installation</span></h2><p>Git, node.js, aws-cli 를 설치해 준다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp;</span><br><span class="line">sudo apt install git &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt-get install nodejs &amp;&amp;</span><br><span class="line">sudo apt-get install npm &amp;&amp;</span><br><span class="line">sudo apt update &amp;&amp; # install python to install aws-cli</span><br><span class="line">sudo apt install python3-pip &amp;&amp; # install pip</span><br><span class="line">sudo pip3 install awscli &amp;&amp; # install aws-cli</span><br><span class="line">sudo apt install awscli</span><br></pre></td></tr></table></figure>
+<h2><span id="setup-terminal">Setup Terminal</span></h2><h3><span id="installation">installation</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install terminator &amp;&amp;</span><br><span class="line">sudo apt-get update &amp;&amp;</span><br><span class="line">sudo apt upgrade &amp;&amp;</span><br><span class="line">sudo apt-get install zsh &amp;&amp;</span><br><span class="line">sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" &amp;&amp;</span><br><span class="line">chsh -s /usr/bin/zsh root&amp;&amp; # update default shell</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh &amp;&amp; # download template</span><br><span class="line">sudo su&amp;&amp;</span><br><span class="line">cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc ## copy .zshrc template</span><br><span class="line">source ~/.zshrc &amp;&amp;</span><br><span class="line">npm install --global pure-prompt --allow-root --unsafe-perm=true</span><br></pre></td></tr></table></figure>
+<h3><span id="install-plugin">install plugin</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> zsh-syntax-highlighting</span></span><br><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-autosuggestions</span></span><br><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+<p>~/.zshrc</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plugins=(</span><br><span class="line">  git</span><br><span class="line">  zsh-syntax-highlighting</span><br><span class="line">  zsh-autosuggestions</span><br><span class="line">)</span><br><span class="line">autoload -U promptinit; promptinit</span><br><span class="line">prompt pure</span><br></pre></td></tr></table></figure>
+<h3><span id="install-fzf">install fzf</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf</span><br><span class="line">~/.fzf/install</span><br></pre></td></tr></table></figure>
+<h3><span id="update-vs-code-default-terminal">update vs code default terminal</span></h3><p>vscode setting</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;terminal.integrated.shell.linux&quot;:&quot;/usr/bin/zsh&quot;</span><br></pre></td></tr></table></figure>
+<h3><span id="shortcuts">shortcuts</span></h3><p>split terminals horizontally: <code>ctrl shift o</code></p>
+<p>split terminals vertically: <code>ctrl shift e</code></p>
+<p>close current panel: <code>ctrl shift w</code></p>
+<p>move terminal: <code>alt + arrow</code></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/04/20/getting-started-with-aws-vpc/" itemprop="url">
                 Getting started with aws vpc
             </a>
@@ -99,7 +227,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -364,7 +492,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T02:14:34.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -406,7 +534,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -469,7 +597,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-26T23:34:19.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -515,7 +643,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-22T07:02:12.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -565,231 +693,6 @@
 <p>webpack.config.js의 예</p>
 <p>\<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    resolve: &#123;</span><br><span class="line"></span><br><span class="line">​        plugins: [</span><br><span class="line"></span><br><span class="line">​            <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line"></span><br><span class="line">​                configFile: <span class="string">'./tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line"></span><br><span class="line">​            &#125;)</span><br><span class="line"></span><br><span class="line">​        ];</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\</span><br></pre></td></tr></table></figure></p>
 <h3><span id="author">Author</span></h3><p><a href="https://github.com/frontalnh" target="_blank" rel="noopener">frontalnh(Namhoon Lee)</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/16/nuxt-js-시작하기/" itemprop="url">
-                Nuxt.js 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-16T09:14:59.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/next/">next</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                13 minutes read (About 1997 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#next-cli">Next CLI</a></li>
-<li><a href="#vuex">Vuex</a></li>
-<li><a href="#global-css">Global CSS</a><ul>
-<li><a href="#setup-vuetify">Setup Vuetify</a></li>
-</ul>
-</li>
-<li><a href="#nuxt-에서-axios-사용하기">Nuxt 에서 axios 사용하기</a><ul>
-<li><a href="#기본-사용법">기본 사용법</a></li>
-<li><a href="#http-helper-plugin-적용">http helper plugin 적용</a></li>
-</ul>
-</li>
-<li><a href="#plugin-사용하기">Plugin 사용하기</a><ul>
-<li><a href="#플러그인-만들기">플러그인 만들기</a></li>
-<li><a href="#플러그인-등록하기">플러그인 등록하기</a></li>
-<li><a href="#vue-instance-contextk-store-에서-사용가능하게-등록하기">Vue instance, Contextk, Store 에서 사용가능하게 등록하기</a></li>
-</ul>
-</li>
-<li><a href="#reverse-proxy">Reverse proxy</a></li>
-<li><a href="#global-modal">Global Modal</a></li>
-<li><a href="#environment-variables">Environment variables</a></li>
-<li><a href="#problem-solving">Problem solving</a><ul>
-<li><a href="#layout-사용하기">layout 사용하기</a></li>
-<li><a href="#unexpected-token-import">Unexpected token import</a></li>
-<li><a href="#cannot-find-module">cannot find module</a></li>
-<li><a href="#query-string-nested-object">Query string nested object</a></li>
-<li><a href="#custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</a></li>
-<li><a href="#다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h2><span id="installation">Installation</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vue init nuxt-community/typescript-template [프로젝트 명];</span><br><span class="line"></span><br><span class="line">yarn add nuxt-property-decorator &amp;&amp; <span class="comment"># property decorator installation</span></span><br><span class="line">yarn add tsconfig-paths-webpack-plugin &amp;&amp;<span class="comment"># webpack 에서 typescript 를 사용하기 위한 세팅</span></span><br><span class="line">yarn add ts-loader &amp;&amp; <span class="comment"># typescript 사용을 위한 ts-loader 설치</span></span><br><span class="line">yarn add vuex-class &amp;&amp; <span class="comment"># Vuex 를 class 타입으로 사용하기 위해 설치</span></span><br><span class="line">yarn add nuxt-sass-resources-loader &amp;&amp; <span class="comment"># For using sass</span></span><br><span class="line">yarn add sass-loader <span class="comment"># for using sass</span></span><br></pre></td></tr></table></figure>
-<p>타입스크립트를 트랜스파일링 하기 위해 webpack configuration을 바꾸어 주어야 한다.</p>
-<p>이는 nuxt.config.js 에서 webpack configuration 을 overriding 함으로써 구현한다.</p>
-<p>nuxt.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ** You can extend webpack config here</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  extend(config, ctx) &#123;</span><br><span class="line">    config.resolve.extensions.push(<span class="string">'.ts'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> tsLoader = &#123;</span><br><span class="line">      loader: <span class="string">'ts-loader'</span>,</span><br><span class="line">      options: &#123; <span class="attr">appendTsSuffixTo</span>: [<span class="regexp">/\.vue$/</span>], <span class="attr">transpileOnly</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">      exclude: [<span class="regexp">/vendor/</span>, /\.nuxt/]</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    config.module.rules.push(&#123; <span class="attr">test</span>: <span class="regexp">/.tsx?$/</span>, ...tsLoader &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> rule <span class="keyword">of</span> config.module.rules) &#123;</span><br><span class="line">      <span class="keyword">if</span> (rule.loader === <span class="string">'vue-loader'</span>) &#123;</span><br><span class="line">        rule.options.loaders = &#123;</span><br><span class="line">          ts: tsLoader</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> plugin = <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line">      configFile: <span class="string">'tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    config.resolve[<span class="string">'plugins'</span>] = [plugin];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="next-cli">Next CLI</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install dependencies</span></span><br><span class="line"></span><br><span class="line">$ npm install <span class="comment"># Or yarn install</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># serve with hot reload at localhost:3000</span></span><br><span class="line"></span><br><span class="line">$ npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># build for production and launch server</span></span><br><span class="line"></span><br><span class="line">$ npm run build</span><br><span class="line"></span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line"><span class="comment"># generate static project</span></span><br><span class="line"></span><br><span class="line">$ npm run generate</span><br></pre></td></tr></table></figure>
-<h2><span id="vuex">Vuex</span></h2><p>store 디렉토리는 어플리케이션에서 사용하는 도메인 객체들의 저장소이다.</p>
-<p>초기 프로젝트는 Vuex 가 disable 된 상태이나 다음과 같이 store/index.js 파일을 작성하면, Vuex 를 사용할 수 있다.</p>
-<p>store/index.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createStore = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">      counter: <span class="number">0</span></span><br><span class="line">    &#125;),</span><br><span class="line">    mutations: &#123;</span><br><span class="line">      increment(state) &#123;</span><br><span class="line">        state.counter++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore;</span><br></pre></td></tr></table></figure>
-<p>Vuex state 의 경우 nested 된 object 의 경우 내부 값만 바뀌면 store 가 업데이트 되지 않는 현상이 있다.</p>
-<p>이를 위한 해결법으로 state.prop[key] ={} 와 같은 연산이 있다면 이를 <code>state.prop={[key]:{}}</code> 와 같이 수정하는 트릭을 쓸 수 있다.</p>
-<h2><span id="global-css">Global CSS</span></h2><p>nuxt.config.js 에서 head 에 추가한다.</p>
-<h3><span id="setup-vuetify">Setup Vuetify</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @nuxtjs/vuetify</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuetify <span class="keyword">from</span> <span class="string">'vuetify'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuetify);</span><br><span class="line"><span class="keyword">import</span> <span class="string">'vuetify/dist/vuetify.min.css'</span>; <span class="comment">// Ensure you are using css-loader</span></span><br></pre></td></tr></table></figure>
-<p>nuxt.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'@nuxtjs/vuetify'</span></span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Vuetify options</span></span><br><span class="line">  vuetify: &#123;</span><br><span class="line">    <span class="comment">//  theme: &#123; &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="nuxt-에서-axios-사용하기">Nuxt 에서 axios 사용하기</span></h2><h3><span id="기본-사용법">기본 사용법</span></h3><p>Nuxt 에서는 기본적으로 다음과 같은 방법을 통해 axios 모듈을 사용할 수 있다.</p>
-<p>여기서, 왜 그냥 axios 를 동적으로 import 해서 사용하지 않고 nuxt 가 제공하는 axios 를 사용해야 하는지 궁금할 수 있다.</p>
-<p>바로 그 이유는, nuxt 는 기본적으로 server redering 방식으로 동작하기 때문에, browser cookie 와 jwt 토큰 등의 중앙적인 데이터에 접근하기가 힘들기 때문이다.</p>
-<p>nuxt 가 제공하는 axios 는 withCredential 등을 통해 간편하게 cookie 데이터에 접근할 수 있는 장점이 있다.</p>
-<p>axios 설치</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @nuxtjs/axios</span><br></pre></td></tr></table></figure>
-<p>axios 모듈 등록</p>
-<p>nuxt.config.ts</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'@nuxtjs/axios'</span>,</span><br><span class="line">  ],</span><br><span class="line">  axios: &#123;</span><br><span class="line">    <span class="comment">// proxyHeaders: false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이를 통해 각 component 의 <code>this.$axios</code> 와 <code>context 의 $axios</code> 를 통해 axios를 사용할 수 있다.</p>
-<p>하지만, 여기서는 범용 logger 혹은 http request 에 있어서 일관된 에러 핸들링 등을 할 수 없기 때문에 이 함수를 사용하는 httpHelper 플러그인을 구현하여 이를 가능하도록 한다.</p>
-<h3><span id="http-helper-plugin-적용">http helper plugin 적용</span></h3><p>여기서 httpHelper의 경우 get, post, put, delete 등의 메소드를 wrapping 하는 다양한 함수들이 존재하며 여기서는 구현을 생략하겠다.</p>
-<p>중요한 점은 이런 HttpHelper 클래스가 plugin 에서 <code>$axios</code> 를 주입받아 새로운 메소드를 구현하며, 이를 <code>inject 함수를 통해 vue instance, store, context 에 바인딩 하여 어느 곳에서나 사용 가능하게 해준다는 것이다.</code></p>
-<p>plugins/httpHelper.ts</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; HttpHelper &#125; <span class="keyword">from</span> <span class="string">'utils/httpHelper'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">context, inject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123; $axios &#125; = context;</span><br><span class="line">  <span class="keyword">let</span> httpHelper = <span class="keyword">new</span> HttpHelper($axios);</span><br><span class="line">  context.$httpHelper = httpHelper;</span><br><span class="line"></span><br><span class="line">  inject(<span class="string">'httpHelper'</span>, httpHelper);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="plugin-사용하기">Plugin 사용하기</span></h2><p>Vue.js 의 자체 기능 뿐 아니라 다양한 외부 라이브러리 혹은 사용자의 external util function 등을 활용하기 위해서 nuxt 는 plugin 이라는 기능을 제공한다.</p>
-<p>이러한 plugin 을 통해서 사용자는 사용하고자 하는 함수 혹은 instance 를 vue root application 혹은 context 에 binding 할 수 있다.</p>
-<h3><span id="플러그인-만들기">플러그인 만들기</span></h3><p>plugins/sample.ts</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (context, inject) =&gt; &#123;</span><br><span class="line">  context.$sample = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="플러그인-등록하기">플러그인 등록하기</span></h3><p>플러그인을 사용하기 위해 nuxt configuration 에 등록시켜 주어야 한다.<br>nuxt.config.ts</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  plugins: [<span class="string">'~/plugins/sample.ts'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="vue-instance-contextk-store-에서-사용가능하게-등록하기">Vue instance, Contextk, Store 에서 사용가능하게 등록하기</span></h3><p>기본적으로 plugin 을 등록하면 오직 context 혹은 vue instance 내에서만 사용 가능하다.<br>하지만 store 혹은 여러 곳에서 이 함수 혹은 인스턴스에 접근하고자 한다면 <code>inject</code> 함수를 이용하여 전역에서 사용가능하게 등록시켜 주어야 한다.</p>
-<p>아래처럼 <code>&#39;sample&#39;</code> 과 같이 <code>$</code> 기호를 생략하고 등록해 주면 <code>$sample</code> 과 같이 변형되어 바인딩 된다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (context, inject) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> sample = <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">let</span> sample2 = &#123;</span><br><span class="line">    b: <span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(x);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  inject(<span class="string">'sample'</span>, sample);</span><br><span class="line">  inject(<span class="string">'sample2'</span>, sample2);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>이를 통해 context, Vue 인스턴스 내에서의 this 등 어디에서는 이곳에 접근할 수 있게 된다.</code></p>
-<h2><span id="reverse-proxy">Reverse proxy</span></h2><p>클라이언트가 서버를 호출하는 경우 <code>cors(cross origin resource sharing</code> 문제로 브라우저 내에 렌더링 된 페이지를 준 호스트가 아닌 다른 곳으로의 요청은 기본적으로 막혀있다.</p>
-<p>사실 이는 nuxt.js 뿐만이 아니라 대부분의 웹 어플리케이션 배포 과정에서 나타나는 문제인데, nuxt.js 에서는 그 해결과정이 조금 다르기 때문에 작성한다.</p>
-<p>다른 어플리케이션 배포과정의 경우 일반적으로 nginx 와 같은 web server 를 사용하여 reverse proxy 를 통해 클라이언트 내의 서버 요청 url 을 같은 호스트로 설정하고, 같은 호스트로 오는 요청의 url 을 분석하여 같은 호스트 내의 다른 포트로 리다이렉팅 시켜주는 등의 해결법을 제시하지만, nuxt.js 의 경우 server rendering 프레임워크로 독자적으로 hosing 을 하는 만큼, 자체적으로 reverse proxy 를 제공하며, <code>nuxt.config.js</code> 파일에 다음과 같이 <code>reverse proxy</code> 설정을 주어 해결할 수 있다.</p>
-<p>nuxt.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> serverUrl = <span class="string">"localhost:3002"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    <span class="string">'/api/'</span>: serverUrl</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="global-modal">Global Modal</span></h2><p>전역으로 alert와 dialog를 사용하기 위해 layout 레이어에서 해당 모듈을 구현하였으며, 이는 page store 를 통해 접근이 가능하다.</p>
-<h2><span id="environment-variables">Environment variables</span></h2><p>node.js 서버와는 달리 nuxt 의 경우는 동작환경이 브라우저 이므로, 서버에서 하듯이 <code>process.env</code> 와 같이 환경변수에 접근해도 브라우저의 환경변수이기 때문에 접근이 되지 않는다. 이는 매우 기본적인 사실이지만 서버렌더링을 하는 과정에서 혼동될 수 있다.</p>
-<p>즉, nuxt.js 에서 process.env 를 사용한다면, 이는 빌드시점에 주입되어야 할 것이다.</p>
-<h2><span id="problem-solving">Problem solving</span></h2><h4><span id="layout-사용하기">layout 사용하기</span></h4><p>vue component class 를 사용함에 있어 layout 옵션이 설정되지 않았다면 다음 코드를 index.d.ts 에 추가한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">module</span> 'vue/types/options' &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">interface</span> ComponentOptions&lt;V <span class="keyword">extends</span> Vue&gt; &#123;</span><br><span class="line"></span><br><span class="line">    layout?: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4><span id="unexpected-token-import">Unexpected token import</span></h4><p>모든 기능이 정산인데 갑자기 Unexpected token import 에러가 났다.</p>
-<p>이 경우 최종 문제의 원인은</p>
-<p>nuxt.config.js에서 modules 에 bootstrap-vue 를 import 함에 있어 <code>bootstrap-vue/nuxt</code> 가 아니라 <code>@nuxtjs/bootstrap-vue</code> 를 import 하여 생기는 문제였다.</p>
-<p>bootstrap-vue 공식 홈페이지에도 <code>bootstrap-vue/nuxt</code> 를 import 하라고 하고 있는데, 이를 매우 주의하여야 한다.</p>
-<h4><span id="cannot-find-module">cannot find module</span></h4><p>nuxt property decorator 를 사용할때</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">components</span>:&#123;&#125;&#125; 속성을 추가하지 않으면 모듈을 찾지 못하는 문제가 생긴다.</span><br></pre></td></tr></table></figure>
-<h4><span id="query-string-nested-object">Query string nested object</span></h4><p>기존에는 querystring 라이브러리를 사용하여 nested object 를 처리하지 못하였으나, qs 라이브러리를 사용하면 해결 가능하다.</p>
-<h4><span id="custom-component-의-click-이벤트를-자식-요소로-넘기는-법">Custom Component 의 click 이벤트를 자식 요소로 넘기는 법</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@click.native</span><br></pre></td></tr></table></figure>
-<h4><span id="다른-vuex-모듈에서-다른-vuex-모듈에-있는-액션을-호출하는-법">다른 vuex 모듈에서 다른 vuex 모듈에 있는 액션을 호출하는 법</span></h4>
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/12/javascript-cookbook/" itemprop="url">
-                Javascript Cookbook
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-12T03:43:17.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1229 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!--toc-->
-<h2><span id="javascript-cookbook">Javascript Cookbook</span></h2><h3><span id="object">Object</span></h3><h4><span id="assign">assign()</span></h4><p>assign 함수는 특정 객체의 값을 복사하는 함수입니다. assign 함수를 통해 두 개 이상의 객체를 병합하는 등의 작업을 수행 가능합니다.</p>
-<p>assign 함수는 아래와 같이 사용되며 대상 객체를 반환합니다.</p>
-<p>example</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.assign(target, ...source)</span><br></pre></td></tr></table></figure>
-<p><strong>객체 복사하기</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, source);</span><br></pre></td></tr></table></figure>
-<p>위와 같이 Object.assign은 객체를 복사하는 데 사용될 수 있으며, {} 처럼 빈 객체를 넣고 반환값을 받음으로써 빈 객체에 source 가 되는 object를 복사할 수 있습니다.</p>
-<p><strong>객체 병합하기</strong></p>
-<p>assign 함수를 통해 객체를 병합 할 수 있습니다. 가령 a, b 객체가 있고 각각의 키값을 하나로 병합하고 싶다면 다음과 같이 수행 할 수 있습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">c</span>:<span class="number">4</span>, <span class="attr">d</span>:<span class="number">5</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br></pre></td></tr></table></figure>
-<p>이처럼 만약 동일한 key를 가졌다면 뒤에 오는 source의 key, value 들로 덮어씌워지는 방식으로 복사될 것입니다.</p>
-<h4><span id="keys">keys()</span></h4><h4><span id="entries">entries()</span></h4><p>entries 함수는 object의 키들을 열거가능한 [key, value] 쌍을 리턴해 주며, 다음과 같이 사용됩니다.</p>
-<p>example</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line"><span class="comment">// [["a", 1],["b", 2],["c", 3]]</span></span><br></pre></td></tr></table></figure>
-<p>객체 내의 다양한 키들을 순환하는 로직을 구현 하는 경우 이는 매우 효과적이며 다음과 같이 사용됩니다.</p>
-<p><strong>exmaple</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> entries = <span class="built_in">Object</span>.entries(obj);</span><br><span class="line">entries.foreach(<span class="function">(<span class="params">key, value</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff</span></span><br><span class="line">  <span class="built_in">console</span>.log(key, value);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3><span id="map">Map</span></h3><p>js에서 Map 이란 일종의 key 와 value의 쌍으로 흔히 object와 비슷한 역할을 수행하지만, object와 달리 어떤 종류의 값도 저장할 수 있는 장점이 있으며, 흔히 대량의 자료가 저장되는 경우 object에 비해 훨씬 좋은 성능을 보인다.</p>
-<p>이번 포스트에서는 Map 이 가진 다양한 함수들과 이에 대한 활용법에 대해 알아보도록 한다.</p>
-<p>example</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Map</span>([iterable]) <span class="comment">//key, value pair</span></span><br></pre></td></tr></table></figure>
-<h4><span id="set">set</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.set(c, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-<h4><span id="get">get</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[a, <span class="number">1</span>], [b, <span class="number">2</span>]]);</span><br><span class="line">map.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<h4><span id="deletekey">delete(key)</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var exampleMap = new Map([a, 1], [b, 2]);</span><br><span class="line">exampleMap.delete(a);</span><br></pre></td></tr></table></figure>
-<h4><span id="foreach">foreach</span></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example = <span class="keyword">new</span> <span class="built_in">Map</span>([a, <span class="number">1</span>], [b, <span class="number">2</span>]);</span><br><span class="line">example.foreach((value, key)&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3><span id="array">Array</span></h3><h4><span id="sort">sort()</span></h4><p>array의 sort는 배열을 정렬하기 위한 아주 좋은 method 입니다.</p>
-<p>sort는 뒤에 오는 콜백함수를 계속 실행하여 callback(a, b)의 값이 0보다 작은 경우 a를 앞으로 보내고, 0보다 큰 경우 a를 뒤로 보내는 방식으로 동작합니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/* 정상 동작 */</span><br><span class="line">score.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a - b;</span><br><span class="line">    // 1, 2, 3, 4, 10, 11</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">score.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return b - a;</span><br><span class="line">    // 11, 10, 4, 3, 2, 1</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 오름차순</span><br><span class="line">    return a.name &lt; b.name ? -1 : a.name &gt; b.name ? 1 : 0;</span><br><span class="line">    // 광희, 명수, 재석, 형돈</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">student.sort(function(a, b) &#123; // 내림차순</span><br><span class="line">    return a.name &gt; b.name ? -1 : a.name &lt; b.name ? 1 : 0;</span><br><span class="line">    // 형돈, 재석, 명수, 광희</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4><span id="splice">splice()</span></h4><p>array.splice(i,1)를 통해 index i 로 부터 1개의 요소를 제거하고 제거한 자리에 값을 추가한다.</p>
-<p><strong>example</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var array = [0, 1, 2, 3, 4, 5];</span><br><span class="line">array.splice(2, 1);</span><br><span class="line">//array에는 세번째 요소가 빠진 상태가 된다.</span><br><span class="line">[0, 1, 3, 4, 5]</span><br></pre></td></tr></table></figure>
-<h4><span id="delete">delete</span></h4><p>특정 요소를 삭제할 때 사용한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">delete arr[1];</span><br></pre></td></tr></table></figure>
-<h4><span id="pop">pop</span></h4><p>array를 stack으로 사용하는 경우 pop() 함수는 매우 유용하며, 가장 우측의 element를 제거한다.</p>
-<p>example</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let list = [1, 2, 3, 4, 5, 6, 7];</span><br><span class="line"></span><br><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let poped = list.pop();</span><br><span class="line">console.log(&apos;poped item: &apos;, poped);</span><br><span class="line">console.log(&apos;list after pop() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
-<h4><span id="push">Push</span></h4><p>리스트에 특정 아이템을 추가하고 추가된 이후에 총 아이템의 갯수를 반환한다.</p>
-<p>이 함수는 원래의 리스트를 변형한다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'original list: '</span>, list);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> count = list.push(<span class="string">'pushed item'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Total item count after push() executed: '</span>, count);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'list after push() executed: '</span>, list);</span><br></pre></td></tr></table></figure>
-<h4><span id="shift">shift</span></h4><p>shift는 주로 que의 구현에 많이 사용되며, 제일 앞의 element를 제거하고 반환해 준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;original list: &apos;, list);</span><br><span class="line"></span><br><span class="line">let shifted = list.shift();</span><br><span class="line">console.log(&apos;shifted item: &apos;, shifted);</span><br><span class="line">console.log(&apos;list after shift() executed: &apos;, list);</span><br></pre></td></tr></table></figure>
-<h4><span id="unshift">unshift()</span></h4><p>제일 앞쪽에 밀어 넣는다.</p>
-<p><strong>example</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var fruits = [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Apple&quot;, &quot;Mango&quot;];</span><br><span class="line">fruits.unshift(&quot;Lemon&quot;);    // Adds a new element &quot;Lemon&quot; to fruits</span><br></pre></td></tr></table></figure>
-<h4><span id="foreachgt">foreach(()=&gt;{})</span></h4><p>모든 어레이값에 대해 연산을 수행하는 함수이며 다음과 같이 사용된다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.foreach(<span class="function">(<span class="params">element, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(element);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4><span id="reduce">reduce</span></h4><p>reduce는 array의 모든 값에 대해 계속해서 callback함수를 실행시키는 함수이며 다음과 같은 용도로 사용합니다.</p>
-<p><strong>syntax</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// do some stuff here.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>여기서 첫번째 인자인 accumulator는 계속해서 다음 callback의 인자로 전달되는 값이며 어떤 변환을 하더라도 해당 변환 내용이 다음으로 전달되며, currentValue는 현재 값을 나타냅니다.</p>
-<p><strong>배열에서 가장 큰 값을 구하기</strong></p>
-<p>accumulator를 통해 계속 앞의 return 값을 받아와 비교하면서 가장 큰 값을 구할 수 있습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> max = arr.reduce(<span class="function">(<span class="params">before, current</span>)=&gt;</span></span><br><span class="line">  <span class="keyword">return</span> before&lt;current ? current : before</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
                         
     </div>
