@@ -91,6 +91,252 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/12/16/머신러닝강의 1강 - 머신러닝의 기본 개념/" itemprop="url">
+                머신러닝강의 01. 머신러닝의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-16T14:13:43.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 975 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#explicit-programming-의-한계와-인공지능의-대두">explicit programming 의 한계와 인공지능의 대두</a><ul>
+<li><a href="#supervised-learning">supervised learning</a></li>
+<li><a href="#unsupervised-learning">unsupervised learning</a></li>
+<li><a href="#tensorflow-설치">tensorflow 설치</a></li>
+<li><a href="#data-flow-graph">data flow graph</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="explicit-programming-의-한계와-인공지능의-대두">explicit programming 의 한계와 인공지능의 대두</span></h1><p>흔히 말하는 explicit programming 이란 사람이 생각한 다양한 방법들을 단순히 프로그램으로 옮기는 작업이다.<br>예를 들어 주식 시장의 주식을 판매를 할것인가의 하는 문제를 프로그램 적으로 해결을 할 때에, 국가의 GDP가 높아지면 주식의 판매하는 것이 바람직하다는 가정을 토대로 프로그램을 만들 수 있다. 이러한 판단이 옳을 수도 있지만 주식시장이라는 거대한 복합체를 판단하기에는 너무나 많은 다양한 변수들이 존재하기 때문에 이것을 프로그램화 시키는 것은 불가능한 수준에 가까웠다.<br>즉, 흔한 일상 생활에도 상당히 복잡한 상황들이 많이 발생하고 이것을 논리를 기반으로 한 프로그램으로 만들기 어려운 문제가 발생하게 되었고, 과학자들은 사람들이 정보를 학습할때 입력과 결과의 합, 즉 경험을 통해 학습을 진행하는 것을 모티브로 컴퓨터돠 수많은 입력과 출력의 쌍으로 어떤 상황에 대한 판단능력을 기를 수 있고, 또 보다 지능적인 프로그램을 만들 수 있지 않을 까 하는 생각을 하게 되었고, 그것이 인공 지능의 시초이다.</p>
+<p>인공지능을 위해서는 다양한 입력과 결과를 토대로 학습을 진행하여야 하는데, 데이터의 종류를 알고 학습을 하는가 혹은 모르고 학습을 하는가에 따라 supervised learning 과 unsupervised learning으로 나누어 지게 된다.</p>
+<h2><span id="supervised-learning">supervised learning</span></h2><p>데이터가 무엇인지 가르쳐 주고 학습을 진행한다. 즉 labeled data를 가지고 학습을 하는 학습방법이며 결과값의 범위에 따라 다음과 같은 종류가 있다.</p>
+<ol>
+<li><p>regression<br>예를들어 시험 성적의 값을 알고 싶은 경우 예를 들어 범위가 매우 넓은 경우</p>
+</li>
+<li><p>binary classification<br>결과가 둘중 하나인 경우</p>
+</li>
+</ol>
+<ol start="3">
+<li>multi-label classification</li>
+</ol>
+<p>결과가 몇가지 케이스가 있는 경우</p>
+<h2><span id="unsupervised-learning">unsupervised learning</span></h2><p>un-labeled data를 가지고 학습한다.<br>그룹핑이나 클러스터링을 주로 한다.</p>
+<h2><span id="tensorflow-설치">tensorflow 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install upgrade tensorflow</span><br></pre></td></tr></table></figure>
+<p>예제<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hello = tf.constant(&apos;Hello, TensorFlow!&apos;)</span><br><span class="line">//여기서 constant는 하나의 노드, 오퍼레이션을 의미한다</span><br><span class="line">//예를 들어 print(hello)를 출력하면 이상한 값이 나온다.</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print sess.run(hello) //실행을 시키는 부분이다.</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>placeholder</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//a와 b의 자료형을 지정해 주어 뒤에서 사용할 수 있게 한다.</span><br><span class="line">a = tf.placeholder(tf.int16)</span><br><span class="line">b = tf.placeholder(tf.int16)</span><br><span class="line"></span><br><span class="line">add = tf.add(a,b)</span><br><span class="line">mul = tf.mul(a,b)</span><br><span class="line"></span><br><span class="line">with tf.Session() ass sess:</span><br><span class="line">  print &quot;Addition with variables: %i&quot; % sess.run(add, feed_dict=&#123;a: 2, b:3&#125;) //a와 b에 값을 넘겨줄 수 있다.</span><br><span class="line">  print &quot;Multiplication with variables: %i&quot; % sess.run(mul, feed_dict=&#123;a: 2, b:3&#125;) //a와 b에 값을 넘겨줄 수 있다.</span><br></pre></td></tr></table></figure></p>
+<h2><span id="data-flow-graph">data flow graph</span></h2><p>edge와 node 로 구성된 data flow graph는 다음과 같은 의미를 가진다.</p>
+<p>node는 수학적 계산을 하는 operation의 의미를 가지며 edge는 데이터가 흘러들어감을 보여주는 연결선이다.<br>이러한 데이터는 data array와 같은 형태를 가지는데 이를 다른 말로는 tensor 라는 말로도 부른다.<br>tensorflow란 말은 이러한 데이터의 흐름을 의미한다.</p>
+<p>이러한 node들은 꼭 동일한 cpu 혹은 gpu안에 존재하지 않아도 되고 분산되어 존재하면서 병렬연산이 가능하기에 매우 강력하다.<br>많은 컴퓨터들을 컴퓨터 자원을 통합해서 계산이 가능해진 것이다</p>
+<p><img src="\images\dataFlowGraph.png" alt="data flow graph"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/16/Angular-hmr-적용하기/" itemprop="url">
+                Angular hmr 적용하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-16T12:20:02.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 339 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="hmr-이란">hmr 이란?</span></h2><p>Hot Module Replacement의 약자로 모듈의 변경사항을 실시간으로 어플리케이션에 반영한다.</p>
+<h2><span id="angular에-environment-추가하기">angular에 environment 추가하기</span></h2><p><strong><em>environment.hmr.ts 파일 만들기</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export const environment = &#123;</span><br><span class="line"> production: false,</span><br><span class="line"> hmr: true</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>src/environments/environment.prod.ts 수정하기</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export const environment = &#123;</span><br><span class="line"> production: true,</span><br><span class="line"> hmr: false</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>src/environments/environment.ts 수정하기</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export const environment = &#123;</span><br><span class="line"> production: false,</span><br><span class="line"> hmr: false</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="angular-clijson-수정하기">angular-cli.json 수정하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;environmentSource&quot;: &quot;environments/environment.ts&quot;,</span><br><span class="line">&quot;environments&quot;: &#123;</span><br><span class="line">  &quot;dev&quot;: &quot;environments/environment.ts&quot;,</span><br><span class="line">  &quot;hmr&quot;: &quot;environments/environment.hmr.ts&quot;,</span><br><span class="line">  &quot;prod&quot;: &quot;environments/environment.prod.ts&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2><span id="packagejson-수정하기">package.json 수정하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;start&quot;: &quot;ng serve&quot;,</span><br><span class="line">  &quot;hmr&quot;: &quot;ng serve --hmr -e=hmr&quot;,</span><br><span class="line">  &quot;lint&quot;: &quot;tslint \&quot;src/**/*.ts\&quot;&quot;,</span><br><span class="line">  &quot;test&quot;: &quot;ng test&quot;,</span><br><span class="line">  &quot;pree2e&quot;: &quot;webdriver-manager update&quot;,</span><br><span class="line">  &quot;e2e&quot;: &quot;protractor&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>npm run hmr 명령어를 통해 environment를 적용할 수 있다.</p>
+<h2><span id="hmr-모듈-import-하기">hmr 모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @angularclass/hmr</span><br></pre></td></tr></table></figure>
+<h2><span id="srchmrts-생성하기">src/hmr.ts 생성하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModuleRef, ApplicationRef &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; createNewHosts &#125; from &apos;@angularclass/hmr&apos;;</span><br><span class="line"></span><br><span class="line">export const hmrBootstrap = (module: any, bootstrap: () =&gt; Promise&lt;NgModuleRef&lt;any&gt;&gt;) =&gt; &#123;</span><br><span class="line">  let ngModule: NgModuleRef&lt;any&gt;;</span><br><span class="line">  module.hot.accept();</span><br><span class="line">  bootstrap().then(mod =&gt; ngModule = mod);</span><br><span class="line">  module.hot.dispose(() =&gt; &#123;</span><br><span class="line">    const appRef: ApplicationRef = ngModule.injector.get(ApplicationRef);</span><br><span class="line">    const elements = appRef.components.map(c =&gt; c.location.nativeElement);</span><br><span class="line">    const makeVisible = createNewHosts(elements);</span><br><span class="line">    ngModule.destroy();</span><br><span class="line">    makeVisible();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2><span id="srcmaints-수정하기">src/main.ts 수정하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import &#123; enableProdMode &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; platformBrowserDynamic &#125; from &apos;@angular/platform-browser-dynamic&apos;;</span><br><span class="line"></span><br><span class="line">import &#123; AppModule &#125; from &apos;./app/app.module&apos;;</span><br><span class="line">import &#123; environment &#125; from &apos;./environments/environment&apos;;</span><br><span class="line"></span><br><span class="line">import &#123; hmrBootstrap &#125; from &apos;./hmr&apos;;</span><br><span class="line"></span><br><span class="line">if (environment.production) &#123;</span><br><span class="line">  enableProdMode();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const bootstrap = () =&gt; platformBrowserDynamic().bootstrapModule(AppModule);</span><br><span class="line"></span><br><span class="line">if (environment.hmr) &#123;</span><br><span class="line">  if (module[ &apos;hot&apos; ]) &#123;</span><br><span class="line">    hmrBootstrap(module, bootstrap);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    console.error(&apos;HMR is not enabled for webpack-dev-server!&apos;);</span><br><span class="line">    console.log(&apos;Are you using the --hmr flag for ng serve?&apos;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  bootstrap();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="새로운-환경-반영하기">새로운 환경 반영하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run hmr</span><br></pre></td></tr></table></figure>
+<p><a href="https://medium.com/@beeman/tutorial-enable-hmr-in-angular-cli-apps-1b0d13b80130" target="_blank" rel="noopener">출처</a></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/13/마케팅의-기본-개념/" itemprop="url">
+                마케팅 강의 01. 마케팅의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-13T12:51:21.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/마케팅-강의록/">마케팅 강의록</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                30 minutes read (About 4461 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="마케팅의-기본">마케팅의 기본</span></h1><h2><span id="온라인-마케팅은-무엇이며-무엇을-목표로-하는가">온라인 마케팅은 무엇이며 무엇을 목표로 하는가</span></h2><p>마케팅의 핵심적인 목적은 고객의 요구사항을 찾아내고 예측하여 이를 충족시켜 줌으로써 강한 고객관계를 구축하는 것이다.<br>이는 마케팅이 단지 단기적인 매출을 올리는데에 초점을 맞추지 말고 장기적인 관점에서 고객이 정말 원하는 것이 무엇인지 끊임없이 고민하고 그것을 체워주는 것이 훌륭한 마케팅임을 말해준다.<br>이러한 마케팅에서 고려해야 할 주요 변수는 <strong>가격, 프로모션, 장소, 제품</strong> 이며, 고객이 원하는 것을 명확하게 이해하기 위해 타겟이 되는 <strong>고객의 특성을 이해하는 것이 마케팅의 주요 성공요인</strong> 이라 할 수 있다.</p>
+<h2><span id="마케팅-계획의-수립">마케팅 계획의 수립</span></h2><p>마케팅의 계획 수립은 크게 <strong>수요 분석, 경쟁사 분석, 마케팅 믹스 개발, 브랜딩</strong> 으로 이루어 진다.<br>여기서 <strong>수요 및 경쟁사 분석</strong> 은 표적 시장에 대한 전략을 개발하고 구현하는 기초가 되며, <strong>마케팅 믹스</strong> 는 표적 시장을 선정하는 데 이용되는 전술이다. 마지막으로 <strong>브랜딩</strong> 은 표적시장을 대상으로 제품이나 서비스의 인지도를 강화하는 중요한 요소이다.</p>
+<h3><span id="수요-분석">수요 분석</span></h3><p>수요분석에 있어 핵심적인 사항은 먼저 <strong>제품의 표적 고객군을 규명</strong> 하는 것이다.  우리의 고객을 팔고자 하는 구체적인 타겟이 명확하게 정해지는 것은 사실 사업 이전에 시장에 대한 충분한 조사가 있었다면 이미 정해져 있을 것이다. 만약, 마케팅 전략을 수립하는 과정에서 타겟으로 하는 고객을 다시금 재고해야 할 필요가 있다면 여기서 명확한 타겟 고객을 설정해야 한다. 가령 AirBnb의 경우 타겟 고객군은 미국 내에서 몇 일 이내로 여행을 간  경우 호텔이 다 차서 묵을 곳을 구하는 고객이라는 매우 niche한 target을 가지고 시작하여 점차 넓은 범위로 확장해 나가는 전략을 사용했다. 이 타겟고객은 기업의 가치명제를 통해 니즈를 명확하게 해결 해 줄 수 있는 고객군이어야 한다.</p>
+<p>타겟고객이 정해졌다면, 해당 <strong>고객군이 어떻게 인터넷을 사용하는 지</strong> 에 대한 조사가 이루어 져야 한다. 가령 18~33세의 개인들은 스마트폰과 태블릿 PC 등을 많이 사용는 특성을 보인다던가 혹은 구체적으로 사무직 직장인이 타겟이라면 직장인의 경우 많은 시간 데스크톱에서 업무를 보므로 PC를 많이 사용한다는 조사를 수행할 수 있다.</p>
+<p>마지막 단계는 마케팅 캠페인을 위해 <strong>어떤 온라인 플랫폼을 사용할 것인지를 결정</strong> 한다. 가령 18~33세의 연령대를 고객으로 확보하려는 경우 모바일 앱을 통한 마케팅을 진행할 수 있다는 선택을 할 수 있다.</p>
+<p>보다 구체적인 수요 분석을 위해서 고객들이 인터넷과 얼마나 친숙하고 인터넷 내에서 제품이나 서비스를 구매할 것인가에 대한 고민과 만약 장애요인이 있다면 무엇인가에 대한 고민 또한 필요하다.</p>
+<h3><span id="경쟁사-분석">경쟁사 분석</span></h3><p>경쟁사에 대해 잘 아는 것은 기업 전략 개발에 매우 중요하다. 경쟁사가 누구인지 또 그들이 공급하는 제품이나 서비스가 무엇이며 시장 점유율과 마케팅 전략이 무엇인지를 면밀히 분석하여 우리가 하려는 사업에 어떤 영향을 끼칠 것인가를 고민하여야 한다.<br>경쟁사에 대한 대부분의 정보는 공급사 및 경쟁사의 실제 고객에게서 수집될 수 있으며, 경쟁사의 웹사이트를 분석하면 값진 정보들을 얻어낼 수 있다.</p>
+<p>경쟁사에 대한 넓은 범위에서의 조사를 마쳤다면  <strong>경쟁사의 주요 성공요인들을 분석하고 우리가 가진 강점과 약점을 면밀하게 분석</strong> 하여 <strong>경쟁사 프로파일링</strong> 을 진행한다. 고객가치는 경쟁사의 제품이나 서비스와 비교적으로 정의되어야 하는데, 경쟁사 프로파일링을 통해 경쟁사의 강점과 약점을 명확히 파악한다면 이를 통해 우리는 시장에서 고객에게 전달하는 탁월한 기업가치가 무엇인지 명확하게 정의하고 고객에게 어필할 수 있다. 이 프로필은 경장사의 <strong>활동 배경, 재정 상태, 제품/서비스, 시장, 시설, 인력, 전략</strong> 등을 깊이있게 서술하여야 한다.</p>
+<h3><span id="마케팅-믹스-개발">마케팅 믹스 개발</span></h3><p>마케팅 믹스란 기업이 목표시장에서 마케팅 목표를 달성하기 위해 사용하는 마케팅 도구들의 모음이며, 4P(Product, Pricing, Place, Promotion)라 부르는 마케팅의 의사결정을 하여야 한다.</p>
+<p>먼저 <strong>_제품_</strong> 은 최소한도의 성능을 제공하여야 한다. 최소한도의 성능이 제공되지 않는경우 다른 요소들이 우수하더라도 의미가 없다. 또한 <em>브랜딩</em> 을 통해 제품 자체가 가지는 고유한 마케팅 파워를 살리는 것이 좋다.<br><strong>_가격_</strong> 은 회사의 전반적인 비즈니스 계획과 연계되며 제품을 차별화 하고 이미지를 향상시키기 위한 수단이 된다. 적합한 가격 책정은 사업에 아주 중요한 요소일 뿐 아니라 마케팅에서의 경쟁력 혹은 약점이 될 수 있는 중요한 요소인 만큼 많은 마케팅 요소를 고려하여 합리적인 가격책정을 하여야 한다.<br><strong>_장소_</strong> 는 소비자의 시선을 끌며 구매하기가 쉽도록 좋은 유통 경로 혹은 장소를 차지하는 것이다. 많은 온라인 비즈니스의 경우 이러한 장소는 별도록 구축한 웹페이지가 되거나 혹은 온라인 경매 혹은 오픈 마켓 등이 이용된다. 하지만 대부분의 IT 서비스의 경우 제품이 홈페이지 내의 웹서비스인 경우가 많으므로 사실상 장소는 정해져 있다고 봐도 무방하다.<br><strong><em>프로모션</em></strong> 프로모션은 제품이나 서비스를 소비자에게 알리고 권유하여 구매를 자극할 목적으로 수행하는 모든 활동을 의미한다. 어떤 방식의 프로모션을 진행할지를 정하는 것은 마케팅 전략의 매우 큰 부분을 차지한다. <strong>광고, 구전, 보도자료, 인센티브, 커미션</strong> 등의 프로모션 요소들이 있다.</p>
+<h2><span id="브랜딩">브랜딩</span></h2><p>브랜드란 경쟁사의 제품과 구별하기 위해 부여하는 이름 혹은 용어 기호이다.<br>즉, 브랜딩이란 소비자에게 부가가치를 제공하거나 부가가치가 있다고 인지하는 브랜드들을 창조하고 개발하는 프로세스를 뜻한다.</p>
+<p>제품에 이름을 부여함으로써 고객에게 제품이 무엇인지를 명확하게 알릴 수 있으며, 회사와 제품의 독특한 측면을 나타내고, 회사의 목표가 드러나며 지적 자산을 보호하는 데에 도움이 되어야 한다.<br>소비자가 수많은 제품들 사이에서 유의한 차이가 존재한다는 확신이 설 수 있어야 한다.<br>AirBnb의 경우 숙소의 개념을 아주 친숙한 ‘집’으로 변모시켜, 세계 어디에서나 자신의 집처럼 편안하고 현지인처럼 생활을 할 수 있다는 새로운 브랜딩을 하고 있다.</p>
+<h3><span id="stp-마케팅">STP 마케팅</span></h3><p>STP 마케팅은 표적 시장을 겨냥한 마케팅 계획을 수립하기 위한 3단계 접근방법으로 Segmentaion, Targeting, Positioning의 단계로 나누어 진다.<br>STP 전략은 고객의 욕구가 다양하다는 사실을 기반으로 많은 고객들을 세분하게 나누고 기업이 적합한 타겟 시장에 어떤 어프로치를 수행할 것인가를 결정한다.</p>
+<p>먼저 <strong><em>시장 세분화</em></strong> 과정에서는 소비자를 최대한 디테일한 요소를 기반으로 세분화한다. 이 세분화의 항목은 <strong>인구 통계적 특성, 행동적 특성, 심리적 특성</strong> 과 같은 항목이 있다.<br>소비자들이 어떤 행동을 하고 어떤 라이프스타일을 가지며 주요 관심사와 행동적 특성을 분석함으로써 소비자들을 최대한 세분화 한다.</p>
+<p>다음 단계인 <strong><em>표적시장 선정</em></strong> 단계에서는 세분화한 시장 중에서 기업이 제공할 수 있는 제품과 서비스에 제일 큰 공감을 일으킬 집단을 선정한다. 선정의 요소에는 많은 복합적인 요소들이 포함되는데 내가 목표로 하는 시장의 규모와 성장률 그리고 다른 경쟁사가 동일한 표적 시장을 대상으로 마케팅을 하고 있지는 않은지, 또 만약 완벽히 동일한 타겟 집단에 다른 경쟁자가 있다면 기업이 경쟁사를 상대로 내세울 수 있는 핵심적인 경쟁력은 무엇인지를 살펴 신중하게 표적시장을 선정한다.</p>
+<p>마지막 단계인 <strong><em>포지셔닝</em></strong> 단계에서는 기업이 타겟 고객군의 마음에 어떻게 자리잡을 것인가에 대한 전략을 세운다. 만약 다른 경쟁사가 있다면 그 경쟁사와 차별화된 기업만의 고유한 가치를 어필할 수 있다. 이러한 포지셔닝 전략은 브랜드 이미지에도 큰 영향을 주는데 사용자의 요구사항을 완벽하게 이해하고 충족시켜 줄 수 있다는 이미지를 고객에게 심어주어야 하며 이는 마케팅에서 매우 중요하다. 가령 애플 컴퓨터의 경우 사용자 PC 이므로 IBM 등 다른 경쟁사에 비해 훨씬 사용자 친화적인 컴퓨터라는 점을 내세우며 고객에게 접근했고, 모든 마케팅 전략을 이런 포지셔닝에 집중한 결과 많은 사람들에게 친근한 컴퓨터라는 확고한 포지셔닝을 할 수 있었고, 막강한 브랜드 파워를 가지게 되었다.</p>
+<h2><span id="온라인-마케팅의-방법들">온라인 마케팅의 방법들</span></h2><h3><span id="바이럴-마케팅">바이럴 마케팅</span></h3><p>가장 전통적이고 바람직한 마케팅 방법은 <strong>바이럴 마케팅</strong> 이다. 소비자들 스스로 제품이나 서비스의 가치에 공감하여 자발적으로 다른 사람들에게 홍보를 하도록 하는 것은 단순히 마케팅 역량을 넘어 사업 아이템의 성공을 가로짓는 요소이다. 계속해서 많은 광고비를 지출하는 방법은 어디까지나 돈으로 수요를 사는 마케팅 방안이기에 지속가능한 마케팅 방법이 아니며, 이처럼 많은 사람들이 자발적으로 기업의 제품과 서비스를 알리도록 하는 것은 기업의 초기 성공의 필수불가결한 요소이다.</p>
+<p>가령 현대 사회에서의 바이럴 마케팅은 어떤 의미에서 <strong>SNS를 통한 활발한 공유 혹은 해쉬태그(#)를 사용한 주제별 커뮤니티 형성도 같은 맥락이다.</strong><br>제품의 가치에 공감한 많은 사람들이 인종의 캠페인 활동 혹은 과시 및 정보전달의 목적으로 자발적으로 온라인 상으로 컨텐츠를 올리고 이러한 컨텐츠들은 제품의 인지도를 높이는 데에 아주 큰 기여를 한다.</p>
+<p>일례로 AirBnb의 경우 #BelongAnyWhere, #LiveThere 등의 <strong>다양한 캠페인 활동을</strong> 통해 사람들이 대중 매체에서 흔히 볼 수 없는 이색적인 장소에 대한 호기심을 불러 일으키는 영상을 제잠함으로써 사람들이 그러한 장소에 머물고 싶은 욕구를 불러 일으키고 인지도를 높여 많은 사람들이 SNS를 통해서 스스로 컨텐츠를 퍼트리도록 유도한다.<br>때문에, AirBnb는 SNS상에서 사람들의 주의를 끌기 위한 <strong>수준 높은 사진 이미지 혹은 영상 컨텐츠에 각별한 주의를</strong> 기울이며 이는 큰 매출 증대 효과를 불러 일으켰다.</p>
+<p>현대에는 이러한 바이럴 마케팅에 큰 역할을 하는 계층으로 <strong>인플루언서</strong> 의 예를 들 수 있다.<br>이러한 인플루언서들은 유투브, 페이스북 등의 다양한 대중 매체에서 대중을 위한 다양한 컨텐츠를 생산하는 계층으로 이들에 대한 높은 신뢰도가 이미 형성되어 있기 때문에, 해당 인플루언서가 제품을 이용하는 것을 알리는 것 만으로도 큰 마케팅 효과를 거둘 수 있다.<br>가령 AirBnb의 경우 탬즈 강에서의 수상 가옥을 호스트함으로써 세계 각국의 수많은 매체들이 이 가옥에 대한 컨텐츠를 생산해내었다. 수십억 것의 소셜 공감이 이루어 졌으며 수만건의 페이지로 번역되어 아주 큰 광고효과를 거두었을 뿐 아니라, 가수 <strong>머라이어 캐리가 인스타 그램에 올린 사진은</strong> 대중에게 큰 인상을 남겼다.</p>
+<h3><span id="제휴-마케팅-파트너쉽">제휴 마케팅 / 파트너쉽</span></h3><p>많은 B2B 기업들의 사례를 살펴보면 <strong><em>제휴 마케팅</em></strong> 을 통해 초기에 성공적인 마케팅을 이룩해 내는 경우를 볼 수 있다. 소비자를 대상으로 하는 마케팅에 비해 이러한 제휴 마케팅은 제휴를 한 업체의 기존의 브랜드 파워에 힘입어 한번에 신뢰도를 확보할 수 있으며, 이익관계가 공유되어 제휴 업체의 자발적인 마케팅 유도 또한 이끌어 낼 수 있다. 또한 초기에 불특정 다수로 한 마케팅에 비해 제휴 마케팅의 경우 제휴를 맺고자 하는 명확한 기업이 존재하기 때문에 보다 체계적이고 추진력 있게 초기 마케팅을 시작할 수 있으며 이는 대표자의 역량이 절대적으로 필요하다.</p>
+<p>에어비앤비의 경우 항공사인 KLM Royal Dutch Airline, 프랑스 정부 등 많은 단체와 제휴를 맺어 마케팅을 하고 있다.<br>양 사의 가치를 융합하여 새로운 융합상품을 만들어 냄으로써 고객에게 새로운 가치를 전달한다.</p>
+<h3><span id="소셜-마케팅">소셜 마케팅</span></h3><p>대부분의 it 기업에게 SNS는 매우 중요한 채널이다.<br>고객과 직접적으로 소통하고 바이럴이 가장 잘 퍼지는 공간인 만큼 최대한 많은 SNS 채널을 운용하는 것이 좋다.<br>또한, 사회적 이슈가 있을 때 마다 <strong>시기에 적합한 social content를 제작하여 이슈화</strong> 시키는 것은 마케팅에서 매우 중요하다.<br>가령 다가오는 크리스마스를 타겟으로 하여 그에 적합한 상품을 업로드 한다던가 혹은 색다른 캠페인을 진행하여 사람들의 폭발적인 호응을 얻을 수 있다.</p>
+<p>또 다른 방법은 ‘광고처럼 안 보이는 광고’이다.<br>일례로 앱 다운로드 url을 적어두었을 때 보다 적어두지 않았을 때 다운로드 수치가 더 높았다.<br>광고에 대한 피로도가 높아진 요즘은 광고라는 사실을 숨긴 자연스러운 광고가 유행이다.<br>또 그 자체로 ‘재미’가 있는 광고라면 더 할 나위가 없다.</p>
+<h3><span id="검색광고">검색광고</span></h3><p>최근에는 다양한 종류의 온라인 광고 기법들이 도입되고 있다.<br>이메일, 디스플레이 광고 처럼 기존에도 있던 마케팅 방법 외로도, AI 기술을 활용한 문맥광고를 하거나, 검색엔진을 통한 <strong><em>검색광고</em></strong> 등이 있다.</p>
+<h3><span id="문맥광고">문맥광고</span></h3><p>대표적인 it 기업인 구글에서는 이러한 문맥광고료로 아주 큰 효과를 보고 있다.<br>관심이 있어할 만할 고객이 보고 있는 페이지의 특정 부분에 광고를 삽입함으로써 계속해서 사용자의 주의를 활기시킨다.<br>AirBnb는 이러한 문맥광고에 아름다운 숙소의 이미지들을 지속적으로 노출시켜 구매를 유도하고 있다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/11/Fuzzy-pattern-recognition-and-fuzzy-clustering/" itemprop="url">
+                Fuzzy pattern recognition and fuzzy clustering
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-11T05:48:12.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 386 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#패턴-인식-개요">패턴 인식 개요</a></li>
+<li><a href="#패턴-인식의-구성요소">패턴 인식의 구성요소</a></li>
+<li><a href="#fcmfuzzy-c-means-clustering">FCM(Fuzzy c-Means Clustering)</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="패턴-인식-개요">패턴 인식 개요</span></h2><p>실용적인 패턴을 인식하기 위해 패턴 인식을 사용한다.<br>공간의 특정 생김새를 분석하거나, 이들은 분류하여 의미있는 결과를 유추하고자 할 때 패턴 인식을 사용한다.</p>
+<p>패턴 인식에는 다음과 같은 데이터의 종류들이 있다.<br><strong><em>object data</em></strong><br>실제 인식하고자 하는 물체이다.<br>이것은 그냥 사진일 수도 있고, 센서들에 의해 측정된 row data일 수도 있다.</p>
+<p><strong><em>relational data</em></strong><br>물체 데이터들 사이의 상대적 데이터 이다.</p>
+<p><strong><em>labeled data</em></strong><br>이미 분류된 대표적인 데이터 이다.</p>
+<p><img src="\images\패턴인식의순서도.png" alt="패턴 인식의 순서도"></p>
+<h2><span id="패턴-인식의-구성요소">패턴 인식의 구성요소</span></h2><p><img src="\images\patternRecognitionFeatureAssignmentAndExpression.png" alt="pattern recognition feature assignment and expression"><br><strong><em>object(O)</em></strong><br>인식하고자 하는 실제 객체이다.</p>
+<p><strong><em>object data(X)</em></strong><br>해당 객체의 속성들을 수치로 나열한다. 이는 벡터의 형태로 나열될 수 있다.<br>n개의 객체의 p개의 속성에 대해 패턴 인식을 실시하며, object data x는 p차 벡터로 표현된다.</p>
+<p><strong><em>Fuzzy c-Particion(U)</em></strong><br>각 행은 모든 객체들에 대한 membership degree를 나타내고<br>각 열은 모든 클래스에 대한 membership degree를 나타낸다.</p>
+<p>각 행의 총합은 0이상이며, 각 열의 총합은 1을 만족한다.</p>
+<p>이러한 Fuzzy c-Partition은 conversion을 통해 crisp c-Partition으로 변환된다.</p>
+<p><img src="\images\conversionOfC-Partition.png" alt="conversion of c-Partition"></p>
+<h2><span id="fcmfuzzy-c-means-clustering">FCM(Fuzzy c-Means Clustering)</span></h2><hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/12/10/Fuzzy-control-systems/" itemprop="url">
                 Fuzzy control systems
             </a>
@@ -435,8 +681,8 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2017/12/07/Rxjs-기본-개념/" itemprop="url">
-                Rxjs 기본 개념
+            <a href="/2017/12/07/Rxjs-시작하기/" itemprop="url">
+                Rxjs 시작하기
             </a>
             
     </h1>
@@ -451,7 +697,7 @@
                     <span class="column is-narrow">
                         
                             
-                                2 minutes read (About 244 words)
+                                5 minutes read (About 683 words)
                     </span>
                     
     </div>
@@ -459,171 +705,39 @@
         
                     <!-- toc -->
 <ul>
-<li><a href="#observable과-observer">Observable과 Observer</a></li>
-<li><a href="#subject란">Subject란?</a></li>
+<li><a href="#rxjs-란">RxJs 란?</a></li>
+<li><a href="#알기쉬운-rxjs-강의-01-rxjs-의-기본-개념">알기쉬운 Rxjs 강의 01. Rxjs 의 기본 개념</a><ul>
+<li><a href="#what-is-reactive-programming">What is Reactive programming</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#observable">Observable</a></li>
+</ul>
+</li>
+<li><a href="#rxjs-강의-02-data-stream-만들기-from-of-interval-range">Rxjs 강의 02. Data stream 만들기 - from, of, interval, range</a></li>
+<li><a href="#rxjs-강의-03-data-stream-합치기-merge">Rxjs 강의 03. Data stream 합치기 - merge</a></li>
+<li><a href="#rxjs-강의-04-data-stream-걸러내기-filter">Rxjs 강의 04. Data stream 걸러내기 - filter</a></li>
+<li><a href="#rxjs-강의-05-data-stream-변형하기-map">Rxjs 강의 05. Data stream 변형하기 - map</a></li>
+<li><a href="#rxjs-강의-06-복잡한-data-stream-처리하기-mergemap-mergeall">Rxjs 강의 06. 복잡한 Data stream 처리하기 - mergeMap, mergeAll</a></li>
 </ul>
 <!-- tocstop -->
-<h2><span id="observable과-observer">Observable과 Observer</span></h2><p>Rx 는 동기적이고 이벤트 기반의 데이터 소스들 즉, Observable Object로 추상화된 push-based, observable sequences 이다.<br>이것은 observed 될 수 있는 데이터 소스를 의미하며, 이것은 관심이 있는 누구에게나 데이터를 전송할 수 있음을 의미한다.</p>
-<p>Observer는 subscription을 통해 관심사를 등록하는 것이다.<br>Observer가 subscribe 하는 observable 시퀀스의 내용들은 observer에게 차례로 전달된다.</p>
-<p>observable한 집합들로부터 알림을 받기 위해 Observer Object에게 observable들을 전달하는 Observable의 subscribe 함수를 사용한다.</p>
-<p>Observer는 3가지의 publication event를 지원한다.<br>observable 데이터 소스가 가능한 데이터가 있을 때, onNext()가 호출될 수 있다.<br>observer에게 새로운 데이터를 제공한다.</p>
-<h2><span id="subject란">Subject란?</span></h2><p>Subject란 observer 또는 Observable 모두 처럼 행동 가능한 구현체이다.<br>observer이기 때문에 하나 혹은 ㄷ</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/06/Angular-ngx-infinite-scroll을-이용한-무한-스크롤-구현/" itemprop="url">
-                Angular ngx infinite scroll을 이용한 무한 스크롤 구현
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-06T14:46:07.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 166 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="설치하기">설치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install ngx-infinite-scroll --save</span><br></pre></td></tr></table></figure>
-<h2><span id="동작-특성">동작 특성</span></h2><p>window scroll 이벤트를 감지하여 callback을 발생시킨다.<br>실제 요소가 스크롤 될때 콜백을 수행하기 위해서는 다음 설정이 되어야 한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[scrollWindow]=&quot;false&quot;</span><br><span class="line">set an explict css &quot;height&quot; value to the element</span><br></pre></td></tr></table></figure>
-<h2><span id="import-하기">import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModule &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; BrowserModule &#125; from &apos;@angular/platform-browser&apos;;</span><br><span class="line">import &#123; InfiniteScrollModule &#125; from &apos;ngx-infinite-scroll&apos;;</span><br><span class="line">import &#123; platformBrowserDynamic &#125; from &apos;@angular/platform-browser-dynamic&apos;;</span><br><span class="line">import &#123; AppComponent &#125; from &apos;./app&apos;;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports:[ BrowserModule, InfiniteScrollModule ],</span><br><span class="line">  declarations: [ AppComponent, ],</span><br><span class="line">  bootstrap: [ AppComponent ]</span><br><span class="line">&#125;)</span><br><span class="line">export class AppModule &#123; &#125;</span><br><span class="line"></span><br><span class="line">platformBrowserDynamic().bootstrapModule(AppModule);</span><br></pre></td></tr></table></figure>
-<p>아래 예제에서는 스크롤이 내려가면 onScroll 함수가 호출된다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from &apos;@angular/core&apos;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">	selector: &apos;app&apos;,</span><br><span class="line">	template: `</span><br><span class="line">		&lt;div class=&quot;search-results&quot;</span><br><span class="line">		    infiniteScroll</span><br><span class="line">		    [infiniteScrollDistance]=&quot;2&quot;</span><br><span class="line">		    [infiniteScrollThrottle]=&quot;50&quot;</span><br><span class="line">		    (scrolled)=&quot;onScroll()&quot;&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	`</span><br><span class="line">&#125;)</span><br><span class="line">export class AppComponent &#123;</span><br><span class="line">	onScroll () &#123;</span><br><span class="line">	    console.log(&apos;scrolled!!&apos;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="참조"></span></h2>
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/04/Angular-에러-처리/" itemprop="url">
-                Angular 에러 처리
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-04T12:46:09.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 0 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/04/Angular-host-listener의-활용/" itemprop="url">
-                Angular host listener의 활용
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-04T04:42:39.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                2 minutes read (About 225 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="host-listener란">Host Listener란?</span></h2><p>호스트의 이벤트를 감지하는 라이브러리</p>
-<h2><span id="hostlistener-decorator-component-작성">HostListener Decorator Component 작성</span></h2><p>아래와 같이 호스트의 이벤트를 감지한다.<br>여기서 window는<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123; HostListener&#125; from &quot;@angular/core&quot;;</span><br><span class="line">import &#123; DOCUMENT &#125; from &quot;@angular/platform-browser&quot;;</span><br><span class="line">import &#123; Inject &#125; from &quot;@angular/core&quot;;</span><br><span class="line"></span><br><span class="line">export class LayoutNavComponent implements OnInit &#123;</span><br><span class="line">  constructor(@Inject(DOCUMENT) private document: Document) &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line">@HostListener(&quot;window:scroll&quot;, [])</span><br><span class="line">onWindowScroll() &#123;</span><br><span class="line"> //we&apos;ll do some stuff here when the window is scrolled</span><br><span class="line"> let windowScrollPos = this.document.documentElement.scrollTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="observable과-throttle을-활용하여-event-반응하기">observable과 throttle을 활용하여 event 반응하기</span></h2><p>throttle time이 200ms인 observable을 생성하고, subject를 통해 새로운 인자값을 전달한다.<br>생성한 observable을 subscribe 해 주고, subject를 통해 계속해서 새로운 인자값을 전달한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Subject &#125; from &apos;rxjs/Subject&apos;;</span><br><span class="line">import &apos;rxjs/add/operator/throttleTime&apos;;</span><br><span class="line"></span><br><span class="line">export class AppComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  private resizeSubject = new Subject&lt;number&gt;();</span><br><span class="line">  private resizeObservable = this.resizeSubject.asObservable().throttleTime(200);</span><br><span class="line"></span><br><span class="line">  @HostListener(&apos;window:resize&apos;, [&apos;$event.target.innerWidth&apos;])</span><br><span class="line">  onResize(width: number) &#123;</span><br><span class="line">    this.resizeSubject.next(width);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    this.resizeObservable.subscribe(x =&gt; this.doSomethingWithThrottledEvent(x));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private doSomethingWithThrottledEvent(width: number) &#123;</span><br><span class="line">    // . . .</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="http://martinmcwhorter.logdown.com/posts/1207659-throttling-events-in-angular-with-rxjs" target="_blank" rel="noopener">참조</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/02/Css-opacity-적용하기/" itemprop="url">
-                Css opacity 적용하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-02T00:31:57.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 87 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="rgb를-이용하는-방법">rgb를 이용하는 방법</span></h2><p>제일 뒷자리가 투명도를 조절하는 부분이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rgba(0, 0, 0, 0.5)</span><br></pre></td></tr></table></figure></p>
-<h2><span id="hexo-code를-이용하는-방식">hexo code를 이용하는 방식</span></h2><p>숫자 앞에 투명도를 붙여준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">for 50% white you&apos;d use #80FFFFFF.</span><br><span class="line"></span><br><span class="line">100% — FF</span><br><span class="line">95% — F2</span><br><span class="line">90% — E6</span><br><span class="line">85% — D9</span><br><span class="line">80% — CC</span><br><span class="line">75% — BF</span><br><span class="line">70% — B3</span><br><span class="line">65% — A6</span><br><span class="line">60% — 99</span><br><span class="line">55% — 8C</span><br><span class="line">50% — 80</span><br><span class="line">45% — 73</span><br><span class="line">40% — 66</span><br><span class="line">35% — 59</span><br><span class="line">30% — 4D</span><br><span class="line">25% — 40</span><br><span class="line">20% — 33</span><br><span class="line">15% — 26</span><br><span class="line">10% — 1A</span><br><span class="line">5% — 0D</span><br><span class="line">0% — 00</span><br></pre></td></tr></table></figure></p>
-
+<h2><span id="rxjs-란">RxJs 란?</span></h2><h2><span id="알기쉬운-rxjs-강의-01-rxjs-의-기본-개념">알기쉬운 Rxjs 강의 01. Rxjs 의 기본 개념</span></h2><h3><span id="what-is-reactive-programming">What is Reactive programming</span></h3><p><strong>Reactive Programming</strong> <em>is an asynchronous programming paradigm concerned with data streams and the propagation of change</em></p>
+<p>일반적인 프로그래밍 특히 객체 지향 프로그래밍에서는 눈에보이는 객체들을 기반으로한 프로그래밍이 일반적이었습니다.</p>
+<p>때문에 어떤 일련의 작업은 순차적인 작업들의 나열이라고 볼 수 있습니다. 즉, 컴퓨터가 어떤 일을 시킬 때에는 일반적으로 시간이 흐름에 따라 순차적으로 어떤 일을 처리하라고 명령을 내리는 것이 일반적인 생각입니다. </p>
+<p>하지만, 실제 생활에서는 다음과 같이 순차적인 작업이 아닌 다소 추상적인 작업들이 필요한 경우가 있습니다.</p>
+<blockquote>
+<p>1시간에 한번씩 청소를 해. 청소는 30분 동안 하되, 10분 간격으로 두번 쉬면서 총 3번에 걸쳐서 청소를 해.</p>
+</blockquote>
+<p>만약 컴퓨터에게 위와 같은 작업을 시키기 위해서는 어떻게 해야 할까요?</p>
+<p>reactive programming 은 이러한 추상적인 시간 개념을 포괄하는 여러 복잡한 비동기 작업을 수행하기 위한 노력은 <strong>Data stream</strong> 이라는 개념을 도입함으로써 해결하고자 합니다.</p>
+<p>즉, 시간에 따른 일련의 데이터의 흐름 자체를 프로그래밍 적으로 순차적 작업이 아닌 여러 비동기 작업들을 물흐르듯이 간편하게 처리하고자 합니다.</p>
+<p><strong>Rxjs</strong> 란 이러한 reactive programming 을 위한 여러 개념들을 구현한 javascript 구현체이며, <strong>reactive programming 을 위한 javascript library</strong> 라고 생각하시면 됩니다.</p>
+<h3><span id="installation">Installation</span></h3><p>본 강의 에서는 기본적으로 javascript 를 구동가능한 node.js runtime 이 설치되어 있다고 가정합니다.</p>
+<p>다음과 같이 rxjs 를 설치해 줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save rxjs</span><br></pre></td></tr></table></figure>
+<h3><span id="observable">Observable</span></h3><p>위의 설명처럼 Observable 이란 이러한 일련의 <strong>data stream</strong> 을 표현하기 위한 자료 구조입니다.</p>
+<p>여기서 observable 이란 직역하면 <strong>관측가능한</strong> 이라는 뜻을 가지며, 말 그대로 그 흐름을 관측 가능한 <strong>data stream</strong> 이라고 이해하면 됩니다.</p>
+<p>Observer가 subscribe 하는 observable 시퀀스의 내용들은 observer에게 차례로 전달됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="keyword">from</span> &#125; = <span class="built_in">require</span>(<span class="string">"rxjs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observableItem = <span class="keyword">from</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(observableItem); <span class="comment">// Observable</span></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">  next:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;,</span><br><span class="line">  complete:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;,</span><br><span class="line">  err:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> subscribtion = observableItem(observer);</span><br></pre></td></tr></table></figure>
+<h2><span id="rxjs-강의-02-data-stream-만들기-from-of-interval-range">Rxjs 강의 02. Data stream 만들기 - from, of, interval, range</span></h2><h2><span id="rxjs-강의-03-data-stream-합치기-merge">Rxjs 강의 03. Data stream 합치기 - merge</span></h2><h2><span id="rxjs-강의-04-data-stream-걸러내기-filter">Rxjs 강의 04. Data stream 걸러내기 - filter</span></h2><h2><span id="rxjs-강의-05-data-stream-변형하기-map">Rxjs 강의 05. Data stream 변형하기 - map</span></h2><h2><span id="rxjs-강의-06-복잡한-data-stream-처리하기-mergemap-mergeall">Rxjs 강의 06. 복잡한 Data stream 처리하기 - mergeMap, mergeAll</span></h2>
                         
     </div>
     
@@ -657,7 +771,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/22/">22</a></li>
+        <li><a class="pagination-link" href="/page/23/">23</a></li>
         
     </ul>
 </nav>

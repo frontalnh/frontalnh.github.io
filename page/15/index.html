@@ -91,6 +91,233 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/02/01/nodejs-페이스북-회원가입/" itemprop="url">
+                nodejs 페이스북 회원가입
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-01T09:28:12.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 1033 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="개요">개요</span></h2><p>클라이언트에서 웹페이지의 버튼 클릭 등으로 이미 구축해 놓은 server의 url에 페이스북 토큰과 함께 로그인 요청을 보내면, 서버는 passport 모듈을 통해 받은 토큰을 facebook에 보내어 인증을 거치고 페이스북에서 거친 인증값을 담아 서버의 callback 라우터에 요청을 보낸다.<br>서버는 요청을 받고 accessToken을 저장하며 accessToken과 유저정보들을 jwt 암호화를 거쳐 jwt를 발급하여 클라이언트에게 다시 보내어 준다.<br>클라이언트는 받은 jwt를 localStorage에 저장하고 앞으로 자동 로그인시에 해당 jwt 토큰을 사용한다.</p>
+<h2><span id="passport-설치">passport 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save passport</span><br><span class="line">npm install --save passport-facebook</span><br></pre></td></tr></table></figure>
+<h2><span id="모듈-import-하기">모듈 import 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var NaverStrategy = require(&apos;passport-naver&apos;).Strategy;</span><br><span class="line">var FacebookStrategy = require(&apos;passport-facebook&apos;).Strategy;</span><br><span class="line">var KakaoStrategy = require(&apos;passport-kakao&apos;).Strategy;</span><br></pre></td></tr></table></figure>
+<p>필요한 모듈을 import 해준다.</p>
+<h2><span id="개발자-정보를-비롯한-기밀-정보들-별도-파일에-저장">개발자 정보를 비롯한 기밀 정보들 별도 파일에 저장</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  &apos;secret&apos; :  &apos;&apos;,</span><br><span class="line">  &apos;db_info&apos;: &#123;</span><br><span class="line">    local: &#123; // localhost</span><br><span class="line">    ...</span><br><span class="line">    &#125;,</span><br><span class="line">    real: &#123; // real</span><br><span class="line">    ...</span><br><span class="line">    &#125;,</span><br><span class="line">    dev: &#123; // dev</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &apos;federation&apos; : &#123;</span><br><span class="line">    &apos;naver&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;secret_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/naver/callback&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;facebook&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;secret_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/facebook/callback&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;kakao&apos; : &#123;</span><br><span class="line">      &apos;client_id&apos; : &apos;&apos;,</span><br><span class="line">      &apos;callback_url&apos; : &apos;/auth/login/kakao/callback&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>federation 객체에 네이버, 카카오, 페이스북 Developers 정보를 입력한다.<br>secret.js 민감한 정보를 갖고있는 파일들은 프로젝트 디렉토리에 포함시키지 않는 것이 바람직하다.</p>
+<h2><span id="서버코드-작성">서버코드 작성</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">var secret_config = require(&apos;../commons/secret&apos;);</span><br><span class="line">  var secret_config = require(&apos;../_commons/secret&apos;);</span><br><span class="line">  var FacebookStrategy = require(&apos;passport-facebook&apos;).Strategy;</span><br><span class="line">  passport.serializeUser(function(user, done) &#123;</span><br><span class="line">    done(null, user);</span><br><span class="line">  &#125;);</span><br><span class="line">  passport.deserializeUser(function(user, done) &#123;</span><br><span class="line">    done(null, user);</span><br><span class="line">  &#125;);</span><br><span class="line">  passport.use(new FacebookStrategy(&#123;</span><br><span class="line">      clientID: secret_config.federation.facebook.client_id,</span><br><span class="line">      clientSecret: secret_config.federation.facebook.secret_id,</span><br><span class="line">      callbackURL: secret_config.federation.facebook.callback_url,</span><br><span class="line">      profileFields: [&apos;id&apos;, &apos;emails&apos;, &apos;name&apos;] //This</span><br><span class="line">    &#125;,</span><br><span class="line">    function (accessToken, refreshToken, profile, done)&#123;</span><br><span class="line">      console.log(&quot;profile&quot;, profile);</span><br><span class="line">      console.log(&quot;accessToken:&quot;, accessToken);</span><br><span class="line">      var _profile = profile._json;</span><br><span class="line">      loginByThirdparty(&#123;</span><br><span class="line">        &apos;auth_type&apos;: &apos;facebook&apos;,</span><br><span class="line">        &apos;auth_id&apos;: _profile.id,</span><br><span class="line">        &apos;auth_name&apos;: _profile.first_name+&quot; &quot;+_profile.last_name,</span><br><span class="line">        &apos;auth_email&apos;: _profile.email,</span><br><span class="line">        &apos;auth_token&apos;: accessToken</span><br><span class="line">      &#125;, done);</span><br><span class="line">    &#125;</span><br><span class="line">  ));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  router.get(&apos;/facebook&apos;,</span><br><span class="line">    passport.authenticate(&apos;facebook&apos;,&#123;authType: &apos;rerequest&apos;, scope: [&apos;public_profile&apos;, &apos;email&apos;]&#125;)</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  // facebook 로그인 연동 콜백</span><br><span class="line">  router.get(&apos;/facebook/callback&apos;, passport.authenticate(&apos;facebook&apos;,&#123;failureRedirect: &apos;/login/null/null&apos;&#125;),function(req,res)&#123;</span><br><span class="line">    console.log(&quot;REQ&quot;,req);</span><br><span class="line">    console.log(&quot;RES&quot;,res);</span><br><span class="line">        res.redirect(&apos;http://localhost/login/&apos;+req.user.email+&quot;/&quot;+req.user.jwt)</span><br><span class="line">      &#125;</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+<p>passport.use를 통해 OAuth 요청을 만들어서 네이버 로그인 처리를 진행하고 요청결과를 callback url로 라우팅 시켜줌을 설정한다.<br>먼저 auth/login/facebook으로 요청이 오면 페이스북으로 로그인 요청을 보내고 결과값을 callback url로 보내준다.<br>callback url을 처리하는 라우터는 로그인이 성공할 경우 인덱스 페이지로 리다이렉트 시켜주고 실패할 경우에는 다시 로그인 페이지로 리다이렉트 시켜준다.<br>앵귤러의 경우 특정 페이지에 리다이렉트 되면 컴포넌트가 생성되는 시점에서 query의 뒷부분에 붙은 email 과 jwt를 가지고 jwt는 저장하고 email로 유저의 정보를 받아와 클라이언트에서 사용한다.</p>
+<p>/auth/facebook/callback은 페이스북이 검증을 마치고 난 결과를 전송해주는 주소이다.</p>
+<h2><span id="서버의-로그인-함수-작성">서버의 로그인 함수 작성</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function loginByThirdparty(info, done) &#123;</span><br><span class="line">  console.log(&apos;process : &apos; + info.auth_type);</span><br><span class="line">  var stmt_duplicated = &apos;select *from `user` where `user_id` = ?&apos;;</span><br><span class="line">  connection.query(stmt_duplicated, info.auth_id, function (err, result) &#123;</span><br><span class="line">    if (err) &#123;</span><br><span class="line">      return done(err);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      if (result.length === 0) &#123;</span><br><span class="line">        // 신규 유저는 회원 가입 이후 로그인 처리</span><br><span class="line">        var stmt_thridparty_signup = &apos;insert into `user` set `user_id`= ?, `nickname`= ?&apos;;</span><br><span class="line">        connection.query(stmt_thridparty_signup, [info.auth_id, info.auth_name], function (err, result) &#123;</span><br><span class="line">          if(err)&#123;</span><br><span class="line">            return done(err);</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            done(null, &#123;</span><br><span class="line">              &apos;user_id&apos;: info.auth_id,</span><br><span class="line">              &apos;nickname&apos;: info.auth_name</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        //기존유저 로그인 처리</span><br><span class="line">        console.log(&apos;Old User&apos;);</span><br><span class="line">        done(null, &#123;</span><br><span class="line">          &apos;user_id&apos;: result[0].user_id,</span><br><span class="line">          &apos;nickname&apos;: result[0].nickname</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>auth.id 기반으로 신규 회원인지 기존 회원인지 판단한다.<br>신규 회원일 경우에는 user 테이블에 회원 정보를 저장 시키고 로그인 처리를 진행하고, 기존 유저일 경우에는 쿼리로 조회한 회원정보를 기반으로 로그인 처리를 진행합니다.<br>간단하게 말씀드리면 신규회원이든 기존 회원이든 원클릭으로 회원 가입 절차를 진행하게 할 수 있습니다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/31/스타트업-초기-마케팅/" itemprop="url">
+                스타트업 초기 마케팅
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-31T00:36:17.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/marketing/">marketing</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 1115 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="스타트업-초기-마케팅">스타트업 초기 마케팅</span></h1><p>서비스 초기의 스타트업에게 가장 어려운 부분 중 하나는 바로 효과적인 마케팅을 하는 것이다.<br>최근의 마케팅 트렌드는 SNS를 활용한 컨텐츠 유포를 통한 바이럴 마케팅 인데, 충분하지 못한 자금과 인력을 가진 스타트업에게는 이러한 콘텐츠 하나를 제작하는 것 마저 큰 부담이 된다.<br>이렇듯 충분치 못한 자금과 인력으로도 운영 가능한 훌륭한 여러가지 마케팅 방법들을 소개한다.</p>
+<h2><span id="1-블로그-마케팅">1. 블로그 마케팅</span></h2><p>블로그를 활용한 마케팅은 이미 활성화되어 있는 플랫폼의 블로그 기능을 이용하여 사용자들의 유입을 도모하는 것이다.<br>이러한 블로그 마케팅을 해 나감에 있어 핵심적인 요소는 바로 훌륭한 컨텐츠의 생산이다.<br>아무리 블로그 운영에 비용이 들지 않는다고 하더라고 훌륭한 컨텐츠가 제작되지 않는다면 유입률이 보장되지 않으며, 블로그의 경우 사람들이 쉽게 구독을 하지 않으므로 오히려 SNS 채널에 비해 손도 많이가고 지속적인 유입도 확보하기 힘들다.</p>
+<p>대부분의 블로그 방문의 경우 유입 경로는 검색포털에서의 검색으로 사람들이 많이 검색을 하는 키워드가 포함된 글의 경우 유입이 높을 수 있다.<br>판매하는 제품이 온라인에서 많이 검색되는 키워드인 경우 이러한 블로그 마케팅이 효과를 볼 수 있다.</p>
+<p>검색을 통한 유입을 위해 반드시 <strong>핫한 키워드를 텍스트에 담는 것</strong> 이 매우 중요하다.</p>
+<p>블로그의 경우 네이버, 다음 등에서 상위 5개 노출이 핵심이며 그 외의 글들을 사실상 노출되지 않기 때문에 블로그를 활용한 마케팅을 위해서는 지속적으로 포스트를 하며 상위 노출을 시켜야 한다.<br>이처럼 블로그는 검색을 기반으로 하여 유입이 이루어 지기 때문에 최대한 핫한 키워드를 잘 캐치하여 이를 제목 및 본문에 잘 녹여내어야 높은 노출효과를 볼 수 있다.<br>많은 스타트업들의 경우 자신들의 제품을 알리기 위해 정말 제품과 서비스에 대한 상세한 정보를 담으려고 노력하지만 이런식의 포스팅은 검색량이 매우 적기 때문에 높은 노출효과를 보기는 어렵다.</p>
+<p><strong><em>즉, 블로그 마케팅의 핵심은 검색량이 많은 주요 키워드를 잘 선정하는 것이다.</em></strong><br>이를 위해 네이버 광고, M-자비스 등의 서비스를 이용하여 광고 키워드를 선별한 뒤에 검색하여 나온 컨텐츠를 면밀히 살펴본 뒤 사람들이 흥미를 느끼는 핵심 키워드를 찾아 정리한 뒤에 이 키워드를 기반으로 포스팅을 하면 높은 노출효과를 얻을 수 있다.</p>
+<h2><span id="2-커뮤니티를-통한-마케팅">2. 커뮤니티를 통한 마케팅</span></h2><p>판매하는 제품과 관련이 있는 커뮤니티 그룹에 홍보 글을 올리는 것이다.<br>블로그와 마찬가지로 돈이 들지 않고 일정 정도 이상의 유입이 반드시 보장되지만, 계속 홍보성 글을 올리는 경우 커뮤니티 원들 사이에 좋지 않은 이미지가 확산 될 수 있고, 장기적으로 보면 브랜드 이미지를 해칠 수 있기 때문에 해당 커뮤니티의 분위기에 맞게 간접적으로 홍보할 수 있는 글을 지속적으로 올리는 것이 바람직하다.</p>
+<p><strong><em>커뮤니티 목록</em></strong><br><a href="https://www.clien.net/service/" target="_blank" rel="noopener">클리앙</a><br><a href="http://www.slrclub.com/" target="_blank" rel="noopener">SLR 클럽</a><br><a href="http://ruliweb.com/" target="_blank" rel="noopener">루리웹</a><br><a href="http://www.ppomppu.co.kr/search_bbs.php?keyword=%C6%AE%B7%B9%C0%CC%B3%CA" target="_blank" rel="noopener">뽐뿌</a><br><a href="http://pann.nate.com/" target="_blank" rel="noopener">네이트판</a><br><a href="http://www.dcinside.com/" target="_blank" rel="noopener">디시인사이드</a><br><a href="https://reviewrepublic.net/" target="_blank" rel="noopener">리뷰리퍼블릭</a></p>
+<hr>
+<p><a href="http://www.venturesquare.net/559328" target="_blank" rel="noopener">참고 - 벤처스퀘어</a><br><a href="https://brunch.co.kr/@andrewyhc/52" target="_blank" rel="noopener">참고 - 브런치 / 초기 스타트업의 무료 마케팅 채널</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/24/머신러닝강의 5강 - 머신러닝-테스트-및-정확도-향상의-방법론/" itemprop="url">
+                머신러닝강의 5강 - 머신러닝 테스트 및 정확도 향상의 방법론
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-24T02:42:56.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 490 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#머신러닝의-정확도">머신러닝의 정확도</a></li>
+<li><a href="#적당한-learning-rate의-선택">적당한 learning rate의 선택</a></li>
+<li><a href="#정확도-향상을-위한-data-preprocessing">정확도 향상을 위한 data preprocessing</a></li>
+<li><a href="#overfitting">overfitting</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="머신러닝의-정확도">머신러닝의 정확도</span></h2><p>머신러닝에서의 정확도는 다양한 변인들에 의하여 판가름 난다.<br>그 중 제일 큰 부분을 차지하는 변수는 바로 learning rate, data preprocessing, overfitting 이며 본 강의에서는 각 요소들이 어떻게 영향을 미치고 정확도를 개선 할 방법에 대해 알아본다.</p>
+<h2><span id="적당한-learning-rate의-선택">적당한 learning rate의 선택</span></h2><p>learning rate는 gradient descent algorithm을 사용할 때에 학습이 진행됨에 따라 학습의 속도 혹은 변화도를 통제하는 변수이다.<br>만약 learning rate이 너무 크다면 최저점을 찾을 때 1회 이동의 정도가 너무 크기 때문에 발산할 가능성 즉 overshooting의 위험이 있으며, 너무 작으면 속도가 매우 느린 단점이 있다.</p>
+<h2><span id="정확도-향상을-위한-data-preprocessing">정확도 향상을 위한 data preprocessing</span></h2><p>만약 입력받은 두 종류의 변수의 크기 차이가 심한 경우 이는 학습에 큰 영향을 미칠 수 있기 때문에 학습 전에 data preprocessing을 거쳐 정확도를 높일 수 있으며, 흔히 normalize라고 불리는 정규화 작업을 거친 뒤 학습을 하게 된다. 이러한 standardize를 위한 수식은 다음과 같다.</p>
+<p><img src="\images\gradientDescentAlgorithm을위한Standardization.png" alt="gradient descent algorithm을 위한 standardization"></p>
+<h2><span id="overfitting">overfitting</span></h2><p>overfitting이란 학습된 결과가 학습을 위한 데이터에 너무 맞추어져 있는 것을 의미한다.<br>이는 주로 적은 수의 학습데이터가 주어져 있을 경우 발생하기 쉬운데, 넓은 범위의 학습데이터가 아니기 때문에 해당 학습데이터에 치우친 결과값이 나와 정확도가 떨어지는 측면이 있다.<br>이러한 overfitting을 해결하기 위해서는 먼저 충분한 양의 학습데이터를 확보를 하고, 학습하는 feature의 수를 줄이는 것, 또 regularization을 하는 것이 도움이 된다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/23/mongodb-시작하기/" itemprop="url">
+                1. mongodb 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-23T09:47:07.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mongodb-강의/">mongodb 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                5 minutes read (About 769 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="installation">Installation</span></h2><p><strong>installation on ubuntu</strong></p>
+<p>먼저 다음과 같이 mongodb가 설치되어 있는지 확인한다.<br>mongod는 서버, mongo는 클라이언트 이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mongod --version</span><br><span class="line">mongo --version</span><br></pre></td></tr></table></figure>
+<p>만약 설치가 되어있지 않다면 다음 명령어로 설치를 진행한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5</span><br><span class="line">echo &quot;deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.6 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list</span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure></p>
+<p>설치가 완료되었다면 아래의 명령어로 서비스를 실행시킨다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br></pre></td></tr></table></figure></p>
+<p>서비스가 정상적으로 실행되었는지 확인하기 위해 다음과 같은 명령어를 사용한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongodb status</span><br></pre></td></tr></table></figure></p>
+<p>이제 다음 명령어로 mongodb에 접속한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure></p>
+<p>접속이 완료되었다면 database를 관리하기 위한 계정을 만들어야 한다.<br>이 계정을 통해 외부 컴퓨터에서도 본 database에 접근할 수 있게 된다.<br>다음과 같은 admin database에 접근하여 root user를 생성한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">db.createUser(&#123;user: &quot;root&quot;, pwd: &quot;mypassword&quot;, roles: [&#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125;] &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>유저를 생성하였다면 다음 명령어로 설정파일을 열어 authorization을 enabled로 해준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/mongod.conf</span><br></pre></td></tr></table></figure></p>
+<p>설정이 완료되었다면 mongodb를 다시 실행시킨다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod restart</span><br></pre></td></tr></table></figure></p>
+<p>다시 시작한 뒤에는 사용할 계정을 만들어 준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use app    #app 대신에 내가 만들 db명을 선택</span><br><span class="line">db.createUser(</span><br><span class="line"> &#123; user: &quot;app&quot;,</span><br><span class="line"> pwd: &quot;mypassword&quot;,</span><br><span class="line"> roles: [&apos;readWrite&apos;,&apos;userAdmin&apos;] &#125; )</span><br></pre></td></tr></table></figure></p>
+<p>생성한 아이디로 로그인 해본다.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo -uapp -pmypassword app</span><br></pre></td></tr></table></figure></p>
+<h4><span id="connect-to-mongodb">connect to mongodb</span></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --port &lt;포트&gt; -u <span class="string">"&lt;사용자 계정&gt;"</span> -p <span class="string">"&lt;비밀번호&gt;"</span> --authenticationDatabase <span class="string">"admin"</span></span><br></pre></td></tr></table></figure>
+<h2><span id="configuration">Configuration</span></h2><p>보안설정 바꾸기<br>Vim /etc/mongod.conf</p>
+<p><a href="https://velopert.com/457" target="_blank" rel="noopener">https://velopert.com/457</a></p>
+<p>Authoriztion 사용하기<br><a href="http://www.tutorialbook.co.kr/entry/MongoDB-%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%EC%A6%9D-authorization-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0" target="_blank" rel="noopener">http://www.tutorialbook.co.kr/entry/MongoDB-%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%EC%A6%9D-authorization-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0</a></p>
+<h2><span id="basic-concepts">Basic Concepts</span></h2><h3><span id="collection">Collection</span></h3><p>create collection</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(name, [options])</span><br></pre></td></tr></table></figure>
+<p>delete collection</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.COLLECTION_NAME.drop()</span><br></pre></td></tr></table></figure>
+<h3><span id="schema">Schema</span></h3><p>일종의 데이터의 양식이다.<br>이 스키마를 기반으로 모델을 생성한다.</p>
+<h3><span id="model">Model</span></h3><p>일종의 커넥션으로 다른 것들은 이 모델 객체에서 바로 수행한다.<br>여기서 새로운 데이터를 저장하는 save를 하기 위해서는 instance를 생성하여야 하고,<br>다른 경우는 이 모델에서 바로 수행한다.</p>
+<h3><span id="query">Query</span></h3><h4><span id="update">update</span></h4><p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getCollection(&apos;schedule&apos;).update(&#123;&quot;email&quot;:&quot;test&quot;&#125;, &#123;$set:&#123;&quot;email&quot;:&quot;test@test.com&quot;&#125;&#125;, &#123;muti:true&#125;);</span><br></pre></td></tr></table></figure>
+
+위 예제는 query를 만족하는 여러가지 데이터를 한번에 바꾸는 명령이다.
+두번째 인자는 update 할 object 부분인데, {$set:{}} 을 넣어 특정 키값을 변경하고 있다.
+만약 이렇게 $set 을 사용하지 않으면 해당 데이터가 통으로 교체되어 버린다.
+
+<h3><span id="transaction">Transaction</span></h3><p>서버버전 4 이상에서 제공한다.</p>
+<p><a href="https://docs.mongodb.com/manual/reference/command/setFeatureCompatibilityVersion/" target="_blank" rel="noopener">featurecompatibility를 “4.0” 으로 해야한다.</a></p>
+<p>commitTransaction()은 sessionEnd 까지 포함된 개념이다.</p>
+<h2><span id="uninstallation">Uninstallation</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod stop</span><br><span class="line">sudo apt-get purge mongodb-org*</span><br><span class="line">sudo rm -r /var/log/mongodb</span><br><span class="line">sudo rm -r /var/lib/mongodb</span><br></pre></td></tr></table></figure>
+<h2><span id="cookbook">Cookbook</span></h2><h3><span id="위치-찾기">위치 찾기</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.createIndex( &#123; &lt;location field&gt; : <span class="string">"2dsphere"</span> &#125; )</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/01/22/npm-시작하기/" itemprop="url">
                 npm 시작하기
             </a>
@@ -404,590 +631,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/14/linux devnote/" itemprop="url">
-                Getting started with linux
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-14T05:57:05.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                10 minutes read (About 1444 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!--toc-->
-<h2><span id="what-is-user-and-group-in-linux-system">What is User and Group in linux system?</span></h2><p>리눅스 운영체제는 기본적으로 여러 명의 유저가 동시에 접속하여 각자 다른 작업을 수행하여도 잘 동작하도록 설계되었다.</p>
-<p>때문에, 여러 사용자가 각자 프로그램을 제어할때 서로 같은 시스템 자원을 사용하게 되어 생기는 문제를 핸들링 해야 할 필요가 생기게 되었는데, 그러한 권한관리 시스템을 구성하는 개념이 user 와 group 이며, 여기서 permission의 개념이 등장한다.</p>
-<p>때문에 각 파일과 디렉토리는 유저별로 할당된 권한이 있으며 이를 확인하는 명령어는 다음과 같다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l &lt;file or directory&gt;</span><br></pre></td></tr></table></figure>
-<p>위 명령어를 입력하면 다음과 같은 결과가 출력되는데</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- 1 root root 1031 Nov 18 09:22 /etc/passwd</span><br><span class="line">drw-r--r-- 1 root root 1031 Nov 18 09:22 /etc</span><br></pre></td></tr></table></figure>
-<p>여기서 첫번째 <code>-</code> 표시는 해당 파일 혹은 디렉토리가 파일임을 나타내고 만약 두번째처럼 d 로 시작한다면 디렉토리를 나타낸다.</p>
-<p>뒤이어 오는 rw-, r–, r– 는 각각 파일의 소유자와 같은 그룹의 유저들 그리도 나머지 유저들에 대한 권한을 나타낸다.</p>
-<p>r 은 <code>read</code> w 는 <code>write</code> x 는 <code>executre</code> 로써 각각 읽기, 쓰기, 실행하기의 권한을 나타낸다.</p>
-<h4><span id="create-and-delete-user-accounts">Create and Delete User Accounts</span></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd &lt;name&gt; -d /home/&lt;user<span class="string">'s home&gt; -e &lt;YYYY-MM-DD&gt; -f &lt;0 or -1&gt; - s /bin/&lt;shell&gt;</span></span><br></pre></td></tr></table></figure>
-<p>위처럼 유저를 생성 할 수 있으며, d, e, f, s 의 옵션과 내용은 각각 해당 유저의 로그인시 홈 디렉토리, 유효기간, 유효일자, 기본 shell type 을 의미한다.</p>
-<p>이렇게 유저를 생성하며, 누구나 해당 유저에 접근하여 사용할 수 있기 때문에, 실제 사용시에는 다음과 같이 비밀번호를 설정해 주어야 한다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd &lt;username&gt;</span><br></pre></td></tr></table></figure>
-<h4><span id="understanding-sudo">Understanding Sudo</span></h4><p>이렇게 기본 유저의 경우 각 파일과 디렉토리 별로 권한이 있기 때문에, 활동이 상당히 제한적일 수밖에 없다.</p>
-<p>이 때문에, 컴퓨터 시스템을 조작하거나 기타 여러 작업을 수행하기 위해서는 <code>sudo</code> 명령어와 같이 시스템의 루트 권한을 가져오는 명령어가 필요한 경우가 종종 있다.</p>
-<p>이러한 <code>sudo</code> 명령어는 대부분의 운영체제에 기본으로 설치되어 있지만 없는 경우 다음과 같이 설치해 준다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in ubuntu os</span></span><br><span class="line">apt-get install sudo</span><br><span class="line"></span><br><span class="line"><span class="comment"># in centos</span></span><br><span class="line">yum install sudo</span><br></pre></td></tr></table></figure>
-<p>이런 sudo 명령어는 허가된 사용자에 대해서만 사용이 가능하기 때문에 이 리스트를 <code>sudoer</code> 라는 파일을 통해 관리하게 된다. <code>sudoer 파일은 매우 중요한 파일이기 때문에 텍스트 에디터에서 접근하면 치명적인 에러와 접속 불가 상태에 빠질수 있기 때문에 visudo 와 같은 별도 명령어를 사용한다.</code> </p>
-<p>visudo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># User privilege specification</span><br><span class="line">root    ALL=(ALL:ALL) ALL</span><br><span class="line">cjones  ALL=(ALL:ALL) ALL</span><br><span class="line">kbrown  ALL=(ALL:ALL) ALL</span><br><span class="line">lmartin ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
-<h4><span id="working-with-groups">Working with groups</span></h4><p>리눅스는 유저들을 관리하기 위해 group 이라는 개념을 사용하며 그 그룹들은 <code>/etc/group/</code> 파일에서 관리되며, 이 파일에는 어떤 그룹에 어떤 유저들이 포함되어 있는지 명시되어 있다.</p>
-<p>다음 명령어를 통해 그룹을 생성하고 변경할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newgrp &lt;group&gt;</span><br><span class="line">chgrp &lt;new_group&gt;</span><br></pre></td></tr></table></figure>
-<h4><span id="chmod-command">Chmod Command</span></h4><p>이렇게 설정된 permission 을 간편하게 변경하기 위한 명령어로 <code>chmod</code>명령어가 있으며 그 사용법은 다음과 같다.</p>
-<p>앞서 설명한 것처럼 파일 혹은 디렉토리의 권한은 rwx 와 같은 형태로 표현되며 모든 권한이 없는 상태는 — 와 같다.</p>
-<p>이렇게 모든 권한이 있는 상태와 없는 상태를 2진 표기법으로 3자리로 나타내며, 이를 8진수로 표기하여 다음과 같이 설정할 수 있다.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 ./example</span><br></pre></td></tr></table></figure>
-<p>위 명령어는 example 이라는 파일의 권한을 <code>r--------</code> 로 변경하는 명령어이다.</p>
-<p>또 아래와 같은 간편한 명령어도 존재하는데</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +t ./example</span><br></pre></td></tr></table></figure>
-<p>해당 명령어는 sticky bit 라 불리며 자신이 속한 그룹 내에서도 오직 자신만이 해당 파일의 삭제권한을 가지도록 할 수 있다.</p>
-<p>이는 여러 사용자로 구성된 그룹에서 간편하게 자신만이 삭제권한을 가지게 할 수 있어 매우 편리하다.</p>
-<p><a href="https://www.linode.com/docs/tools-reference/linux-users-and-groups/" target="_blank" rel="noopener">참고자료</a></p>
-<h2><span id="터미널-명령어-조합">터미널 명령어 조합</span></h2><p><strong>8080포트에 붙은 프로세스 죽임</strong></p>
-<p><code>fuser -k 8080/tcp</code></p>
-<h2><span id="가상-터미널screen의-활용">가상 터미널(screen의 활용)</span></h2><p><strong>screen -S 세션명</strong></p>
-<p>-S 다음에 주는 세션명으로 시작합니다.</p>
-<p><strong>screen -list</strong></p>
-<p>-list 옵션을 주고 실행하면 이전에 작업했었던 screen 리스트가 있으면 세션명과 함께 리스트를 보여줍니다.</p>
-<p><strong>screen -R 세션명</strong></p>
-<p>이전에 세션이 있을 경우 -R 다음에 오는 세션명으로 이전 작업을 불러옵니다.</p>
-<p>-R 다음에 세션명을 주지 않았을 경우에는 이전 세션이 한개만 있을 경우 그 작업을 불러옵니다.</p>
-<p>이전 작업이 여러개 있을 경우에는 이전 작업 리스트를 보여줍니다.</p>
-<p>세션명을 가진 세션이 없다면 새로운 세션을 만들어서 보여줌.</p>
-<p>(안만들려면 소문자 -r을 사용할 것)</p>
-<p><strong>screen -D -r 세션명</strong></p>
-<p>이전 세션이 Attach 된 상태라면 Detach하고 세션을 복원해 줌.</p>
-<p><a href="http://www.dreamy.pe.kr/zbxe/CodeClip/164809" target="_blank" rel="noopener">출처</a></p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/14/트렌드-분석/" itemprop="url">
-                트렌드 분석
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-14T05:56:10.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                9 minutes read (About 1339 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#1차-산업혁명-농업-혁명을-통한-정착생활-도입">1차 산업혁명 / 농업 혁명을 통한 정착생활 도입</a></li>
-<li><a href="#2차-산업혁명-증기기관과-공장의-확산">2차 산업혁명 / 증기기관과 공장의 확산</a></li>
-<li><a href="#3차-산업혁명-인터넷을-통한-전-세계의-연결을-통해-시공간이-무너진-산업-구도의-형성">3차 산업혁명 / 인터넷을 통한 전 세계의 연결을 통해 시공간이 무너진 산업 구도의 형성</a></li>
-<li><a href="#4차-산업혁명-시공간이-무너진-bit-world와-atom-world의-합치">4차 산업혁명 / 시공간이 무너진 Bit World와 Atom World의 합치</a></li>
-<li><a href="#intelligent">Intelligent</a><ul>
-<li><a href="#ai-and-machine-learning">AI and Machine Learning</a></li>
-<li><a href="#intelligent-apps">Intelligent Apps</a><ul>
-<li><a href="#개요">개요</a></li>
-<li><a href="#jakes-idea">Jake’s Idea</a></li>
-</ul>
-</li>
-<li><a href="#intelligent-things">Intelligent Things</a><ul>
-<li><a href="#개요-1">개요</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#digital">Digital</a><ul>
-<li><a href="#vr-and-ar">VR and AR</a><ul>
-<li><a href="#blockchain">BlockChain</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#mesh">Mesh</a><ul>
-<li><a href="#conversational-systems">Conversational Systems</a></li>
-<li><a href="#digital-technology-platforms">Digital Technology Platforms</a></li>
-<li><a href="#adaptive-security-architecture">Adaptive Security Architecture</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h1><span id="1차-산업혁명-농업-혁명을-통한-정착생활-도입">1차 산업혁명 / 농업 혁명을 통한 정착생활 도입</span></h1><h1><span id="2차-산업혁명-증기기관과-공장의-확산">2차 산업혁명 / 증기기관과 공장의 확산</span></h1><p>2차 산업혁명에서는 자본을 가진 자본가들이 막대한 규모의 자본을 투자하여 공장을 만들어 막대한 양의 재화를 빨리 만들어 내어 판매함으로써 인간은 그 공장을 돌리기 위한 기계로 전락해 버리게 되었다.</p>
-<p>이러한 시대적 분위기에 반해 인간 본연의 존엄성을 살리고 모든 인간은 평등하며, 인간의 자율성을 추구하는 집단들이 나타나게 되었는데</p>
-<p>‘히피 문화’가 바로 그것이다.</p>
-<h1><span id="3차-산업혁명-인터넷을-통한-전-세계의-연결을-통해-시공간이-무너진-산업-구도의-형성">3차 산업혁명 / 인터넷을 통한 전 세계의 연결을 통해 시공간이 무너진 산업 구도의 형성</span></h1><p>2차 산업 혁명 당시의 ‘히피’들은 인터넷을 통해 인간의 자율성을 한껏 발휘하여 테크토피아를 꿈꾸었고,</p>
-<p>인터넷은 한 개인이 소프트웨어를 통해 전 세계에 영향력을 발휘할 수 있다는 점에서 그들에게 막대한 힘을 실어주게 된다.</p>
-<p>많은 사람들이 인터넷이 주는 연결의 힘의 가능성을 믿었고, 산업의 많은 부분을 전자화 시켜 시공간을 무너뜨는 사업들을 벌여왔다.</p>
-<p>서점에서 팔던 책을 전자화 시키고, 주변의 많은 사람들을 만나 교류하던 것을 인터넷 상에서 가능하게 하는 다양한 SNS 서비스들이 출몰하게 되었다.</p>
-<p>이런 비즈니스는 당시로써는 아주 혁신적인 것이었고 만은 사람들이 이를 통해 막대한 부를 축적하게 된다.</p>
-<h1><span id="4차-산업혁명-시공간이-무너진-bit-world와-atom-world의-합치">4차 산업혁명 / 시공간이 무너진 Bit World와 Atom World의 합치</span></h1><p>4차 산업혁명에서는</p>
-<h1><span id="intelligent">Intelligent</span></h1><h2><span id="ai-and-machine-learning">AI and Machine Learning</span></h2><p>deep learing과 neural network로 어떤 현상을 이해하고, 배우고, 예상하고 적용하는 기능을 하는 시스템을 구축할 수 있다.<br>이는 과거에 소수의 전문가 집단에 이루어 졌지만, 그 마저도 정확하지 않은 가설을 기반으로 한 경우가 대부분이었다.</p>
-<p>데이터를 활용한다면 이러한 불확실성이 현저하게 줄어든다.</p>
-<h2><span id="intelligent-apps">Intelligent Apps</span></h2><h3><span id="개요">개요</span></h3><p>인간의 업무를 보다 편리하게 도와줄 수 있는 다양한 지능 소프트웨어들이 출몰할 것이다.<br>단순한 비서의 역할부터, ERP나 보안시스템 등 고차원적이고 복잡한 회사의 업무를 처리할 시스템이 나올 것이다.</p>
-<h3><span id="jakes-idea">Jake’s Idea</span></h3><p>회사의 업무방식을 면밀히 살펴보고 각 회사에 맞는 커스터마이징된 제품이 나와야 시장의 사랑을 받을 수 있다.<br>기존의 많은 소프트웨어들은 다수의 사용자에게 동일한 서비스를 제공한다는 점에서 한계가 있다.</p>
-<h2><span id="intelligent-things">Intelligent Things</span></h2><h3><span id="개요">개요</span></h3><p>로봇과 드론 자동화된 탈것들이 차지한다.<br>다양한 iot 디바이스의 출몰</p>
-<h1><span id="digital">Digital</span></h1><h2><span id="vr-and-ar">VR and AR</span></h2><p>VR을 이용해 현장에서 할 수 없었던 트레이닝이나 먼 장소에 대한 가상 탐험이 가능하고 AR을 통해 현실 세계에서 인간을 보조하여 편한 작업과 다양한 활동이 가능하다.</p>
-<h3><span id="blockchain">BlockChain</span></h3><p>거래 정보를 모든 사람들이 공유하는 시스템으로 보안이 매우 높다.<br>이러한 distributed ledger 방식은 산업의 운영방식을 획기적으로 바꿀 수 있는 경쟁력을 가지고 있다.<br>믿을 수 없는 환경에 투명한 접근을 하게 됨으로써 안정적인 환경을 만들어 준다.<br>이러한 블록체인은 음악 산업, 인증 서비스 등에서 그 가능성이 있다.</p>
-<h1><span id="mesh">Mesh</span></h1><p>Mesh란 사람, 프로세스, 사물, 서비스 들의 역동적인 연결을 말한다.<br>이러한 메쉬효과로 사용자의 경험이 본질적으로 변화하고 이를 지원하기 위해 다양한 기술과 보안 구조와 플랫폼들이 변혁하고 있다.</p>
-<h2><span id="conversational-systems">Conversational Systems</span></h2><p>단순히 문자나 목소리로 소통하는 것이아니라 상황과 문맥 등을 통해 다양한 정보를 유추하는 것이다.<br>예를 들어 목격자의 진술을 통해 용의자의 스케치를 그려내거나 하는 등에서 단순히 진술 뿐 아니라 다양한 맥락을 통해 실제에 가까운 용의자 사진을 그려낸다.</p>
-<p>단순히 사람들의 목소리와 글자를 인식하는 것이 아니라 다양한 정보를 종합적으로 받아들임으로써 새로운 정보를 얻게 된다.</p>
-<h2><span id="digital-technology-platforms">Digital Technology Platforms</span></h2><p>정보 시스템, 고객 경험, 분석과 지성, 사물인터넷이 비즈니스의 환경이 될 것이며 기업들은 산업의 플랫폼이 어떻게 변화할 것인가를 알고 이에 변화해야 한다.</p>
-<h2><span id="adaptive-security-architecture">Adaptive Security Architecture</span></h2><p>보안이 상당히 유동적이고 적응성이 높은 형태로 발전해야 한다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/14/비즈니스-기획/" itemprop="url">
-                비즈니스 기획
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-14T05:54:45.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                38 minutes read (About 5678 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="경쟁사-분석과-비즈니스-환경-분석">경쟁사 분석과 비즈니스 환경 분석</span></h2><p>경쟁 환경에서 기업을 운영하려면 경쟁사에 대해 충분히 꿰뚫고 있어야 한다.<br>이는 경쟁사를 모방하기 위해서가 아니라 그들과 차별화된 전략을 모새하기 위해서이다.<br>경쟁사와 비즈니스 환경에 대한 이해가 깊을 수록 성공적인 전략 수립에 한발 다가선 것이다.</p>
-<h3><span id="진짜-경쟁사를-찾아라">진짜 경쟁사를 찾아라</span></h3><p>진정한 경쟁사를 파악하는 것은 매우 중요하다.<br>이는 단순히 같은 시장을 두고 제품이나 서비스를 공급하는 다른 기업을 말하는 게 아니라 우리의 목표 고객을 빼앗아 가는 기업을 의미한다.<br>모든 고객을 목표로 삼아야 한다고 생각하는 리더에게는 이것이 별것 아닌 문제로 보일 수 있지만 모든 고객을 잡을 수 있는 회사는 없다.</p>
-<p>예를들어 사우스 웨스트항공은 대형 고속버스 회사인 그레이하운드와 철도회사인 암트랙을 다른 항공사들보다 더 중요한 경쟁사로 보고 있다.<br>사우스웨스트가 목표로 잡은 고객은 육상 교통편보다 비싼 요금을 내고서는 절대로 비행기를 타지 않으려는 알뜰한 여행자들이기 때문이다.</p>
-<h3><span id="경쟁사-분석서-작성-예시">경쟁사 분석서 작성 예시</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">1. 위치 : 시카고</span><br><span class="line">2. 대표이사 : 로버트 스미스</span><br><span class="line">3. 제품/서비스 : 종이, 판지, 열성형 플라스틱으로 만든 속포장재 및 겉포장재</span><br><span class="line">4. 목표 시장 : 제빵, 제과업계, 포장용 건조식품업계</span><br><span class="line">5. 경쟁사를 능가하는 본사의 제품/서비스와 세분시장 : 없음</span><br><span class="line">6. 매출액 : 1200만 달러</span><br><span class="line">7. 당기순이익 : 50만 달러</span><br><span class="line">8. 직원 수 : 120명</span><br><span class="line">9. 성장률 : 연 21%</span><br><span class="line">10. 뚜렷한 특정/고객 혜택 : 청결한 공장, 높은 신뢰성, 적시 공급</span><br><span class="line">11. 경쟁적 강점 : 높은 인지도, 우수한 기술력 및 서비스, 빠른 배송, 낮은 부채 비율</span><br><span class="line">12. 경쟁적 약점 : 원가 대비 낮은 단가, 공개시장에서 원자재 구입, 기술력이 우수하기는 하나 브라운 사보다 뒤떨어짐</span><br><span class="line">13. 최근의 주요 사건 : 디자인 및 실험 연구소 설치</span><br><span class="line">14. 경쟁 전략 : 특제품/틈새시장</span><br><span class="line">15. 취약점 : 가격 경쟁력이 떨어짐</span><br></pre></td></tr></table></figure>
-<h3><span id="비즈니스-환경에-영향을-주는-요인들">비즈니스 환경에 영향을 주는 요인들</span></h3><p>기술, 공급자, 전반적인 경제 상황, 시장 규제 사항은 매우 중요한 요소이다.</p>
-<h3><span id="시장의-기술을-평가하라">시장의 기술을 평가하라</span></h3><p>현재 시장에서 각광받고 있는 주요 최첨단 기술은 무엇인가?<br>다음과 같은 기술의 종류가 있다.</p>
-<ol>
-<li>제품 기술 : 고객에게 제공할 제품 및 서비스와 관련된 기술</li>
-<li>제조 공정 기술 : 제품을 만들거나 서비스를 제공하기 위해 거치는 과정과 관련된 기술</li>
-<li>서비스 기술 : 제품과 서비스의 판매, 유통 또는 공급과 관련된 기술</li>
-</ol>
-<p>예를들어 모터용 연결장치를 생사하는 있다고 한다.<br>이 모터용 연결장치는 100년도 훨씬 이전부터 생산되어 오던 제품이지만 이 회사는 여전히 그 분야에서는 기술력이 생명이라고 생각한다.<br>기술은 그 제품 자체에는 영향을 미치지 않지만 회사가 그 제품을 생산하는 방식에는 영향을 미치고 있다.<br>선반 위에 금속얼 얹어 압형하던 전통적 방식에서 벗어나 이제는 금속 가루로 형태를 뜨고 있다.<br>재래식 기술 대신 비교적 새로운 제주 기술을 갖추어 비용을 절감하고 품질을 향상시키고 있다.</p>
-<h3><span id="기술-분석서-예시">기술 분석서 예시</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">1. 제조 공정 기술</span><br><span class="line"> 1-1. 기술 상태</span><br><span class="line"> - 수동 설비 : 시간당 1500단위 생산 가능, 결함 발생률 100ppm</span><br><span class="line"> - 자동 및 반자동 설비 : 시간당 3천~4천 단위 생산 가능, 결함 발생률 20ppm</span><br><span class="line"></span><br><span class="line"> 1-2. 생산 기술의 효율성</span><br><span class="line"> - 수동 설비 : 소량 작업 시에만 효율적이다.</span><br><span class="line"> - 자동 설비 : 장시간에 걸친 대량 작업 시 효율적이다. 작업 전환 시간이 길다.</span><br><span class="line"> - 반자동 설비 : 다양한 작업에 가장 효율적이다.</span><br><span class="line"></span><br><span class="line"> 1-3. 비용 효율성</span><br><span class="line"> - 수동 설비 : 작업 속도가 느리고 비용이 많이 든다. 소량 작업 시에만 효율적이다.</span><br><span class="line"> - 자동 설비 : 속도가 빠르고 신뢰성이 높다. 대량 작업 시에도 모두 처리할 수 있다.</span><br><span class="line"> - 이 설비에 합당한 투자수익률을 달성하려면 시장점유율이 5년간 20%를 넘어야 한다.</span><br><span class="line"> - 반자동 설비 : 가장 효율적이다. 제품 구성이 다양하고 작업량이 중간 정도일 때 적합하다.</span><br><span class="line"> - 작업량이 중간 정도인 대규모 작업을 할 때는 어떤 기술로든 비용이 많이 든다.</span><br><span class="line"></span><br><span class="line"> 1-4. 가용성/취득 비용</span><br><span class="line"> - 작업량이 중간 정도인 대규모 작업을 할 때 적한한 설비가 없다.</span><br><span class="line"> - 유일하게 시판되는 설비는 다른 산업용으로 만들어진 다목적 설비다.</span><br><span class="line"> - 자체 설비 제작을 위해서는 숙련된 엔지니어를 직원으로 채용해야 하는데, 해당 기술을 보유한 뛰어난 기술자를 찾기가 쉽지 않다.</span><br><span class="line">   경쟁 우위를 확보하기 위해서는 필수적인 자산이다.</span><br><span class="line"></span><br><span class="line"> 1-5. 노후화율/내용연수</span><br><span class="line"> - 제조공정 기술은 약 5~8년마다 전환을 맞는다.</span><br><span class="line"> - 수동 설비는 대부분 업그레이드만 약간 하면 내용연수가 15~20년에 이른다.</span><br><span class="line"> - 자동 설비는 업그레이드하기가 어렵고 비용이 많이 든다. 예상 내용연수는 5년이다.</span><br><span class="line"></span><br><span class="line"> 1-6. 경쟁사와의 비교</span><br><span class="line"> - 완전 자동설비를 갖춘 브라운 사가 기술적으로 가장 앞서 있다.</span><br><span class="line"> - ABC 사, 내셔널 사, 본사는 비슷한 수준이지만 브라운 사에는 뒤진다.</span><br><span class="line"> - 다른 경쟁사들은 기술력이 전무한 수준이다.</span><br><span class="line"></span><br><span class="line">2. 서비스 기술</span><br><span class="line">  2-1. 기술 상태</span><br><span class="line">  - 완전히 통합된 IS 시스템</span><br><span class="line">  - 고객 서비스팀에 실시간으로 생산/재고 데이터 전송</span><br><span class="line">  - 판매 직원이 컴퓨터로 자동 주문 입력</span><br><span class="line">  - 고객 데이터베이스부터 엔지니어링/생산 데이터베이스까지 직접 전송</span><br><span class="line"></span><br><span class="line">  2-2. 경쟁사와의 비교</span><br><span class="line">  - 본사는 최신 기술에서 상당히 뒤떨어져 있으나 경쟁사들도 마찬가지다.</span><br><span class="line"></span><br><span class="line">3. 제품 기술</span><br><span class="line">  3-1. 기술 상태</span><br><span class="line">  - 상품 보호력이 뛰어나고 항부착성이 가미된 100% 생물 분해성 제품을 생산하고 있다.</span><br><span class="line"></span><br><span class="line">  3-2. 경쟁사와의 비교</span><br><span class="line">  - 최근에 특허를 받은 본사의 &apos;그린 팩&apos;은 다른 모든 경쟁사를 훨씬 앞서는 첨단 기술 제품이다.</span><br></pre></td></tr></table></figure>
-<h3><span id="공급자-시장을-분석하라">공급자 시장을 분석하라</span></h3><p>기업 활동을 위해 투입되어야 할 원자재, 기타 물품 뿐 아니라 노동과 서비스도 상당수 외부에서 공급받는 기업이 많다.<br>갑자기 물품 공급이 끊기거나 비용이 크게 오르거나 품질이 형편없거나, 적기에 납품되지 않는 등의 문제가 발생한다면 기업의 진로와 방향에 타격이 갈 수밖에 없다.</p>
-<h3><span id="공급-시장-평가서-예시">공급 시장 평가서 예시</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;판지 시장&gt;</span><br><span class="line">1. 경제적 측면</span><br><span class="line">2. 사용처</span><br><span class="line">3. 업종 성장률 및 가격 결정 요소</span><br><span class="line">4. 경쟁적 위치</span><br><span class="line"></span><br><span class="line">&lt;노동력 시장&gt;</span><br><span class="line">1. 경제적 측면</span><br><span class="line">2. 공급 상태</span><br></pre></td></tr></table></figure>
-<h3><span id="경제-상황을-분석하라">경제 상황을 분석하라</span></h3><p>비즈니스에 형향을 미친느 경제적 요인은 과업ㅁ위하다.<br>제품 및 서비스를 판매하는 시장과 관련된 주요 경제지표를 분석하다 보면 훌륭한 전략을 수립할 수 있을 것이다.<br>비즈니스에 영향을 주는 종합적인 지표로 가장 먼저 검토해야 할 것으로는 GDP가 있다.<br>결국 개개의 기업도 한 나라의 경제를 이루는 일부인 것이다.</p>
-<p>여기서 중요한 것은 기업의 비즈니스와 고나련이 있는 특정 <strong>선행지표</strong> 에 주목해서 전략을 세워한 한다는 것이다.<br>이들 지표는 전략적인 사고에 큰 도움이 된다.<br>예를 들면 존슨 식품 기계는 닭고기를 소매로 판매하기에 적당한 조각으로 가공하는 기계를 제작하는 회사다.<br>이 회사는 닭 사료 가격에 큰 영향ㅇ르 받는다.<br>사료 가격이 올라가면 닭고기 가격도 올라가기 때문에 닭고기 수요가 줄어들기 때문이다.<br>따라서 이 회사는 닭 사료로 쓰이는 곡물의 가격도 주시할 수밖에 없다.<br>사료 가격을 해당 산업의 수요를 측정하는 전략적인 지표의 하나로 이용하는 것이다.</p>
-<h3><span id="경제상황-분석서">경제상황 분석서</span></h3><h3><span id="회사의-강점과-약점을-파악하라">회사의 강점과 약점을 파악하라</span></h3><p>수많은 사람들이 자신이 할 수 없는 일을 할 수 있다고 착각하고 있다.<br>결국 회사의 지금 그대로의 못브이 중요하다 리더가 생각하는 못브도 아니고 바라는 모습도 아니다.<br>어느 회사든 고유의 강점과 약점을 지니고 있다.<br>실행 가능한 전략을 만들어 내기 위해서는 이런 것에 대해 정직해져야 한다.</p>
-<h3><span id="약점이-아닌-강점에-주력하라">약점이 아닌 강점에 주력하라</span></h3><p>모든 회사들은 심지어 성공적인 회사도 약점을 갖고 있다.<br>무한한 자원을 보유한 완벽한 회사가 아니라면 어느 정도 약점은 있게 마련이다.<br>그리고 그 약점은 강점으로 인해 생기는 경우가 많다.<br>가령 거북이는 자기 몸을 보호하는 무거운 등딱지 때문에 속도를 내지 못해서 느린 동물의 대명사가 되었다.<br>속도를 내려면 몸을 보호해 주는 등딱지를 포기해야 한다.<br>더 훌륭한 방법은 이미 앞서 있는 영역을 파악해서 더 앞서 나가기 위해 노력하는 것이다.</p>
-<p>강점에 주력해서 성공한 좋은 예는 고대 그리스 시대에서 찾아볼 수 있다.<br>당시 2만 명가량의 대군이었던 페르시아군은 그리스 침공에서 처음에는 승승장구 했다.<br>하지만 2000 명 남짓이었던 스파르타군은 병력에 있어서는 자국 군대가 강점을 지니지 않았다는 것은 분명히 알고 있었고,<br>대신 그리스 영토에 대해 더 잘알고 그리고 일대일 접전에서 매우 뛰어나다는 장점도 잘 알고 있었다.<br>스파르타군은 이러한 강점을 활용하여 한 번에 500명 정도가 들어설 수 있는 좁은 테르모필레 협곡에서 전투를 벌여 2만 명의 페스리아 군에게 승리할 수 있었다.</p>
-<h3><span id="기업-역량-평가서-예시">기업 역량 평가서 예시</span></h3><p>기업의 강점과 약점을 찾는 가장 효과적인 방법은 전략기획팀 구성원들에게 물어보는 것이다.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">강점</th>
-<th style="text-align:left">중요도</th>
-<th>성과</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">서비스 수준</td>
-<td style="text-align:left">1</td>
-<td>2</td>
-</tr>
-<tr>
-<td style="text-align:left">고위 경영진의 경영 밀착도</td>
-<td style="text-align:left">6</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:left">일상적인 경영 성과</td>
-<td style="text-align:left">4</td>
-<td>3</td>
-</tr>
-<tr>
-<td style="text-align:left">대응 속도</td>
-<td style="text-align:left">3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:left">유연성</td>
-<td style="text-align:left">3</td>
-<td>2</td>
-</tr>
-<tr>
-<td style="text-align:left">시장에서의 인지도</td>
-<td style="text-align:left">2</td>
-<td>2</td>
-</tr>
-<tr>
-<td style="text-align:left">설계 기술</td>
-<td style="text-align:left">2</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">약점</th>
-<th style="text-align:left">중요도</th>
-<th>성과</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">고위 경영진이 받는 일상적인 압박감</td>
-<td style="text-align:left">2</td>
-<td>7</td>
-</tr>
-<tr>
-<td style="text-align:left">미래 계획을 위한 시간의 부족</td>
-<td style="text-align:left">2</td>
-<td>8</td>
-</tr>
-<tr>
-<td style="text-align:left">제조 원가의 문제</td>
-<td style="text-align:left">3</td>
-<td>6</td>
-</tr>
-<tr>
-<td style="text-align:left">회사 밖의 관점이나 경험의 폭 협소</td>
-<td style="text-align:left">5</td>
-<td>6</td>
-</tr>
-<tr>
-<td style="text-align:left">원자재 구매</td>
-<td style="text-align:left">4</td>
-<td>6</td>
-</tr>
-</tbody>
-</table>
-<h2><span id="차별화된-전략적-역량을-키워라">차별화된 전략적 역량을 키워라</span></h2><p>어느 한 면만 판단하고 그것을 전략적 역량이라고 말할 수는 없다.<br>한 가지 기술, 한 사람의 인재, 하나의 특허나 브랜드를 갖추었다고 해서 전략적 역량을 갖추었다고 할 수는 없다.</p>
-<h3><span id="전략적-역량이란-무엇인가">전략적 역량이란 무엇인가?</span></h3><p>전략적 역량이란 다음 세 가지 구성 요소로 이루어져 있다.<br>사실 전략적 역량은 거의 대부분 이 세 가지 요소의 조합이다.</p>
-<p>기술:<br>재능과 훈련 그리고 실행의 결과로 얻을 수 있는 육체적 정신적 활동을 일컫는다.</p>
-<p>프로세스:<br>어떤 업무를 완결하기 위한 일련의 육체적 정신적 활동의 체계를 말한다. 기업이 보유하고 있는 중요한 노하우는 모두 여기에 포함된다.</p>
-<p>지식:<br>기업이 보유하고 있는 정보, 데이터 또는 사실이나 원칙에 대해 이해하고 있는 바를 말한다.</p>
-<h3><span id="역량과-자산을-혼동하지-마라">역량과 자산을 혼동하지 마라</span></h3><p>기업이 가진 것의 가치가 일시적이고 유동적이라면, 그것은 전략적 역량이 아니라 전략적 자산에 지나지 않는다.<br>예를 들어 워싱턴 기념탑 건너편에 있는 티셔츠 판매점은 그곳에서 기념 티셔치를 사려는 고객들에게 특별한 가치를 제공하고 있다. 또 시설관리소가 허가한 유일한 판매점이기 때문에 이를 모방한 경쟁 점포가 들어서기도 어렵다.<br>그러나 시설관리소에서 갑자기 판매점 운영권을 입찰에 붙이거나 특정한 사유로 인해 운영권을 주지 않는다면, 앞으로 그곳에서 계속 티셔츠를 판매할 수 있을지의 여부가 불투명해 진다.<br>따라서 현재 티셔츠 판매점의 독점권은 유동적이며 일시적이다.</p>
-<p>그러나 만약 그곳 말고도 다른 주요 관광지 여러 곳에 티셔치 판매점 장소를 물색해서 이를 확보할 방법을 마련해 놓았다면 얘기가 달라진다.</p>
-<h3><span id="전략적-역량의-가치">전략적 역량의 가치</span></h3><p>적략적 역량이라 하면 다음의 지표를 갖추어야 한다.</p>
-<ol>
-<li>기술, 프로세스, 지식의 조합인가?</li>
-<li>경쟁사와 차별화시켜 주는가?</li>
-<li>고객을 위한 가치를 창출하는가?</li>
-<li>모방하기 어려운가?</li>
-</ol>
-<h3><span id="전략적-역량-분석서-예시">전략적 역량 분석서 예시</span></h3><table>
-<thead>
-<tr>
-<th style="text-align:left">기술, 프로세스, 지식</th>
-<th style="text-align:left">A</th>
-<th>B</th>
-<th>C</th>
-<th>D</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">설계 엔지니어링 기술</td>
-<td style="text-align:left">X</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">클레임에 대한 신속한 대응</td>
-<td style="text-align:left"></td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">프로세스 엔지니어링 기술</td>
-<td style="text-align:left"></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">장애 발생에 대한 경험적 데이터베이스</td>
-<td style="text-align:left">X</td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">내부 완충재 관련 지식</td>
-<td style="text-align:left">X</td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">특수 속포장재의 신속한 디자인을 위한 CSD 프로세스 도구</td>
-<td style="text-align:left">X</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">광폭 소재의 가공</td>
-<td style="text-align:left"></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">카탈로그 레이아웃 기술</td>
-<td style="text-align:left"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">저비용, 고효율의 코팅 프로세스</td>
-<td style="text-align:left"></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">장식적 기능을 위한 소개 관련 지식</td>
-<td style="text-align:left"></td>
-<td></td>
-<td></td>
-<td>X</td>
-</tr>
-<tr>
-<td style="text-align:left">대규모 고객 데이터베이스를 기반으로 한 DM 업무 지식</td>
-<td style="text-align:left"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">겉포장을 위한 디자인 감각</td>
-<td style="text-align:left"></td>
-<td></td>
-<td></td>
-<td>X</td>
-</tr>
-<tr>
-<td style="text-align:left">신속한 제품 개발 프로세스</td>
-<td style="text-align:left">X</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">3M 신소재 패키지 솔루션으로의 변형 노하우 및 관계</td>
-<td style="text-align:left">X</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">원자재 적기 공급 생산 방식</td>
-<td style="text-align:left"></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">2색 양각 박을 입힌 디자인 독특한 외관</td>
-<td style="text-align:left"></td>
-<td></td>
-<td></td>
-<td>X</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">전략적 역량 후보군</th>
-<th style="text-align:left">고객 가치 창출</th>
-<th>경쟁사와의 차별화</th>
-<th>모방의 어려움</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">A. 속포장 설계 기술</td>
-<td style="text-align:left">상</td>
-<td>상</td>
-<td>중</td>
-</tr>
-<tr>
-<td style="text-align:left">B. 고객 서비스</td>
-<td style="text-align:left">상</td>
-<td>하</td>
-<td>중</td>
-</tr>
-<tr>
-<td style="text-align:left">C. 광폭 소재의 비용 효과적인 생산</td>
-<td style="text-align:left">상</td>
-<td>중</td>
-<td>상</td>
-</tr>
-<tr>
-<td style="text-align:left">D. 겉포장의 외관</td>
-<td style="text-align:left">상</td>
-<td>중</td>
-<td>상</td>
-</tr>
-</tbody>
-</table>
-<h2><span id="전략-시나리오-미래를-위해-무엇을-준비할-것인가">전략 시나리오: 미래를 위해 무엇을 준비할 것인가?</span></h2><p>5년 후에는 어떤 신기술이 주목받을 것인가? 10년 후에도 지금의 시장은 그대로 유지될 수 있을까?<br>앞으로 어떤 회사가 시장을 주도할 것인가?<br>오늘 1위라고 해서 내일도 1위 자리를 지키리라는 보장은 없다.<br>따라서 현재에 안주하지 말고 미래를 바라보아야 한다.<br>향후 3~5년 및 10년 후의 비즈니스 환경과 시장 판도를 예측해 보고, 미래의 기회를 잡고 혹시라도 다가올지 모르는 위협에 대처하는 방법을 알아보자.</p>
-<h3><span id="미래에-대한-가정">미래에 대한 가정</span></h3><p>가정은 지금 당장은 통제하기 힘든 미래에 일어날 법한 사건이나 발전에 대한 일시적인 판단을 의미한다.<br>기업의 전략 수립을 위해서는 반드시 미래에 대한 가정이 필요하다.<br>단, 가정은 사실과는 달리 취급되어야 한다. 가정과 사실을 혼동해서는 안 된다.</p>
-<p>미래의 기업과 비즈니스에 영향을 미치는 중요한 변수인 그러한 핵심 원동력이 무엇인지 밝혀내는 것이 전략적 의사결정에 도움이 되는 가정을 도출하는 첫 번째 단계다.</p>
-<blockquote>
-<p>지나치게 낙관적으로 가정하고 이를 기정사실로 생각하는 것은 매우 위험하다.<br>순진한 예측을 삼가하고 트렌드의 전환점에 집중하라.<br>가장 첫 단계인 결정적인 불연속성을 찾아내는 것 부터 시작하라.<br>즉, 업계 시장 전체는 물론이고 고객 또는 공급자 시장에 변화를 불러일으킬 많나 큰일이 무엇인지 찾아내는 것이다.<br>이를 통해 먼 미래에까지 사고를 넓힐 수 있다.<br>가정은 모든 전략기획의 결정적 요소다.<br>가정이 사실과 어떻게 다른지 그리고 일반적인 위험을 최소화하도록 적절한 가정을 수립하기 위해서는 어떻게 하는 것이 좋을지를 생각해야 한다.</p>
-</blockquote>
-<h3><span id="비즈니스-환경에-대한-가정">비즈니스 환경에 대한 가정</span></h3><p>고객의 구매패턴에 따라 시장을 세분화한 후, 장차 세분시장에 어떤 일이 생길 것이며, 무엇이 상황을 변화시킬 것인지에 대해 전략적으로 살펴보아야 한다.<br>세분 시장의 다음과 같은 요소들의 변화 가능성을 살펴본다.</p>
-<ol>
-<li>고객의 니즈와 기호</li>
-<li>성장률</li>
-<li>이익수준</li>
-<li>시장의 소멸 가능성</li>
-</ol>
-<h3><span id="세분-시장에-대한-가정-예시">세분 시장에 대한 가정 예시</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1. 세분시장의 정의</span><br><span class="line">캔디의 속포장 산업</span><br><span class="line">2. 시장의 니즈 변화</span><br><span class="line">현재로서는 캔디를 부서지지 않게 보호하려는 니즈를 사라지게 할 만한 캔디 생산 기술이 개발될 가능성이 보이지 않는다.</span><br><span class="line">아직 그런 연구는 진행되고 있지 않다.</span><br><span class="line">3. 시장의 미래 기호 변화</span><br><span class="line">3일 내 배송</span><br><span class="line">4. 시장 위협 요소(시장 규모를 줄일 만한 원동력)</span><br><span class="line">4-1. 생산원가 문제로 캔디의 매력이 떨어진 가능성이 있다.(가능성 중, 영향 중)</span><br><span class="line">4-2. 미각의 변화 때문에 캔디의 매력이 떨어진다.(가능성 하, 영향 중)</span><br><span class="line">4-3. 생산설비 과잉으로 대폭적인 가격 인하가 단행된다. (가능성 중~하, 영향 중)</span><br><span class="line">5. 시장 기회 요소(시장 규모를 늘릴 만한 원동력)</span><br><span class="line">5-1. 전체 판매량을 증대시킬 수 있는 새로운 캔디 제품 개발(가능성 하, 영향 하)</span><br><span class="line">6. 실질 시장 성장률</span><br><span class="line">향후 수년간 연 3%의 성장률이 예상된다.</span><br><span class="line">7. 업계의 평균이익 수준</span><br><span class="line">38%의 공헌이익과 11%의 투하자본 수익률</span><br><span class="line">8. 제품 및 서비스의 대체 가능성</span><br><span class="line">희박</span><br><span class="line">9. 기타 중대한 사건이 일어날 가능성</span><br><span class="line">희박</span><br></pre></td></tr></table></figure>
-<h3><span id="비즈니스-환경에-대한-가정을-수립하라">비즈니스 환경에 대한 가정을 수립하라</span></h3><p>비즈니스 환경은 통제하기 힘든 방식으로 변화하며 기업은 그러한 변화에 대응해야 한다.<br>이때 최선책은 공급자 시장, 기술, 경제, 정부 규제의 네 영역에서 일어날 것으로 생각되는 바에 관해 가정을 수립하는 것이다.</p>
-<h3><span id="비즈니스-환경에-대한-가정-예시">비즈니스 환경에 대한 가정 예시</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1. 기술 변화</span><br><span class="line">- 본사에서 개발중인 반자동 기계는 중간 규모 작업에 효과적이고 효율적이다. 이 기계는 2년 내에 완성될 것이며, 이 덕에 상당한 원가 우위를 누릴 수 있을 거싱다.(90% 확률)</span><br><span class="line">- 우리 회사를 비롯해서 ABC 사와 내셔널 사는 대량생산 체계 도입에 큰 어려움을 겪을 것이다. 성공 가능성은 10%에 불과하며, 5년 내에 이룰 가능성은 전혀 없다.</span><br><span class="line">- 예상되는 또 다른 변화는 없다. 그러나 예상치 못한 일이 일어날 가능성은 언제나 존재한다.</span><br><span class="line"></span><br><span class="line">2. 공급자 시장의 변화</span><br><span class="line">내년에 원자재 시장은 다음과 같을 것으로 예상한다.</span><br><span class="line">- 생산량은 1340만~1460만 톤이 될 것이다. 1400만 톤일 가능성이 가장 크다.</span><br><span class="line">- 생산 능력은 1540만 톤이 될 것이다.(99.9% 확률)</span><br><span class="line">- 설비 가동률이 83%에서 75%로 떨어져 소폭의 가격 하락이 예상된다.</span><br><span class="line">3. 경제 상황의 변화</span><br><span class="line">- 고정 달러 GDP는 약간 상승할 것으로 보인다.(3~4%) 경기침체는 없을 것으로 전망된다.(95% 확률)</span><br><span class="line">- 생산설비가 확장되면서 산업생산도 계속 증가할 것이다.(80% 확률)</span><br><span class="line">- 투자는 4% 증가할 것이다. (75% 확률)</span><br><span class="line">- 소비자 지출은 4% 증가할 것이다.(60% 확률)</span><br><span class="line">- 취업률은 증가하고 실업률은 5.3% 선을 유지할 것이다. (80% 확률)</span><br><span class="line">- 소비자 물가지수는 6%상승할 것이다.(90% 확률)</span><br><span class="line">- 생산자물가지수는 5% 상승할 것이다.(90% 확률)</span><br><span class="line">/이러한 가정들은 다소 제한적인 내년도 연방준비제도이사회의 정책과 경제적인 쇼크가 없을것이라는 예상하에 수립된 것이다.</span><br><span class="line">4. 정부 규제의 변화</span><br><span class="line">보수적인 정치 성향이 우세해지면서 양대 정당 모두 대체로 보수적인 움직임을 보일 것이다.</span><br><span class="line">대체적으로 정부 규제가 상당히 완화될 것으로 보이고, 복지와 정자를 감축하려는 노력이 계속될 것으로 예상된다.</span><br></pre></td></tr></table></figure>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/14/철학-개론/" itemprop="url">
-                철학 개론
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-14T05:50:30.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 812 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#정치의-혁명과-철학의-혁명-18c">정치의 혁명과 철학의 혁명 - 18C</a><ul>
-<li><a href="#계몽주의의-배경과-발전">계몽주의의 배경과 발전</a></li>
-<li><a href="#프랑스에서-꽃핀-계몽주의">프랑스에서 꽃핀 계몽주의</a></li>
-<li><a href="#프랑스의-계몽철학">프랑스의 계몽철학</a><ul>
-<li><a href="#볼테르">볼테르</a></li>
-<li><a href="#몽테스키외">몽테스키외</a></li>
-<li><a href="#루소-사회계약론">루소 [사회계약론]</a></li>
-<li><a href="#비판-철학-칸트">비판 철학 - 칸트</a></li>
-<li><a href="#피히테-자아의-형이상학">피히테 - 자아의 형이상학</a></li>
-<li><a href="#독일-관념철학의-완성-헤겔">독일 관념철학의 완성, 헤겔</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h1><span id="정치의-혁명과-철학의-혁명-18c">정치의 혁명과 철학의 혁명 - 18C</span></h1><h2><span id="계몽주의의-배경과-발전">계몽주의의 배경과 발전</span></h2><p>인간의 이성을 통해 사유하는 자세로 더 이상 신의 은총이나 보살핌에 의존하는 것이 아니라 오로지 인간 스스로 노력하여 지식과 자유를 얻고 행복으로 나아갈 수 있다고 믿었다.</p>
-<h2><span id="프랑스에서-꽃핀-계몽주의">프랑스에서 꽃핀 계몽주의</span></h2><p>백과전서, 디드로, 볼테르, 루소, 몽테스키외 등 참여</p>
-<h2><span id="프랑스의-계몽철학">프랑스의 계몽철학</span></h2><h3><span id="볼테르">볼테르</span></h3><p>철학을 실천한 사상가</p>
-<h3><span id="몽테스키외">몽테스키외</span></h3><p>삼권분립의 이론을 제시하여 사회학적 방법의 선구자이다.</p>
-<blockquote>
-<p>인간의 자유란, 국가 권력이 행정, 입법, 사법으로 나뉘어 서로 견제함으로써만 가능한 것</p>
-</blockquote>
-<p>전제정치는 ‘공포’의 원리가 지배하는 체제<br>군주정치는 ‘명예’의 원리가 지배하며<br>공화정치는 ‘덕’의 원리가 지배한다.</p>
-<h3><span id="루소-사회계약론">루소 [사회계약론]</span></h3><p>사람은 자유로운 몸으로 태어났으나 그는 어디에서나 사슬에 매여 있다.<br>인민주권, 민주주의의 외침</p>
-<h3><span id="비판-철학-칸트">비판 철학 - 칸트</span></h3><p>[순수이성비판]<br>: 우리는 무엇을 알 수 있는가?</p>
-<p>[실천이성비판]<br>: 우리는 무엇을 해야 하는가</p>
-<p>[판단력 비판]<br>: 미와 예술에 대한 문제</p>
-<blockquote>
-<p>인식이란 사물과 ‘나’, 즉 인식의 대상과 인식의 주체 사이의 상호작용이다.<br>대상은 ‘정신의 작용’을 거치는 경험을 통해서만 파악이 되는 것이다.</p>
-</blockquote>
-<h3><span id="피히테-자아의-형이상학">피히테 - 자아의 형이상학</span></h3><h3><span id="독일-관념철학의-완성-헤겔">독일 관념철학의 완성, 헤겔</span></h3><p>칸트에게 사물 자체는 현상의 세계와는 다른 ‘실재’라고 말할 수 있으나 헤겔에게는 사물 자체가 의미하는 실재의 세계는 현상과 동떨어진 것이 아니었다.</p>
-<blockquote>
-<p>우리가 무엇을 인식했다고 할 때 그것은 경험을 통해 형성된 여러 보편적 관념들을 종합한 것이다. =&gt; 객관적 관념론이 핵심<br>최고의 합리성은 시간이란느 절대적인 경험을 통하여 발전하는, 우주를 가득체운 구체성에 있다. =&gt; 절대정신<br>현상 속에 있는 실재는 끝없는 과정속에 있다.<br>그러므로 실재에 대한 인식 역시 끝없는 ‘과정’이 될 것이다.<br>실재에 대한 정확한 인식은 절대정신을 통해서만 가능하다.<br>결국 절대정신이 드러나는 것은 자연의 과정이나 사유의 과정을 통해서이고 그 과정은 변화와 발전이 지속적으로 드러나는 ‘변증법적인’과정이다.</p>
-</blockquote>
-<p>헤겔은 인간사회의 형이상학을 즉 절대정신을 통해 본 인간사회를 역사라고 부른다.<br>이러한 세계는 하나의 목적인 ‘자유’를 향해 나아가고 결국 세계의 역사는 자유를 실현시키는 과정이다.<br>그 발전의 정도는 ‘인간의 의지와 자유의 표현’인 각가를 통해 표현된다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -1011,7 +654,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/22/">22</a></li>
+        <li><a class="pagination-link" href="/page/23/">23</a></li>
         
     </ul>
 </nav>

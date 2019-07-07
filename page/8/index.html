@@ -91,6 +91,281 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/07/02/hbs-시작하기/" itemprop="url">
+                hbs 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-02T04:59:56.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/hbs/">hbs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 58 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="installation">Installation</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g handlebars</span><br></pre></td></tr></table></figure>
+<p>import settings<br><code>require(&#39;handlebars&#39;)</code></p>
+<h2><span id="handlebars-expression">handlebar’s expression</span></h2>
+undefined
+
+위처럼 {{}} 사이에 expression을 이용 할 수 있다.
+
+<h2><span id="how-to-compile">how to compile</span></h2><p>다음과 같이 컴파일 할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var source   = document.getElementById(&quot;entry-template&quot;).innerHTML;</span><br><span class="line">var template = Handlebars.compile(source);</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/06/30/nestjs-시작하기/" itemprop="url">
+                nestjs 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-30T09:20:30.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/nestjs/">nestjs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 198 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="nestjs-시작하기">nestjs 시작하기</span></h1><h2><span id="installation">Installation</span></h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm i -g @nestjs/cli</span><br><span class="line">nest <span class="keyword">new</span> project-name</span><br><span class="line"></span><br><span class="line">nest generate module users // generate module</span><br><span class="line">nest g <span class="keyword">co</span> users // generate controller</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+<h2><span id="controllers">Controllers</span></h2><p>request를 받아 response를 반환하는 역할을 한다.</p>
+<p>decorator 를 사용하여 해당 하는 url로 routing을 할 수 있다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Controller, Get &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line">@Controller(<span class="string">'cats'</span>) <span class="comment">//define url</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">CatsController</span> </span>&#123;</span><br><span class="line">  @Get()</span><br><span class="line">  findAll() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'This action returns all cats'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>controller의 request와 response는 <code>@Req()</code>와 <code>@Res()</code> 를 통해 다음과 같이 사용될 수 있다.</p>
+<p>end point decorator</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Controller, Get, Post &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line">@Controller(<span class="string">'cats'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">CatsController</span> </span>&#123;</span><br><span class="line">  @Post()</span><br><span class="line">  create() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'This action adds a new cat'</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Get()</span><br><span class="line">  findAll() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'This action returns all cats'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 <code>@Post()</code> 와 <code>@Get()</code> 등의 decorator를 통해 endpoint를 설정할 수 있다.</p>
+<p><strong>Route parameters</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Get(<span class="string">':id'</span>)</span><br><span class="line">findOne(@Param() params) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(params.id);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`This action returns a #<span class="subst">$&#123;params.id&#125;</span> cat`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Async</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Get()</span><br><span class="line"><span class="keyword">async</span> findAll(): <span class="built_in">Promise</span>&lt;any[]&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Get()</span><br><span class="line">findAll(): Observable&lt;any[]&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">of</span>([]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/06/30/it-chain01/" itemprop="url">
+                it-chain 01
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-30T09:20:30.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                22 minutes read (About 3347 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="opensource-blockchain-engine-it-chain-01-peer-to-peer-network">[ Opensource Blockchain Engine, IT-CHAIN] 01. Peer To Peer Network</span></h1><p>현재 블록체인 기술은 가장 빠르게 확산되고 있는 유망한 기술 중 하나이며, Bitcoin, Ethereum, EOS 등 수많은 외산 블록체인 엔진들이 입지를 굳혀가는 가운데 국내에서도 블록체인 코어 기술을 위한 많은 연구가 진행이 되고 있습니다. </p>
+<p>이번 글에서는 수많은 블록체인 엔진들 중에서도 Lightweight Customizable Chain을 목표로 활발하게 개발이 진행중인 <strong>국내 오픈소스 블록체인 엔진인 IT-CHAIN</strong>에 대해 살펴보고자 합니다.</p>
+<p>본 포스트는 연재 형식으로 IT-CHAIN의 핵심적인 component인 p2p, consensus, blockchain, authentication, txpool, iCode 를 다루는 총 4~6편의 포스트로 이루어 질 예정이며, 오늘은 it-chain의 전체적인 구조와 더불어 그 첫번째 component 인 p2p component에 대한 소개를 하고자 합니다.</p>
+<h2><span id="what-is-it-chain">What is it-chain?</span></h2><p>많은 블록체인 엔진들 중에서 it-chain을 소개하게 된 계기는 무엇보다 구조적으로 매우 직관적이고 이해하기 쉽게 설계되어 있기 때문입니다. 가령, ethereum과 hyperledger처럼 당장 상용화를 목적으로 개발이 진행중인 엔진들은 실용적 문제들에 봉착하여 다양한 기법과 최신 기술을 도입하여 코드를 당장 이해하기 어려움이 있기에 블록체인을 처음 접하는 사람들의 경우 전체 코드를 한눈에 이해하는 것은 매우 어려운 일이 아닐 수 없습니다. 하지만, it-chain은 전체 설계 및 핵심적인 컴포넌트들이 비교적 상세하게 문서화가 되어 있고, 블록체인의 핵심이 되는 기본적인 기능만을 구현하였기 때문에, 블록체인 엔진이 움직이는 큰 그림을 보다 직관적이고 쉽게 이해할 수 있는 장점이 있습니다.  만약 블록체인 엔진 개발에 관심이 있는 엔지니어라면 그 시작으로 it-chain 의 구현을 살펴보는 것을 추천합니다. (it-chain의 github 주소, <a href="https://github.com/it-chain/engine" target="_blank" rel="noopener">https://github.com/it-chain/engine</a>)</p>
+<p>it-chain이 지향하는 바는 블록체인을 개발하는 누구든지 쉽고 가볍게 커스터마이징이 가능한 엔진을 만드는 것 입니다. 만약 누군가가 ethereum의 코드를 가져다가 자신만의 블록체인 엔진을 만든다고 한다면 그것은 매우 어려운 일일 것 입니다. 합의 알고리즘 하나를 변경하더도 관련된 모든 코드에 대한 이해가 필요하며 얼기설기 얽혀있는 수많은 코드들을 재정리 해야 합니다. 하지만, it-chain 은 event-sourcing을 기반으로 모든 동작이 event를 기반으로 이루어 지기에 다른 구성요소들의 동작에 구애받지 않고 원하는 파트만 손쉽게 변형하여 자신만의 engine을 만들 수 있습니다.</p>
+<h2><span id="it-chain의-전체-구조">it-chain의 전체 구조</span></h2><p> <code>it-chain</code>은 6개의 독립적으로 동작하는 핵심 컴포넌트들로 구현되며, 각각은 AMQP(Asynchronous Message Queue Protocol) 를 통해 커뮤니케이션을 합니다. AMQP는 이벤트 버스로서 각 컴포넌트들에서 일어난 모든 일들은 이벤트 형태로 전파되어 다른 컴포넌트들이 해당 이벤트에 맞는 동작을 수행함으로써 전체 기능이 동작하는 방식입니다.</p>
+<p>다음은 it-chain의 각 컴포넌트의 간단한 역할을 보여줍니다.</p>
+<ul>
+<li>TxPool 컴포넌트: 트랜잭션을 임시로 저장하고 관리하는 컴포넌트로, 합의되어 블록에 저장되지 않은 트랜잭션들을 모아둡니다.</li>
+<li>Consensus 컴포넌트: 합의를 담당하는 컴포넌트이며, 현재는 PBFT(Practical Byzantine Fault Tolerance) 알고리즘을 따릅니다.</li>
+<li>BlockChain 컴포넌트: 블록을 생성하고 관리하는 컴포넌트입니다.</li>
+<li>P2P 컴포넌트: 네트워크의 참여하는 Peer들을 찾고, 유지하는 컴포넌트입니다.</li>
+<li>Auth 컴포넌트: 각종 인증을 담당합니다.</li>
+<li>iCode 컴포넌트: it-chain의 스마트 컨트랙트인 iCode 관련 기능을 담당합니다.</li>
+</ul>
+<h2><span id="it-chain의-peer-to-peer-네트워크">It-chain의 Peer to Peer 네트워크</span></h2><p>이번 포스트에서는 it-chain에서 여러 노드들 사이의 네트워크 정보를 동기화하고 커넥션을 관리하는 p2p component와 노드 사이의 합의를 이루는 consensus 컴포넌트에 대해 알아보고자 합니다.</p>
+<p>먼저, P2p 컴포넌트가 하는 일은 다음과 같습니다.</p>
+<ul>
+<li>블록체인 네트워크 내의 다른 노드들의 존재를 인지하고 저장합니다.</li>
+<li>네트워크 내의 노드들 사이의 connection정보와 ip 주소 정보를 <strong>Peer</strong> 라는 이름으로 저장하고 여러 <strong>Peer</strong> 들의 집합인 <strong>PeerTable</strong> 을 형성합니다.</li>
+<li>모든 노드들이 네트워크 내의 모든 노드들에 대한 정보인 <strong>PeerTable</strong> 을 공유하고 동기화 합니다.</li>
+</ul>
+<p>예를 들어 현재 블록체인 네트워크가 A, B, C 노드로 이루어져있다고 가정해 봅시다.</p>
+<p>여기서 D라는 새로운 노드가 A라는 노드에게 접속을 요청을 하게 된다면 D 노드는 A 노드의 정보만을 알고 있게 될 것이며, 마찬가지로 B, C 노드도 D노드에 대한 정보를 알지 못할 것입니다.</p>
+<p>하지만 private 블록체인에서는 모든 노드들이 계속해서 서로 통신을 위해 연결되어 있어야 하기 때문에 새롭게 연결된 노드의 정보를 다른 노드들에게 전파해 주어야 하며 각 노드들은 전체 네트워크에 대한 일관된 정보를 공유해야 합니다.</p>
+<p><strong>네트워크 정보는 어떻게 저장되나요?</strong></p>
+<p>p2p 컴포넌트 내의 연결 정보는 <strong>Peer</strong> 라는 이름으로 저장이 되며, 그 안에는 특정 노드와의 연결에 대한 고유값인 <strong>connectionId</strong>와 상대 노드의 <strong>ip 주소</strong> 를 저장합니다.</p>
+<p>가령 A, B, C 노드로 구성된 네트워크가 있다면 A 노드는 B, C 노드와 연결됨에 따른 고유한 connection과 B, C 노드의 ip 주소를 <strong>Peer A, Peer B</strong> 라는 이름으로 저장하며 모든 노드는 이러한 peer들의 정보를 peer 들의 정보의 집합인 <strong>PeerTable</strong> 에 저장합니다.</p>
+<p><strong>네트워크 정보는 어떻게 공유되나요?</strong></p>
+<p>블록체인 네트워크에 새로운 노드가 접속하는 것은 네트워크 내의 특정 노드에게 연결을 요청하는 것에서 시작됩니다.</p>
+<p>노드 A, B, C 로 구성된 네트워크에서 D라는 노드가 접속되는 상황을 가정해 봅시다.</p>
+<p>노드 D는 A, B, C 노드 중 임의의 노드인 A 노드에게 연결을 요청하고 만약 연결이 이루어 진다면 노드 D의 정보는 노드 A의 <strong>PeerTable</strong> 에 저장되고, 노드 A 는 새롭게 바뀐 <strong>PeerTable</strong> 을 노드 D에게 전달해 줍니다. </p>
+<p>노드 D는 A에게 받은 PeerTable을 살펴보고 아직 자신이 연결하지 않은 노드인 B와 C 노드에 대해 알게되고 해당 노드의 ip 주소로 연결을 요청하게 됩니다.</p>
+<p>B, C 노드가 새로 접근한 노드인 D 노드에게 연결을 요청받고 승인하는 것으로 네트워크 내의 모든 노드는 새로 접근한 노드인 D 노드와 연결이 이루어지게 됩니다.</p>
+<h2><span id="it-chain의-consensus-컴포넌트">It-chain의 Consensus 컴포넌트</span></h2><p>블록체인에서 핵심은 바로 consensus 입니다.</p>
+<p>consensus 컴포넌트는 특정 블록을 생성하기 위해 다른 노드들에게 해당 블록을 생성해도 되는지 검증을 요구하고 네트워크 구성원들의 합의가 이루어지면 새로운 블록을 생성합니다.</p>
+<p>It-chain 에서 이러한 합의 알고리즘은 설정을 통해 간편하게 교체할 수 있으며 기본적으로 pbft 알고리즘에 따라 합의가 이루어 지게 됩니다.</p>
+<h3><span id="pbft-합의-알고리즘">pbft 합의 알고리즘</span></h3><p><img src="/Users/namhoonlee/Desktop/git/blog/source/images/consensus-PBFT.png" alt="consensus-PBFT"></p>
+<p>기본적인 PBFT 알고리즘은 다음과 같은 순서로 이루어지게 됩니다.</p>
+<ol>
+<li>클라이언트가 네트워크 구성원에게 어떤 합의문에 대해 합의할 것을 요청합니다.</li>
+<li>합의 요청을 받은 노드들 중 리더 노드는 네트워크 내의 모든 구성원에게 특정 합의에 대한 합의를 시작할 것을 알리는 <strong>preprepare message</strong> 를 전달합니다. </li>
+<li><strong>preprepare message</strong> 를 전달받은 모든 노드는 다시 모든 노드에게 <strong>prepare message</strong> 를 전달합니다.</li>
+<li>전체 네트워크 구성원들 중 정족수(2/3) 이상의 노드에게 받은 <strong>preparemessage</strong> 인 <strong>commit message</strong> 를 모든 노드들에게 전달합니다.</li>
+<li>위 과정이 끝나면 모든 노드들은 정족수이상이 합의한 결과를 가지게 됩니다.</li>
+</ol>
+<p><strong>하지만 It-chain 에서는 오직 리더만이 새롭게 생성될 블록을 제안하고 실제로 생성할 수 있으므로 위 과정에서 클라이언트 및 요청 응답이 존재하지 않습니다.</strong></p>
+<h2><span id="it-chain에서-pbft-알고리즘의-구현">It-chain에서 pbft 알고리즘의 구현</span></h2><p>It-chain에서는 위와 같은 pfft 알고리즘 구현을 위해 다음과 같은 몇가지 개념을 도입합니다.</p>
+<ul>
+<li>Parliament: 의회, 즉, 합의에 참여할 노드들의 집합을 의미합니다.</li>
+<li>Representative: 대표자, 즉 합의에 참여할 실제 노드 구성원을 의미합니다.</li>
+<li>Leader: 의장, 즉 의회 구성원의 대표인 리더를 의미합니다.</li>
+</ul>
+<p>pbft의 목적은 어디까지나 합의하고자 하는 블록에 대한 합의이기에 다음과 같은 과정에 따라 pbft 기반의 합의 알고리즘이 동작됩니다.</p>
+<ol>
+<li>리더 노드의 consensus 컴포넌트가 블록 생성을 담당하는 blockchain 컴포넌트로 부터 합의하고자 하는 블록을 제안받습니다.</li>
+<li>리더 노드는 해당 블록에 대한 합의를 진행하기 위해 현재 네트워크를 구성하고 있는 정보를 담고 있는 <strong>PeerTable</strong> 에서 전부 혹은 부분적인 노드를 선출하여 <strong>Parliament</strong> 를 구성합니다.</li>
+<li>리더 노드가 <strong>Parliament</strong> 에 속한 모든 <strong>Representative</strong> 들에게 <strong>preprepare message</strong> 를 전달합니다.</li>
+<li><strong>preprepare message</strong> 를 받은 모든 <strong>representative</strong> 들은 받은 정보를 통해 각자의 <strong>Parliament</strong> 를 구축하고 다른 <strong>Representative</strong> 들에게 <strong>prepare message</strong> 를 전달합니다.</li>
+<li>각 <strong>Representative</strong> 들은 정족수 이상의 prepare 메세지를 받기 까지 받은 모든 <strong>prepare message</strong> 를 <strong>prepare message pool</strong> 에 저장하고 정족수 이상이 넘으면 <strong>commit message</strong> 를 전파합니다.</li>
+<li>전체 의회 구성원의 1/3 이상에게 commit message를 받은 각 <strong>Representative</strong> 들은 <strong>Commit message</strong> 내의 <strong>Proposed Block</strong> 에 대한 승인을 하는 이벤트를 발생시키고 블록체인 컴포넌트는 해당 블록에 대한 검증을 시작합니다.<br><strong>Proposed Block</strong> 이 confirm 되기 까지 <strong>Commit message</strong> 들은 <strong>Commit message pool</strong> 에 저장됩니다.</li>
+</ol>
+<h2><span id="it-chain에서-리더의-선출">It-chain에서 리더의 선출</span></h2><p>it-chain 에서의 리더 선출은 <strong>RAFT</strong> 라는 알고리즘을 통해 진행되며 consensus 컴포넌트에 구현되어 있습니다.</p>
+<p>다음은 RAFT 알고리즘의 간단한 프로세스입니다.</p>
+<ol>
+<li>리더가 사라지면 노드는 의회를 구성합니다.</li>
+<li>150ms ~ 300ms 사이의 랜덤 값으로 모든 노드가 타이머를 동작시킵니다.</li>
+<li>노드의 타이머가 다 되면 그 노드는 자신의 상태를 <strong>Candidate</strong> 으로 바꾸고  <code>RequestVoteProtocol</code>을 통해 의회 내의 다른 노드에게 투표 요청 message 를 전달합니다.</li>
+<li><code>RequestVoteProtocol</code> 로 메세지를 받은 노드는 아직 타이머가 다 되지 않은 경우 타이머를 리셋하고, 송신한 노드에게  <code>VoteLeaderProtocol</code>을 통해 메세지를 전달하여 리더로 투표합니다.</li>
+<li>만약 상태가 <strong>CANDIDATE</strong> 인 노드가<code>VoteLeaderProtocol</code>를 통해 다른 모든 노드에게 투표 메세지를 받는다면 그 노드는 스스로 리더가 되고 다른 모든 노드들에게 리더가 됨을 선포합니다.</li>
+</ol>
+<p>위와 같은 과정을 통해 물리적으로 떨어져 있는 여러 개의 노드들이 서로 합의를 이루고 리더를 선출 할 수 있게 됩니다.</p>
+<p>이번 포스트에서는 국내 블록체인 엔진인 it-chain 의 p2p network 와 consensus 알고리즘, 그리고 리더 선출에 대해 알아보았습니다.</p>
+<p>다음 포스트에서는 it-chain에서 블록을 합의하는 컴포넌트인 Blockchain 컴포넌트에 대해 알아보겠습니다.</p>
+<ul>
+<li>LNH</li>
+</ul>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/06/14/z_어떻게-원하는-바를-얻어낼-것인가-설득의-마법/" itemprop="url">
+                어떻게 원하는 바를 얻어낼 것인가, 설득의 마법
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-13T15:06:37.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                15 minutes read (About 2309 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>살아가면서 누군가를 설득하여 원하는 바를 이루어 내는 것은 정말 중요하다.</p>
+<p>특히 요즘 사회에는 정보의 홍수와 수많은 미디어의 출현으로 역설적이게도 절대적 진리에 대한 탐구는 점점 더 어려워만 가고있으며, 특정 목적을 가진 많은 기업 및 단체들이 더욱 교묘하게 매체와 심리를 활용하여 상대방을 기술적으로 설득시키는 모습을 흔히 볼 수 있다.</p>
+<p>사실 우리가 알지 못하는 사이 대부분의 정당들은 사람들의 심리를 기술적으로 활용하여 정치적 우호감을 확산시키고 있으며, 수많은 기업들의 상업 광고는 우리의 소비 심리를 교란시키고 소비의 마법 앞에 굴복시키고 있다.</p>
+<p>이런 사회적 현실 속에서 냉철한 판단을 잃지 않기 위해 우리는 그들이 사용하는 설득의 심리를 이해할 필요가 있으며, 이는 인류가 반드시 추구해야할 진리에의 탐구에 한걸음 더 다가갈 수 있는 유용한 수단이 될 수 있다.</p>
+<p>이번 포스트에서는 ‘로버트 치알디니’ 의 저서 ‘설득의 심리학’ 을 기반으로 설득의 심리와 기술에 대해 알아보고 보다 냉철한 현대인으로 거듭나고 한다.</p>
+<h2><span id="설득의-무기">설득의 무기</span></h2><p>문명의 발전은 인간이 무의식적인 사고 없이 자동적으로 수행할 수 있는 작업이 늘면서 이루어 졌다. 대부분의 사람들은 문명의 발전과 복잡한 사회 구조가 현대인을 보다 합리적이고 논리적으로 진화시켰다고 생각하지만, 역설적이게도 복잡한 사회는 수백년간의 사회적 통념이란 비 논리적 허점을 낳았고, 우리는 복잡한 사회를 사회적 통념으로 부터의 추상화를 거쳐 이해하게 되었다. 즉, 너무나 많은 정보를 처리하기 위한 판단근거로 절대적 진리를 통한 냉철한 판단은 점차 어려워 지고 인습적 통념에 의존하여 판단을 내리게 된 것이다.</p>
+<p>이러한 사실은 인간 뿐만 아니라 동물의 세계에서도 쉽게 찾아볼 수 있다. 가령 칠면조는 새끼가 내는 ‘칩칩’ 거리는 소리로만 자식의 유무를 판단하는 데 이는 사실 절대적 진실과 근거에 의거한 것이 아닌 수십 수백년간 새끼는 ‘칩칩’ 거리며 운다라는 사회적 동물적 통념을 근거로 하여 판단을 하는 것이고, 특정 목적을 가진 누군가가 이를 악용할 수 있는 것이다.</p>
+<p>이러한 예는 현실 사회에서도 다양한 형태로 나타난다.<br>비싼 것이 좋은 것이라는 자본주의 사회의 통념, 무언가 이유를 말하면 그 타당성에 관계없이 논리적으로 더 옳아보이는 인습적 통념, 전문가의 말은 진실일 확률이 높다는 전문가에 대한 의존이 바로 그 예이다. 수많은 미디어는 이를 광고에 활용하고 수많은 전문가와 고부가가치 상품들에 대한 프리미엄 전략 등의 모태가 되었다.</p>
+<p>이러한 현상을 좀 더 일반화 하면 <strong>사람의 행동에는 자동화된 패턴이 존재한다.</strong> 라는 결론이 나오게 되는데, 특정 전문가 집단과 사회적 관습에 의존하는 것을 넘어서 전혀 연관이 없어 보이는 특정한 자동화된 패턴이 있음을 알 수 있다. 가령, 비싼 물건을 구매하고 난 뒤에 보여주는 물건은 상대적으로 아주 저렴하게 느껴지는 <strong>대비 효과</strong> 의 경우 등도 오랜 시장 거래의 관습에서 얻어진 비논리적 통념의 예로 볼 수 있다.</p>
+<h2><span id="설득의-원칙">설득의 원칙</span></h2><p>앞의 문단에서 우리는 설득의 기본적인 원리에 대해 알아보았다.<br>이번에는 보다 구체적으로 두 가지의 설득의 원칙에 대해 알아보고자 한다.</p>
+<p>첫번째 원칙은 <strong>상호성의 원칙</strong> 이다.<br>우리는 누군가에게 호의를 받으면 항상 갚으려고 하는 습성이 있는데 이것은 <strong>상호성의 원칙</strong> 의 근간이 된다.<br>이러한 상호성의 원칙은 수많은 판촉의 모델로써 활용되고 있다. 특정 온라인 쇼핑몰에서 회원 가입을 하면 포인트를 준다거나, 값비싼 물건을 50% 파격적으로 할인한다는 점을 강조하여 상대적으로 양보를 하는 포지션을 취하는 것이 그 예이다. 또한, 상인들이 물건을 흥정시 처음에 값비싼 가격을 부르고 차츰 차츰 가격을 내려 원래 팔고자 했던 가격에 매매하는 기법도 이러한 상호성의 원칙을 활용한 설득의 원리라 볼 수 있다.</p>
+<p>두번째 원칙은 <strong>일관성의 원칙</strong> 이다.<br>이를 쉽게 표현하면 우리는 한번 내린 판단을 유지하려 하는 습성이 있다는 것이다.<br>이 원칙 또한 삶의 너무나 많은 부분에 퍼져 있지만 우리는 이것을 알지 못한다.<br>가령, 헬스장을 등록하고 가지 않더라도 우리는 헬스장 등록이라는 선택은 내가 내린 선택이므로 헬스장을 거의 가지 않더라도 이것은 아주 바람직한 선택이었다고 합리화 하는 경향이 매우 강하다. 때문에 헬스장에서는 고객이 오던 오지 않던 최초 결제일 한번만 잘 구스르고 설득하면 남은 기간동안 서비스가 조금 떨어지더라도 기간이 지나면 지날때마다 고객들의 충성도는 올라가게 된다. 또 다른 예로 자동 결제를 하면 파격적으로 상품의 가격을 깍아주는 많은 서비스들이 있는데, 이것은 최초의 한번의 선택이 어렵지 한번 선택을 내린 뒤에는 사람들이 가급적 결정을 유지하려고 하는 습성을 잘 이용한 것이다. 특히 음악 이용권의 경우 최초의 한 두달의 경우 무료에 가까운 가격으로 음악을 들을 수 있는 경우가 많은데, 이는 사람들의 <strong>일관성의 원칙</strong> 을 잘 활용한 예라고 볼 수 있다.</p>
+<p>이러한 <strong>일관성의 원칙</strong> 의 또다른 확장은 <strong>사람들의 자아이미지를 바꾸어 그들이 자신이 스스로 만들어낸 이미지를 지키기 위해 노력하게 할 수 있다</strong> 는 것이다. 이는 어떤 의미에서 <strong>브랜딩</strong> 그 자체의 목적이라고 보아도 무방하다. 유명한 스포츠 브랜드인 ‘나이키’ 의 경우를 생각해 보자. 그들은 운동화를 구매하는 소비자가 자기 스스로 경쟁을 즐기고 열정이 넘치며 활력적인 사람이라는 자아 이미지를 내도록 끊임없이 부추기게 되고, 그들은 그들 스스로가 만들어낸 이미지의 연속성에서 지속적인 구매를 하도록 유도한다.</p>
+<h2><span id="어디를-향해-나아가는가">어디를 향해 나아가는가?</span></h2><p>위의 두가지 원칙 말고도 우리 사회에서는 기술적으로 끊임없이 우리의 심리를 이용하고 활용하는 설득의 기술을 사용하고 있다. 자본주의의 충실한 소비자로써 기존 정치 세력의 충직한 지지자로써 대중을 설득한다.</p>
+<p>수세기가 지나면서 사회 경제적 우위에 서있는 기업과 단체 소수자들은 자신들의 권력을 유지하기 위해 대중을 설득해 왔으며, 미디어의 홍수인 오늘날 이런 현상은 더욱 더 위험하다. 하지만, 인류의 역사를 생각해보자. 인류의 위대한 변혁은 기존의 관습에서 벗어나 절대적 진리와 논리적인 이성에 입각하고 과감히 이를 부수는 것에서 시작되었으며, 오늘날 모든 현대인은 더욱 발전된 미래를 위해 절대로 통념에 대한 관성으로 인해 절대적 진리에 대한 추구를 멈추어서는 안되는 것이라 생각한다.</p>
+<p>필자를 비롯한 오늘날 모든 사람들이 설득의 기술을 이해하고 정의를 설득하고 통념에 설득당하지 않을 수 있었으면 하는 바램이다.</p>
+<hr>
+<p>참조 문헌<br>로버트 치알디니, 설득의 심리학</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/06/13/java-class와-instance에-대해-알아보자/" itemprop="url">
                 java - class와 instance에 대해 알아보자
             </a>
@@ -369,228 +644,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/24/grpc-시작하기/" itemprop="url">
-                gRPC 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-24T05:30:03.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 448 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="grpc란-무엇인이며-어떻게-동작하는가">GRPC란 무엇인이며 어떻게 동작하는가?</span></h1><p>GRPC란 google에서 제공하는 rpc 프로토콜 프레임워크이다.<br>이를 통해 간편하게 클라이언트와 서버 간에 rpc 통신을 할 수 있게 해준다.</p>
-<p>grpc의 간략한 동작 순서는 다음과 같다.</p>
-<ul>
-<li>서버에서 grpc server가 listen을 하고 있다.</li>
-<li>클라이언트에서 gRPC stub을 통해 서비스에 접근한다.</li>
-<li>서버에서 gRPC stub 명령을 받아 수행 후 클라이언트에 반환해 준다.</li>
-</ul>
-<p>gRPC를 통해 간편하게 server를 만들어 listen을 수행하고, 이를 호출하는 client 프로그램을 만들어 RPC 통신을 한다.</p>
-<h3><span id="rpc-통신이란">RPC 통신이란?</span></h3><p>Remote Procedure Call 의 약어로 다른 컴퓨터에 있는 특정 method를 마치 자신의 컴퓨터에 있는 것처럼 호출하는 것으로 분산 어플리케이션과 서비스를 만드는데 중요한 역할을 한다.</p>
-<p>grpc에서는 데이터 전송을 위한 marshal를 위해 protocall buffer를 사용한다.</p>
-<h3><span id="protocall-buffer란">protocall buffer란?</span></h3><p>protocall buffer란 어떤 언어와 플랫폼에서도 사용가능하고 확장성이 좋으며, 통신 프로토콜이나 데이터 저장등에 사용하기 위해 정형화된 데이터를 serializing 할 수 있는 좋은 방법이다.<br>protocall buffer 에서는 serialize 하고자 하는 구조체가 .proto 파일에 메세지의 형태로써 정의되어야 한다.</p>
-<p>이러한 .proto file은 protoc 컴파일러를 통하여 접근 가능한 객체로 변환되고, 각 언어에 맞는 protoc가 존재한다.</p>
-<p><strong>.proto 파일의 예</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = 1;</span><br><span class="line">  required int32 id = 2;</span><br><span class="line">  optional string email = 3;</span><br><span class="line"></span><br><span class="line">  enum PhoneType &#123;</span><br><span class="line">    MOBILE = 0;</span><br><span class="line">    HOME = 1;</span><br><span class="line">    WORK = 2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = 1;</span><br><span class="line">    optional PhoneType type = 2 [default = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = 4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/22/event-sourcing-and-cqrs/" itemprop="url">
-                Event Sourcing And CQRS
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-22T04:51:07.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1244 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="event-sourcing">Event Sourcing</span></h1><p>이벤트 소싱이란 기존의 관계형 데이터베이스의 저장 방식과 달리 데이터 저장을 수많은 이벤트들을 묶음으로 저장하는 것을 의미한다.<br>사실 event sourcing 이란 사실 현실에서는 너무도 흔한 방법이다. 가령 회계장부를 기록한다고 할때 우리는 회사의 보유 자금을 현재 상태만을 기록하는 것이 아니라 과거 매출, 비용 등의 합산으로 계산한다. 그래야 과거의 정보가 투명하게 공개되고 다양한 재무 데이터의 활용이 가능하기 때문이다. 이처럼 실제 행위의 집합들을 저장하는 방식을 event sourcing이라 한다.</p>
-<p>하지만, 다음과 같은 경우를 생각해보자<br>만약 과거의 데이터를 수정해야 할 일이 생긴다면 어떨까?<br>이 경우도 실제 회계에서 하는 방법과 같은 원칙을 따른다. 바로 과거의 특정 기록으로 돌아가 해당 부분만을 수정하고 뒤를 전부 다시 작성하는 것이다. 이는 매우 비효율 적이어 보이지만 데이터 그 자체가 매우 중요한 회계에서는 너무도 당연한 진리이다.</p>
-<p>이는 데이터 혹은 이벤틀의 삭제에도 영향을 주는데, event soucing에서는 원칙적으로 delete가 없다. 이는 회계장부 작성과도 그 흐름을 동일시 하는데, 가령 회계장부를 작성할 때에는 잘못된 정보를 기입하면 그 후에 그를 상쇄시키는 추가적인 기록을 추가한다. 그래야만 누군가가 고의로 데이터를 조작했는데와 같은 정보들을 유추할 수 있기 때문이다. 동일한 논리가 event sourcing에서도 적용된다.</p>
-<p><strong>왜 이런 event sourcing이 현대 software에서 중요하게 되었을까?</strong></p>
-<p>그것은 바로 현대 사회에서 데이터의 가치가 너무도 중요하기 때문이다. 과거 쇼핑몰에서는 고객이 단순히 구매 혹은 판매 등의 정보만을 기록한 반면 요즘 사회에서는 장바구니에 물건을 넣었다 빼는 빈도와 주기 시기 등에 대한 데이터를 활용하여 각종 비즈니스 정책들이 결정되며 이 모든 사소한 행위 데이터를 기록하는 것은 너무도 중요하고 그것이 event sourcing의 필요성이다.</p>
-<p>이처럼 event sourcing을 통한다면, 특정 시기의 정확한 상황을 재현할 수 있는데, 가령 우리가 역사를 기록하는 것과 같은 원리이다. 특정 시기의 단편적 정보가 아닌 그 시기에 일어나는 일련의 사건들을 정확히 재구현 할 수 있을때 즉, 마치 타임머신을 타고 여행하듯이 정치 사회 경제에 대한 총체적인 재구성을 통해서만 그 시기의 명확한 사회적 상황을 알 수 있다. 이처럼 비즈니스 세계에서도 event sourcing을 통해 과거의 특정 상황에 대한 명확한 인사이트를 가질 수 있다.</p>
-<p>이러한 event sourcing 은 소프트웨어 테스트 시에도 활용될 수 있다.<br>가령, 기존의 모든 테스트 행위를 event로 기록해 놓으면, 개발이 완료된 뒤에 정확히 같은 테스트를 수천번이고 반복해서 수행해 볼 수 있다.<br>가령 보험 서비스의 경우에 A 라는 사람의 주소가 바뀌면 Manager가 해당 주소가 바뀜을 알리고 회계부서, 지급 부서 등 많은 부서에 해당 사실을 알리고 로직을 처리해야 한다. 하지만 event 를 사용하면 그저 Manager는 쿨하게 “A의 주소가 바뀜!” 만을 외치면 기타 여러 부서에서 주의깊게 관찰하고 있다가 이벤트가 발생하면 그에 맞는 로직을 스스로가 처리하여 Manager의 독립성이 높아지게 된다.</p>
-<p>그 순서는 다음과 같다.</p>
-<ol>
-<li>Command 발생</li>
-<li>Command Hander에 발생한 Command를 전달하고 event 발생</li>
-<li>aggregation 변형</li>
-</ol>
-<h2><span id="cqrs-패턴이란">CQRS 패턴이란?</span></h2><p>위와 같은 event sourcing에 있어 데이터의 읽기와 쓰기는 너무도 다른 기능이다. 쓰기의 경우 특정 이벤트를 저장하는 아주 단순한 로직인데 반해 읽기의 경우 읽기의 구간 특정 시기의 스냅샷과 같은 복잡한 로직이 동반되는 경우가 다반사 이다.</p>
-<p>CQRS에서는 이렇게 이벤트의 저장과 읽기를 위해 두 종류의 명령을 내리는데 하나는 데이터를 저장하는 <code>Command</code> 와 이벤트를 읽어 오는 <code>query</code> 이다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/22/나만의-발자국을-남겨라/" itemprop="url">
-                나만의 발자국을 남겨라
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-21T23:36:42.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 766 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <p>나는 벤저민 프랭클린을 참 좋아한다.</p>
-<p>철저한 자기관리와 건국의 아버지로 알려진 프랭클린, 나는 그의 자기 관리를 위한 노력이나 훌륭한 일을 하려 하는 긍지보다 다른 부분에 집중하고자 한다.</p>
-<p>그것은 바로 그는 변치않는 신념과 스스로에 대한 믿음으로 묵묵히 자신의 길을 걸었다는 것이다.</p>
-<p>주변의 시선과 자신이 처한 환경, 미래에 대한 불안에 대해 그는 거의 언급하지 않았다.</p>
-<p>그저 자신이 처한 환경에서 조금 더 나아질 수 있는 방법을 찾았고, 끊임없이 내가 필요하고 더 나은 사람이 되기위해 정진해 나갔다.</p>
-<p>인생을 살아가는 정도라는 것이 무의미해 지고, 한치앞을 내다 볼 수 없는 오늘의 사회에는 더욱더 가장 본받아야 할 점이 아닌가 생각된다.</p>
-<p>흔히 인생을 살아나가는 것은 눈덮힌 산을 오르는 것에 비유된다.</p>
-<p>가장 연륜있고, 실력있는 선구자는 우리를 앞서 오르고 대부분의 우리는 선구자가 남긴 발자국을 따라 오르며 끊임없이 내가 올바른 발걸음을 디뎠는지 생각한다.</p>
-<p>내 눈앞의 수많은 발자국을 보며 어느 길이 가장 쉽고 효과적인 길인지를 가늠하려 하고, 내가 걸어온 발자국을 보며 산턱 언저리에서 후회와 불안에 이따금 뒤돌아 우두커니 서있는 것이다.</p>
-<p>하지만, 정말 산을 잘 오르는 사람들은 오로지 정상만을 바라보고 오를 뿐이다.</p>
-<p>우리 앞을 지나간 선구자는 물론 도움이 될 수 있지만, 그 사람이 어떤 상황에 있었는지 그때의 날씨는 어땠는지 우리는 알지 못하며, 가장 올바른 선택은 목적지에 시선을 던져두고 나를 믿고 신중하게 한걸음 한걸음을 옮기는 것인 것을 그들은 잘 아는 것이다.</p>
-<p>요즘 세상을 무한 경쟁사회라고 한다.</p>
-<p>주변을 달려가는 수많은 주자들을 바라보며 조바심을 느끼게 만드는 사회에서 많은 사람들이 고작 한치 앞에 있는 사람을 꽁무니 만을 쫓게도 되고, 한발작 뒤에 있는 주자들을 보며 가끔은 안도하기도 할 것이다.</p>
-<p>이 글을 쓰는 필자도 또 마음을 다잡고자 이런글을 쓰는지 모른다.</p>
-<p>오늘 하루도 앞서나가는 자에대한 조바심을 뒤따라 오는 자에 대한 오만함을 내려놓고 정상만을 바라보며 누구의 발자국도 아닌 나의 발자국을 남길 수 있는 하루, 내면의 단단함이 더해지는 하루가 되기를 바란다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/21/c-언어-상수와-기본-자료형/" itemprop="url">
-                C 언어 | 상수와 기본 자료형
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-21T01:25:42.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/c-언어-강의/">C 언어 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                9 minutes read (About 1391 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="자료형이란-무엇인가요">자료형이란 무엇인가요?</span></h1><p>자료형이란 데이터를 표현하는 기준이 되며, <strong>정수형 자료형</strong>, 혹은 <strong>실수형 자료형</strong> 인지 등의 데이터의 표현 기준을 정해주고, 명확한 데이터의 크기를 알려줌으로써 메모리에 보다 효과적으로 자료가 저장될 수 있도록 해줍니다.</p>
-<p>대표적인 자료형으로는 char, int, float, double 등이 있으며 각각 1바이트, 4바이트, 4바이트, 8바이트의 크기를 가집니다.</p>
-<p>이러한 자료형의 크기를 구하는 연산자로는 <strong>sizeof()</strong> 함수가 있으며 다음과 같이 사용합니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int num = 1</span><br><span class="line">numSize = sizeof(num)</span><br></pre></td></tr></table></figure></p>
-<p>우리가 컴퓨터에서 표현하는 자료는 앞서 말했듯이 정수와 실수의 큰 기준으로 나뉘게 되며, 여기서 실수형을 표현하는 경우 정확도 향상을 위해 <strong>float 이 아닌 double을 사용</strong> 합니다.</p>
-<h1><span id="또-어떤-자료형들이-있나요">또 어떤 자료형들이 있나요?</span></h1><p>C 프로그래밍 시에 자료형 앞에 unsigned와 같은 키워드가 붙은 것을 많이 보았을 겁니다.<br>이 것은 바로 해당 자료형이 unsigned로 나타내는 것을 의미하며 즉, 음수를 구분하지는 못하지만 2배 더 큰 숫자까지 나타낼 수 있게 해주는 것을 의미합니다.</p>
-<p>그밖에, 문자를 표현하기 위한 char 자료형이 있는데 이는 ASCII 코드에 의거하여 문자를 나타내는 것을 의미합니다.<br>이러한 ASCII 코드는 1바이트 즉 256가지의 문자를 표현하며, 기본적으로 컴퓨터 내에서 정수형 자료형으로 나타내어 지므로, 정수형 표현과 문자형 표현이 모두 가능합니다.</p>
-<p>가령 다음의 예제를 살펴봅시다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char examplChar = &quot;a&quot;</span><br><span class="line"></span><br><span class="line">printf(&quot;%d&quot;, examplChar)</span><br></pre></td></tr></table></figure></p>
-<p>이 경우 문자 a의 정수형 표현을 ASCII 코드표에서 찾아 나타내어 줍니다.</p>
-<h1><span id="상수란-무엇인가요">상수란 무엇인가요?</span></h1><p>상수는 int, double에 근거한 것으로 메모리 내에 이름이 없는 literal 상수와 이름이 있는 symbolic 상수로 구분됩니다.<br>이러한 상수는 한번 선언되면 그 값이 바뀔 수 없으며, 만약 이름이 있는 symbolic 상수로 선언되는 경우 이름은 대문자와 아래바 <code>_</code> 로 구성되는 것이 일반적입니다.</p>
-<p>다음의 예는 literal 상수의 예를 보여줍니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int exampleNum = 5 + 6</span><br></pre></td></tr></table></figure></p>
-<p>이렇게 literal 상수는 별도의 선언이 없이 값을 나타내며, 위의 경우 5와 6은 literal 상수입니다.</p>
-<p>다음은 symbolic 상수의 예를 나타냅니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const int MAGIC_NUMBER = 1</span><br></pre></td></tr></table></figure></p>
-<p>이렇게 기본 자료형 int 앞에 const 키워드를 붙여 줌으로써 symbolic 상수를 선언하며, 선언과 동시에 초기화가 되어야 합니다.</p>
-<p><strong>만약 상수에 자료형을 지정해 주고 싶다면 어떻게 할까요?</strong></p>
-<p>다음은 상수 자료형에 float 으로 표기를 지정해 주는 예를 나타냅니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">long exampleNum = 5.1235L</span><br></pre></td></tr></table></figure></p>
-<p>이처럼 상수의 뒤에 U, L, UL, LL, F 등을 나타냄으로써 자료형을 알려줄 수 있습니다.</p>
-<h1><span id="자료형-형-변환">자료형 형 변환</span></h1><p>이렇게 한번 선언된 자료형은 프로그래밍 도중에 변경될 수 있으며 이것을 <strong>형 변환</strong> 이라고 합니다.</p>
-<p>형변환 에는 자동으로 형이 변환되는 <strong>자동 형 변환</strong> 과 사용자가 형을 변환해 주는 <strong>강제 형 변환</strong> 이 있습니다.</p>
-<p>먼저 자동 형 변환은 보통 자료형을 일치시켜 계산해야 하는 경우 또는 대입 시에 강제로 형 변환이 되는 경우, 연산 시 빠른 연산을 위해 CPU 에서 자동으로 변환이 되는 경우가 있습니다.</p>
-<p>먼저 자료형 일치를 위한 자동 형 변환의 예를 살펴봅시다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 5</span><br><span class="line">double num2 = 5.6235</span><br><span class="line">double result = num1 + num2</span><br></pre></td></tr></table></figure></p>
-<p>위의 예의 경우 num1 과 num2 는 다른 자료형을 가졌기 때문에, 덧셈연산이 불가능 합니다.<br>이렇게 되면 컴퓨터는 자동으로 num1 과 num2 중 하나의 자료형에 맞추어 연산을 진행하게 되는데, 그 판단의 근거는 <strong>정확도를 높이는 방향</strong> 으로 진행된다는 것 입니다.</p>
-<p>위 예의 경우 num1 과 num2 가 int 형으로 변환되어 계산이 된다면 큰 오차가 생기므로 적은 오차범위를 가지도록 둘 다 double 형으로 변환이 되어 계산이 되게 됩니다.</p>
-<p>다음 예는 대입의 과정에서 자동 형 변환이 일어나는 경우입니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 129</span><br><span class="line">char result = num1</span><br></pre></td></tr></table></figure></p>
-<p>num1 은 int 형으로 선언이 되었지만 char 자료형에 할당됨에 따라 4바이트에서 1바이트로 그 크기가 줄어들게 됩니다.<br>이 경우에는 최상위 바이트의 손실이 일어나게 되며 이 경우 00000000 00000000 00000000 10000001 에서 10000001 로 바뀌게 되어 부호가 바뀌게 되는 문제가 생깁니다.</p>
-<p>다음은 <strong>강제 형 변환</strong> 의 예를 살펴봅시다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 5</span><br><span class="line">int num2 = 10</span><br><span class="line">double result</span><br><span class="line"></span><br><span class="line">result = (double)num1/num2</span><br></pre></td></tr></table></figure></p>
-<p>위 예는 num1과 num2의 연산을 통해 얻은 0.5를 double로 강제 형 변환 시켜주어 result에 할당하는 예를 보여줍니다.<br>이처럼 (자료형) 키워드를 앞에 붙여줌으로써 강제로 해당 자료형을 바꾸어 줄 수 있습니다.</p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -614,7 +667,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/22/">22</a></li>
+        <li><a class="pagination-link" href="/page/23/">23</a></li>
         
     </ul>
 </nav>

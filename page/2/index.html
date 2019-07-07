@@ -91,6 +91,284 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/15/linux-cli-command-cookbook/" itemprop="url">
+                Linux cli command cookbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-15T01:06:49.000Z" itemprop="datePublished">
+                2 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 497 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h3><span id="ps">ps</span></h3><p>ps 명령어는 현재 실행중인 프로세스의 목록을 보여준다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep &lt;content&gt;</span><br><span class="line">ps -aux # 모든 그룹과 유저가 실행한 프로세스를 본다.</span><br></pre></td></tr></table></figure>
+<h6><span id="주요옵션">주요옵션</span></h6><p>이외에도 많은 옵션이 있지만 실제로는 grep명령어와 함께 사용하기 때문에 잘 사용하지 않는다.</p>
+<table>
+<thead>
+<tr>
+<th><strong>옵션</strong></th>
+<th><strong>설명</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e</td>
+<td>모든 프로세스를 출력해 준다.</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>풀 포맷으로 보여준다.(UID, PID 등)</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>긴 포맷으로 보여준다.</td>
+</tr>
+<tr>
+<td>p, -p</td>
+<td>특정 PID의 프로세스를 보여준다.</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>특정 사용자의 프로세스를 보여준다.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://arer.tistory.com/150" target="_blank" rel="noopener">출처</a></p>
+<h3><span id="lsof">lsof</span></h3><p>If you want to quickly see the name of files that have been opened by a particular process (or all processes), the lsof command lets you do that</p>
+<p>How to list files based on their Internet address or port</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i 4 # IPv4</span><br><span class="line">lsof -i :3001 # Port</span><br></pre></td></tr></table></figure>
+<h3><span id="wget">wget</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install wget</span><br><span class="line">wget http://naver.com</span><br></pre></td></tr></table></figure>
+<h3><span id="ifconfig">ifconfig</span></h3><p>configure or view the configuration of a network interface</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>eth0 =&gt; the first ethernet interface</p>
+<p>wlan0 =&gt; the name of the first wireless network interface on the system</p>
+<h3><span id="find">find</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find -name "pattern"</span><br></pre></td></tr></table></figure>
+<h3><span id="ln">ln</span></h3><p>존재하는 파일에 대한 hard link 혹은 symbolic link 를 만들기 위한 명령어이다.</p>
+<p>여기서 har link 란 같은 파일에 대해 여러 파일명을 가질 수 있게 해주며, hard link 는 특정 파일의 inode 를 가리킨다.</p>
+<p>symbolic 링크란 다른 파일을 특정 이름으로 가리키는 특별한 종류의 파일이다.</p>
+<p>hard link 의 경우 file system 을 훼손을 위험이 있으며 보통의 경우 다음과 같이 symbolic 링크를 만드는데 사용된다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &lt;source file&gt; &lt;link file&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="less">less</span></h3><p>Less is a terminal pager program on unix, window</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less [options] [file_name]</span><br></pre></td></tr></table></figure>
+<p>First line: <code>g</code> <code>&lt;</code></p>
+<p>last line: <code>G</code> <code>&gt;</code></p>
+<p>Search: <code>/&lt;search keyword&gt;</code></p>
+<p>go to line: <code>&lt;number of the line&gt;g</code></p>
+<h3><span id="dd">dd</span></h3><p>On <a href="https://www.computerhope.com/jargon/u/unix-like.htm" target="_blank" rel="noopener">Unix-like</a> operating systems, the <strong>dd</strong> command copies a file, <a href="https://www.computerhope.com/jargon/c/conversi.htm" target="_blank" rel="noopener">converting</a> the format of the data in the process, according to the <a href="https://www.computerhope.com/jargon/o/operand.htm" target="_blank" rel="noopener">operands</a> specified.</p>
+<table>
+<thead>
+<tr>
+<th>Operand</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>if=FILE</td>
+<td>input file</td>
+</tr>
+<tr>
+<td>iflag=FLAGS</td>
+<td><strong>sync</strong> <br>likewise, but also for metadata</td>
+</tr>
+</tbody>
+</table>
+<p>example</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=blockchain/block_log iflag=nocache count=0</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/14/deploying-bch-node-on-linux/" itemprop="url">
+                Deploying BCH node on linux
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-14T08:07:36.000Z" itemprop="datePublished">
+                2 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/bch/">bch</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 139 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="brief-explanation">Brief explanation</span></h2><p>Binary: /usr/bin/bitcoind<br>Configuration file: /etc/bitcoin/bitcoin.conf<br>Data directory: /var/lib/bitcoind<br>PID file: /var/run/bitcoind/bitcoind.pid (OpenRC and Upstart) or /var/lib/bitcoind/bitcoind.pid (systemd)<br>Lock file: /var/lock/subsys/bitcoind (CentOS)</p>
+<h2><span id="run-node-with-bitcoind">Run node with bitcoind</span></h2><p>아래 명령어를 통해 bitcoin node 를 백그라운드에서 실행시킨다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitcoind -daemon -rpcuser=&lt;user_name&gt; -rpcpassword=&lt;user_password&gt; -rpcport=&lt;port&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://en.bitcoin.it/wiki/Running_Bitcoin" target="_blank" rel="noopener">additional bitcoind options</a></p>
+<h2><span id="interact-with-chain-with-bitcoin-cli">Interact with chain with bitcoin-cli</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bitcoin-cli getinfo</span><br><span class="line">bitcoin-cli getnetworkinfo # 네트워크 정보 받아옴.</span><br><span class="line">bitcoin-cli getblockchaininfo # 블록체인 정보 받아옴.</span><br><span class="line">bitcoin-cli listtrasactions # 트랜잭션 목록 나열</span><br><span class="line">bitcoin-cli getrawtransaction &lt;transaction_id&gt; true</span><br><span class="line">bitcoin-cli stop # stop bitcoin daemon</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/14/getting-started-with-iost/" itemprop="url">
+                Getting started with IOST
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-14T00:51:23.000Z" itemprop="datePublished">
+                2 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/iost/">iost</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 469 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="account">Account</span></h2><p>기본적으로 public-private key pairs 를 사용한다.</p>
+<p>사용자는 owner key와, active key 세팅을 통해서 여러 계정 시스템을 관리할 수 있으며, 이는 새로운 permission 을 추가하고 관리방식을 customize 할 수 있다.</p>
+<p>IOST 에서 계정은 id와 permissions 를 가지고 만들어지며, 복수개의 permissions 를 가질 수 있다. 각 permission 은 여러개의 item 을 등록하는데, 각 item 은 base58로 encode 된 public key 이거나 account_name@permission_name 형태의 permission pair 이다.</p>
+<p>각 permission은 threshold 를 가지는데, 만약 사이닝한 transaction item 의 weight 의 합이 threshold 보다 큰 값을 가지면 transaction 은 승인되는 것으로 본다.</p>
+<h2><span id="javascript-sdk">Javascript SDK</span></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> IOST = <span class="built_in">require</span>(<span class="string">'iost'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// use RPC</span></span><br><span class="line"><span class="keyword">const</span> rpc = <span class="keyword">new</span> IOST.RPC(<span class="keyword">new</span> IOST.HTTPProvider(<span class="string">"http://localhost:30001"</span>));</span><br><span class="line">rpc.blockchain.getChainInfo().then(<span class="built_in">console</span>.log);</span><br><span class="line"></span><br><span class="line"><span class="comment">// init iost sdk</span></span><br><span class="line"><span class="keyword">let</span> iost = <span class="keyword">new</span> IOST(&#123; <span class="comment">// will use default setting if not set</span></span><br><span class="line">    gasRatio: <span class="number">100</span>,</span><br><span class="line">    gasLimit: <span class="number">2000000</span>,</span><br><span class="line">    delay:<span class="number">0</span>,</span><br><span class="line">&#125;, <span class="keyword">new</span> IOST.HTTPProvider(<span class="string">'http://localhost:30001'</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> account = <span class="string">"abc"</span>;</span><br><span class="line"><span class="keyword">let</span> kp = <span class="keyword">new</span> IOST.KeyPair(<span class="comment">/* your private key in type Buffer */</span>);</span><br><span class="line"></span><br><span class="line">iost.setPublisher(account, kp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// send a call</span></span><br><span class="line"><span class="keyword">let</span> handler = iost.callABI(<span class="string">"iost.token"</span>, <span class="string">"transfer"</span>, [<span class="string">"iost"</span>, <span class="string">"form"</span>, <span class="string">"to"</span>, <span class="string">"1000.000"</span>]);</span><br><span class="line"></span><br><span class="line">handler</span><br><span class="line">    .onPending(<span class="built_in">console</span>.log)</span><br><span class="line">    .onSuccess(<span class="built_in">console</span>.log)</span><br><span class="line">    .onFailed(<span class="built_in">console</span>.log)</span><br><span class="line">    .send()</span><br><span class="line">    .listen(); <span class="comment">// if not listen, only onPending or onFailed (at sending tx) will be called</span></span><br></pre></td></tr></table></figure>
+<h2><span id="command-line-wallet-tool">Command line wallet tool</span></h2><p>iwallet 설치</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/iost-official/go-iost/cmd/iwallet</span><br></pre></td></tr></table></figure>
+<h2><span id="operating-node">Operating node</span></h2><h3><span id="deployment-of-full-node">Deployment of full node</span></h3><p>스크립트로 설치하기</p>
+<p>아래처럼 환경변수를 사용자의 기호에 따라 설정할 수 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/iost-official/go-iost/master/script/boot.sh | PREFIX=/data/iserver bash</span><br></pre></td></tr></table></figure>
+<p>위 스크립트를 실행하면 필요한 도커 이미지를 받아오고 아래 커맨드로 도커 이미지를 실행시킨다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># start</span></span></span><br><span class="line">docker start iserver</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># stop</span></span></span><br><span class="line">docker stop iserver</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># restart</span></span></span><br><span class="line">docker restart iserver</span><br><span class="line"></span><br><span class="line">docker run --rm -p 30000-30003:30000-30003 -d iostio/iost-node</span><br></pre></td></tr></table></figure>
+<h3><span id="checking-node">Checking node</span></h3><p>로그는 <code>$PREFIX/logs/iost.log</code> 에 기록되며 도커 컨테이너 로그 확인을 다음과 같이 수행 할 수 도 있다. <code>docker logs -f isserver</code> </p>
+<p>블록체인 데이터는 <code>$PREFIX/storage</code> 에 저장된다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/06/getting-started-with-aws-lambda/" itemprop="url">
+                Getting started with AWS lambda
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-06T07:17:56.000Z" itemprop="datePublished">
+                2 months ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws/">aws</a><span>></span><a class="article-category-link" href="/categories/aws/lambda/">lambda</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 480 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="create-iam-user">Create IAM User</span></h2><h3><span id="using-aws-cli">Using AWS CLI</span></h3><p>다음과 같은 AWS CLI 를 확인하여 Administrators 유저 그룹을 만들고 루트 계정을 생성한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew install aws # install aws cli</span><br><span class="line">aws iam create-group --group-name Administrators # create iam group</span><br><span class="line">aws iam list-groups # list groups</span><br><span class="line">aws iam attach-group-policy --group-name Administrators --policy-arn arn:aws:iam::aws:policy/AdministratorAccess # AdministratorAccess Policy 적용</span><br><span class="line">aws iam list-attached-group-policies --group-name Admins # 적용된 Policy 확인</span><br></pre></td></tr></table></figure>
+<h2><span id="create-lambda-function">Create Lambda function</span></h2><p>함수의 확인</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws lambda list-functions</span><br></pre></td></tr></table></figure>
+<h3><span id="serverless-application-managementsam">Serverless Application Management(SAM)</span></h3><p>Lambda Function 을 작성하고 배포하는 일련의 과정을 위해서 SAM 을 사용한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install aws-sam-cli # install SAM</span><br><span class="line">sam init # initialize sam</span><br><span class="line">sam local start-api # test locally</span><br></pre></td></tr></table></figure>
+<h3><span id="local-test">local test</span></h3><p>아래 함수를 실행하면 로컬의 3000번 포트에서 lambda 함수들이 동작된다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sam local start-api</span><br></pre></td></tr></table></figure>
+<h3><span id="create-package">create package</span></h3><p>람다함수가 클라우드 환경에서 실행되기 위해서는 S3 버킷에 배포되어야 하고 이를 위해 package 화를 시켜야 한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sam package \</span><br><span class="line">	--output-template-file packaged.yaml \</span><br><span class="line">	--s3-bucket &lt;bucketname&gt;</span><br></pre></td></tr></table></figure>
+<p>위 명령어를 실행하면 sam-app/hello_world 디렉토리를 압축하여 .zip 파일을 만들고 amazon s3 에 업로드 한다. 여기서 새롭게 생긴 <code>packaged.yaml</code> 파일은 <code>template.yaml</code> 파일과 동일한 내용을 가지지만 차이가 있다면, <code>packaged.yaml</code> 파일의 경우 codeUri 가 실제 클라우드 uri 를 가진다는 것이다.</p>
+<h3><span id="deploy-aws-lambda">Deploy AWS lambda</span></h3><p>패키지화를 다 시키고 s3 를 업데이트 했다면 lambda 함수를 배포할 차례이다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sam deploy \</span><br><span class="line">	--template-file packaged.yaml \</span><br><span class="line">	--stack-name samp-app \</span><br><span class="line">	--capabilities CAPABILIY_IAM \</span><br><span class="line">	--region ap-northeast-2</span><br></pre></td></tr></table></figure>
+<h3><span id="npm-serverless">npm serverless</span></h3><p>SAM 이 아니라 serverless 는 npm 패키지로 좀 더 쉽다.</p>
+<p>아래와 같이 설치하고</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serverless # install serverless</span><br></pre></td></tr></table></figure>
+<p>serverless.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">service:</span> <span class="string">my-app</span></span><br><span class="line"></span><br><span class="line"><span class="attr">provider:</span></span><br><span class="line">	<span class="attr">name:</span> <span class="string">aws</span></span><br><span class="line">	<span class="attr">runtime:</span> <span class="string">nodejs8.10</span></span><br><span class="line">	</span><br><span class="line"><span class="attr">functions:</span></span><br><span class="line">	<span class="attr">helloWorld:</span></span><br><span class="line">		<span class="attr">handler:</span> <span class="string">handler.js</span></span><br></pre></td></tr></table></figure>
+<p>handler.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.run = <span class="function">(<span class="params">event, context, callback</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Debugging..."</span>);</span><br><span class="line">  callback(<span class="literal">null</span>,<span class="string">"hello world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>deploy</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sls deploy # deploy project</span><br><span class="line">sls deploy function --function helloWorld # deploy function</span><br></pre></td></tr></table></figure>
+<p><strong>invoke</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sls invoke --function helloWorld --log</span><br></pre></td></tr></table></figure>
+<h2><span id="what-is-aws-lambda">What is AWS Lambda</span></h2><h2><span id="cli-tool">CLI Tool</span></h2>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/05/03/getting-started-with-gradle/" itemprop="url">
                 Getting started with gradle
             </a>
@@ -99,7 +377,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-03T09:30:43.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -173,7 +451,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
-                a month ago
+                2 months ago
             </time>
         </span>
         
@@ -227,7 +505,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -293,7 +571,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-08T13:48:34.167Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -384,7 +662,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T12:40:05.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -443,7 +721,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-03-28T12:00:56.000Z" itemprop="datePublished">
-                2 months ago
+                3 months ago
             </time>
         </span>
         
@@ -481,229 +759,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/28/setup-nodejs-in-ubuntu/" itemprop="url">
-                Setup Nodejs in ubuntu
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-28T02:14:34.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/ubuntu/">ubuntu</a><span>></span><a class="article-category-link" href="/categories/ubuntu/nodejs/">nodejs</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 8 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="setup">Setup</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/27/marketing-workbook/" itemprop="url">
-                Marketing workbook
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-26T23:41:14.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/marketing/">marketing</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 125 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="sass-marketing-tactic">SASS marketing tactic</span></h2><ol>
-<li>free tool, educational content</li>
-<li>free trial</li>
-<li>Identify ideal customer who is the actual customer</li>
-<li>SEO, content marketing</li>
-<li>collect email(by register in homepage)</li>
-<li>live chat</li>
-</ol>
-<h2><span id="b2b-marketing">B2B marketing</span></h2><ol>
-<li><p>Quora 에서 질답하며 인사이트를 확보하고 고객의 비즈니스를 이해한다.</p>
-</li>
-<li><p>커뮤니티, 포럼에 참석한다.</p>
-<p>inbound.org, growthhackers.com</p>
-<p>Hackers new, insidehackers</p>
-</li>
-<li><p>링크드인과 페이스북 그룹을 통해 기업 관계자들과 친분을 쌓는다.</p>
-</li>
-<li><p>슬랙 커뮤니티에 활동하라</p>
-</li>
-<li><p>다른 브랜드와 협업하라</p>
-</li>
-</ol>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/27/getting-started-with-pyqt/" itemprop="url">
-                Getting started with PyQt
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-26T23:34:19.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/python/">python</a><span>></span><a class="article-category-link" href="/categories/python/pyqt/">pyqt</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 131 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="what-is-pyqt">What is PyQt?</span></h2><p>Qt 란 GUI 크로스 플랫폼 프레임워크로 운영체제에 관계없이 같은 코드로 동작하는 프레임워크이다.</p>
-<p>PyQt 는 이러한 Qt 프레임워크의 python 바인딩이다.</p>
-<p>Qt Designer 는 WYSIWYG(What You See Is What You Get) 방식의 간편한 디자인 툴도 제공한다.</p>
-<h3><span id="basic-usage">Basic Usage</span></h3><p>QApplication.exec() 은 qt 어플리케이션을 시작하고 event loop 에 진입시킨다.</p>
-<h3><span id="ocx">OCX</span></h3><p>Object linking and embedding Custom Control 의 약어로 모듈화된 파일이다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/22/building-node-api-server-based-on-ddd-architecture/" itemprop="url">
-                Building node API server based on DDD architecture
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-22T07:02:12.000Z" itemprop="datePublished">
-                3 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                7 minutes read (About 992 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="building-node-api-server-based-on-ddd-architecture">Building node API server based on DDD architecture</span></h1><h2><span id="domain-layer">Domain Layer</span></h2><p>Domain 레이어는 각 서브 도메인 마다 model, service, repository를 가지며 다음과 같은 역할을 수행한다.</p>
-<p>-   Model</p>
-<p>​    해당 도메인의 모델링이 정의되고, 해당 도메인 내에서의 항상성과 유효성을 담당한다.</p>
-<p>-   Service</p>
-<p>​    주로 여러 도메인을 아우르는 로직을 처리한다.</p>
-<p>-   Repository</p>
-<p>​    도메인 단위로 DB 입출력을 담당하며, 실제 구현은 infra layer의 repository implementation에서 이루어 지며, interface만 정의되어 있다.</p>
-<h2><span id="api-layer">API Layer</span></h2><p>도메인의 서비스들을 조합하며 엔드 유저 레벨에서의 기능수행이 이루어 진다.</p>
-<p>가령 특정 재화를 구매함에 따라 결제를 수행하는 어플리케이션이 있다면 본 api 레이어에는 ‘결제’와 같은 엔드 유저 레벨에서의 함수가 들어가며, 결제 데이터 생성, 구매자의 감소 등과 같은 로직은 도메인의 모델 및 서비스 레벨에서 처리된다.</p>
-<h2><span id="infra-layer">Infra layer</span></h2><p>도메인의 비즈니스 로직들이 잘 수행될 수 있도록 DB, http 라우터 등 외부 환경을 다루는 실제 구현이 이루어 진다.</p>
-<p>본 레이어에서 도메인의 repository interface에 정의된 함수들을 실제로 구현하며, express router를 활용하여 외부 요청에 대한 라우팅을 수행한다.</p>
-<p>또한 본 레이어에는 middleware, auth guard, errorHandler 처럼 도메인에 접근하기 전에 전처리되거나 비즈니스 로직 이후 클라이언트에게 반환할 반환값에 대한 후처리 로직이 들어간다.</p>
-<p>auth guard 는 decorator 를 사용하여 제작되었다.</p>
-<h2><span id="branching-model">Branching Model</span></h2><p>모든 작업 내용은 feature/[브랜치 명] 에서 작업하고, dev 서버에 배포하기 위한 버전을 develop 브랜치에 푸시한다.</p>
-<p>Release 브랜치에서 develop 브랜치를 pull 하면서 코드리뷰를 진행하고 모든 코드리뷰 사항이 반영되면 release 브랜치에 머지된다.</p>
-<p>release 브랜치에서 스프린트 및 일정관리, 테스트 작업을 진행하며 안정화되면 master 브랜치로 push 하고 서비스 배포한다.</p>
-<p>-   Master: 실제 서비스 배포를 위한 브랜치</p>
-<p>-   Release: 개발 진행의 경과가 되는 브랜치로 QA 및 일정관리의 지표가 된다.</p>
-<p>-   Develop: 각 개발자들이 실시간으로 머지하는 브랜치로 테스트 서버의 소스코드가 보관된다.</p>
-<p>-   Feature: 각 개발자들이 임의로 자신들의 작업량을 작업한다.</p>
-<h2><span id="input-validation">Input validation</span></h2><p>본 프로젝트에서는 클라이언트의 요청값을 검증함에 있어 모든 요청의 형태를 DTO 형태로 정의하고 해당 DTO 에 값을 넣기 전에 <code>Joi</code> 라이브러리를 사용하여 요청값에 대한 검증을 수행한다.</p>
-<h2><span id="tsconfig-setting">tsconfig setting</span></h2><p>각 파일에서 다른 파일을 import 함에 있어서 보다 가독성을 높이기 위해 @domain과 같이 태그를 하여 손쉽게 import를 할 수 있습니다.</p>
-<p>tsconfig.json 파일의 예</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">"paths"</span>: &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">"@domain/"</span>: [<span class="string">"server/domain/"</span>]</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위처럼 옵션을 설정하면 복잡한 filepath 대신 위의 태그네임을 통해 import 할 수 있습니다.</p>
-<p>이때 위의 태그네임이 잘 반영이 되지 않는 경우가 있는데, 이는 웹팩에서 트랜스파일링을 하는 과정에서 webpack.config.js 세팅을 바꾸어 줌으로써 해결이 가능합니다.</p>
-<p>태그 네이밍을 하기 위해서 tsconfig-paths-webpack-plugin 을 사용하는데 해당 플러그인은 다음과 같이</p>
-<p>루트 plugin이 아닌 resolve 내의 plugin 내에 설정되어야 합니다.</p>
-<p>webpack.config.js의 예</p>
-<p>\<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    resolve: &#123;</span><br><span class="line"></span><br><span class="line">​        plugins: [</span><br><span class="line"></span><br><span class="line">​            <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line"></span><br><span class="line">​                configFile: <span class="string">'./tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line"></span><br><span class="line">​            &#125;)</span><br><span class="line"></span><br><span class="line">​        ];</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\</span><br></pre></td></tr></table></figure></p>
-<h3><span id="author">Author</span></h3><p><a href="https://github.com/frontalnh" target="_blank" rel="noopener">frontalnh(Namhoon Lee)</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -723,7 +778,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/22/">22</a></li>
+        <li><a class="pagination-link" href="/page/23/">23</a></li>
         
     </ul>
 </nav>

@@ -91,6 +91,304 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/29/angular와-nodejs를-활용한-socket-io-사용하기/" itemprop="url">
+                angular와 nodejs를 활용한 socket.io 사용하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T13:57:23.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 330 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#serverjs-작성">server.js 작성</a></li>
+<li><a href="#클라이언트에서-socketio-설치-및-임포트">클라이언트에서 socket.io 설치 및 임포트</a></li>
+<li><a href="#angular-service">angular service</a></li>
+<li><a href="#angular-component">angular component</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="serverjs-작성">server.js 작성</span></h2><p>express 에서 socket.io를 실행하기 위해</p>
+<p>express.io를 설치한다.</p>
+<p>노드 http 서버와 결합시킬 socket.io에 http를 전달하여 initialize한다.</p>
+<p>connection 이벤트가 발생하면 특정 동작을 한다.</p>
+<p>io.emit을 통해 데이터를 전달한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var io = require(&apos;socket.io&apos;).listen(server);</span><br><span class="line"></span><br><span class="line">io.on(&apos;connection&apos;, (socket) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&apos;user connected&apos;);</span><br><span class="line"></span><br><span class="line">    socket.on(&apos;disconnect&apos;, function() &#123;</span><br><span class="line">        console.log(&apos;user disconnected&apos;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    socket.on(&apos;add-message&apos;, (message) =&gt; &#123;</span><br><span class="line">        io.emit(&apos;message&apos;, &#123; type: &apos;new-message&apos;, text: message &#125;);</span><br><span class="line">        // Function above that stores the message in the database</span><br><span class="line">        databaseStore(message)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2><span id="클라이언트에서-socketio-설치-및-임포트">클라이언트에서 socket.io 설치 및 임포트</span></h2><p>소켓 io를 라우터에 전달한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm i socket.io-client --save</span><br><span class="line">npm install socket.io --save</span><br><span class="line"></span><br><span class="line">const server = http.createServer(app);</span><br><span class="line">var io = require(&apos;socket.io&apos;).listen(server);</span><br><span class="line">const all = require(&apos;./server/routes/all&apos;)(mysql, conn, express, io);</span><br></pre></td></tr></table></figure></p>
+<h2><span id="angular-service">angular service</span></h2><p>io()는 socket을 반환한다.</p>
+<p>socket.emit을 통해 이벤트를 발생시킨다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123; Subject &#125; from &apos;rxjs/Subject&apos;;</span><br><span class="line">import &#123; Observable &#125; from &apos;rxjs/Observable&apos;;</span><br><span class="line">import * as io from &apos;socket.io-client&apos;;</span><br><span class="line"></span><br><span class="line">@Injectable()</span><br><span class="line">export class ChatService &#123;</span><br><span class="line">  private url = &apos;http://localhost:5000&apos;;</span><br><span class="line">  private socket;</span><br><span class="line"></span><br><span class="line">  sendMessage(message)&#123;</span><br><span class="line">    this.socket.emit(&apos;add-message&apos;, message);    </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getMessages() &#123;</span><br><span class="line">    let observable = new Observable(observer =&gt; &#123;</span><br><span class="line">      this.socket = io(this.url);</span><br><span class="line">      this.socket.on(&apos;message&apos;, (data) =&gt; &#123;</span><br><span class="line">        observer.next(data);    </span><br><span class="line">      &#125;);</span><br><span class="line">      return () =&gt; &#123;</span><br><span class="line">        this.socket.disconnect();</span><br><span class="line">      &#125;;  </span><br><span class="line">    &#125;)     </span><br><span class="line">    return observable;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="angular-component">angular component</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">messages = [];</span><br><span class="line">connection;</span><br><span class="line">message;</span><br><span class="line"></span><br><span class="line">sendMessage()&#123;</span><br><span class="line">  this.chatService.sendMessage(this.message);</span><br><span class="line">  this.message = &apos;&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ngOnInit() &#123;</span><br><span class="line">  this.connection = this.chatService.getMessages().subscribe(message =&gt; &#123;</span><br><span class="line">    this.messages.push(message);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ngOnDestroy() &#123;</span><br><span class="line">  this.connection.unsubscribe();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://stackoverflow.com/questions/16981396/get-http-localhost3000-socket-io-socket-io-js-404-not-found" target="_blank" rel="noopener">참조</a><br><a href="https://stackoverflow.com/questions/29334800/express-js-4-and-sockets-with-express-router" target="_blank" rel="noopener">use with router</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/29/Neural-network-Perceptron과-ADALINE/" itemprop="url">
+                Neural network Perceptron과 ADALINE
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T04:04:12.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1319 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#perceptron-이란">Perceptron 이란?</a></li>
+<li><a href="#photo-perceptron의-예">photo perceptron의 예</a></li>
+<li><a href="#perception-convergence-theorem">Perception Convergence Theorem</a></li>
+<li><a href="#problems-in-perceptron-single-layer-xor-문제">problems in perceptron (single layer) - XOR 문제</a></li>
+<li><a href="#하이퍼-플레인과-hidden-node">하이퍼 플레인과 hidden node</a></li>
+<li><a href="#multi-layer-perceptron을-이용한-xor-문제의-해결">multi layer perceptron을 이용한 XOR 문제의 해결</a></li>
+<li><a href="#weight-vector는-왜-hyper-plane과-수직을-이루는가">weight vector는 왜 hyper plane과 수직을 이루는가?</a></li>
+<li><a href="#adalineadaptive-linear-neuron이란-무엇이며-perceptron-과의-차이점은-무엇인가">ADALINE(ADAptive LInear NEuron)이란 무엇이며 perceptron 과의 차이점은 무엇인가?</a></li>
+<li><a href="#adaline">ADALINE</a></li>
+<li><a href="#least-mean-squareslms">Least Mean Squares(LMS)</a></li>
+<li><a href="#rlmsrelative-least-mean-squares">RLMS(Relative Least Mean Squares)</a></li>
+<li><a href="#neural-network-설계-프로세스">Neural network 설계 프로세스</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="perceptron-이란">Perceptron 이란?</span></h2><p>frank rosenblatt 박사가 1950년 발표한 내용으로 McCulloch-pitts 모델의 확장 개념이다.<br>통계적으로 구분된 이론이다.(확률적, 거시적)</p>
+<h2><span id="photo-perceptron의-예">photo perceptron의 예</span></h2><p><img src="\images\photoPerceptron의예.png" alt="photo perceptron의 예"></p>
+<h2><span id="perception-convergence-theorem">Perception Convergence Theorem</span></h2><p>두개의 패턴을 학습하는 과정에서, 유한번의 사이클 내에 두 개의 패턴을 구분할 수 있다.</p>
+<p><img src="\images\perceptronLearningAlgorithm.png" alt="perceptron learning algorithm"></p>
+<p>여기서 N과 P는 각각 Negative, Positive를 의미한다.<br>P와 N에서 랜덤하게 벡터를 뽑아서 Weight와 곱해준 값이<br>P의 경우 Positive 해 질때 까지 계속 덧셈을 하고<br>N의 경우 Negative 해 질때까지 계속 뺄셈을 하여 Positive 하고 Negative 함을 맞추어 준다.</p>
+<h2><span id="problems-in-perceptron-single-layer-xor-문제">problems in perceptron (single layer) - XOR 문제</span></h2><p>single layer perceptron에서는 XOR 함수를 만족하는 weight를 찾을 수 없는 문제가 발생한다.</p>
+<p><img src="\images\problemsInPerceptron.png" alt="problems in perceptron"></p>
+<p><img src="\images\problemsInPerceptron2.png" alt="problems in perceptron2"></p>
+<p><img src="\images\problemsInPerceptron3.png" alt="problems in perceptron3"></p>
+<h2><span id="하이퍼-플레인과-hidden-node">하이퍼 플레인과 hidden node</span></h2><p>하이퍼 플레인이란 n차 공간에서 TLU(Threshold Logic Unit)역할을 하는 n-1차 공간이다.</p>
+<p>hidden node란 xor 문제를 해결하는 mid-layer들을 의미한다.</p>
+<p><img src="\images\하이퍼플레인과HiddenNode.png" alt="하이퍼 플레인과 hidden node"></p>
+<h2><span id="multi-layer-perceptron을-이용한-xor-문제의-해결">multi layer perceptron을 이용한 XOR 문제의 해결</span></h2><p>멀티레이어 퍼셉트론을 이용하여 XOR 문제를 해결할 수 있다.<br><img src="\images\multiLayerPerceptronSolvingXORProblems.png" alt="multi layer perceptron solving XOR Problems"></p>
+<h2><span id="weight-vector는-왜-hyper-plane과-수직을-이루는가">weight vector는 왜 hyper plane과 수직을 이루는가?</span></h2><p>weight vector는 hyper plane과 수직을 이룬다.</p>
+<p><img src="\images\weightVectorIsPerpendicularToHyperPlane.png" alt="weight vector is perpendicular to hyper plane"></p>
+<h2><span id="adalineadaptive-linear-neuron이란-무엇이며-perceptron-과의-차이점은-무엇인가">ADALINE(ADAptive LInear NEuron)이란 무엇이며 perceptron 과의 차이점은 무엇인가?</span></h2><p>ADALINE이란 adaptive signal processing을 수행한다.</p>
+<p>다음과 같은 면에서 perceptron과 차이점을 가진다.</p>
+<ol>
+<li>dc 바이어스와 그에 대한 weight가 포함되어 있다.</li>
+<li>perceptron은 0, +1의 출력을 가지는데 반해 -1 +1의 bipolar 출력을 가진다.</li>
+<li>TLU가 단지 선형함수이다.</li>
+</ol>
+<p><img src="\images\perceptronAndADALINE.png" alt="perceptron and ADALINE"></p>
+<h2><span id="adaline">ADALINE</span></h2><p>ALC: Adaptive Linear Combiner<br><img src="\images\adaline.png" alt="adaline"></p>
+<h2><span id="least-mean-squareslms">Least Mean Squares(LMS)</span></h2><p>L개의 입력값을 통한 출력값과 L개의 desired output을 비교하여 mean of square error가 가장 작은 weights를 구한다.</p>
+<p><img src="\images\aDALINELMS.png" alt="ADALINE LMS"></p>
+<p>solution<br><img src="\images\aDALINELMSSolution.png" alt="ADALINE LMS Solution"></p>
+<h2><span id="rlmsrelative-least-mean-squares">RLMS(Relative Least Mean Squares)</span></h2><p>학습되어야 할 데이터의 숫자가 증가하거나 벡터의 사이즈가 증가하는 경우에 문제가 생긴다.<br>모호한 방정식을 풀어야 하거나, 방정식의 개수가 weight보다 많은 경우 문제가 생긴다.<br>또한 inverse matrix를 구해야 하는 경우도 문제가 되는데, 데이터의 숫자가 많아짐에 따라 Determination이 0이 되는 값이 있을 수 있다.<br>이 경우 LMS를 줄여주는 방향으로 weight를 스스로 변화시키는 방법으로 weight를 조절해 갈 수 있는데 이를 RLMS라고 한다.</p>
+<p><img src="\images\rLMSImage.png" alt="RLMS image"></p>
+<p><img src="\images\rLMSProcess.png" alt="RLMS process"></p>
+<h2><span id="neural-network-설계-프로세스">Neural network 설계 프로세스</span></h2><p>perceptron의 경우 TLU가 non-linear하기 때문에 계산하기 어려우므로 ADALINE을 이용한다.</p>
+<p><em><strong>1. 학습되어야 할 데이터쌍이 몇개인가?</strong></em><br>문제의 복잡도에 따라 다르다. 학습되어야 할 데이터가 많을 수록 더 많은 learning cycle을 필요로 한다.<br>neural net의 저장용량에 따라 cross-talk 없이 효과적인 학습과 재현이 가능해야 한다.<br>최종적으로, incremental learning이 필요하다.</p>
+<p><em><strong>2. 각 학습 입력쌍의 기대되는 출력값은 무엇인가?</strong></em><br>GMP(Genralized Modus Ponens)와 밀접한 관련이 있다.<br>학습 쌍이 학습 알고리즘 상의 weight에 저장되어 있다면, 같은 입력 패턴이 들어갔을ㄷ대 반드시 같은 결과 패턴이 나와야 한다.</p>
+<p><em><strong>3. weight vector의 차원은 무엇이며 초기 추측값은 무엇인가?</strong></em><br>센서의 개수와 잘 정의된 입력값에 관계가 있다.<br>초기 추측값은 랜덤하게 선택하거나 대충 선택한다.</p>
+<p><em><strong>4. bias weight이 필요한가? 필요하다면 언제 필요한가?</strong></em><br>어떤 필터에서는 필요가 없다.<br>hyper plane이 원점과 거리가 매우 멀다면 필요하다.</p>
+<p><em><strong>5. pattern의 통계적 성질이 시간에 따라 변하면 어떠한가?</strong></em><br>일반적으로 시간에 따른 변수들의 통계적 특성이 불변한다고 가정한다.<br>만약에 변한다면 학습 주기는 처음부터 다시 시작되어야 한다.</p>
+<p>incremental learning을 한다면 하나의 패턴쌍을 제거할 수 있는가? 어떤것이 변하는가?</p>
+<p><em><strong>6. learning coefficient 적합한 값은 얼마인가?</strong></em><br>학습계수는 최저값과 최고값이 있어야 한다. 학습에서 이 크기는 매우매우 중요하다.<br>작은 학습계수는 학습의 수렴이 천천히 일어나게 하고, 큰 학습 계수는 가끔 매우 긴 수렴 주기로 가게 하거나 혹은 발산하게 할 수 있다.</p>
+<p><img src="\images\learningCoefficient.png" alt="learning coefficient"></p>
+<p><em><strong>7. learning cycle의 종료 규칙을 어떻게 정하는가?</strong></em><br>출력 조건과 관련이 있다. 만약 기대값과 실제 출력값이 허용치 안에서 계속 머문다면 학습 주기를 종료한다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/29/Neural-Network의-기본-개념/" itemprop="url">
+                Neural Network의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T02:49:33.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1216 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#neural-network의-역사">neural network의 역사</a></li>
+<li><a href="#왜-인공신경망이-각광을-받게-되었는가">왜 인공신경망이 각광을 받게 되었는가?</a></li>
+<li><a href="#인공신경망이란">인공신경망이란?</a></li>
+<li><a href="#생체-신경망과-컴퓨터-신경망의-연산속도">생체 신경망과 컴퓨터 신경망의 연산속도</a></li>
+<li><a href="#문자의-인식">문자의 인식</a></li>
+<li><a href="#기초적인-생체-신경망">기초적인 생체 신경망</a></li>
+<li><a href="#neural-network-computation">Neural Network Computation</a></li>
+<li><a href="#mcculloch-pitts-theoryold">McCulloch-Pitts Theory(old)</a></li>
+<li><a href="#hebbian-learning">Hebbian Learning</a></li>
+<li><a href="#general-processing-element">General Processing Element</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="neural-network의-역사">neural network의 역사</span></h2><p>1940년 후반, 디지털 컴퓨터의 출현</p>
+<p>1950년 후반, perceptron과 ADALINE의 출현</p>
+<p>1969년 ~ 1980년 초반, single layer perceptron에서 xor 문제 발생</p>
+<p>1986년, 전환점을 맞이하게 된다.<br>multi layer perceptron이 xor 문제를 해결하다.</p>
+<p>1990년, optical neural network, 디지털 하드웨어</p>
+<h2><span id="왜-인공신경망이-각광을-받게-되었는가">왜 인공신경망이 각광을 받게 되었는가?</span></h2><ol>
+<li>경험, 데이터, 실험을 통해 강력한 학습이 가능하다.</li>
+<li>물체의 분류와 식별이 가능해진다.</li>
+<li>빠른 병렬연산으로 이상적으로 빛의 속도로 연산이 가능하다.</li>
+<li>잠재 지능이 존재한다.</li>
+<li>수많은 범용 어플리케이션이 나오고 있다.</li>
+</ol>
+<h2><span id="인공신경망이란">인공신경망이란?</span></h2><p>인공 신경망이란 processing elements 로 구성된 여러개의 장치들이 connection strength or weight이 다른 여러 개의 연결망을 통해 연결된 복합체이다.<br>많은 패턴들과 수치 데이터들이 학습되고 저장될 수 있다.<br>여기서 weights란 인공 신경만이 학습하고 저장하기 위한 수치값들로 메모리에 저장되는 값이다.</p>
+<p>adaption이란 예제와 실험들로 학습하는 것을 말한다.</p>
+<h2><span id="생체-신경망과-컴퓨터-신경망의-연산속도">생체 신경망과 컴퓨터 신경망의 연산속도</span></h2><p>컴퓨터의 속도가 생체 신경망에 비해 10,000,000배나 더 빠른 속도를 보인다.<br>하지만 컴퓨터는 병렬적 처리를 하지 못하는데 반해 생체신경망은 막대한 병렬연산이 가능하고 복잡하게 연결되어 있기 때문에 컴퓨터가 100msec가 걸려야 풀 수 있는 한번의 인식을 단지 0.1msec 만에 해결한다.</p>
+<h2><span id="문자의-인식">문자의 인식</span></h2><p>손으로 작성되었는가 혹은 컴퓨터로 타이핑 되었는가, 기울기 확대율, 회전율 등에 따라 다른 인식율을 보인다.</p>
+<p>기본적인 패턴인식은 패턴을 픽셀단위로 분해아여 벡터화 시킨다.<br>인공 신경망의 node와 connection strength를 조절하여 분석한다.</p>
+<p><img src="\images\characterRecognition.png" alt="character recognition"></p>
+<h2><span id="기초적인-생체-신경망">기초적인 생체 신경망</span></h2><p>뉴런</p>
+<ol>
+<li>부분적인 투과성을 가진다.</li>
+<li>potential 차이가 존재하며 이온들이 이동한다.</li>
+</ol>
+<p>이온들이 potential차가 평행을 이루는 지점까지 운동한다.</p>
+<p><strong>시냅스</strong></p>
+<p>시냅스는 Neuro-transmitter이다.<br>시냅스가 Ca(+)의 투과성을 높여주면 action potential이 증가한다.</p>
+<p>투과성이 critical point를 넘기게 되면 action potential이 이동하여 다른 뉴런에 연결된다.</p>
+<h2><span id="neural-network-computation">Neural Network Computation</span></h2><blockquote>
+<p>뇌는 수많은 연결을 통해 어떻게 엄청난 능력을 가지게 되었는가?</p>
+</blockquote>
+<h2><span id="mcculloch-pitts-theoryold">McCulloch-Pitts Theory(old)</span></h2><ol>
+<li>뉴런의 활동은 일어나거나 일어나지 않거나 두가지 상태를 가진다. 중간은 없다.</li>
+<li>신경이 흥분되려면 두 개 이상의 시냅스가 흥분되어야 한다.</li>
+<li>delay는 오직 스냅스에서만 발생한다.</li>
+<li>억제 시냅스는 뉴런 활동성을 저해한다.</li>
+<li>연결망의 구조는 시간에 따라 변하지 않는다.</li>
+</ol>
+<blockquote>
+<p>뉴런은 단순한 장치이지만, 적절하게 연결되어 신경 시스템을 구성하면 막대한 계산이 가능하다.</p>
+</blockquote>
+<h2><span id="hebbian-learning">Hebbian Learning</span></h2><blockquote>
+<p>생체신경망은 최초에 직렬적으로 작동할 능력과 지식을 갖추지 못했다.</p>
+</blockquote>
+<p><strong>Pavlov’s Conditioned Response</strong></p>
+<p>뉴런 A 의 축색돌기가 뉴런 B를 자극하기에 충분하고 지속적으로 계속적으로 자극이 발생한다면 하나 혹은 여러개의 뉴런에서 성장 혹은 신진대사가 이루어 지고 뉴런 C의 효율이 높아진다.<br>그리고 마침내 뉴런 C를 자극하는 다른 뉴런인 뉴런 B가 증가하게 된다.</p>
+<p><img src="\images\파블로프의모델.png" alt="파블로프의 모델"></p>
+<p><img src="\images\파블로프의조건적반응.png" alt="파블로프의 조건적 반응"></p>
+<p>Hebb’s assumption says, “The excitation of neuron A has enough stimulus for neuron B, but that of neuron C doesn’t have. Now, with neuron A, the connection strength of neuron C increases, and eventually, without neuron A, neuron B can be excited by neuron C only.”</p>
+<h2><span id="general-processing-element">General Processing Element</span></h2><p>인공 신경세포를 노드 혹은 유닛으로 나타내는 단위이다.</p>
+<p><img src="\images\pE의개념도.png" alt="PE의 개념도"></p>
+<p><img src="\images\pE를이루는기본공식.png" alt="PE를 이루는 기본 공식"></p>
+<p>수학에서 뉴럴 네트워크의 설계는 시간에 따라 변하는 역동적인 시스템이다.</p>
+<p><strong>학습 법칙</strong><br>connection strength는 학습이 진행됨에 따라 업데이트되며, data of weights가 무엇을 배우지에 관한 정보를 기록하게 된다.</p>
+<p>vector notations<br><img src="\images\pE모델링을위한벡터표기.png" alt="PE 모델링을 위한 벡터 표기"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/27/nodejs-mysql-join-데이터를-간편하게-json으로-정제하기/" itemprop="url">
+                nodejs mysql join 데이터를 간편하게  json으로 정제하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-27T04:53:17.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 208 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#arrayforeach-함수의-활용">array.forEach 함수의 활용</a></li>
+<li><a href="#받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="arrayforeach-함수의-활용">array.forEach 함수의 활용</span></h2><p>forEach()는 오름차순으로 배열에 있는 각 요소에 대해 한 번씩 callback을 실행한다.<br>삭제 또는 비초기화된 인덱스 속성에 대해서는 호출되지 않는다.</p>
+<p>callback은 다음 세 인수와 함께 호줄된다.<br>요소 값, 요소 인덱스, 순회될 배열</p>
+<h2><span id="받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</span></h2><p>정제하는 함수<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function(err,rows)&#123;</span><br><span class="line">  var result = [];</span><br><span class="line">  var indexObject = &#123;&#125;;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    rows.forEach(function(row)&#123;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 해당 행의 id가 indexObject의 키값에 없을때 실행 --&gt;</span><br><span class="line">        if(!(row.id in index))&#123;</span><br><span class="line">          index[row.id]=&#123;</span><br><span class="line">            id: row.id,</span><br><span class="line">            name: row.name</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">          &lt;!-- 반환값에 추가 --&gt;</span><br><span class="line">          result.push(index[row.id]);</span><br><span class="line">        &#125;</span><br><span class="line">        해당 행이 인덱스에 있건 없건 간에 해당 인덱스의 내역을 체워줌</span><br><span class="line">        index[row.id].histories.push(&#123;</span><br><span class="line">            historyId:row.historyId,</span><br><span class="line">            historyName:row.historyName</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/26/angular-safe-navigation-operator를-활용한-한전한-null-값-출력하기/" itemprop="url">
                 angular safe navigation operator를 활용한 한전한 null 값 출력하기 
             </a>
@@ -362,191 +660,6 @@ undefined
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/22/여행산업의-모바일화가-우리에게-시사하는-점/" itemprop="url">
-                여행산업의 모바일화가 우리에게 시사하는 점
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-22T02:09:35.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                9 minutes read (About 1416 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="여행-산업의-모바일화가-우리에게-시사하는-점">여행 산업의 모바일화가 우리에게 시사하는 점</span></h1><h2><span id="여행-상품-이제는-모바일에서-더-많이-구매한다">여행 상품, 이제는 모바일에서 더 많이 구매한다</span></h2><p>인터파크 투어는 최근 모바일 거래 비중이 60%를 넘어서며 오프라인 시장을 역전했다.<br>뿐만 아니라 여행 전 꼭 거치는 환전 역시 이미 오프라인을 넘어서고 있다.</p>
-<p>전통적인 오프라인 비즈니스의 대명사인 여행산업 마저 모바일 시대의 흐름에 변혁이 일어나고 있는 것이다.</p>
-<p>또, 여행을 가서도 모든 일정과 맛집, 여행지 정보를 스마트폰을 통해 얻고 있으니 가히 ‘모바일 여행 시대’가 열렸다고 해도 무방할 것이다.</p>
-<h2><span id="sns를-통한-여행지-공유-관광상품-마케팅의-최전선으로-부상">SNS를 통한 여행지 공유, 관광상품 마케팅의 최전선으로 부상</span></h2><p>많은 사람들이 오프라인이 아닌 온라인 상에서 여행 상품을 검색하고 항공권, 숙박 시설, 환전까지 모든 부분을 모바일에서 해결하고 있다.<br>이에따라 많은 항공사와 여행사들은 기존의 TV광고, 지하철 내 광고보다 SNS를 통한 활발한 마케팅에 열을 올리고 있다.</p>
-<p>이렇게 SNS 상에서 인기가 높은 여행지들은 폭발적인 매출의 증가로 이루어 지는데<br>한 예로 인스타그램 해시태그 4만개를 돌파한 인천 네스트 호텔과 2만 5000개를 넘긴 제주 히든 클리프 호텔의 경우 예약률이 평균 17~31%까지 치솟았다.</p>
-<h2><span id="모바일-시대를-대비한-여행사의-새로운-패키지-상품">모바일 시대를 대비한 여행사의 새로운 패키지 상품</span></h2><p>대부분의 사람들이 SNS 등의 매체를 통해 여행지를 결정하고 있으므로, 많은 여행사들은 아예 이런 SNS 마니아 층을 겨냥한 새로운 패키지 상품을 출시하고 있다.<br>실제로 이러한 패키지 상품은 태그, 댓글 등 자발적인 바이럴 마케팅 효과를 거두고 있으며, 매출도 상당히 높은 편이다.</p>
-<h2><span id="sns의-핵심은-무엇인가">SNS의 핵심은 무엇인가</span></h2><p>SNS의 핵심은 무엇인가에 대한 질문에 두가지 답을 내놓는다.<br>첫째는 허영심, 둘째는 과시욕이다.<br>원래 SNS의 시초는 나와 내 주변 사람들의 소식을 듣고 소통하는 용도였으나, 이는 오프라인과 마찬가지로 각종 허례허식을 만들어 내었다.<br>사실 우리가 일상의 살면서 만나는 다양한 사람들과의 관계에는 기본적으로 ‘잘보이고자 하는 욕망’을 내재한다.<br>오랜만에 보는 동창회에는 가장 예쁘고 멋진 옷을 입고, 잘 빠진 차를 타고 가고 싶어하는 것이 인간의 허영이다.<br>이러한 인간의 욕망은 ‘온라인 세계’라는 가상의 세계에서 그 빛을 발하고 있다.<br>온라인 세계에서는 손쉽게 나의 ‘페르소나’를 바꿀 수 있고, 온라인 상에서 만나는 모든 사람들에게 나의 매력적이고 ‘잘 나가는’ 모습을 보여주고자 한다.</p>
-<p>이러한 욕망을 기반으로 다양한 서비스가 성행하게 되었는데, ‘아프리카 TV의 별풍선’, ‘잘나가는 헬스 트레이너 에게 트레이닝 받기’ 처럼 남들에게 인정받는 셀럽들에게 관심을 주고, 그 사람과 온라인 상에서 관계를 맺게 도됨으로써 온라인에서의 자신의 사회적 입지를 올리고자 하는 열망을 반영한다.</p>
-<p>이러한 SNS의 특성을 이해한다면, 우리는 사용자들의 공감을 살 수 있고, 새로운 비즈니스 기회를 발견할 수 있다.</p>
-<h2><span id="우리는-어떻게-해야-하는가">우리는 어떻게 해야 하는가</span></h2><p>이러한 SNS 를 통한 여행사들의 마케팅 방향에 대해서는 생각할 점이 많다.<br>여행사들이 꼼꼼히 정보를 수집하고 각종 여행 자료를 바탕으로 선정하는 여행지 보다 SNS 상에 유포되는 핫한 여행지들이 더욱 신빙성을 가지고 큰 영향력을 가진다는 사실을 우리는 인정해야 한다.<br>한켠으로는 정말 제대로된 정보에 기반하지 않고 단지 SNS상의 이슈화를 통해 매출 증대를 노리려는 약은 여행사들이 대거로 출현할 것인가 하는 우려도 있지만, SNS 시대에서 사람들의 마음을 울릴 다양한 컨텐츠를 개발하고 SNS라는 누구나 접근 가능한 매체를 통해 큰 영향력을 발휘할 수 있게 됨으로써 작은 여행사들은 거대 여행사들에 대항할 힘을 가지게 되었다.</p>
-<p>이러한 풍조는 ‘인터넷’이 추구하는 방향과 그 행로가 일치하는데, 모든 개개인들이 거대 권력에 대항할 큰 힘을 가지게 되었다는 점에서 그러하다.<br>앞으로의 모바일 사회에서 우리는 SNS 를 기반으로 하는 새로운 시장의 원리를 받아들이고 대중을 공감할 훌륭한 SNS 컨텐츠의 개발을 바탕으로 경쟁력을 갖추어 나간다면, 거대 자본을 기반으로 하는 여행산업에서 새로운 비즈니스의 기회를 포착할 수 있을 것이다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/19/Angular-ng-bootstrap을-활용한-Modal-사용법/" itemprop="url">
-                Angular ng-bootstrap을 활용한 Modal 사용법
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-19T04:20:47.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 401 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <p>angular에서 bootstrap 활용을 위한 ng-bootstrap 패키지를 활용하여 모달을 사용한다.</p>
-<h2><span id="modalservice의-준비">ModalService의 준비</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from &apos;@angular/core&apos;;</span><br><span class="line">// 모달을 사용하기 위한 import</span><br><span class="line">import &#123;NgbModal, NgbActiveModal&#125; from &apos;@ng-bootstrap/ng-bootstrap&apos;;</span><br><span class="line">import &#123; LoginModalComponent &#125; from &apos;../_components/login-modal/login-modal.component&apos;;</span><br><span class="line">import &#123; ApplyCheckModalComponent &#125; from &apos;../_components/apply-check-modal/apply-check-modal.component&apos;;</span><br><span class="line">@Injectable()</span><br><span class="line">export class ModalService &#123;</span><br><span class="line">  constructor(private modalService: NgbModal) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  openLoginModal()&#123;</span><br><span class="line">    const modalRef = this.modalService.open(LoginModalComponent);</span><br><span class="line">    modalRef.componentInstance.name = &apos;World&apos;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // open apply checking modal</span><br><span class="line">  openApplyCheckModal()&#123;</span><br><span class="line">    const modalRef = this.modalService.open(ApplyCheckModalComponent);</span><br><span class="line"></span><br><span class="line">    //필요한 데이터를 전달</span><br><span class="line">    modalRef.componentInstance.name = &apos;World&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>원래는 NgbModal 모듈을 이용하여 바로 특정 모달 컴포넌트를 여는 방식이지만<br>여러 페이지에서 다양한 모달을 쉽게 열고 닫기 위해서 새로운 ModalService 서비스를 만들었다.</p>
-<p>이 서비스에서 열고자 하는 다양한 modal component를 import하여 쉽게 열 수 있다.</p>
-<p>또한 MgbModal을 통해 open 한 modal에 componentInstance를 통해 data를 전달할 수 있다.</p>
-<h2><span id="modal-componentts">Modal Component.ts</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit &#125; from &apos;@angular/core&apos;;</span><br><span class="line">import &#123;NgbModal, NgbActiveModal&#125; from &apos;@ng-bootstrap/ng-bootstrap&apos;;</span><br><span class="line">import &#123; Router, ActivatedRoute &#125; from &apos;@angular/router&apos;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &apos;app-login-modal&apos;,</span><br><span class="line">  templateUrl: &apos;./login-modal.component.html&apos;,</span><br><span class="line">  styleUrls: [&apos;./login-modal.component.css&apos;]</span><br><span class="line">&#125;)</span><br><span class="line">export class LoginModalComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  constructor(public activeModal: NgbActiveModal) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    // reset login status</span><br><span class="line">    this.authenticationService.logout();</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  close()&#123;</span><br><span class="line">    this.activeModal.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>모달 내에서 모달을 닫기 위해 NgbActiveModal 모듈을 사용하였다.</p>
-<h2><span id="modal-componenthtml">Modal Component.html</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;div class=&quot;modal-header&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;modal-body&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;&quot; style=&quot;text-align:center;&quot;&gt;</span><br><span class="line">      &lt;span style=&quot;font-weight:bold; margin-right:1rem;&quot;&gt;아이디가 없으신가요?&lt;/span&gt;</span><br><span class="line">      &lt;span&gt;&lt;a [routerLink]=&quot;[&apos;/register/selectTypePage&apos;]&quot; style=&quot;color:#65b8b4; font-weight:bold;&quot; (click)=&quot;close()&quot;&gt;회원가입&lt;/a&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;modal-footer&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>모달을 한번 감싸주고<br>그 안에서 modal-header, modal-body, modal-footer class 들을 사용하여 안을 꾸며준다.</p>
-<h2><span id="modulets-에-등록">Module.ts 에 등록</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">  ],</span><br><span class="line">  providers: [</span><br><span class="line">   ],</span><br><span class="line">  bootstrap: [],</span><br><span class="line">  entryComponents: [EmailCheckModalComponent]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>app.module의 entryComponents에 등록하여 미리 컴포넌트를 로드시켜 놓는다.</p>
-<p><a href="https://ng-bootstrap.github.io/#/components/modal/examples" target="_blank" rel="noopener">참조하기</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/19/Angular-Production-Build/" itemprop="url">
-                Angular Production Build
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-18T17:41:22.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 6 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ng build --prod</span><br><span class="line"></span><br><span class="line">ng build --aot</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/19/Angular-무한-스크롤-적용하기/" itemprop="url">
-                Angular 무한 스크롤 적용하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-18T17:28:37.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 598 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="알고리즘-pseudo-code">알고리즘 pseudo code</span></h2><ol>
-<li>페이지 로딩 시점에 get(9)</li>
-<li><p>스크롤바가 하단에 가까우면 받아오고, 받아오기 인덱스 true<br>if(height&lt;200px)<br>get(9)<br>getIndex=true</p>
-</li>
-<li><p>받아오는 동안에는 요청 안하기<br>if(getIndex==true)<br>return 0</p>
-</li>
-<li><p>받아온 값이 없을 경우에는 return 0하고 searchEndIndex를 true로 하기<br>if(res.length==0)<br>return 0<br>searchEndIndex=true</p>
-</li>
-</ol>
-<h2><span id="hostlistener-decorator-component-작성">HostListener Decorator Component 작성</span></h2><p>아래와 같이 호스트의 이벤트를 감지한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; HostListener, Inject&#125; from &quot;@angular/core&quot;;</span><br><span class="line">import &#123; DOCUMENT &#125; from &quot;@angular/common&quot;;</span><br><span class="line"></span><br><span class="line">export class LayoutNavComponent implements OnInit &#123;</span><br><span class="line">  constructor(@Inject(DOCUMENT) private document: Document) &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line">@HostListener(&quot;window:scroll&quot;, [&apos;$event.target&apos;])</span><br><span class="line">onWindowScroll() &#123;</span><br><span class="line">  //we&apos;ll do some stuff here when the window is scrolled</span><br><span class="line">  console.log(this.document.body.scrollHeight);</span><br><span class="line">  console.log(&quot;scrollTop:&quot;,this.document.documentElement.scrollTop);</span><br><span class="line">  let scrollHeight=this.document.documentElement.scrollHeight;</span><br><span class="line">  let readHeight=this.document.documentElement.scrollTop+this.document.documentElement.clientHeight;</span><br><span class="line"></span><br><span class="line">  if((-10&lt;=(readHeight-scrollHeight))&amp;&amp;((readHeight-scrollHeight)&lt;=10))&#123;</span><br><span class="line">   this.groupService.getGroupsBySearchKey(this.locationService.locationDepth1, this.locationService.locationDepth2, this.groupService.searchKey);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="scroll-event의-성능향상을-위한-tip">scroll event의 성능향상을 위한 Tip</span></h2><p>모든 이벤트 마다 onScroll 함수를 발생시키면 CPU의 성능을 많이 차지하므로<br>다음과 같이 함수에 delay를 주어 이를 해결할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function () &#123;</span><br><span class="line">    if (waiting) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    waiting = true;</span><br><span class="line"></span><br><span class="line">    scroll();</span><br><span class="line"></span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        waiting = false;</span><br><span class="line">    &#125;, 100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="하드웨어-가속시키기">하드웨어 가속시키기</span></h2><p>하드웨어 가속이란 그래픽 처리 장치를 이용하여 중앙처리 장치의 처리량을 줄이고, 브라우저의 렌더링을 효율화하는 것을 말한다.<br>css 작업에 하드웨어 가속을 활성화하면, 작업처리가 빨라져서 웹페이지의 렌더링을 보다 빠르게 할 수 있다.</p>
-<p>특정 엘레멘트에 어떤 지시를 내리면 엘리먼트는 자신의 레이어에 분류되고 페이지에 있는 다른 엘리멘트와 독립되어 렌더링 된다.<br>결론만 말하면 css에 다음과 같은 속성을 붙이면 하드웨어를 가속화 하여 빨리 렌더링이 가능하다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: 3dtransforms(0,0,0)</span><br></pre></td></tr></table></figure></p>
-<p>위 명령어는 3d가 아닌 엘레먼트에 가짜로 3d속성을 주므로써 해당 element의 렌더링을 cpu가 아닌 gpu가 담당하게 하여 렌더링 속도를 높이며, will-change 명령어는 엘레먼트에 어떤 변경을 할 것인지 브라우저에게 미리 알려주므로써 최적화 하는 것이다. 페이지는 순식간에 갱신돼 부드러운 화면처리가 가능하게 된다.</p>
-<p><a href="https://dev.opera.com/articles/ko/css-will-change-property/" target="_blank" rel="noopener">참조</a></p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -569,6 +682,8 @@ undefined
         <li><a class="pagination-link" href="/page/21/">21</a></li>
         
         <li><a class="pagination-link" href="/page/22/">22</a></li>
+        
+        <li><a class="pagination-link" href="/page/23/">23</a></li>
         
     </ul>
 </nav>

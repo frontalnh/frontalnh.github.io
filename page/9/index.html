@@ -91,6 +91,228 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/05/24/grpc-시작하기/" itemprop="url">
+                gRPC 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-24T05:30:03.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 448 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="grpc란-무엇인이며-어떻게-동작하는가">GRPC란 무엇인이며 어떻게 동작하는가?</span></h1><p>GRPC란 google에서 제공하는 rpc 프로토콜 프레임워크이다.<br>이를 통해 간편하게 클라이언트와 서버 간에 rpc 통신을 할 수 있게 해준다.</p>
+<p>grpc의 간략한 동작 순서는 다음과 같다.</p>
+<ul>
+<li>서버에서 grpc server가 listen을 하고 있다.</li>
+<li>클라이언트에서 gRPC stub을 통해 서비스에 접근한다.</li>
+<li>서버에서 gRPC stub 명령을 받아 수행 후 클라이언트에 반환해 준다.</li>
+</ul>
+<p>gRPC를 통해 간편하게 server를 만들어 listen을 수행하고, 이를 호출하는 client 프로그램을 만들어 RPC 통신을 한다.</p>
+<h3><span id="rpc-통신이란">RPC 통신이란?</span></h3><p>Remote Procedure Call 의 약어로 다른 컴퓨터에 있는 특정 method를 마치 자신의 컴퓨터에 있는 것처럼 호출하는 것으로 분산 어플리케이션과 서비스를 만드는데 중요한 역할을 한다.</p>
+<p>grpc에서는 데이터 전송을 위한 marshal를 위해 protocall buffer를 사용한다.</p>
+<h3><span id="protocall-buffer란">protocall buffer란?</span></h3><p>protocall buffer란 어떤 언어와 플랫폼에서도 사용가능하고 확장성이 좋으며, 통신 프로토콜이나 데이터 저장등에 사용하기 위해 정형화된 데이터를 serializing 할 수 있는 좋은 방법이다.<br>protocall buffer 에서는 serialize 하고자 하는 구조체가 .proto 파일에 메세지의 형태로써 정의되어야 한다.</p>
+<p>이러한 .proto file은 protoc 컴파일러를 통하여 접근 가능한 객체로 변환되고, 각 언어에 맞는 protoc가 존재한다.</p>
+<p><strong>.proto 파일의 예</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required string name = 1;</span><br><span class="line">  required int32 id = 2;</span><br><span class="line">  optional string email = 3;</span><br><span class="line"></span><br><span class="line">  enum PhoneType &#123;</span><br><span class="line">    MOBILE = 0;</span><br><span class="line">    HOME = 1;</span><br><span class="line">    WORK = 2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    required string number = 1;</span><br><span class="line">    optional PhoneType type = 2 [default = HOME];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phone = 4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/22/event-sourcing-and-cqrs/" itemprop="url">
+                Event Sourcing And CQRS
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-22T04:51:07.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1244 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="event-sourcing">Event Sourcing</span></h1><p>이벤트 소싱이란 기존의 관계형 데이터베이스의 저장 방식과 달리 데이터 저장을 수많은 이벤트들을 묶음으로 저장하는 것을 의미한다.<br>사실 event sourcing 이란 사실 현실에서는 너무도 흔한 방법이다. 가령 회계장부를 기록한다고 할때 우리는 회사의 보유 자금을 현재 상태만을 기록하는 것이 아니라 과거 매출, 비용 등의 합산으로 계산한다. 그래야 과거의 정보가 투명하게 공개되고 다양한 재무 데이터의 활용이 가능하기 때문이다. 이처럼 실제 행위의 집합들을 저장하는 방식을 event sourcing이라 한다.</p>
+<p>하지만, 다음과 같은 경우를 생각해보자<br>만약 과거의 데이터를 수정해야 할 일이 생긴다면 어떨까?<br>이 경우도 실제 회계에서 하는 방법과 같은 원칙을 따른다. 바로 과거의 특정 기록으로 돌아가 해당 부분만을 수정하고 뒤를 전부 다시 작성하는 것이다. 이는 매우 비효율 적이어 보이지만 데이터 그 자체가 매우 중요한 회계에서는 너무도 당연한 진리이다.</p>
+<p>이는 데이터 혹은 이벤틀의 삭제에도 영향을 주는데, event soucing에서는 원칙적으로 delete가 없다. 이는 회계장부 작성과도 그 흐름을 동일시 하는데, 가령 회계장부를 작성할 때에는 잘못된 정보를 기입하면 그 후에 그를 상쇄시키는 추가적인 기록을 추가한다. 그래야만 누군가가 고의로 데이터를 조작했는데와 같은 정보들을 유추할 수 있기 때문이다. 동일한 논리가 event sourcing에서도 적용된다.</p>
+<p><strong>왜 이런 event sourcing이 현대 software에서 중요하게 되었을까?</strong></p>
+<p>그것은 바로 현대 사회에서 데이터의 가치가 너무도 중요하기 때문이다. 과거 쇼핑몰에서는 고객이 단순히 구매 혹은 판매 등의 정보만을 기록한 반면 요즘 사회에서는 장바구니에 물건을 넣었다 빼는 빈도와 주기 시기 등에 대한 데이터를 활용하여 각종 비즈니스 정책들이 결정되며 이 모든 사소한 행위 데이터를 기록하는 것은 너무도 중요하고 그것이 event sourcing의 필요성이다.</p>
+<p>이처럼 event sourcing을 통한다면, 특정 시기의 정확한 상황을 재현할 수 있는데, 가령 우리가 역사를 기록하는 것과 같은 원리이다. 특정 시기의 단편적 정보가 아닌 그 시기에 일어나는 일련의 사건들을 정확히 재구현 할 수 있을때 즉, 마치 타임머신을 타고 여행하듯이 정치 사회 경제에 대한 총체적인 재구성을 통해서만 그 시기의 명확한 사회적 상황을 알 수 있다. 이처럼 비즈니스 세계에서도 event sourcing을 통해 과거의 특정 상황에 대한 명확한 인사이트를 가질 수 있다.</p>
+<p>이러한 event sourcing 은 소프트웨어 테스트 시에도 활용될 수 있다.<br>가령, 기존의 모든 테스트 행위를 event로 기록해 놓으면, 개발이 완료된 뒤에 정확히 같은 테스트를 수천번이고 반복해서 수행해 볼 수 있다.<br>가령 보험 서비스의 경우에 A 라는 사람의 주소가 바뀌면 Manager가 해당 주소가 바뀜을 알리고 회계부서, 지급 부서 등 많은 부서에 해당 사실을 알리고 로직을 처리해야 한다. 하지만 event 를 사용하면 그저 Manager는 쿨하게 “A의 주소가 바뀜!” 만을 외치면 기타 여러 부서에서 주의깊게 관찰하고 있다가 이벤트가 발생하면 그에 맞는 로직을 스스로가 처리하여 Manager의 독립성이 높아지게 된다.</p>
+<p>그 순서는 다음과 같다.</p>
+<ol>
+<li>Command 발생</li>
+<li>Command Hander에 발생한 Command를 전달하고 event 발생</li>
+<li>aggregation 변형</li>
+</ol>
+<h2><span id="cqrs-패턴이란">CQRS 패턴이란?</span></h2><p>위와 같은 event sourcing에 있어 데이터의 읽기와 쓰기는 너무도 다른 기능이다. 쓰기의 경우 특정 이벤트를 저장하는 아주 단순한 로직인데 반해 읽기의 경우 읽기의 구간 특정 시기의 스냅샷과 같은 복잡한 로직이 동반되는 경우가 다반사 이다.</p>
+<p>CQRS에서는 이렇게 이벤트의 저장과 읽기를 위해 두 종류의 명령을 내리는데 하나는 데이터를 저장하는 <code>Command</code> 와 이벤트를 읽어 오는 <code>query</code> 이다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/22/나만의-발자국을-남겨라/" itemprop="url">
+                나만의 발자국을 남겨라
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-21T23:36:42.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                5 minutes read (About 766 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>나는 벤저민 프랭클린을 참 좋아한다.</p>
+<p>철저한 자기관리와 건국의 아버지로 알려진 프랭클린, 나는 그의 자기 관리를 위한 노력이나 훌륭한 일을 하려 하는 긍지보다 다른 부분에 집중하고자 한다.</p>
+<p>그것은 바로 그는 변치않는 신념과 스스로에 대한 믿음으로 묵묵히 자신의 길을 걸었다는 것이다.</p>
+<p>주변의 시선과 자신이 처한 환경, 미래에 대한 불안에 대해 그는 거의 언급하지 않았다.</p>
+<p>그저 자신이 처한 환경에서 조금 더 나아질 수 있는 방법을 찾았고, 끊임없이 내가 필요하고 더 나은 사람이 되기위해 정진해 나갔다.</p>
+<p>인생을 살아가는 정도라는 것이 무의미해 지고, 한치앞을 내다 볼 수 없는 오늘의 사회에는 더욱더 가장 본받아야 할 점이 아닌가 생각된다.</p>
+<p>흔히 인생을 살아나가는 것은 눈덮힌 산을 오르는 것에 비유된다.</p>
+<p>가장 연륜있고, 실력있는 선구자는 우리를 앞서 오르고 대부분의 우리는 선구자가 남긴 발자국을 따라 오르며 끊임없이 내가 올바른 발걸음을 디뎠는지 생각한다.</p>
+<p>내 눈앞의 수많은 발자국을 보며 어느 길이 가장 쉽고 효과적인 길인지를 가늠하려 하고, 내가 걸어온 발자국을 보며 산턱 언저리에서 후회와 불안에 이따금 뒤돌아 우두커니 서있는 것이다.</p>
+<p>하지만, 정말 산을 잘 오르는 사람들은 오로지 정상만을 바라보고 오를 뿐이다.</p>
+<p>우리 앞을 지나간 선구자는 물론 도움이 될 수 있지만, 그 사람이 어떤 상황에 있었는지 그때의 날씨는 어땠는지 우리는 알지 못하며, 가장 올바른 선택은 목적지에 시선을 던져두고 나를 믿고 신중하게 한걸음 한걸음을 옮기는 것인 것을 그들은 잘 아는 것이다.</p>
+<p>요즘 세상을 무한 경쟁사회라고 한다.</p>
+<p>주변을 달려가는 수많은 주자들을 바라보며 조바심을 느끼게 만드는 사회에서 많은 사람들이 고작 한치 앞에 있는 사람을 꽁무니 만을 쫓게도 되고, 한발작 뒤에 있는 주자들을 보며 가끔은 안도하기도 할 것이다.</p>
+<p>이 글을 쓰는 필자도 또 마음을 다잡고자 이런글을 쓰는지 모른다.</p>
+<p>오늘 하루도 앞서나가는 자에대한 조바심을 뒤따라 오는 자에 대한 오만함을 내려놓고 정상만을 바라보며 누구의 발자국도 아닌 나의 발자국을 남길 수 있는 하루, 내면의 단단함이 더해지는 하루가 되기를 바란다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/21/c-언어-상수와-기본-자료형/" itemprop="url">
+                C 언어 | 상수와 기본 자료형
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-21T01:25:42.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/c-언어-강의/">C 언어 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1391 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="자료형이란-무엇인가요">자료형이란 무엇인가요?</span></h1><p>자료형이란 데이터를 표현하는 기준이 되며, <strong>정수형 자료형</strong>, 혹은 <strong>실수형 자료형</strong> 인지 등의 데이터의 표현 기준을 정해주고, 명확한 데이터의 크기를 알려줌으로써 메모리에 보다 효과적으로 자료가 저장될 수 있도록 해줍니다.</p>
+<p>대표적인 자료형으로는 char, int, float, double 등이 있으며 각각 1바이트, 4바이트, 4바이트, 8바이트의 크기를 가집니다.</p>
+<p>이러한 자료형의 크기를 구하는 연산자로는 <strong>sizeof()</strong> 함수가 있으며 다음과 같이 사용합니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int num = 1</span><br><span class="line">numSize = sizeof(num)</span><br></pre></td></tr></table></figure></p>
+<p>우리가 컴퓨터에서 표현하는 자료는 앞서 말했듯이 정수와 실수의 큰 기준으로 나뉘게 되며, 여기서 실수형을 표현하는 경우 정확도 향상을 위해 <strong>float 이 아닌 double을 사용</strong> 합니다.</p>
+<h1><span id="또-어떤-자료형들이-있나요">또 어떤 자료형들이 있나요?</span></h1><p>C 프로그래밍 시에 자료형 앞에 unsigned와 같은 키워드가 붙은 것을 많이 보았을 겁니다.<br>이 것은 바로 해당 자료형이 unsigned로 나타내는 것을 의미하며 즉, 음수를 구분하지는 못하지만 2배 더 큰 숫자까지 나타낼 수 있게 해주는 것을 의미합니다.</p>
+<p>그밖에, 문자를 표현하기 위한 char 자료형이 있는데 이는 ASCII 코드에 의거하여 문자를 나타내는 것을 의미합니다.<br>이러한 ASCII 코드는 1바이트 즉 256가지의 문자를 표현하며, 기본적으로 컴퓨터 내에서 정수형 자료형으로 나타내어 지므로, 정수형 표현과 문자형 표현이 모두 가능합니다.</p>
+<p>가령 다음의 예제를 살펴봅시다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char examplChar = &quot;a&quot;</span><br><span class="line"></span><br><span class="line">printf(&quot;%d&quot;, examplChar)</span><br></pre></td></tr></table></figure></p>
+<p>이 경우 문자 a의 정수형 표현을 ASCII 코드표에서 찾아 나타내어 줍니다.</p>
+<h1><span id="상수란-무엇인가요">상수란 무엇인가요?</span></h1><p>상수는 int, double에 근거한 것으로 메모리 내에 이름이 없는 literal 상수와 이름이 있는 symbolic 상수로 구분됩니다.<br>이러한 상수는 한번 선언되면 그 값이 바뀔 수 없으며, 만약 이름이 있는 symbolic 상수로 선언되는 경우 이름은 대문자와 아래바 <code>_</code> 로 구성되는 것이 일반적입니다.</p>
+<p>다음의 예는 literal 상수의 예를 보여줍니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int exampleNum = 5 + 6</span><br></pre></td></tr></table></figure></p>
+<p>이렇게 literal 상수는 별도의 선언이 없이 값을 나타내며, 위의 경우 5와 6은 literal 상수입니다.</p>
+<p>다음은 symbolic 상수의 예를 나타냅니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const int MAGIC_NUMBER = 1</span><br></pre></td></tr></table></figure></p>
+<p>이렇게 기본 자료형 int 앞에 const 키워드를 붙여 줌으로써 symbolic 상수를 선언하며, 선언과 동시에 초기화가 되어야 합니다.</p>
+<p><strong>만약 상수에 자료형을 지정해 주고 싶다면 어떻게 할까요?</strong></p>
+<p>다음은 상수 자료형에 float 으로 표기를 지정해 주는 예를 나타냅니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">long exampleNum = 5.1235L</span><br></pre></td></tr></table></figure></p>
+<p>이처럼 상수의 뒤에 U, L, UL, LL, F 등을 나타냄으로써 자료형을 알려줄 수 있습니다.</p>
+<h1><span id="자료형-형-변환">자료형 형 변환</span></h1><p>이렇게 한번 선언된 자료형은 프로그래밍 도중에 변경될 수 있으며 이것을 <strong>형 변환</strong> 이라고 합니다.</p>
+<p>형변환 에는 자동으로 형이 변환되는 <strong>자동 형 변환</strong> 과 사용자가 형을 변환해 주는 <strong>강제 형 변환</strong> 이 있습니다.</p>
+<p>먼저 자동 형 변환은 보통 자료형을 일치시켜 계산해야 하는 경우 또는 대입 시에 강제로 형 변환이 되는 경우, 연산 시 빠른 연산을 위해 CPU 에서 자동으로 변환이 되는 경우가 있습니다.</p>
+<p>먼저 자료형 일치를 위한 자동 형 변환의 예를 살펴봅시다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 5</span><br><span class="line">double num2 = 5.6235</span><br><span class="line">double result = num1 + num2</span><br></pre></td></tr></table></figure></p>
+<p>위의 예의 경우 num1 과 num2 는 다른 자료형을 가졌기 때문에, 덧셈연산이 불가능 합니다.<br>이렇게 되면 컴퓨터는 자동으로 num1 과 num2 중 하나의 자료형에 맞추어 연산을 진행하게 되는데, 그 판단의 근거는 <strong>정확도를 높이는 방향</strong> 으로 진행된다는 것 입니다.</p>
+<p>위 예의 경우 num1 과 num2 가 int 형으로 변환되어 계산이 된다면 큰 오차가 생기므로 적은 오차범위를 가지도록 둘 다 double 형으로 변환이 되어 계산이 되게 됩니다.</p>
+<p>다음 예는 대입의 과정에서 자동 형 변환이 일어나는 경우입니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 129</span><br><span class="line">char result = num1</span><br></pre></td></tr></table></figure></p>
+<p>num1 은 int 형으로 선언이 되었지만 char 자료형에 할당됨에 따라 4바이트에서 1바이트로 그 크기가 줄어들게 됩니다.<br>이 경우에는 최상위 바이트의 손실이 일어나게 되며 이 경우 00000000 00000000 00000000 10000001 에서 10000001 로 바뀌게 되어 부호가 바뀌게 되는 문제가 생깁니다.</p>
+<p>다음은 <strong>강제 형 변환</strong> 의 예를 살펴봅시다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 5</span><br><span class="line">int num2 = 10</span><br><span class="line">double result</span><br><span class="line"></span><br><span class="line">result = (double)num1/num2</span><br></pre></td></tr></table></figure></p>
+<p>위 예는 num1과 num2의 연산을 통해 얻은 0.5를 double로 강제 형 변환 시켜주어 result에 할당하는 예를 보여줍니다.<br>이처럼 (자료형) 키워드를 앞에 붙여줌으로써 강제로 해당 자료형을 바꾸어 줄 수 있습니다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/05/20/z_루소의-사회계약론-사회의-권위는-어떻게-생겨나는가/" itemprop="url">
                 루소의 사회계약론, 사회의 권위는 어떻게 생겨나는가?
             </a>
@@ -484,175 +706,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/11/이더리움-crowd-sale/" itemprop="url">
-                이더리움 crowd sale
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-11T04:19:57.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 528 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="토큰-생성">토큰 생성</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.20;</span><br><span class="line"></span><br><span class="line">contract MyToken &#123;</span><br><span class="line">    event Transfer(address indexed from, address indexed to, uint256 value);</span><br><span class="line">    /* This creates an array with all balances */</span><br><span class="line">    mapping (address =&gt; uint256) public balanceOf;</span><br><span class="line">    string public name;</span><br><span class="line">    string public symbol;</span><br><span class="line">    uint8 public decimals;</span><br><span class="line">    /* Initializes contract with initial supply tokens to the creator of the contract */</span><br><span class="line">    function MyToken(uint256 initialSupply, string tokenName, string tokenSymbol, uint8 decimalUnits) public &#123;</span><br><span class="line">        balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens</span><br><span class="line">        name = tokenName;                                   // Set the name for display purposes</span><br><span class="line">        symbol = tokenSymbol;                               // Set the symbol for display purposes</span><br><span class="line">        decimals = decimalUnits;                            // Amount of decimals for display purposes</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Send coins */</span><br><span class="line">    function transfer(address _to, uint256 _value) public &#123;</span><br><span class="line">        require(balanceOf[msg.sender] &gt;= _value);           // Check if the sender has enough</span><br><span class="line">        require(balanceOf[_to] + _value &gt;= balanceOf[_to]); // Check for overflows</span><br><span class="line">        balanceOf[msg.sender] -= _value;                    // Subtract from the sender</span><br><span class="line">        balanceOf[_to] += _value;                           // Add the same to the recipient</span><br><span class="line">        /* Notify anyone listening that this transfer took place */</span><br><span class="line">        emit Transfer(msg.sender, _to, _value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>먼저 crowd sale을 진행하기 전에 crowd sale에서 사용할 토큰을 생성하고, crowd sale의 shares address에 등록해 준다.</p>
-<h1><span id="crowd-sale-contract">crowd sale contract</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.16;</span><br><span class="line"></span><br><span class="line">interface token &#123;</span><br><span class="line">    function transfer(address receiver, uint amount) external;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Crowdsale &#123;</span><br><span class="line">    address public beneficiary;</span><br><span class="line">    uint public fundingGoal;</span><br><span class="line">    uint public amountRaised;</span><br><span class="line">    uint public deadline; //마감 기한</span><br><span class="line">    uint public price;</span><br><span class="line">    token public tokenReward;</span><br><span class="line">    mapping(address =&gt; uint256) public balanceOf;</span><br><span class="line">    bool fundingGoalReached = false;</span><br><span class="line">    bool crowdsaleClosed = false;</span><br><span class="line"></span><br><span class="line">    event GoalReached(address recipient, uint totalAmountRaised);</span><br><span class="line">    event FundTransfer(address backer, uint amount, bool isContribution);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Constructor function</span><br><span class="line">     *</span><br><span class="line">     * Setup the owner</span><br><span class="line">     */</span><br><span class="line">    function Crowdsale(</span><br><span class="line">        address ifSuccessfulSendTo, //</span><br><span class="line">        uint fundingGoalInEthers, //이더 단위의 모금 목표액</span><br><span class="line">        uint durationInMinutes, //분 단위의 모금 기간</span><br><span class="line">        uint etherCostOfEachToken, //각 토큰 당 단위 가격(이더 기준)</span><br><span class="line">        address addressOfTokenUsedAsReward //모금의 보상으로 주어질 위에서 만든 토큰의 주소</span><br><span class="line">    ) public &#123;</span><br><span class="line">        beneficiary = ifSuccessfulSendTo;</span><br><span class="line">        fundingGoal = fundingGoalInEthers * 1 ether;</span><br><span class="line">        deadline = now + durationInMinutes * 1 minutes;</span><br><span class="line">        price = etherCostOfEachToken * 1 ether;</span><br><span class="line">        tokenReward = token(addressOfTokenUsedAsReward);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Fallback function</span><br><span class="line">     *</span><br><span class="line">     * The function without name is the default function that is called whenever anyone sends funds to a contract</span><br><span class="line">     */</span><br><span class="line">    function () payable public &#123;</span><br><span class="line">        require(!crowdsaleClosed);</span><br><span class="line">        uint amount = msg.value;</span><br><span class="line">        balanceOf[msg.sender] += amount;</span><br><span class="line">        amountRaised += amount;</span><br><span class="line">        tokenReward.transfer(msg.sender, amount / price);</span><br><span class="line">        emit FundTransfer(msg.sender, amount, true);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier afterDeadline() &#123; if (now &gt;= deadline) _; &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Check if goal was reached</span><br><span class="line">     *</span><br><span class="line">     * Checks if the goal or time limit has been reached and ends the campaign</span><br><span class="line">     */</span><br><span class="line">    function checkGoalReached() afterDeadline public &#123;</span><br><span class="line">        if (amountRaised &gt;= fundingGoal)&#123;</span><br><span class="line">            fundingGoalReached = true;</span><br><span class="line">            emit GoalReached(beneficiary, amountRaised);</span><br><span class="line">        &#125;</span><br><span class="line">        crowdsaleClosed = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Withdraw the funds</span><br><span class="line">     *</span><br><span class="line">     * Checks to see if goal or time limit has been reached, and if so, and the funding goal was reached,</span><br><span class="line">     * sends the entire amount to the beneficiary. If goal was not reached, each contributor can withdraw</span><br><span class="line">     * the amount they contributed.</span><br><span class="line">     */</span><br><span class="line">    function safeWithdrawal() afterDeadline public &#123;</span><br><span class="line">        if (!fundingGoalReached) &#123;</span><br><span class="line">            uint amount = balanceOf[msg.sender];</span><br><span class="line">            balanceOf[msg.sender] = 0;</span><br><span class="line">            if (amount &gt; 0) &#123;</span><br><span class="line">                if (msg.sender.send(amount)) &#123;</span><br><span class="line">                    emit FundTransfer(msg.sender, amount, false);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    balanceOf[msg.sender] = amount;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (fundingGoalReached &amp;&amp; beneficiary == msg.sender) &#123;</span><br><span class="line">            if (beneficiary.send(amountRaised)) &#123;</span><br><span class="line">                emit FundTransfer(beneficiary, amountRaised, false);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                //If we fail to send the funds to beneficiary, unlock funders balance</span><br><span class="line">                fundingGoalReached = false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/10/논어에서-배우다-03/" itemprop="url">
-                논어에서 배우다 03
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-10T00:33:46.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                4 minutes read (About 567 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <blockquote>
-<p>공자께서 말씀하셨다. “백성들을 정치로 인도하고 형벌로 다스리면, 백성들은 형벌을 면하고도 부끄러워함이 없다. 그러나 덕으로 인도하고 예로써 다스리면, 백성들은 부끄러워할 줄도 알고 또한 잘못을 바로잡게 된다.”<br>-논어  [위정]</p>
-</blockquote>
-<p>현대의 대부분의 정치체제는 제도로 하여금 사람들의 사회적 행동을 이끌어 내고자 노력합니다. 잘못을 한 사람들을 감옥에 가두고 벌금을 메기고, 사회적으로 필요한 질서에 관한 법령을 제정하여 사람들에게 법령을 지키도록 강요합니다. 기업도 마찬가지 입니다. 좋은 실적을 낸 직원에게는 상을 주고 근무 태도가 좋지 않은 직원에게는 불이익을 주는 등 규율을 세우고 이를 지키도록 함으로써 조직을 운영해 나갑니다.</p>
-<p>이렇게 훌륭한 제도와 법규로 조직을 개선하려는 노력은 어떻게 보면 규모가 매우 큰 조직을 통제하기에는 유일한 수단으로 보입니다.</p>
-<p>공자의 이런 말은 오늘날에 많은 생각할 거리를 줍니다.</p>
-<p>조직의 질서와 개인의 변화를 제도와 상벌만으로 다스린다면 개인은 행동의 변화시킬 이유를 찾지 못하고 되려 제도를 회피하고자하는 행동을 촉발할 수 있습니다.<br>하지만, 국가가 시민에게 덕을 바탕으로 한 시민의식을 심어주고 또, 회사가 개인에게 기업의 비전과 기업 문화를 배양해 준다면 개인은 자발적으로 일의 의미를 가지고 보다 주도적으로 일을 해 나갈 수 있다는 것은 참 실현하기 힘들고 번거로운 일이지만 어쩌면 조직을 이끌어 나가는 핵심이자 리더의 자질이 아닐까 생각합니다.</p>
-<p>이 글을 읽는 독자분들도 덕과 예로써 주변 사람들을 대하는 리더가 되기를 기원합니다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/09/이더리움-토큰-만들기/" itemprop="url">
-                이더리움 토큰 만들기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-09T05:15:06.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                9 minutes read (About 1387 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="기본-contract-작성">기본 contract 작성</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.20;</span><br><span class="line"></span><br><span class="line">contract MyToken &#123;</span><br><span class="line">    event Transfer(address indexed from, address indexed to, uint256 value);</span><br><span class="line">    /* This creates an array with all balances */</span><br><span class="line">    mapping (address =&gt; uint256) public balanceOf;</span><br><span class="line">    string public name;</span><br><span class="line">    string public symbol;</span><br><span class="line">    uint8 public decimals;</span><br><span class="line">    /* Initializes contract with initial supply tokens to the creator of the contract */</span><br><span class="line">    function MyToken(uint256 initialSupply, string tokenName, string tokenSymbol, uint8 decimalUnits) public &#123;</span><br><span class="line">        balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens</span><br><span class="line">        name = tokenName;                                   // Set the name for display purposes</span><br><span class="line">        symbol = tokenSymbol;                               // Set the symbol for display purposes</span><br><span class="line">        decimals = decimalUnits;                            // Amount of decimals for display purposes</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Send coins */</span><br><span class="line">    function transfer(address _to, uint256 _value) public &#123;</span><br><span class="line">        require(balanceOf[msg.sender] &gt;= _value);           // Check if the sender has enough</span><br><span class="line">        require(balanceOf[_to] + _value &gt;= balanceOf[_to]); // Check for overflows</span><br><span class="line">        balanceOf[msg.sender] -= _value;                    // Subtract from the sender</span><br><span class="line">        balanceOf[_to] += _value;                           // Add the same to the recipient</span><br><span class="line">        /* Notify anyone listening that this transfer took place */</span><br><span class="line">        emit Transfer(msg.sender, _to, _value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1><span id="상속을-이용한-보다-심플란-contract-작성하기">상속을 이용한 보다 심플란 contract 작성하기</span></h1><p>is owned를 통해 상속을 하여 owner 변수와 onlyOwner modifier에 접근할 수 있게 되었다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.20;</span><br><span class="line"></span><br><span class="line">contract owned &#123;</span><br><span class="line">    address public owner;</span><br><span class="line"></span><br><span class="line">    function owned() &#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyOwner &#123;</span><br><span class="line">        require(msg.sender == owner);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function transferOwnership(address newOwner) onlyOwner &#123;</span><br><span class="line">        owner = newOwner;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract MyToken is owned&#123;</span><br><span class="line">    event Transfer(address indexed from, address indexed to, uint256 value);</span><br><span class="line">    /* This creates an array with all balances */</span><br><span class="line">    mapping (address =&gt; uint256) public balanceOf;</span><br><span class="line">    string public name;</span><br><span class="line">    string public symbol;</span><br><span class="line">    uint8 public decimals;</span><br><span class="line">    /* Initializes contract with initial supply tokens to the creator of the contract */</span><br><span class="line">    function MyToken(</span><br><span class="line">        uint256 initialSupply,</span><br><span class="line">        string tokenName,</span><br><span class="line">        uint8 decimalUnits,</span><br><span class="line">        string tokenSymbol,</span><br><span class="line">        address centralMinter</span><br><span class="line">        ) &#123;</span><br><span class="line">        if(centralMinter != 0 ) owner = centralMinter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Send coins */</span><br><span class="line">    function transfer(address _to, uint256 _value) public &#123;</span><br><span class="line">        require(balanceOf[msg.sender] &gt;= _value);           // Check if the sender has enough</span><br><span class="line">        require(balanceOf[_to] + _value &gt;= balanceOf[_to]); // Check for overflows</span><br><span class="line">        balanceOf[msg.sender] -= _value;                    // Subtract from the sender</span><br><span class="line">        balanceOf[_to] += _value;                           // Add the same to the recipient</span><br><span class="line">        /* Notify anyone listening that this transfer took place */</span><br><span class="line">        emit Transfer(msg.sender, _to, _value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>#</p>
-<h1><span id="향상된-최종-코인">향상된 최종 코인</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.16;</span><br><span class="line"></span><br><span class="line">contract owned &#123;</span><br><span class="line">    address public owner;</span><br><span class="line"></span><br><span class="line">    function owned() public &#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyOwner &#123;</span><br><span class="line">        require(msg.sender == owner);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function transferOwnership(address newOwner) onlyOwner public &#123;</span><br><span class="line">        owner = newOwner;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface tokenRecipient &#123; function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; &#125;</span><br><span class="line"></span><br><span class="line">contract TokenERC20 &#123;</span><br><span class="line">    // Public variables of the token</span><br><span class="line">    string public name;</span><br><span class="line">    string public symbol;</span><br><span class="line">    uint8 public decimals = 18;</span><br><span class="line">    // 18 decimals is the strongly suggested default, avoid changing it</span><br><span class="line">    uint256 public totalSupply;</span><br><span class="line"></span><br><span class="line">    // This creates an array with all balances</span><br><span class="line">    mapping (address =&gt; uint256) public balanceOf;</span><br><span class="line">    mapping (address =&gt; mapping (address =&gt; uint256)) public allowance;</span><br><span class="line"></span><br><span class="line">    // This generates a public event on the blockchain that will notify clients</span><br><span class="line">    event Transfer(address indexed from, address indexed to, uint256 value);</span><br><span class="line"></span><br><span class="line">    // This notifies clients about the amount burnt</span><br><span class="line">    event Burn(address indexed from, uint256 value);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Constrctor function</span><br><span class="line">     *</span><br><span class="line">     * Initializes contract with initial supply tokens to the creator of the contract</span><br><span class="line">     */</span><br><span class="line">    function TokenERC20(</span><br><span class="line">        uint256 initialSupply,</span><br><span class="line">        string tokenName,</span><br><span class="line">        string tokenSymbol</span><br><span class="line">    ) public &#123;</span><br><span class="line">        totalSupply = initialSupply * 10 ** uint256(decimals);  // Update total supply with the decimal amount</span><br><span class="line">        balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens</span><br><span class="line">        name = tokenName;                                   // Set the name for display purposes</span><br><span class="line">        symbol = tokenSymbol;                               // Set the symbol for display purposes</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Internal transfer, only can be called by this contract</span><br><span class="line">     */</span><br><span class="line">    function _transfer(address _from, address _to, uint _value) internal &#123;</span><br><span class="line">        // Prevent transfer to 0x0 address. Use burn() instead</span><br><span class="line">        require(_to != 0x0);</span><br><span class="line">        // Check if the sender has enough</span><br><span class="line">        require(balanceOf[_from] &gt;= _value);</span><br><span class="line">        // Check for overflows</span><br><span class="line">        require(balanceOf[_to] + _value &gt; balanceOf[_to]);</span><br><span class="line">        // Save this for an assertion in the future</span><br><span class="line">        uint previousBalances = balanceOf[_from] + balanceOf[_to];</span><br><span class="line">        // Subtract from the sender</span><br><span class="line">        balanceOf[_from] -= _value;</span><br><span class="line">        // Add the same to the recipient</span><br><span class="line">        balanceOf[_to] += _value;</span><br><span class="line">        emit Transfer(_from, _to, _value);</span><br><span class="line">        // Asserts are used to use static analysis to find bugs in your code. They should never fail</span><br><span class="line">        assert(balanceOf[_from] + balanceOf[_to] == previousBalances);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Transfer tokens</span><br><span class="line">     *</span><br><span class="line">     * Send `_value` tokens to `_to` from your account</span><br><span class="line">     *</span><br><span class="line">     * @param _to The address of the recipient</span><br><span class="line">     * @param _value the amount to send</span><br><span class="line">     */</span><br><span class="line">    function transfer(address _to, uint256 _value) public &#123;</span><br><span class="line">        _transfer(msg.sender, _to, _value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Transfer tokens from other address</span><br><span class="line">     *</span><br><span class="line">     * Send `_value` tokens to `_to` in behalf of `_from`</span><br><span class="line">     *</span><br><span class="line">     * @param _from The address of the sender</span><br><span class="line">     * @param _to The address of the recipient</span><br><span class="line">     * @param _value the amount to send</span><br><span class="line">     */</span><br><span class="line">    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) &#123;</span><br><span class="line">        require(_value &lt;= allowance[_from][msg.sender]);     // Check allowance</span><br><span class="line">        allowance[_from][msg.sender] -= _value;</span><br><span class="line">        _transfer(_from, _to, _value);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Set allowance for other address</span><br><span class="line">     *</span><br><span class="line">     * Allows `_spender` to spend no more than `_value` tokens in your behalf</span><br><span class="line">     *</span><br><span class="line">     * @param _spender The address authorized to spend</span><br><span class="line">     * @param _value the max amount they can spend</span><br><span class="line">     */</span><br><span class="line">    function approve(address _spender, uint256 _value) public</span><br><span class="line">        returns (bool success) &#123;</span><br><span class="line">        allowance[msg.sender][_spender] = _value;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Set allowance for other address and notify</span><br><span class="line">     *</span><br><span class="line">     * Allows `_spender` to spend no more than `_value` tokens in your behalf, and then ping the contract about it</span><br><span class="line">     *</span><br><span class="line">     * @param _spender The address authorized to spend</span><br><span class="line">     * @param _value the max amount they can spend</span><br><span class="line">     * @param _extraData some extra information to send to the approved contract</span><br><span class="line">     */</span><br><span class="line">    function approveAndCall(address _spender, uint256 _value, bytes _extraData)</span><br><span class="line">        public</span><br><span class="line">        returns (bool success) &#123;</span><br><span class="line">        tokenRecipient spender = tokenRecipient(_spender);</span><br><span class="line">        if (approve(_spender, _value)) &#123;</span><br><span class="line">            spender.receiveApproval(msg.sender, _value, this, _extraData);</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Destroy tokens</span><br><span class="line">     *</span><br><span class="line">     * Remove `_value` tokens from the system irreversibly</span><br><span class="line">     *</span><br><span class="line">     * @param _value the amount of money to burn</span><br><span class="line">     */</span><br><span class="line">    function burn(uint256 _value) public returns (bool success) &#123;</span><br><span class="line">        require(balanceOf[msg.sender] &gt;= _value);   // Check if the sender has enough</span><br><span class="line">        balanceOf[msg.sender] -= _value;            // Subtract from the sender</span><br><span class="line">        totalSupply -= _value;                      // Updates totalSupply</span><br><span class="line">        emit Burn(msg.sender, _value);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Destroy tokens from other account</span><br><span class="line">     *</span><br><span class="line">     * Remove `_value` tokens from the system irreversibly on behalf of `_from`.</span><br><span class="line">     *</span><br><span class="line">     * @param _from the address of the sender</span><br><span class="line">     * @param _value the amount of money to burn</span><br><span class="line">     */</span><br><span class="line">    function burnFrom(address _from, uint256 _value) public returns (bool success) &#123;</span><br><span class="line">        require(balanceOf[_from] &gt;= _value);                // Check if the targeted balance is enough</span><br><span class="line">        require(_value &lt;= allowance[_from][msg.sender]);    // Check allowance</span><br><span class="line">        balanceOf[_from] -= _value;                         // Subtract from the targeted balance</span><br><span class="line">        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&apos;s allowance</span><br><span class="line">        totalSupply -= _value;                              // Update totalSupply</span><br><span class="line">        emit Burn(_from, _value);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/******************************************/</span><br><span class="line">/*       ADVANCED TOKEN STARTS HERE       */</span><br><span class="line">/******************************************/</span><br><span class="line"></span><br><span class="line">contract MyAdvancedToken is owned, TokenERC20 &#123;</span><br><span class="line"></span><br><span class="line">    uint256 public sellPrice;</span><br><span class="line">    uint256 public buyPrice;</span><br><span class="line"></span><br><span class="line">    mapping (address =&gt; bool) public frozenAccount;</span><br><span class="line"></span><br><span class="line">    /* This generates a public event on the blockchain that will notify clients */</span><br><span class="line">    event FrozenFunds(address target, bool frozen);</span><br><span class="line"></span><br><span class="line">    /* Initializes contract with initial supply tokens to the creator of the contract */</span><br><span class="line">    function MyAdvancedToken(</span><br><span class="line">        uint256 initialSupply,</span><br><span class="line">        string tokenName,</span><br><span class="line">        string tokenSymbol</span><br><span class="line">    ) TokenERC20(initialSupply, tokenName, tokenSymbol) public &#123;&#125;</span><br><span class="line"></span><br><span class="line">    /* Internal transfer, only can be called by this contract */</span><br><span class="line">    function _transfer(address _from, address _to, uint _value) internal &#123;</span><br><span class="line">        require (_to != 0x0);                               // Prevent transfer to 0x0 address. Use burn() instead</span><br><span class="line">        require (balanceOf[_from] &gt;= _value);               // Check if the sender has enough</span><br><span class="line">        require (balanceOf[_to] + _value &gt;= balanceOf[_to]); // Check for overflows</span><br><span class="line">        require(!frozenAccount[_from]);                     // Check if sender is frozen</span><br><span class="line">        require(!frozenAccount[_to]);                       // Check if recipient is frozen</span><br><span class="line">        balanceOf[_from] -= _value;                         // Subtract from the sender</span><br><span class="line">        balanceOf[_to] += _value;                           // Add the same to the recipient</span><br><span class="line">        emit Transfer(_from, _to, _value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// @notice Create `mintedAmount` tokens and send it to `target`</span><br><span class="line">    /// @param target Address to receive the tokens</span><br><span class="line">    /// @param mintedAmount the amount of tokens it will receive</span><br><span class="line">    function mintToken(address target, uint256 mintedAmount) onlyOwner public &#123;</span><br><span class="line">        balanceOf[target] += mintedAmount;</span><br><span class="line">        totalSupply += mintedAmount;</span><br><span class="line">        emit Transfer(0, this, mintedAmount);</span><br><span class="line">        emit Transfer(this, target, mintedAmount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// @notice `freeze? Prevent | Allow` `target` from sending &amp; receiving tokens</span><br><span class="line">    /// @param target Address to be frozen</span><br><span class="line">    /// @param freeze either to freeze it or not</span><br><span class="line">    function freezeAccount(address target, bool freeze) onlyOwner public &#123;</span><br><span class="line">        frozenAccount[target] = freeze;</span><br><span class="line">        emit FrozenFunds(target, freeze);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// @notice Allow users to buy tokens for `newBuyPrice` eth and sell tokens for `newSellPrice` eth</span><br><span class="line">    /// @param newSellPrice Price the users can sell to the contract</span><br><span class="line">    /// @param newBuyPrice Price users can buy from the contract</span><br><span class="line">    function setPrices(uint256 newSellPrice, uint256 newBuyPrice) onlyOwner public &#123;</span><br><span class="line">        sellPrice = newSellPrice;</span><br><span class="line">        buyPrice = newBuyPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// @notice Buy tokens from contract by sending ether</span><br><span class="line">    function buy() payable public &#123;</span><br><span class="line">        uint amount = msg.value / buyPrice;               // calculates the amount</span><br><span class="line">        _transfer(this, msg.sender, amount);              // makes the transfers</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// @notice Sell `amount` tokens to contract</span><br><span class="line">    /// @param amount amount of tokens to be sold</span><br><span class="line">    function sell(uint256 amount) public &#123;</span><br><span class="line">        require(address(this).balance &gt;= amount * sellPrice);      // checks if the contract has enough ether to buy</span><br><span class="line">        _transfer(msg.sender, this, amount);              // makes the transfers</span><br><span class="line">        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&apos;s important to do this last to avoid recursion attacks</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/05/09/이더리움-greeter-만들기/" itemprop="url">
-                이더리움 Greeter 만들기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-05-09T02:41:18.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                2 minutes read (About 283 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="greeter-contract-만들기">Greeter Contract 만들기</span></h1><p>Greeter.sol</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">contract Mortal &#123;</span><br><span class="line">    <span class="comment">/* Define variable owner of the type address */</span></span><br><span class="line">    address owner;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This function is executed at initialization and sets the owner of the contract */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Mortal</span>(<span class="params"></span>) </span>&#123; owner = msg.sender; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Function to recover the funds on the contract */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">kill</span>(<span class="params"></span>) </span>&#123; <span class="keyword">if</span> (msg.sender == owner) selfdestruct(owner); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Greeter is Mortal &#123;</span><br><span class="line">    <span class="comment">/* Define variable greeting of the type string */</span></span><br><span class="line">    string greeting;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This runs when the contract is executed */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Greeter</span>(<span class="params">string _greeting</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        greeting = _greeting;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Main function */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>) <span class="title">constant</span> <span class="title">returns</span> (<span class="params">string</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> greeting;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1><span id="solidity-compiler-설치-및-컴파일-하기">solidity compiler 설치 및 컴파일 하기</span></h1><p><strong>solcjs 설치하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g solc</span><br></pre></td></tr></table></figure></p>
-<p><strong>컴파일 하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solcjs -o target --bin --abi Greeter.sol</span><br></pre></td></tr></table></figure></p>
-<h1><span id="js-스크립트-작성">js 스크립트 작성</span></h1><p><strong>main.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var greeterFactory = eth.contract(&lt;contents of the file Greeter.abi&gt;)</span><br><span class="line"></span><br><span class="line">var greeterCompiled = &quot;0x&quot; + &quot;&lt;contents of the file Greeter.bin&gt;&quot;</span><br><span class="line"></span><br><span class="line">var _greeting = &quot;Hello World!&quot;</span><br><span class="line"></span><br><span class="line">var greeter = greeterFactory.new(_greeting,&#123;from:eth.accounts[0],data:greeterCompiled,gas:47000000&#125;, function(e, contract)&#123;</span><br><span class="line">    if(e) &#123;</span><br><span class="line">      console.error(e); // If something goes wrong, at least we&apos;ll know.</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!contract.address) &#123;</span><br><span class="line">      console.log(&quot;Contract transaction send: TransactionHash: &quot; + contract.transactionHash + &quot; waiting to be mined...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      console.log(&quot;Contract mined! Address: &quot; + contract.address);</span><br><span class="line">      console.log(contract);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h1><span id="geth-console-에서-스크립트-실행">geth console 에서 스크립트 실행</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loadScript(&quot;main.js&quot;)</span><br></pre></td></tr></table></figure>
-<h1><span id="채굴-시작-및-greeter-실행">채굴 시작 및 greeter 실행</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">miner.start()</span><br></pre></td></tr></table></figure>
-<p>채굴이 완료되면 contract에 address가 부여되고 계약이 발행된다.</p>
-<p>이제는 블록체인 상에 greeter라는 봇이 생성되었으므로 다음과 같이 자유롭게 호출하여 사용이 가능하다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">greeter.greet();</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -676,7 +729,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/page/22/">22</a></li>
+        <li><a class="pagination-link" href="/page/23/">23</a></li>
         
     </ul>
 </nav>
