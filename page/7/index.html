@@ -91,6 +91,68 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/08/12/c-언어-포인터/" itemprop="url">
+                c 언어 포인터
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-08-11T15:04:14.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/c/">c</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 863 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="c-언어-포인터">C 언어 포인터</span></h1><p>c 에서 포인터를 통해 직접 데이터의 주소에 접근할 수 있으며, 이러한 특성 때문에 C 언어가 low 하다고 불린다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num =<span class="number">5</span>; <span class="comment">// 정수형 변수 num을 생성한다.</span></span><br><span class="line">    <span class="keyword">int</span> * pnum = &amp;num; <span class="comment">// 정수형 변수 num을 가리키는 포인터 변수 pnum을 선언한다.</span></span><br><span class="line">    *pnum = <span class="number">10</span>; <span class="comment">// pnum이 가리키는 변수에 10을 저장하라</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이처럼 특정 자료를 가리키는 자료형을 정의 할 수 있고, 이를 포인터라 한다. </p>
+<p>포인터는 특정 자료형을 가리키고 있다.</p>
+<p>여기서 포인터는 어떤 변수를 가리키는 그 자체이므로 메모리의 특정 주소값을 가진다.</p>
+<p>때문에 포인터를 선언할 때에는 매우 신중해야 하는데 선언 후 아무 값도 할당 하지 않는다면 포인터는 쓰레기 값으로 초기화 되기 때문이다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pnum = <span class="number">399</span>;</span><br></pre></td></tr></table></figure>
+<p>가령 위와 같은 코드는 매우 위험한데 이는 pnum이라는 포인터에 399를 할당하고 있고, 우리는 399 의 주소값이 얼마나 중요한 주소인지 전혀 이해하고 있지 못하기 때문이다. 이를 해결하기 위해 반드시 우리는 해당 포인터 값이 이상한 값을 가리키지 않도록 해야 하는데 주로 다음과 같이 널 포인터를 지정해 준다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *ptr2 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> *ptr2 = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 NULL 혹은 0 으로 초기화 하면 시스템은 이것을 0 번째 주소값으로 인식하지 않고 아무것도 가리키지 않는 포인터를 만들어 낸다.</p>
+<h2><span id="포인터와-배열의-관계">포인터와 배열의 관계</span></h2><p>c 언어에서 배열의 이름은 그 자체로 포인터 이며, 정확히 말하면 배열의 첫번째 요소의 주소값이다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>, arr); <span class="comment">// 주소값이 나온다.</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>, arr[<span class="number">0</span>]); <span class="comment">// 위와 같은 주소값이 나온다. 즉, 배열의 주소는 첫번째 값의 주소를 의미한다.</span></span><br></pre></td></tr></table></figure>
+<p> 변수 형태의 문자열 vs 상수형태의 문자열</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str1[] = <span class="string">"my string"</span>;</span><br><span class="line"><span class="keyword">char</span> * str2 = <span class="string">"your string"</span>;</span><br><span class="line"></span><br><span class="line">str1[<span class="number">0</span>] = <span class="string">"x"</span>;<span class="comment">// 문자열 변경 성공</span></span><br><span class="line">str2[<span class="number">0</span>] = <span class="string">"x"</span>; <span class="comment">// 문자열 변경 실패</span></span><br></pre></td></tr></table></figure>
+<p>위처럼 모든 문자열 혹은 배열을 선언하면 그 자체는 그 문자열 혹은 배열의 첫번째 요소의 주소값이 된다.</p>
+<p>하지만 위에서 처럼 문자열 혹은 배열 자체를 선언하는 경우와 그것의 주소값을 선언하는 경우에 따라 그 값의 변경 가능 유무가 결정이 된다.</p>
+<p>위의 예처럼 str1의 경우 문자열 자체를 저장한 변수형 문자열이며, str2의 경우 문자열에 대한 주소값을 저장하는 상수 형태의 문자열이기 때문에 가리키는 값의 내용이 변경될 수 없다.</p>
+<h2><span id="포인터-변수로-이루어진-배열">포인터 변수로 이루어진 배열</span></h2><p>다음과 같이 포인터 변수로 이루어진 배열을 선언할 수 있다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> * strArr[<span class="number">3</span>] = &#123;<span class="string">"Simple"</span>, <span class="string">"String"</span>, <span class="string">"Array"</span>&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%s \n"</span>,strArr[<span class="number">0</span>]) <span class="comment">// Simple</span></span><br></pre></td></tr></table></figure>
+<p>위처럼 “” 로 감싸진 문자열은 그 자체로 주소값을 나타내기 때문에 위와 같은 결과가 나오게 된다.</p>
+<p>큰 따옴표로 묶여서 표현되는 문자열은 그 형태에 상관없이 메모리 공간에 저장된 후 그 주소값이 반환된다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/08/06/ejs-를-통해-express-에서-server-rendering-하기/" itemprop="url">
                 ejs 를 통해 express 에서 server rendering 하기
             </a>
@@ -626,62 +688,6 @@
 <h3><span id="example-of-declarative-programming">example of declarative programming</span></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> string = <span class="string">"This is the mid day show with Cheryl Waters"</span> <span class="keyword">const</span> urlFriendly = string.replace(<span class="regexp">/ /g</span>, <span class="string">"-"</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(urlFriendly)</span><br></pre></td></tr></table></figure>
 <p>위 예제와 같이 선언형 프로그래밍에서는 모든 작업이 replace라는 선언아래 감추어져 있고, 개발자가 코드를 보았을 때 어떤일이 벌어지는지 매우 명확하게 알 수 있다.</p>
 <p>code itself describes what is happening</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/07/13/hyperwallet-결제/" itemprop="url">
-                hyperwallet 결제
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-07-13T09:43:29.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/hyperwallet/">hyperwallet</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 465 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="hyperwallet">hyperwallet</span></h1><p>Hyper wallet 결제 방식</p>
-<p>Payment fund    는 미리 준비된 카드나 은행 계좌로 옮겨진다.</p>
-<p>요청에 따라 미래에 결제를 완료할 수 있다.</p>
-<p>Client 객체를 통해 결제를 진행한다.</p>
-<p>핵심적인 엔티티의 의미는 다음과 같다.</p>
-<p>DestinationToken<br>For Portal solutions, provide a user-token</p>
-<p>For Select solutions, provide a user-token</p>
-<p>For Direct solutions, provide a bank-account-token</p>
-<p>For Card solutions, provide a prepaid-card-token</p>
-<p>Destination Token에 따라 계좌 혹은 유저 계정으로 돈을 보낼 수 있다.<br>var Hyperwallet = require(‘hyperwallet-node’);<br>var client = new Hyperwallet({ username: ‘testuser@12345678’, password: ‘myAccPassw0rd’ });</p>
-<p>client.createPayment({<br>  “amount”: “20.00”,<br>  “clientPaymentId”: “DyClk0VG”,<br>  “currency”: “USD”,<br>  “destinationToken”: “usr-c4292f1a-866f-4310-a289-b916853939de”,<br>  “programToken”: “prg-83836cdf-2ce2-4696-8bc5-f1b86077238c”,<br>  “purpose”: “OTHER”<br>}, function(error, body) {<br>  // handle response body here<br>});</p>
-<p>expiresOn<br>When the payment will expire if unclaimed<br>curl -X “POST” “<a href="https://api.sandbox.hyperwallet.com/rest/v3/transfers&quot;" target="_blank" rel="noopener">https://api.sandbox.hyperwallet.com/rest/v3/transfers&quot;</a> \<br>-u testuser@12345678:myAccPassw0rd \<br>-H “Content-Type: application/json” \<br>-H “Accept: application/json” \<br>-d “{<br>  “clientTransferId”: “6712348070812”,<br>  “destinationAmount”: “125”,<br>  “destinationCurrency”: “USD”,<br>  “notes”: “Partial-Balance Transfer”,<br>  “memo”: “TransferClientId56387”,<br>  “sourceToken”: “usr-ac5727ac-8fe7-42fb-b69d-977ebdd7b48b”,<br>  “destinationToken”: “trm-e3af62b4-24d5-100f-a4eb-ada857b8fc30”<br>}”</p>
-<p>Transfer 이란 Hyperwallet계좌에서 실제 계좌 혹은 카드로 돈을 전송하는 것을 의미한다.<br>sourceToken 엔티티는 대금의 출처를 의미한다. 선지급 카드 혹은 유저 계좌가 들어갈 수 있다.</p>
-<p>싱가포르에서 한국으로 입금 혹은 한국에서 싱가포르로 입금이 가능한가?</p>
-<p>hyperwallet에서 test를 진행하기 위하여 tutorial 에서 발급받은 program key 를 기준으로 테스트를 진행이 가능하다.<br>여기서 user를 생성하고 account를 연결하여 transfer 및 payment를 테스트 가능하다.<br>계좌를 입력하는 경우 iban 코드가 필요한데 이는 international bank account number로 각 계좌마다 존재한다. 하지만 국내 은행의 경우 이러한 iban 이 없는 경우가 ㅁ낳다.<br>Bank swift code는 각 은해마다 존재한다.</p>
 
                         
     </div>

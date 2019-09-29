@@ -88,7 +88,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-29T01:05:54.000Z" itemprop="datePublished">
-                a month ago
+                4 months ago
             </time>
         </span>
         
@@ -96,7 +96,7 @@
                     <span class="column is-narrow">
                         
                             
-                                2 minutes read (About 366 words)
+                                3 minutes read (About 387 words)
                     </span>
                     
     </div>
@@ -105,9 +105,9 @@
                     <h3><span id="전역-설정하기">전역 설정하기</span></h3><p>git 의 사용자 정보 및 사용자별 다른 연결 정보등과 같은 공통의 설정들은 <code>&lt;home&gt;/.gitconfig</code> 파일에 설정할 수 있다.</p>
 <p>이는 <code>git config --global user.name = &lt;USER_NAME&gt;</code> 등과 같은 명령어를 통해서도 가능하지만 파일에 직접 설정을 작성할 수 있다.</p>
 <p>.gitconfig</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	name = &lt;사용자 이름&gt;</span><br><span class="line">	email = &lt;사용자 이메일&gt;</span><br><span class="line">	username = &lt;USER_NAME&gt;</span><br><span class="line">	</span><br><span class="line">[credential]</span><br><span class="line">	helper = cache # 비밀번호를 캐싱하여 계속 입력하지 않아도 되도록 한다.</span><br><span class="line">	</span><br><span class="line">[credential "&lt;CODE_COMMIT_REPOSITORY&gt;"] # 코드 커밋을 사용한다면 설정한다.</span><br><span class="line">	helper = !aws codecommit credential-helper $@</span><br><span class="line">	UseHttpPath = true</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">	editor = "nvim"</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name = &lt;사용자 이름&gt;</span><br><span class="line">	email = &lt;사용자 이메일&gt;</span><br><span class="line">	username = &lt;USER_NAME&gt;</span><br><span class="line">	</span><br><span class="line">[credential]</span><br><span class="line">	helper = cache # 비밀번호를 캐싱하여 계속 입력하지 않아도 되도록 한다.</span><br><span class="line">	</span><br><span class="line">[credential "&lt;CODE_COMMIT_REPOSITORY&gt;"] # 코드 커밋을 사용한다면 설정한다.</span><br><span class="line">	helper = !aws codecommit credential-helper $@</span><br><span class="line">	UseHttpPath = true</span><br></pre></td></tr></table></figure>
 <p> 위 설정은 간단히 아래의 커맨드로도 가능하다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;USER_NAME&gt;</span><br><span class="line">git config --global user.email &lt;USER_EMAIL&gt;</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list # 설정한 내용 확인</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;USER_NAME&gt;</span><br><span class="line">git config --global user.email &lt;USER_EMAIL&gt;</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list # 설정한 내용 확인</span><br><span class="line">git config --global core.editor "nvim" # git command 의 기본 editor 를 nvim 으로 지정.</span><br></pre></td></tr></table></figure>
 <h3><span id="ssh-기반-인증">ssh 기반 인증</span></h3><p>만약 특정 레포지토리가 공개키 방식의 인증과정을 거치고 특정 키를 레포지토리에 등록시켜 두었다면, 해당 인증서를 통해 인증하여 레포지토리와 통신할 수 있다. 이때 여러 레포지토리들은 각각 다른 키를 사용할 수 있는데 이러한 ssh 연결 정보를 특정 레포지토리의 <code>.git/config</code> 파일에 설정해 둘 수 있으며, 그 명령어는 다음과 같다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
 <p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>

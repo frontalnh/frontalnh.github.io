@@ -96,51 +96,13 @@
                     <span class="column is-narrow">
                         
                             
-                                3 minutes read (About 497 words)
+                                2 minutes read (About 274 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <!--toc-->
-<h3><span id="ps">ps</span></h3><p>ps 명령어는 현재 실행중인 프로세스의 목록을 보여준다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep &lt;content&gt;</span><br><span class="line">ps -aux # 모든 그룹과 유저가 실행한 프로세스를 본다.</span><br></pre></td></tr></table></figure>
-<h6><span id="주요옵션">주요옵션</span></h6><p>이외에도 많은 옵션이 있지만 실제로는 grep명령어와 함께 사용하기 때문에 잘 사용하지 않는다.</p>
-<table>
-<thead>
-<tr>
-<th><strong>옵션</strong></th>
-<th><strong>설명</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-e</td>
-<td>모든 프로세스를 출력해 준다.</td>
-</tr>
-<tr>
-<td>-f</td>
-<td>풀 포맷으로 보여준다.(UID, PID 등)</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>긴 포맷으로 보여준다.</td>
-</tr>
-<tr>
-<td>p, -p</td>
-<td>특정 PID의 프로세스를 보여준다.</td>
-</tr>
-<tr>
-<td>-u</td>
-<td>특정 사용자의 프로세스를 보여준다.</td>
-</tr>
-</tbody>
-</table>
-<p><a href="https://arer.tistory.com/150" target="_blank" rel="noopener">출처</a></p>
-<h3><span id="lsof">lsof</span></h3><p>If you want to quickly see the name of files that have been opened by a particular process (or all processes), the lsof command lets you do that</p>
-<p>How to list files based on their Internet address or port</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i 4 # IPv4</span><br><span class="line">lsof -i :3001 # Port</span><br></pre></td></tr></table></figure>
-<h3><span id="wget">wget</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install wget</span><br><span class="line">wget http://naver.com</span><br></pre></td></tr></table></figure>
 <h3><span id="ifconfig">ifconfig</span></h3><p>configure or view the configuration of a network interface</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
 <p>eth0 =&gt; the first ethernet interface</p>

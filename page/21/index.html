@@ -91,6 +91,47 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/11/22/nodejs-express를-활용한-정적-파일-제공/" itemprop="url">
+                nodejs express를 활용한 정적 파일 제공
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-22T07:07:08.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 102 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="정적-파일을-제공할-폴더-설정">정적 파일을 제공할 폴더 설정</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(express.static(&apos;public&apos;));</span><br></pre></td></tr></table></figure>
+<p>express.static을 활용하여 public 폴더를 정적 파일을 제공하기 위한 기본 폴더로 지정한다.</p>
+<h2><span id="정적-파일-요청-양식">정적 파일 요청 양식</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localhost:3000/images/kitten.jpg</span><br><span class="line">localhost:3000/css/style.css</span><br><span class="line">localhost:3000/js/app.js</span><br><span class="line">localhost:3000/images/bg.png</span><br><span class="line">localhost:3000/hello.html</span><br></pre></td></tr></table></figure>
+<p>기본 폴더명인 public은 입력하지 않아도 된다.</p>
+<p><a href="http://expressjs.com/ko/starter/static-files.html" target="_blank" rel="noopener">참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/11/22/여행산업의-모바일화가-우리에게-시사하는-점/" itemprop="url">
                 여행산업의 모바일화가 우리에게 시사하는 점
             </a>
@@ -517,44 +558,6 @@ undefined
 <h2><span id="입력받은-파일을-formdata에-담아-서버로-전송하기">입력받은 파일을 formData에 담아 서버로 전송하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fileChange(event) &#123;</span><br><span class="line">    let fileList: FileList = event.target.files;</span><br><span class="line">    if(fileList.length &gt; 0) &#123;</span><br><span class="line">        let file: File = fileList[0];</span><br><span class="line">        let formData:FormData = new FormData();</span><br><span class="line">        formData.append(&apos;uploadFile&apos;, file, file.name);</span><br><span class="line">        let headers = new Headers();</span><br><span class="line">        /** No need to include Content-Type in Angular 4 */</span><br><span class="line">        headers.append(&apos;Content-Type&apos;, &apos;multipart/form-data&apos;);</span><br><span class="line">        headers.append(&apos;Accept&apos;, &apos;application/json&apos;);</span><br><span class="line">        let options = new RequestOptions(&#123; headers: headers &#125;);</span><br><span class="line">        this.http.post(`$&#123;this.apiEndPoint&#125;`, formData, options)</span><br><span class="line">            .map(res =&gt; res.json())</span><br><span class="line">            .catch(error =&gt; Observable.throw(error))</span><br><span class="line">            .subscribe(</span><br><span class="line">                data =&gt; console.log(&apos;success&apos;),</span><br><span class="line">                error =&gt; console.log(error)</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2><span id="node-server에서-수신하기">node server에서 수신하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">router.post(&apos;/cover_img&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;커버이미지 저장 시작!&quot;);</span><br><span class="line">  var form = new formidable.IncomingForm();</span><br><span class="line">  form.parse(req, function (err, fields, files) &#123;</span><br><span class="line">    console.log(files);</span><br><span class="line">    var oldpath = files.uploadFile.path;</span><br><span class="line">    var newpath = &quot;/var/www/html/contents_cover_img/&quot; + files.uploadFile.name;</span><br><span class="line">    fs.rename(oldpath, newpath, function (err) &#123;</span><br><span class="line">      if (err) throw err;</span><br><span class="line">      res.sendStatus(200);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p><a href="https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp" target="_blank" rel="noopener">참고자료</a></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/11/19/NodeJs-urlencode를-활용한-한글-인코딩/" itemprop="url">
-                NodeJs urlencode를 활용한 한글 인코딩
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-18T16:36:59.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 28 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Npm install urlencode --save</span><br><span class="line">var urlencode = require(&apos;urlencode&apos;); console.log(urlencode(&apos;변환&apos;)); console.log(urlencode.decode(&apos;%EB%B3%80%ED%99%98&apos;));</span><br></pre></td></tr></table></figure>
-<p><a href="http://uiandwe.tistory.com/1002" target="_blank" rel="noopener">참고자료</a></p>
 
                         
     </div>

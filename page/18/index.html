@@ -91,6 +91,62 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2017/12/17/Python-설치-및-기본설정/" itemprop="url">
+                Python 설치 및 기본설정
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-16T15:00:57.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 554 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="python-다운로드">python 다운로드</span></h2><p>파이썬을 다운로드 한다.<br><a href="https://www.python.org/downloads/release/python-354/" target="_blank" rel="noopener">다운로드 하기</a></p>
+<p>여기서 유의할 점은 아직 tensorflow는 python 3.5까지 밖에 지원하지 않는다는 점이다.<br>그리고 반드시! 64bit 버전을 설치해야 한다.</p>
+<h2><span id="python-환경변수-추가-하기">python 환경변수 추가 하기</span></h2><p>시스템 환경변수에 python을 추가한다.<br>시스템속성-환경변수의<br>path에 python 설치경로를 추가한다.</p>
+<p>또, PYTHONPATH란 이름으로 python의 lib 폴더 디렉토리를 환경변수로 추가한다.</p>
+<p><img src="\images\환경변수이미지.png" alt="환경변수 이미지"></p>
+<h2><span id="pip-사용을-위해-환경변수-추가하기">pip 사용을 위해 환경변수 추가하기</span></h2><p>시스템속성-환경변수의 path에<br>에서 python의 script폴더를 추가해준다.</p>
+<h2><span id="pip-설치하기">pip 설치하기</span></h2><p>파이썬의 다양한 라이브러리를 이용하기 위한 패키지 매니저인 pip을 설치한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python3-pip</span><br></pre></td></tr></table></figure></p>
+<h2><span id="gpio의-활용">GPIO의 활용</span></h2><p>General Purpose Input Output 단자를 활용하기 위한 패키지를 설치한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-rpi.gpio python3-rpi.gpio</span><br></pre></td></tr></table></figure></p>
+<h2><span id="통신을-위한-requests-라이브러리">통신을 위한 requests 라이브러리</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install requests</span><br></pre></td></tr></table></figure>
+<h2><span id="python-picamera">python-picamera</span></h2><p>파이썬 카메라 설치<br><code>sudo apt-get install python-picamera</code></p>
+<p>파이 카메라 기본 활용 코드<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import picamera</span><br><span class="line"></span><br><span class="line">with picamera.PiCamera() as camera:</span><br><span class="line">    camera.start_preview()</span><br><span class="line">    time.sleep(5)</span><br><span class="line">    camera.capture(&apos;/home/pi/Desktop/image.jpg&apos;)</span><br><span class="line">    camera.stop_preview()</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://www.hardcopyworld.com/gnuboard5/bbs/board.php?bo_table=lecture_rpi&amp;wr_id=11" target="_blank" rel="noopener">파이 카메라의 활용 링크</a></p>
+<h2><span id="pytesseract">pytesseract</span></h2><p>설치<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade pip</span><br><span class="line"></span><br><span class="line">pip install wheel</span><br><span class="line"></span><br><span class="line">sudo apt-get install python-opencv</span><br><span class="line"></span><br><span class="line">Sudp apt install tesseract-ocr</span><br><span class="line"></span><br><span class="line">Pip install pytesseract</span><br></pre></td></tr></table></figure></p>
+<h2><span id="webbrowser">webbrowser</span></h2><h3><span id="웹-브라우저-열기">웹 브라우저 열기</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import webbrowser</span><br><span class="line">webbrowser.open(&quot;http://www.naver.com&quot;)</span><br></pre></td></tr></table></figure>
+<h2><span id="time">time</span></h2><h2><span id="os">os</span></h2><h3><span id="파일-시스템의-파일-목록-받아오기">파일 시스템의 파일 목록 받아오기</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.listdir()</span><br></pre></td></tr></table></figure>
+<h3><span id="파일-시스템의-이름-바꾸기">파일 시스템의 이름 바꾸기</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.rename(src,destination)</span><br></pre></td></tr></table></figure>
+<h2><span id="turtle">turtle</span></h2><h3><span id="개요">개요</span></h3><p>윈도우에서 그림을 그리는 라이브러리</p>
+<h3><span id="example">example</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import turtle</span><br><span class="line">der draw_square():</span><br><span class="line">  window=turtle.Screen()</span><br><span class="line">  window.bgcolor(&quot;red&quot;)</span><br><span class="line"></span><br><span class="line">  brad=turtle.Turtle()</span><br><span class="line">  brad.shape(&quot;turtle&quot;);</span><br><span class="line">  brad.color(&quot;yellow&quot;);</span><br><span class="line">  brad.speed(2)</span><br><span class="line"></span><br><span class="line">  brad.forward(100)</span><br><span class="line">  brad.right(90)</span><br><span class="line">  brad.forward(100)</span><br><span class="line">  brad.right(90)</span><br><span class="line">  brad.forward(100)</span><br><span class="line">  brad.right(90)</span><br><span class="line">  brad.forward(100)</span><br><span class="line">  brad.right(90)</span><br><span class="line"></span><br><span class="line">  window.exitonclick()</span><br><span class="line">draw_square()</span><br></pre></td></tr></table></figure>
+<h1><span id="class">class</span></h1><h2><span id="기본-구조">기본 구조</span></h2><h2><span id="상속">상속</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Parent():</span><br><span class="line">  def __init__(self, last_name, eye_color):</span><br><span class="line">    print(&quot;Parent Constructor called&quot;);</span><br><span class="line">    self.last_name=last_name</span><br><span class="line">    self.eye_color=eye_color</span><br><span class="line"></span><br><span class="line">class Child(Parent):</span><br><span class="line">  def __init__(self, last_name, eye_color):</span><br><span class="line">    Parent.__init__(self,last_name,eye_color)</span><br><span class="line">    self.number_of_toys=number_of_toys</span><br></pre></td></tr></table></figure>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2017/12/16/머신러닝강의 1강 - 머신러닝의 기본 개념/" itemprop="url">
                 머신러닝강의 01. 머신러닝의 기본 개념
             </a>
@@ -668,76 +724,6 @@
 <h2><span id="서버-코드">서버 코드</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">var multiparty = require(&apos;multiparty&apos;);</span><br><span class="line">var thumb = require(&apos;node-thumbnail&apos;).thumb;</span><br><span class="line"></span><br><span class="line">router.post(&apos;/thumbnail&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;썸네일 변경!&quot;);</span><br><span class="line">  var form = new multiparty.Form();</span><br><span class="line">  form.parse(req,function(err,fields, files)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">      console.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.keys(fields).forEach(function(name) &#123;</span><br><span class="line">      console.log(&apos;got field named &apos; + name);</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(&quot;files:&quot;, files);</span><br><span class="line"></span><br><span class="line">    var fileName=fields.fileName[0];</span><br><span class="line">    var oldPath = files.imageFile[0].path;</span><br><span class="line">    console.log(fileName);</span><br><span class="line">    // 서버에서 돌리는 부분</span><br><span class="line">    var newPath = &apos;/root/imageServer/public/images&apos;;</span><br><span class="line">    </span><br><span class="line">    thumb(&#123;</span><br><span class="line">      basename:fileName.split(&quot;.&quot;)[0],</span><br><span class="line">      suffix:&apos;&apos;,</span><br><span class="line">      source: oldPath,</span><br><span class="line">      destination: newPath,</span><br><span class="line">      width: 300</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">      console.log(&apos;Success&apos;);</span><br><span class="line">      res.sendStatus(200)</span><br><span class="line">    &#125;).catch(function(e) &#123;</span><br><span class="line">      console.log(&apos;Error&apos;, e.toString());</span><br><span class="line">      res.sendStatus(500);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h2><span id="default-options">default options</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">defaults = &#123;</span><br><span class="line">  prefix: &apos;&apos;,</span><br><span class="line">  suffix: &apos;_thumb&apos;,</span><br><span class="line">  digest: false,</span><br><span class="line">  hashingType: &apos;sha1&apos;, // &apos;sha1&apos;, &apos;md5&apos;, &apos;sha256&apos;, &apos;sha512&apos;</span><br><span class="line">  width: 800,</span><br><span class="line">  concurrency: &lt;num of cpus&gt;,</span><br><span class="line">  quiet: false, // if set to &apos;true&apos;, console.log status messages will be supressed</span><br><span class="line">  overwrite: false,</span><br><span class="line">  basename: undefined, // basename of the thumbnail. If unset, the name of the source file is used as basename.</span><br><span class="line">  ignore: false, // Ignore unsupported files in &quot;dest&quot;</span><br><span class="line">  logger: function(message) &#123;</span><br><span class="line">    console.log(message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2><span id="reference"></span></h2>
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/07/Rxjs-시작하기/" itemprop="url">
-                Rxjs 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-06T16:09:55.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 683 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#rxjs-란">RxJs 란?</a></li>
-<li><a href="#알기쉬운-rxjs-강의-01-rxjs-의-기본-개념">알기쉬운 Rxjs 강의 01. Rxjs 의 기본 개념</a><ul>
-<li><a href="#what-is-reactive-programming">What is Reactive programming</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#observable">Observable</a></li>
-</ul>
-</li>
-<li><a href="#rxjs-강의-02-data-stream-만들기-from-of-interval-range">Rxjs 강의 02. Data stream 만들기 - from, of, interval, range</a></li>
-<li><a href="#rxjs-강의-03-data-stream-합치기-merge">Rxjs 강의 03. Data stream 합치기 - merge</a></li>
-<li><a href="#rxjs-강의-04-data-stream-걸러내기-filter">Rxjs 강의 04. Data stream 걸러내기 - filter</a></li>
-<li><a href="#rxjs-강의-05-data-stream-변형하기-map">Rxjs 강의 05. Data stream 변형하기 - map</a></li>
-<li><a href="#rxjs-강의-06-복잡한-data-stream-처리하기-mergemap-mergeall">Rxjs 강의 06. 복잡한 Data stream 처리하기 - mergeMap, mergeAll</a></li>
-</ul>
-<!-- tocstop -->
-<h2><span id="rxjs-란">RxJs 란?</span></h2><h2><span id="알기쉬운-rxjs-강의-01-rxjs-의-기본-개념">알기쉬운 Rxjs 강의 01. Rxjs 의 기본 개념</span></h2><h3><span id="what-is-reactive-programming">What is Reactive programming</span></h3><p><strong>Reactive Programming</strong> <em>is an asynchronous programming paradigm concerned with data streams and the propagation of change</em></p>
-<p>일반적인 프로그래밍 특히 객체 지향 프로그래밍에서는 눈에보이는 객체들을 기반으로한 프로그래밍이 일반적이었습니다.</p>
-<p>때문에 어떤 일련의 작업은 순차적인 작업들의 나열이라고 볼 수 있습니다. 즉, 컴퓨터가 어떤 일을 시킬 때에는 일반적으로 시간이 흐름에 따라 순차적으로 어떤 일을 처리하라고 명령을 내리는 것이 일반적인 생각입니다. </p>
-<p>하지만, 실제 생활에서는 다음과 같이 순차적인 작업이 아닌 다소 추상적인 작업들이 필요한 경우가 있습니다.</p>
-<blockquote>
-<p>1시간에 한번씩 청소를 해. 청소는 30분 동안 하되, 10분 간격으로 두번 쉬면서 총 3번에 걸쳐서 청소를 해.</p>
-</blockquote>
-<p>만약 컴퓨터에게 위와 같은 작업을 시키기 위해서는 어떻게 해야 할까요?</p>
-<p>reactive programming 은 이러한 추상적인 시간 개념을 포괄하는 여러 복잡한 비동기 작업을 수행하기 위한 노력은 <strong>Data stream</strong> 이라는 개념을 도입함으로써 해결하고자 합니다.</p>
-<p>즉, 시간에 따른 일련의 데이터의 흐름 자체를 프로그래밍 적으로 순차적 작업이 아닌 여러 비동기 작업들을 물흐르듯이 간편하게 처리하고자 합니다.</p>
-<p><strong>Rxjs</strong> 란 이러한 reactive programming 을 위한 여러 개념들을 구현한 javascript 구현체이며, <strong>reactive programming 을 위한 javascript library</strong> 라고 생각하시면 됩니다.</p>
-<h3><span id="installation">Installation</span></h3><p>본 강의 에서는 기본적으로 javascript 를 구동가능한 node.js runtime 이 설치되어 있다고 가정합니다.</p>
-<p>다음과 같이 rxjs 를 설치해 줍니다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save rxjs</span><br></pre></td></tr></table></figure>
-<h3><span id="observable">Observable</span></h3><p>위의 설명처럼 Observable 이란 이러한 일련의 <strong>data stream</strong> 을 표현하기 위한 자료 구조입니다.</p>
-<p>여기서 observable 이란 직역하면 <strong>관측가능한</strong> 이라는 뜻을 가지며, 말 그대로 그 흐름을 관측 가능한 <strong>data stream</strong> 이라고 이해하면 됩니다.</p>
-<p>Observer가 subscribe 하는 observable 시퀀스의 내용들은 observer에게 차례로 전달됩니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="keyword">from</span> &#125; = <span class="built_in">require</span>(<span class="string">"rxjs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observableItem = <span class="keyword">from</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(observableItem); <span class="comment">// Observable</span></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">  next:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;,</span><br><span class="line">  complete:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;,</span><br><span class="line">  err:<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> subscribtion = observableItem(observer);</span><br></pre></td></tr></table></figure>
-<h2><span id="rxjs-강의-02-data-stream-만들기-from-of-interval-range">Rxjs 강의 02. Data stream 만들기 - from, of, interval, range</span></h2><h2><span id="rxjs-강의-03-data-stream-합치기-merge">Rxjs 강의 03. Data stream 합치기 - merge</span></h2><h2><span id="rxjs-강의-04-data-stream-걸러내기-filter">Rxjs 강의 04. Data stream 걸러내기 - filter</span></h2><h2><span id="rxjs-강의-05-data-stream-변형하기-map">Rxjs 강의 05. Data stream 변형하기 - map</span></h2><h2><span id="rxjs-강의-06-복잡한-data-stream-처리하기-mergemap-mergeall">Rxjs 강의 06. 복잡한 Data stream 처리하기 - mergeMap, mergeAll</span></h2>
                         
     </div>
     

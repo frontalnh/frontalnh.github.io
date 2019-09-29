@@ -132,14 +132,14 @@
 </ol>
 <h2><span id="aws-ec2-instance-에-jenkins-설치하기">AWS EC2 Instance 에 Jenkins 설치하기</span></h2><p>먼저 이 모든 CI/CD 작업을 수행할 Jenkins Server 를 만들어 봅시다.</p>
 <p>AWS 에서 Amazon Linux 기반의 인스턴스 하나를 생성하고 다음과 같은 script 를 통해 Jenkins 를 설치합니다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 는 Java 8 runtime 위에서 실행되므로 java open jdk 를 먼저 설치해 줍니다.</span></span><br><span class="line">sudo yum install -y java-1.8.0-openjdk wget</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 설치</span></span><br><span class="line">wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 가 사용할 docker 와 git 을 설치해 줍니다.</span></span><br><span class="line">sudo yum install -y jenkins git docker</span><br><span class="line">java -jar jenkins.war --httpPort=8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git configuration</span></span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.name 'jenkins-workder'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Start docker machine</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add jenkins user <span class="keyword">in</span> docker group so that jenkins user can use docker machine</span></span><br><span class="line">groupadd docker</span><br><span class="line">sudo usermod -aG docker jenkins</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> You should restart jenkins to apply updated user group</span></span><br><span class="line">sudo service jenkins restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Jenkins 는 Java 8 runtime 위에서 실행되므로 java open jdk 를 먼저 설치해 줍니다.</span><br><span class="line">sudo yum install -y java-1.8.0-openjdk wget</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Jenkins 설치</span><br><span class="line">wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Jenkins 가 사용할 docker 와 git 을 설치해 줍니다.</span><br><span class="line">sudo yum install -y jenkins git docker</span><br><span class="line">java -jar jenkins.war --httpPort=8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Git configuration</span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.name 'jenkins-workder'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Start docker machine</span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Add jenkins user in docker group so that jenkins user can use docker machine</span><br><span class="line">groupadd docker</span><br><span class="line">sudo usermod -aG docker jenkins</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> You should restart jenkins to apply updated user group</span><br><span class="line">sudo service jenkins restart</span><br></pre></td></tr></table></figure>
 <h2><span id="jenkins-설정하기">Jenkins 설정하기</span></h2><p>위처럼 Jenkins 를 설치하고 Jenkins server 를 생행했다면, <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 에 jenkins dashboard 가 열리게 된다.</p>
 <p>본 dashboard 에서 jenkins 를 설정하면되며, 초기 비밀번호는 <code>/var/lib/jenkins/secrets/initailAdminPassword</code> 에 위치해 있다. </p>
 <h3><span id="aws-configuration">AWS configuration</span></h3><p>Jenkins 가 was 를 사용하기 위해 다음과 같이 AWS 계정 설정을 해준다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u jenkins aws configure</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo "AWS_ACCESS_KEY=123456789"&gt;&gt;~/.bash_profile</span><br><span class="line">echo "AWS_SECRET_ACCESS_KEY=123456789"&gt;&gt;~/.bash_profile</span><br><span class="line">echo "AWS_DEFAULT_REGION=123456789"&gt;&gt;~/.bash_profile</span><br></pre></td></tr></table></figure>
-<p>Jenkins node 가 eco 을 사용할 수 있도록 다음 명령어를 실행한다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">(aws ecr get-login --no-include-email)</span></span><br></pre></td></tr></table></figure>
+<p>Jenkins node 가 ecr 을 사용할 수 있도록 다음 명령어를 실행한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>(aws ecr get-login --no-include-email)</span><br></pre></td></tr></table></figure>
 <p><strong>만약 git repository 대신 AWS codecommit repository</strong> 를 사용한다면, 해당 key 를 AWS IAM user 탭에서 code commit http 설정을 할 수 있다.</p>
 <h3><span id="git-configuration">Git configuration</span></h3><p>Jenkins 가 git 을 사용하기 위해 다음과 같이 git 설정을 해준다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~jenkins</span><br><span class="line"></span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.email "me@mycompany.com"</span><br><span class="line">sudo -u jenkins git config --global user.name "MyjenkinsServer"</span><br></pre></td></tr></table></figure>
@@ -149,7 +149,7 @@
 <p><strong>주의 사항</strong></p>
 <p>여기서 주의할 사항이 있는데, Jenkins directory 는 system directory 이므로 mv 명령이 제대로 수행되지 않는 경우가 있다.</p>
 <p>때문에, 파일을 복사하기 앞서 directory 권한을 알맞게 변경해 주어야 한다. 또한, 복사한 파일의 user 와 group 이 linux user 로 변경되므로 반드시 복사 이후에 올바른 file owner 인 jenkins 로 변경해 주어야 하는데, 이는 다음의 명령어로 해결할 수 있다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> jenkins:jenkins 사용자:그룹</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -R recursive</span></span><br><span class="line">sudo chown -R jenkins:jenkins /var/lib/jenkins</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> jenkins:jenkins 사용자:그룹</span><br><span class="line"><span class="meta">#</span> -R recursive</span><br><span class="line">sudo chown -R jenkins:jenkins /var/lib/jenkins</span><br></pre></td></tr></table></figure>
 
                         
     </div>
@@ -602,14 +602,14 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/05/23/가치투자-시작하기/" itemprop="url">
-                가치투자 시작하기
+            <a href="/2019/05/29/git-기본-설정하기/" itemprop="url">
+                git 기본 설정하기
             </a>
             
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-05-22T23:02:24.000Z" itemprop="datePublished">
+            <time datetime="2019-05-29T01:05:54.000Z" itemprop="datePublished">
                 4 months ago
             </time>
         </span>
@@ -618,50 +618,22 @@
                     <span class="column is-narrow">
                         
                             
-                                16 minutes read (About 2457 words)
+                                3 minutes read (About 387 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
-                    <p>가치투자란 기업을 분석하여 과거의 실적과 향후의 성장가능성을 예상하고, 그 예상치에 비해 현재 가격이 주식 시장에서 낮게 평가되어 있는 주식에 투자하여 수익을 거두는 투자 기법을 말한다.</p>
-<p>가치투자를 위해서는 가장 먼저 어떤 기업을 평가하는 법을 알아야 한다.</p>
-<p>기업을 평가하는 방법에는 여러 방법이 있겠지만, 다음과 같은 기준을 가지고 기본적인 평가를 할 수 있다.</p>
-<ol>
-<li>기업의 영업 이익에 비해 시장에서 저평가 되었는가</li>
-<li>기업이 하는 비즈니스가 내가 이해 할 수 있고 일반적인 기준에서 합리적인가?</li>
-<li>기업이 하는 비즈니스에 다른 경쟁자가 들어올 진입장벽이 존재하는가?<br>(기술기업이라면 기술력, 플랫폼 기업이라면 선점효과 혹은 네트워크 효과를 가지는가?)</li>
-<li>향후 매출과 영업이익이 오를것으로 판단되는가?</li>
-<li>매출의 증가에 비해 영업 이익의 증가율이 더 큰가?<br>(고정 비용, 판관비(판매비 관리비) 의 증가율은 얼마나 상승할 것이고 그에 비해 매출은 얼마나 올라갈 것인가?)</li>
-<li>위의 모든 조건에도 불구하고 시장에서 저평가되고 그 기조가 일정하게 유지되어 아래에 유리벽(더 이상 주가가 내려가지 않을 벽)이 존재하는가?</li>
-</ol>
-<p>위의 각 평가 기준을 실제 판단함에 있어 보아야 하는 데이터는 다음과 같다.</p>
-<p>1번의 경우 PER 를 통해 확인 할 수 있는데, PER 란 주가 수익 비율로 한 주당 가격을 주당 영업이익으로 나눈 값이다. 즉, 어떤 주식이 10만원이라 하고 전체 주식이 100,000주, 순이익이 10억이라 하면, 한 주당 순이익은 1만원이고 이 경우 PER 는 10만/1만 즉 10이 된다. 흔히 PER 는 기업의 순이익에 비해 시장이 기업을 평가하는 정도를 나타내며 PER 가 높으면, 고평가 되었고, 낮으면 시장에서 저평가 된 것으로 이해할 수 있다. <strong>일반적인 주식의 PER 는 10 내외이고 6~7 이라 하면 순이익에 비해 기업이 상당히 저평가 되었다고 볼 수 있다.</strong> </p>
-<p>2번의 경우는 전자공시 시스템에서 해당 기업의 사업보고서를 읽어보고 그 기업의 비즈니스를 내가 이해하고 합리적이어야 한다.</p>
-<p>3번의 경우는 내가 투자하고자 하는 기업이 하는 비즈니스에 다른 경쟁사들이 쉽게 진입할 수 없는지를 알아보아야 하는데, 이것은 다양한 정보 검색을 통해 알아낼 수 있다. 가령 해당 기업의 브랜드 인지도와 시장 점유율 등을 보면 알 수 있다.</p>
-<p>4번의 경우 또한 각종 기사와 사업보고서를 통해 알아낼 수 있다. 가령, 해당 기업의 현재 매출대비 영업이익이 얼마인데, 해외에서 장기 계약을 수주하고 그 규모를 안다면, 앞으로 해당 기업의 영업 이익이 10년간 얼마나 성장할지는 불보듯 뻔한 일이다. 이를 통해 몇년간 몇 % 의 영업 이익이 성장할지 구체적으로 점칠 수 있다.</p>
-<p>5번의 경우는 기업의 매출이 증가함에 따라 영업이익이 가파르게 성장할 수 있는가이다. 가령 단순 제조업의 경우 제품을 많이 만들어도 기본적인 제조원가가 계속 들어가기 때문에 영업이익은  거의 일정하게 성장한다. 하지만, 지식 융합 산업의 경우 판관비는 그대로 인데, 매출이 늘어나면 영업 이익은 매우 가파르게 성장할 수 있다.</p>
-<p>6번의 경우는 유리벽돌이 존재하는 가이다. 위의 모든 조건을 충족했음에도 불구하고, 주가 그래프가 우 하향을 하고있고, 그 하향이 매우 완만한 상황이라면, 기업이 저평가된 것을 시장이 모르고 안정적인 주가를 유지하고 있다는 것이기 때문이다. 해당 기업은 앞으로 기업 실적이 개선될 것이기 때문에 현재 주가 이하로 떨어지는 것은 확률이 매우 낮음을 의미한다. 이러한 정보는 기업의 배당률과 같은 지표로도 알 수 있는데, 가령 완만한 우 하향 곡선을 그리고 있음에도 배당률이 평균 1~2% 를 넘어 5% 가량이나 된다면, 매우 견실한 기업이라고 볼 수 있고, 배당률이 저렇게 높은데 우 하향이라면 곧 이 회사의 가치를 알아보고 투자하는 세력이 생길 것이기에 주가는 오를 것이라 예상할 수 있다.</p>
-<h3><span id="추천-도서">추천 도서</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1. 가치투자가 쉬워지는 V차트</span><br><span class="line">2. 한국형 가치투자 전략</span><br><span class="line">3. 내일의 금맥</span><br><span class="line">4. 단도투자&lt;강추&gt;</span><br><span class="line">5. 왜 채권쟁이들이 주식으로 돈을 잘 벌까?&lt;밸류에이션법&gt;</span><br><span class="line">6. 워렌버핏 바이블</span><br><span class="line">- 주식시장을 이기는 작은책</span><br><span class="line">- 가치투자의 비밀 (크리스토퍼 브라운)</span><br><span class="line">- 돈, 뜨겁게 사랑하고 차갑게 다루어라</span><br><span class="line">- 불황에도 승리하는 사와카미 투자법</span><br><span class="line">- 위대한 기업에 투자하라</span><br><span class="line">- 보수적인 투자자는 마음이 편하다</span><br><span class="line">- 가치투자의 귀재 존 네프 수익률 5600% 신화를 쓰다.</span><br><span class="line">- 전설로 떠나는 월가의 영웅 (피터린치)</span><br><span class="line">- 가치투자를 말한다 (미국대표 펀드매니저 20인의 투자법)</span><br><span class="line">- 작지만 강한 기업에 투자하라</span><br><span class="line">- 현명한 투자자, 증권분석</span><br><span class="line">- 금융투기의 역사</span><br><span class="line">- 치과의사 피트씨의 똑똑한 배당주 투자</span><br></pre></td></tr></table></figure>
-<h3><span id="주변에-널린-투자-아이디어를-활용하라">주변에 널린 투자 아이디어를 활용하라</span></h3><p>우리는 일상 생활에서 많은 기업의 제품과 서비스를 사용하고 관찰할 수 있다.</p>
-<p>가령 ‘허니버터 칩’ 처럼 히트 상품이 나오면 반드시 이는 그 기업의 영업이익을 막대하게 증가시킬 것이고 이는 주가에 반영될 것이다. 하지만, 주의할 점이 있다면, 그 히트상품이 그 기업의 전체 영업이익중 차지하는 비율을 알아야 전체 회사가 얼마나 성장할 지 알 수 있을 것이다. 가령, ‘허니버터 칩’ 의 매출이 차지하는 비율이 해당 회사의 전체 매출의 1% 에 불과하다면 해당 히트상품은 주가에 큰 영향을 줄 수 없다.</p>
-<p>즉, 갑자기 많은 사람들의 입에 오르내리고 특히, 아이들과 여성 사이에서 인기가 있으며, 매스컴에서 발표하는 히트상품을 주의깊에 보라, 또 그 제품을 만드는 기업을 분석하고 그 기업에서 제품이 차지하는 비중이 얼마나 되는지 또 그 제품의 판매량 증대가 기업의 이익 증대로 연결되는지를 파악하라.</p>
-<h3><span id="브랜드형-기업을-발굴하라">브랜드형 기업을 발굴하라.</span></h3><p>강력한 브랜드 구축에는 많은 시간과 비용이 들어가지만, 일단 본 궤도에 오르면 다른 기업들이 접근할 수 없는 강력한 경쟁력이 된다.</p>
-<p>만약 주변인들이 제품을 찾을 때 당연시 하는 브랜드가 있고, 그 브랜드가 대안을 찾을 수 없는 브랜드라면 그 기업은 브랜드 가치가 있는 기업이라고 볼 수 있다. 또 특정 제품이 기업과 동일 시 될 정도로 강력한 브랜드를 구축한다면(마치 박카스) 더할 나위 없다. 이 중에서 경쟁제품이 없고 시장점유율이 독보적이며 기업의 이름만 들어도 누구나 알법한 브랜드라면 그 기업은 앞으로도 쭉 흥할 것이다.</p>
-<h3><span id="용어-정리">용어 정리</span></h3><h4><span id="perprice-earning-ratio">PER(Price Earning Ratio)</span></h4><p>전체 주식 가격을 순수익으로 나눈 값으로, 순수익을 벌어들인 돈으로 몇년이면 그 회사를 살 수 있는가를 나타낸다.</p>
-<p>가령 어떤 회사의 시총이 100억인데, 순수익이 20억이라면, PER 는 5배 즉, 5년이면 그 회사의 본전을 찾는다는 뜻이다.</p>
-<h4><span id="roereturn-on-equity">ROE(Return On Equity)</span></h4><p>Net income / Equity </p>
-<p>순자산 대비 순 수익으로 자산이 얼마나 효율적으로 운용되고 있는가를 나타낸다.</p>
-<h4><span id="roa">ROA</span></h4><p>순이익/평균 총 자산 * 100</p>
-<p>부채가지 포함한 총 자산으로 얼마나 벌었는지를 보여주는 비율</p>
-<h4><span id="eps">EPS</span></h4><p>주식 한 주가 벌어들이는 이익</p>
-<h4><span id="경상이익">경상이익</span></h4><p>영업이익 + 영업외 수익 - 영업 외 비용</p>
-<h4><span id="영업외수익">영업외수익</span></h4><p>회사의 활동에서 생기는 수익 중 정규영업에 기인하지 않는 것.</p>
-<p>수취이자, 유가증권이자, 유가증권매각수익, 유가증권평가수익, 매입할인, 잡수입</p>
-<h4><span id="특별이익">특별이익</span></h4><p>영업활동 이외에 우발적 원인으로 발생하는 이익</p>
-<p>투자자산이익, 채무면제이익, 보험차익 등</p>
-<h4><span id="유보율">유보율</span></h4><p>(자기자본 - 자본금 + 자기주식)/자본금 * 100</p>
-<p>사업을 통해 창업 시기부터 지금까지 자본금으로 얼마를 벌었는가에 대한 비율</p>
+                    <h3><span id="전역-설정하기">전역 설정하기</span></h3><p>git 의 사용자 정보 및 사용자별 다른 연결 정보등과 같은 공통의 설정들은 <code>&lt;home&gt;/.gitconfig</code> 파일에 설정할 수 있다.</p>
+<p>이는 <code>git config --global user.name = &lt;USER_NAME&gt;</code> 등과 같은 명령어를 통해서도 가능하지만 파일에 직접 설정을 작성할 수 있다.</p>
+<p>.gitconfig</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">	editor = "nvim"</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name = &lt;사용자 이름&gt;</span><br><span class="line">	email = &lt;사용자 이메일&gt;</span><br><span class="line">	username = &lt;USER_NAME&gt;</span><br><span class="line">	</span><br><span class="line">[credential]</span><br><span class="line">	helper = cache # 비밀번호를 캐싱하여 계속 입력하지 않아도 되도록 한다.</span><br><span class="line">	</span><br><span class="line">[credential "&lt;CODE_COMMIT_REPOSITORY&gt;"] # 코드 커밋을 사용한다면 설정한다.</span><br><span class="line">	helper = !aws codecommit credential-helper $@</span><br><span class="line">	UseHttpPath = true</span><br></pre></td></tr></table></figure>
+<p> 위 설정은 간단히 아래의 커맨드로도 가능하다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;USER_NAME&gt;</span><br><span class="line">git config --global user.email &lt;USER_EMAIL&gt;</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list # 설정한 내용 확인</span><br><span class="line">git config --global core.editor "nvim" # git command 의 기본 editor 를 nvim 으로 지정.</span><br></pre></td></tr></table></figure>
+<h3><span id="ssh-기반-인증">ssh 기반 인증</span></h3><p>만약 특정 레포지토리가 공개키 방식의 인증과정을 거치고 특정 키를 레포지토리에 등록시켜 두었다면, 해당 인증서를 통해 인증하여 레포지토리와 통신할 수 있다. 이때 여러 레포지토리들은 각각 다른 키를 사용할 수 있는데 이러한 ssh 연결 정보를 특정 레포지토리의 <code>.git/config</code> 파일에 설정해 둘 수 있으며, 그 명령어는 다음과 같다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
+<p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">sshCommand = &quot;ssh -i ~/.ssh/keyfile&quot;</span><br></pre></td></tr></table></figure>
 
                         
     </div>

@@ -91,6 +91,58 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/03/27/컴퓨터-구조-강의-프로세서/" itemprop="url">
+                컴퓨터 구조 | 프로세서
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-27T10:51:27.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 302 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#파이프라이닝에-대한-개관">파이프라이닝에 대한 개관</a></li>
+</ul>
+<!-- tocstop -->
+<p>명령어 집합 구조가 구현의 여러 가지 측면을 어떻게 결정 하는지, 또 여러가지 구현 전략이 클럭 속도와 CPI에 어떻게 영향을 미치는지 살펴볼 기회를 갖게 될 것이다.<br>명령어 종류에 관계없이 어떤 명령어 던지 처음 두 단계는 다음과 같이 동일하다.</p>
+<ol>
+<li>프로그램 카운터(PC)를 프로그램이 저장된 메모리로 보내어 메모리로부터 명령어를 가져온다.</li>
+<li>읽은 레지스터를 선택하는 명령어 필드를 사용하여 하나 또는 두 개의 레지스터를 읽는다.</li>
+</ol>
+<h1><span id="파이프라이닝에-대한-개관">파이프라이닝에 대한 개관</span></h1><p>파이프라이닝이란 여러 명령어가 중첩되어 실행되는 구현기술로써 기존의 단일 사이클 구조에서는 ALU 등 여러 장치가 다른 명령어를 실행하는 동안에는 동작하지 않는 것이 효율이 매우 떨어지기에 각 명령어를 처리할 수 있는 자원이 존재한다면 이를 병렬로 실행시켜 처리량을 올리는 기술이다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/03/27/자료구조-강의-01-기본-개념/" itemprop="url">
                 자료구조 강의 01. 기본 개념
             </a>
@@ -602,54 +654,6 @@
         
                     <h1><span id="기본-구문">기본 구문</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 테이블명 SET 필드명 = &quot;바꿀 값&quot; WHERE 필드명= &quot;조건 값&quot;</span><br></pre></td></tr></table></figure>
 <h1><span id="특정-column-값을-increase-시키기">특정 column 값을 increase 시키기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE mytable</span><br><span class="line">  SET logins = logins + 1</span><br><span class="line">  WHERE id = 12</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/02/06/mysql-insert-문의-모든것/" itemprop="url">
-                2. mysql insert 문의 모든것
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-02-06T00:18:29.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 449 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="auto_increment의-시작값-변경해-주기">AUTO_INCREMENT의 시작값 변경해 주기</span></h1><p>데이터를 정리하기 위해 시작 하는 primary 키의 AUTO_INCREMENT 값을 변경해 주어야 할 경우가 있다.<br>다음 명령어를 통해 원하는 값부터 다시 AUTO_INCREMENT가 시작되도록 할 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE [테이블명] AUTO_INCREMENT=[시작할려는 순서]</span><br></pre></td></tr></table></figure>
-<h1><span id="on-duplicate-key를-이용한-중복키-관리">ON DUPLICATE KEY를 이용한 중복키 관리</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 데이터는 키값은 유지하고 내용만 변경해야 할 경우가 있다.<br>이 경우는 on duplicate key 를 활용하면 기존에 있던 데이터를 유지하면서 변경된 내용만 업데이트를 시켜줄 수 있다.</p>
-<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO mytable (id, a, b, c)</span><br><span class="line">VALUES (1, &apos;a1&apos;, &apos;b1&apos;, &apos;c1&apos;),</span><br><span class="line">(2, &apos;a2&apos;, &apos;b2&apos;, &apos;c2&apos;),</span><br><span class="line">(3, &apos;a3&apos;, &apos;b3&apos;, &apos;c3&apos;),</span><br><span class="line">(4, &apos;a4&apos;, &apos;b4&apos;, &apos;c4&apos;),</span><br><span class="line">(5, &apos;a5&apos;, &apos;b5&apos;, &apos;c5&apos;),</span><br><span class="line">(6, &apos;a6&apos;, &apos;b6&apos;, &apos;c6&apos;)</span><br><span class="line">ON DUPLICATE KEY UPDATE id=VALUES(id),</span><br><span class="line">a=VALUES(a),</span><br><span class="line">b=VALUES(b),</span><br><span class="line">c=VALUES(c);</span><br></pre></td></tr></table></figure></p>
-<h1><span id="insert-ignoe를-이용한-중복키-단순히-무시하기">INSERT IGNOE를 이용한 중복키 단순히 무시하기</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 정보는 아예 입력하지 않는 것이 필요한 경우가 있다.<br>이 경우에는 다음과 같이 insert ignore 문을 활용하여 중복된 키를 가지면 입력을 시키지 않도록 할 수 있다.</p>
-<p>아래 예제는 unique 키가 두개의 키값에 걸려있는 경우 첫번째 id 값이 입력되지 않아도 insert 문이 동작하기에 다음과 같은 예제를 사용한다.<br>아래의 경우 가령 james라는 키값과 barkely라는 키값에 unique 키가 걸려있고 해당 데이터가 이미 존재하는 경우 아래의 insert 문은 그냥 무시된다.</p>
-<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person ADD UNIQUE INDEX (first_name, last_name)</span><br><span class="line">INSERT IGNORE INTO person VALUES (NULL, 15, &apos;James&apos;, &apos;Barkely&apos;)</span><br></pre></td></tr></table></figure></p>
 
                         
     </div>
