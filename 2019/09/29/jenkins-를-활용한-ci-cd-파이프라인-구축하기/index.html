@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Jenkins 를 활용한 CI/CD 파이프라인 구축하기 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                Jenkins 를 활용한 CI/CD 파이프라인 구축하기
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-09-29T07:23:17.000Z" itemprop="datePublished">
+                an hour ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/jenkins/">Jenkins</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                12 minutes read (About 1728 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="개요">개요</span></h2><p>소프트웨어 개발에서 CI/CD 란 Continuous Integration and Continuous delivery 의 약어로 다음과 같은 의미를 가집니다.</p>
+<p><strong>먼저, Continuous Integration 이란</strong> <strong>여러 사람이 작업한 여러 작업 내용을 하나로 원활하게 병합하는 것을 의미합니다.</strong> 예를 들어 한 회사에서 3명의 개발자가 하나의 프로젝트를 개발한다면, 세 사람의 작업내용을 하나로 합치는 것은 매우 번거로운 일이 아닐 수 없습니다. 각 개발자 사이의 작업 내용이 겹칠 수도 있고, 다른 사람의 작업 결과가 또 다른 사람의 작업 내용에 변화를 미칠 수도 있습니다. 또, 각 개발자가 열심히 테스트코드를 작성해 두었다 한들 누군가 한명이 각 개발자의 변화된 개발분을 다운로드 해서 테스트 코드를 돌려보고 그 위에 자신의 개발분의 적용시켜 다음 테스트를 돌리는 등 여러 노력이 필요하게 됩니다.</p>
+<p>현대 개발 패러다임에서는 이러한 코드 변화와 버전관리를 위한 여러 tool 이 존재하며, 가장 대표적인 버전관리 툴인 <strong>Git</strong> 을 예로 들어 설명을 하면, 각 개발자는 각각 자신의 <strong>feature</strong> 브랜치를 만들어 작업을 하고 이를 하나의 <strong>master</strong> 브랜치에 합치는 행위를 반복하는데, 각 commit 들이 안정적으로 master 에 반영된 것을 확인하기 위해서는 테스트코드를 돌려보는 등의 검증을 거쳐야 합니다.</p>
+<p>Jenkins 는 이렇게 여러 branch 를 master 로 병합함에 있어, 테스트 코드 실행 linting 등 master 로 다른 변화들이 안정적으로 병합되기 위한 일련의 과정을 자동으로 처리하고 모든 commit 이 master 에 안정적으로 반영될 수 있게 도와줍니다.</p>
+<p><strong>그 다음으로 Continuous Delivery</strong> 란 이렇게 합쳐진 하나의 master 코드 베이스를 실제 사용자가 사용하는 production 환경에 쉽고 안정적으로 배포되게 하는 것을 말합니다.</p>
+<p>가령, 소프트 웨어의 배포에는 여러 활동이 포함될 수 있는데, 각 소스코드를 빌드하는 것은 기본이고, 빌드된 바이너리 파일 혹은 docker image 등을 실제 production 환경에 배포하는 것은 규모가 큰 서비스 에서는 수십대의 서버의 프로세스를 교체해 주어야 하며, 또 그 모든 과정에 있어 사용자가 서비스를 이용함에 불편함이 없도록 안정적으로 이루어 져야 합니다. Jenkins 는 이렇게 배포될 소프트웨어를 실제 환경에 안정적으로 배포하기 위한 다양한 기능을 제공합니다.</p>
+<p><strong>이번 포스트에서는 Git 과 Jenkins 를 활용하여 아주 기본적인 Continuous Integration 파이프라인을 구축해 보도록 할 것이며, 그 과정은 다음과 같습니다.</strong></p>
+<ol>
+<li>Feature  브랜치에 코드를 작성합니다.<br>이 코드에는 단순히 서비스 로직 뿐만 아니라 Jenkins 가 실행시킬 테스트코드와 Linting rule 또한 포함이 되어야 합니다.</li>
+<li>Master 브랜치에 Feature 브랜치를 머지합니다.<br>브랜치가 merge 되면, Jenkins 는 github 에서 이 사실을 듣고, git 소스코드를 다운로드 받아 테스트코드와 lint 를 실행합니다.</li>
+<li>코드가 안정적으로 병합되었다면, Jenkins 는 소스코드를 빌드하고 ( 이번 포스트에서는 docker container 를 활용한 배포를 가정하므로 docker image 를 생성합니다 ) 서버에게 이 이미지를 다운로드 받아 실행하게 합니다.</li>
+</ol>
+<h2><span id="aws-ec2-instance-에-jenkins-설치하기">AWS EC2 Instance 에 Jenkins 설치하기</span></h2><p>먼저 이 모든 CI/CD 작업을 수행할 Jenkins Server 를 만들어 봅시다.</p>
+<p>AWS 에서 Amazon Linux 기반의 인스턴스 하나를 생성하고 다음과 같은 script 를 통해 Jenkins 를 설치합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 는 Java 8 runtime 위에서 실행되므로 java open jdk 를 먼저 설치해 줍니다.</span></span><br><span class="line">sudo yum install -y java-1.8.0-openjdk wget</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 설치</span></span><br><span class="line">wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 가 사용할 docker 와 git 을 설치해 줍니다.</span></span><br><span class="line">sudo yum install -y jenkins git docker</span><br><span class="line">java -jar jenkins.war --httpPort=8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git configuration</span></span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.name 'jenkins-workder'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Start docker machine</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add jenkins user <span class="keyword">in</span> docker group so that jenkins user can use docker machine</span></span><br><span class="line">groupadd docker</span><br><span class="line">sudo usermod -aG docker jenkins</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> You should restart jenkins to apply updated user group</span></span><br><span class="line">sudo service jenkins restart</span><br></pre></td></tr></table></figure>
+<h2><span id="jenkins-설정하기">Jenkins 설정하기</span></h2><p>위처럼 Jenkins 를 설치하고 Jenkins server 를 생행했다면, <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 에 jenkins dashboard 가 열리게 된다.</p>
+<p>본 dashboard 에서 jenkins 를 설정하면되며, 초기 비밀번호는 <code>/var/lib/jenkins/secrets/initailAdminPassword</code> 에 위치해 있다. </p>
+<h3><span id="aws-configuration">AWS configuration</span></h3><p>Jenkins 가 was 를 사용하기 위해 다음과 같이 AWS 계정 설정을 해준다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u jenkins aws configure</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo "AWS_ACCESS_KEY=123456789"&gt;&gt;~/.bash_profile</span><br><span class="line">echo "AWS_SECRET_ACCESS_KEY=123456789"&gt;&gt;~/.bash_profile</span><br><span class="line">echo "AWS_DEFAULT_REGION=123456789"&gt;&gt;~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>Jenkins node 가 eco 을 사용할 수 있도록 다음 명령어를 실행한다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">(aws ecr get-login --no-include-email)</span></span><br></pre></td></tr></table></figure>
+<p><strong>만약 git repository 대신 AWS codecommit repository</strong> 를 사용한다면, 해당 key 를 AWS IAM user 탭에서 code commit http 설정을 할 수 있다.</p>
+<h3><span id="git-configuration">Git configuration</span></h3><p>Jenkins 가 git 을 사용하기 위해 다음과 같이 git 설정을 해준다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~jenkins</span><br><span class="line"></span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.email "me@mycompany.com"</span><br><span class="line">sudo -u jenkins git config --global user.name "MyjenkinsServer"</span><br></pre></td></tr></table></figure>
+<h2><span id="jenkins-migration-guide">Jenkins migration guide</span></h2><p>Jenkins 를 설치운영할때 Jenkins 서버를 migrate 할 필요성이 생길 수 있다.</p>
+<p>Jenkin 의 모든 설정을 GUI 를 통해 했기 때문에, 모든 과정을 반복하는 것은 정말 성가신 일이 아닐 수 없다.</p>
+<p>Jenkins 는 모든 설정을 파일 시스템에 저장하기 때문에, Jenkins directory 의 data 들만 잘 이동해 주면, 모든 설정 정보를 안전하고 편리하게 이관할 수 있으며, 그 위치는 <code>/var/lib/jenkins</code> 에 있다.</p>
+<p><strong>주의 사항</strong></p>
+<p>여기서 주의할 사항이 있는데, Jenkins directory 는 system directory 이므로 mv 명령이 제대로 수행되지 않는 경우가 있다.</p>
+<p>때문에, 파일을 복사하기 앞서 directory 권한을 알맞게 변경해 주어야 한다. 또한, 복사한 파일의 user 와 group 이 linux user 로 변경되므로 반드시 복사 이후에 올바른 file owner 인 jenkins 로 변경해 주어야 하는데, 이는 다음의 명령어로 해결할 수 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> jenkins:jenkins 사용자:그룹</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -R recursive</span></span><br><span class="line">sudo chown -R jenkins:jenkins /var/lib/jenkins</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/jenkins/">#
+                        Jenkins
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+                        
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2019/07/21/git-in-action/">
+                                Git in action
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2019/09/29/jenkins-를-활용한-ci-cd-파이프라인-구축하기/';
+        this.page.identifier = '2019/09/29/jenkins-를-활용한-ci-cd-파이프라인-구축하기/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

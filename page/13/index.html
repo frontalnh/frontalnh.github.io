@@ -91,6 +91,62 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/04/03/컴퓨터-구조-메모리-계층구조란-무엇인가/" itemprop="url">
+                컴퓨터 구조 | 메모리 계층구조란 무엇인가?
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-03T01:09:27.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1423 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#왜-메모리-계층구조가-필요한가">왜 메모리 계층구조가 필요한가?</a></li>
+<li><a href="#메모리의-종류에는-어떤-것들이-있나요">메모리의 종류에는 어떤 것들이 있나요?</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="왜-메모리-계층구조가-필요한가">왜 메모리 계층구조가 필요한가?</span></h1><p>컴퓨터 내에서 프로그램이 동작하기 위해서는 프로그램이 메모리 위에 적재되어야 하고, 이상적으로 모든 프로그램이 메모리 위해 적재 될 수 있는것을 많은 프로그래머들은 바래왔습니다.<br>즉, <strong>무제한의 크기를 가지는 빠른 메모리는 모든 프로그래머들을 꿈</strong> 이라고 볼 수 있습니다. 하지만, 메인 메모리는 메우 비싸기 때문에 이러한 무제한의 크기를 가지는 메인 메모리는 사실상 구현 불가능 하기에 메모리 계층 구조를 통해 한정된 메모리를 가지고 최대한 큰 크기의 메모리를 사용하는 것 처럼 컴퓨터가 행동하도록 노력했고, 그 결과 메모리 계층 구조가 도입되게 되었습니다.</p>
+<p>메모리 계층 구조를 이해할 때에 흔히 도서관에서 공부를 하는 상황에 대입하여 생각해 볼 수 있습니다. 도서관에는 수많은 책들이 꽂혀 있고 언제든지 가져와서 책을 볼 수 있지만, 한번 책을 가져올 때 마다 상당히 귀찮고 오랜 시간이 소요되게 됩니다. 컴퓨터의 경우도 마찬가지 입니다. 여기서 도서관에 해당하는 것이 컴퓨터의 자기 디스크 입니다. 자기 디스크는 아주 크기가 크고 막대한 양의 자료가 들어갈 수 있지만 한번 접근하려면 오랜 시간이 걸리게 됩니다.</p>
+<p><strong>이 문제를 어떻게 해결해야 할까요?</strong><br>보통 도서관에서 공부를 할 때 우리는 필요한 책들을 쭉 뽑아서 책상위에 쌓아두고 공부를 시작합니다. 이렇게 하면 우리가 필요한 대부분의 정보들은 책상 위에서 빠르게 얻을 수 있고, 사실 도서관 전체에는 나와 관련이 없는 많은 자료들이 있는 것에 반해 책상 위에 뽑아 놓은 책에는 내게 필요한 정보들이 존재하게 됩니다. 이렇게 필요한 책을 뽑아 우리가 필요할 만한 정보들을 주변에 배치해 놓는 것처럼 컴퓨터 에서도 우리가 자주 사용할 만한 정보들을 가까운 곳에 복사해 놓게 되고 이것을 우리는 <strong>캐시</strong> 라고 합니다.</p>
+<p><strong>캐시에 들어갈 정보들은 어떤 식으로 선별이 될까요?</strong><br>이는 마치 도서관에서 책을 뽑아오는 것과 같은 논리이며 <strong>지역성의 원칙</strong> 에 따라 선별됩니다. 도서관에는 필요한 책들이 종류별로 분류되어 있고, 아마 내게 필요한 정보는 주변에 붙어 있을 확률이 높습니다. 내가 A라는 책을 가져오면서 혹시 몰라서 A 책 주변의 다양한 책들을 가져오는 것이 이러한 <strong>지역성의 원칙</strong> 을 따른 캐싱이라고 볼 수 있습니다. 또는, 내가 예전에 한번 봤던 책들에 내가 필요한 정보가 담겨있을 확률도 높습니다.<br>위처럼 내가 필요한 정보 주변의 책에 필요한 정보가 있을 확률이 높은 것을 <strong>공간적 지역성</strong> 이라 하고, 또 예전에 내가 사용했던 책에 필요한 정보가 있을 확률이 높은 것을 <strong>시간적 지역성</strong> 이라고 합니다. 이러한 두가지 지역성을 원칙에 따라 우리는 책을 가져오고 컴퓨터 에서는 <strong>캐싱</strong> 을 통해 이러한 작업을 수행합니다.</p>
+<p>도서관에서 책 무더기를 가져오듯이 한번에 가져오는 정보의 최소 단위를 <strong>블록</strong> 이라고 합니다. 컴퓨터가 어떤 정보가 필요하다면 그 정보가 담긴 블록을 통으로 가져와서 작업을 수행하게 됩니다. 만약 필요한 정보가 이렇게 한번 가져온 블럭 중에 있는 경우를 <strong>적중(hit)</strong> 했다고 하고, 그 확률을 <strong>적중률</strong> 이라고 하며, 그 시간을 <strong>적중 시간</strong> 이라고 합니다.</p>
+<p><strong>만약 가져온 블록 중에 필요한 정보가 없는 경우는 어떨까요?</strong><br>이 경우를 컴퓨터에서는 <strong>실패</strong> 라고 하며, 그 확률을 <strong>실패율</strong> 이라고 합니다. 이렇게 실패에 따른 손실은 <strong>실패 손실</strong> 이라고 하며 이는 하위 계층에서 블록을 가져와서 상위 계층 블록과 교체하는 시간에 그 블록을 프로세서에 보내는 데 걸리는 시간을 더한 값입니다.</p>
+<p>이처럼 컴퓨터는 사용할 확률이 높은 정보들을 CPU에 가까지 적재하고 다른 정보들을 메모리 계층의 아래쪽에 위치시킴으로써 보다 빠르게 정보를 탐색할 수 있도록 하며, 때문에 메모리는 <strong>계층 구조</strong> 로 이루어져 있습니다.</p>
+<h1><span id="메모리의-종류에는-어떤-것들이-있나요">메모리의 종류에는 어떤 것들이 있나요?</span></h1><p>메모리 계층 구조에서 프로세서와 가장 가까운 <strong>캐시</strong> 는 SRAM이 사용되며, 메인 메모리 에는 <strong>DRAM</strong> 이 사용됩니다. SRAM은 어떤 데이터든지 접근 시간이 같고 리프레시가 필요없어 DRAM에 비해 아주 빠릅니다. <strong>DRAM</strong> 은 SRAM에 비해 아주 느립니다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/04/02/운영체제-운영체제란-무엇인가/" itemprop="url">
                 운영체제 | 운영체제란 무엇인가?
             </a>
@@ -204,7 +260,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-29T14:28:08.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -263,7 +319,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-28T05:07:29.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -415,7 +471,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-28T05:02:33.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -503,7 +559,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-27T11:38:10.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -577,7 +633,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-27T11:34:03.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -632,7 +688,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-27T11:28:13.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -747,7 +803,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-27T11:07:13.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -803,7 +859,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2018-03-27T10:51:27.000Z" itemprop="datePublished">
-                a year ago
+                2 years ago
             </time>
         </span>
         
@@ -833,70 +889,6 @@
 <li>읽은 레지스터를 선택하는 명령어 필드를 사용하여 하나 또는 두 개의 레지스터를 읽는다.</li>
 </ol>
 <h1><span id="파이프라이닝에-대한-개관">파이프라이닝에 대한 개관</span></h1><p>파이프라이닝이란 여러 명령어가 중첩되어 실행되는 구현기술로써 기존의 단일 사이클 구조에서는 ALU 등 여러 장치가 다른 명령어를 실행하는 동안에는 동작하지 않는 것이 효율이 매우 떨어지기에 각 명령어를 처리할 수 있는 자원이 존재한다면 이를 병렬로 실행시켜 처리량을 올리는 기술이다.</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/03/27/자료구조-강의-01-기본-개념/" itemprop="url">
-                자료구조 강의 01. 기본 개념
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-03-27T10:29:33.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                3 minutes read (About 449 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#개요-시스템-생명-주기">개요: 시스템 생명 주기</a></li>
-<li><a href="#포인터와-동적-메모리-할당">포인터와 동적 메모리 할당</a></li>
-<li><a href="#알고리즘-명세">알고리즘 명세</a></li>
-<li><a href="#데이터-추상화">데이터 추상화</a></li>
-<li><a href="#성능-분석">성능 분석</a><ul>
-<li><a href="#공간-복잡도">공간 복잡도</a></li>
-<li><a href="#시간-복잡도">시간 복잡도</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h1><span id="개요-시스템-생명-주기">개요: 시스템 생명 주기</span></h1><h1><span id="포인터와-동적-메모리-할당">포인터와 동적 메모리 할당</span></h1><h1><span id="알고리즘-명세">알고리즘 명세</span></h1><h1><span id="데이터-추상화">데이터 추상화</span></h1><h1><span id="성능-분석">성능 분석</span></h1><p>본 강의의 목적 중 하나는 프로그램에 대한 평가 능력을 향상시키는 것이다.<br>프로그램의 판단함에 있어서 다양한 기준이 있지만, 크게는 컴퓨터와 상관 없이 시공간의 추산에 초점을 두는 <strong>성능 분석(performance analysis)</strong> 과 컴퓨터에 의존적인 실행 시간을 얻어내는 <strong>성능 측정(performance measurement)</strong> 이 있다.</p>
-<p>이번 강의 에서는 성능 측정은 배제하고 성능 분석에 초점을 두어 강의를 진행하며 성능 분석은 다음의 두 복잡도로 분석을 진행한다.</p>
-<ol>
-<li>공간 복잡도</li>
-<li>시간 복잡도</li>
-</ol>
-<h2><span id="공간-복잡도">공간 복잡도</span></h2><p>공간 복잡도의 정의는 프로그램을 실행시켜 완료하는 데 필요로 하는 공간의 양으로, 실제 메모리를 차지하는 양을 나타낸다. 각 각의 변수가 얼마나 많은 메모리를 차지하는 지 등을 다루며 이러한 공간 복잡도는 <strong>고정 공간 요구</strong> 및 <strong>가변 공간 요구</strong> 로 나뉘게 된다.</p>
-<p><strong><em>고정 공간 요구</em></strong><br>프로그램 입출력의 횟수나 크기에 관계없는 공간 요구를 의미한다.<br>가령 명렁어 공간, 단순 변수, 상수 고정 크기의 구조화 변수 등을 포함한다.</p>
-<p><strong><em>가변 공간 요구</em></strong><br>해결하고자 하는 문제의 특정 인스턴스 I에 의존하는 크기를 가진 구조화 변수들을 위해 필요로 하는 공간이다.</p>
-<h2><span id="시간-복잡도">시간 복잡도</span></h2><p>컴파일 시간과 실행 시간을 합한 것이다.</p>
 
                         
     </div>

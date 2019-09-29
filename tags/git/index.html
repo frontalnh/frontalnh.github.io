@@ -98,91 +98,107 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2018/03/19/git-시작하기/" itemprop="url">
-                git 시작하기
+            <a href="/2019/07/21/git-in-action/" itemprop="url">
+                Git in action
             </a>
             
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-03-18T16:45:57.000Z" itemprop="datePublished">
-                a year ago
+            <time datetime="2019-07-21T04:20:31.000Z" itemprop="datePublished">
+                2 months ago
             </time>
         </span>
         
             <span class="column is-narrow article-category">
                 <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/git-강의/">git 강의</a>
+                <a class="article-category-link" href="/categories/git/">git</a>
             </span>
             
                 
                     <span class="column is-narrow">
                         
                             
-                                12 minutes read (About 1801 words)
+                                19 minutes read (About 2903 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     <!--toc-->
-<h1><span id="git-시작하기">git 시작하기</span></h1><h2><span id="git-설치하기">git 설치하기</span></h2><h3><span id="git-cli-와-gui를-모두-설치한다">git cli 와 gui를 모두 설치한다</span></h3><p>이때 gui를 설치하지 않아도 되지만, 이런 경우 ssh 설정이 복잡하므로 간단하게 설치를 마쳐준다.<br>만약 ubuntu의 경우는 패키지 매니저인 apt-get을 사용하여 다음과 같이 설치한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
-<h3><span id="git-home-디렉토리-변경하기">git home 디렉토리 변경하기</span></h3><p>git 아이콘을 우클릭하여 대상 뒤의 –cd-home을 없애고</p>
-<p>시작위치에 원하는 위치를 넣어준다.</p>
-<h2><span id="원격-repo-연결하기">원격 repo 연결하기</span></h2><p>git 세팅을 완료했다면 온라인 상의 코드들을 조작하기 위해 git 서버에 연결한다.<br>git 서버에 연결하는 방법은 2가지가 있는데, 하나는 http 방식이고 다른 하나는 ssh 방식이다.</p>
+<h2><span id="installation">Installation</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
+<h2><span id="terminology">Terminology</span></h2><p><strong>Branch</strong> 란 commit 의 나열을 의미한다. 서로 다른 branch 란 서로 다른 작업 내역의 합이고 이러한 작업내역을 서로 합치고 변경하면서 여러 형태의 code base 가 존재할 수 있다.</p>
+<p><strong>Commit</strong> 이란 code base 의 변화내역을 의미한다. 즉, git 에서 현재 code base 의 최종상태는 과거의 commit 들의 합을 의미하고, 특정 commit 을 변경하는 행위는 과거의 특정 시점의 작업 내용을 변경함을 의미한다. git 에서 이러한 commit 은 매우 핵심적인 역할을 한다.</p>
+<p><strong>HEAD</strong> 현재 내가 있는 commit 을 의미한다. 내가 현재 있는 곳은 사용자에게 매우 직관적이기에 git 에서는 특정 commit 의 고유한 identity 인 commit hash 대신에 HEAD 를 기준으로 commit hash 를 표현하는 경우가 많다. 가령 <code>HEAD~3</code> 이란 현재 내가 있는 commit 으로부터 앞에서 3번째 커밋의 hash 를 가리킨다. </p>
+<h2><span id="setup">Setup</span></h2><h3><span id="global-setup">Global setup</span></h3><p>git 의 사용자 정보 및 사용자별 다른 연결 정보등과 같은 공통의 설정들은 <code>&lt;home&gt;/.gitconfig</code> 파일에 설정할 수 있다.</p>
+<p>이는 <code>git config --global user.name = &lt;USER_NAME&gt;</code> 등과 같은 명령어를 통해서도 가능하지만 파일에 직접 설정을 작성할 수 있다.</p>
+<p>~/.gitconfig</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	name = &lt;사용자 이름&gt;</span><br><span class="line">	email = &lt;사용자 이메일&gt;</span><br><span class="line">	username = &lt;USER_NAME&gt;</span><br><span class="line">	</span><br><span class="line">[credential]</span><br><span class="line">	helper = cache # 비밀번호를 캐싱하여 계속 입력하지 않아도 되도록 한다.</span><br><span class="line">	</span><br><span class="line"><span class="meta">#</span><span class="bash"> 특정 repository 에 대한 credential 을 설정한다.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 예를 들어 만약 코드 커밋을 사용한다면 다음과 같이 code commit repository 세팅을 다음과 같이 할 수 있다.</span></span><br><span class="line">[credential "&lt;CODE_COMMIT_REPOSITORY&gt;"] </span><br><span class="line">	helper = !aws codecommit credential-helper $@</span><br><span class="line">	UseHttpPath = true</span><br></pre></td></tr></table></figure>
+<p> 위 설정은 간단히 아래의 커맨드로도 가능하다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;USER_NAME&gt;</span><br><span class="line">git config --global user.email &lt;USER_EMAIL&gt;</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list # 설정한 내용 확인</span><br></pre></td></tr></table></figure>
+<h3><span id="repository-level-setup">Repository level setup</span></h3><p>위처럼 git 의 system 전역 세팅이 아닌 특정 git repository 마다 다른 세팅을 하고자 한다면 다음과 같은 레포지토리 마다 설정을 해줄 수 있다.</p>
+<p>특정 repository 의 <code>.git</code> 디렉토리의 <code>config</code> 파일에 git 세팅을 할 수 있다.</p>
+<h3><span id="ssh-setup">SSH setup</span></h3><p>Git repository 에 인증체계는 https 방식과 ssh 방식이 있는데, https 방식은 유저네임과 패스워드로 레포지토리 인증을 하는 것이고, ssh 방식에서는 사용자 pc 의 ssh 공개키를 github repository 에 등록하여 인증을 하는 방식이다.</p>
+<p>먼저 ssh 인증 방식은 다음과 같다.</p>
 <p>먼저, ssh를 활용하여 연결하기 위해서 컴퓨터의 ssh key를 생성하고, 생성된 공개키는 git에 등록한다.<br>공개키를 사용하려면 일단 공개키를 만들어야 하는데, 공개키를 만드는 방법은 모든 운영체제가 비슷하다.<br>먼저 키가 있는지부터 확인하자. 사용자의 SSH 키들은 기본적으로 사용자의 ~/.ssh 디렉토리에 저장한다.</p>
 <p>리눅스 혹은 ubuntu의 경우 ssh-keygen을 통해 공개키/개인키 쌍을 생성할 수 있다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
 <p>위 명령어를 통해 공개키를 생성하였으면 ~/.ssh 디렉토리에 id_rsa.pub가 생성되었을 것이다.<br>해당 공개키를 git 홈페이지의 repository의 설정에서 등록해 주면 된다.</p>
 <p><a href="https://git-scm.com/book/ko/v1/Git-%EC%84%9C%EB%B2%84-SSH-%EA%B3%B5%EA%B0%9C%ED%82%A4-%EB%A7%8C%EB%93%A4%EA%B8%B0" target="_blank" rel="noopener">참조</a></p>
-<p>git pull 명령을 수행하는 동중 permission denied가 되는 경우가 있는데 이는 특정 유저에게 해당 파일에 대한 변경 권한이 없는 것으로 다음과 같이 해결한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown &lt;USER&gt;.&lt;GROUP&gt; -R /home/&lt;USER&gt;/.config</span><br><span class="line">chown &lt;USER&gt;.&lt;GROUP&gt; -R /home/&lt;USER&gt;/.gitconfig</span><br></pre></td></tr></table></figure>
-<p>만약 위처럼 ssh를 통해 연결이 어렵다면 pull 혹은 clone 시에 https를 기반으로 받으면 ssh 연결이 아닌 https를 통해 받을 수 있으니 시도해 보기 바란다.</p>
-<h2><span id="git-명령어-모음">git 명령어 모음</span></h2><h3><span id="브랜치-생성-및-변경">브랜치 생성 및 변경</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch [브랜치명]</span><br><span class="line">git checkout [브랜치명]</span><br></pre></td></tr></table></figure>
+<h2><span id="git-add">Git Add</span></h2><h3><span id="추가된-파일-포함시키고-커밋하기">추가된 파일 포함시키고 커밋하기</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 모든 파일 추가</span></span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 특정 파일 추가</span></span><br><span class="line">git add &lt;FILE_NAME&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="branch">branch</span></h2><h3><span id="브랜치-생성-및-변경">브랜치 생성 및 변경</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch [브랜치명]</span><br><span class="line">git checkout [브랜치명]</span><br></pre></td></tr></table></figure>
 <p>git branch [브랜치명] 명령어로 브랜치를 생성하고<br>git checkout [브랜치명] 명령어를 통해 브랜치를 변경한다.<br>여기서 checkout은 단순히 브랜치를 옮기는 것으로 지금까지의 변경내용이 바뀌지 않고 해당 브랜치로 이동하기 때문에<br>해당 브랜치에 지금의 변경내용이 전부 반영된다.</p>
 <h3><span id="브랜치-삭제하기">브랜치 삭제하기</span></h3><p><code>git branch -d [branch Name]</code></p>
-<h3><span id="추가된-파일-포함시키고-커밋하기">추가된 파일 포함시키고 커밋하기</span></h3><p>파일 추가<br><code>git add</code></p>
-<p>커밋하기</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;메세지&quot;</span><br></pre></td></tr></table></figure>
-<h3><span id="원격저장소에-사용하기">원격저장소에 사용하기</span></h3><p>업스트림(upstream) 브랜치 설정<br>로컬 저장소를 init 명령어로 생성했을땐 수동으로 업스트림 브랜치를 설정할 필요가 있다. 업스트림 브랜치란 원격 저장소와 바로 연결된 로컬 저장소를 말하며 push나 pull 명령등에서 원격 저장소 이름을 생략할 수 있게 한다.</p>
+<h2><span id="commit">commit</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 커밋하기</span></span><br><span class="line">git commit -m "메세지"</span><br></pre></td></tr></table></figure>
+<h2><span id="checkout">checkout</span></h2><p>Checkout 명령어는 현재 나의 code base 를 특정 커밋 혹은 브랜치로 옮기는 것이다.</p>
+<p>사실 더 정확한 표현은 특정 커밋으로 옮긴다고 하는 것이 맞는 표현일 것 같다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 특정 브랜치로 code base 이동</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 사실 특정 브랜치 이름은 특정 커밋 해쉬를 의미한다.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 해당 브랜치의 마지막 commit 으로 이동한다고 보면 된다.</span></span><br><span class="line">git checkout &lt;BRANCH_NAME&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 특정 커밋으로 code base 이동</span></span><br><span class="line">git checkout &lt;COMMIT_HASH&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 특정 파일만 특정 commit 으로 이동</span></span><br><span class="line">git checkout &lt;COMMIT_HASH&gt; &lt;FILE_NAME&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="원격-브랜치-가져오기">원격 브랜치 가져오기</span></h3><p><code>git checkout -t origin/eventsource</code></p>
+<p>### </p>
+<h2><span id="log">log</span></h2><p>먼저 커밋 내역을 확인할 수 있도록 log를 확인한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<h2><span id="merge">merge</span></h2><p>머지하기<br><code>git checkout master</code>를 통해 마스터로 이동한다<br><code>git merge [commit name]</code></p>
+<h2><span id="push">push</span></h2><p>원격 코드베이스에 나의 코드를 밀어넣는다.</p>
+<p>업스트림(upstream) 브랜치 설정<br>로컬 저장소를 init 명령어로 생성했을땐 수동으로 업스트림 브랜치를 설정할 필요가 있다. 업스트림 브랜치란 원격 저장소와 바로 연결된 로컬 저장소를 말하며 push나 pull 명령등에서 원격 저장소 이름을 생략할 수 있게 한다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>
-<p>원격 저장소와 코드를 주고 받기 위해 가장 먼저 해야 할 일은 원격 저장소가 어디에 있는지를 알려주는 일이다.<br>다음과 같은 코드를 입력하기 원격저장소 origin의 위치를 등록해 준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:hea9549/expiritAdmin.git</span><br></pre></td></tr></table></figure>
 <p>밀어넣기<br><code>git push origin [branch]</code></p>
 <p>강제로 밀어넣기<br><code>git push -u origin master</code></p>
-<p>머지하기<br><code>git checkout master</code>를 통해 마스터로 이동한다<br><code>git merge [commit name]</code></p>
-<p>풀받기<br><code>git pull [remote 저장소] [브랜치]</code></p>
-<h3><span id="커밋을-되돌리기">커밋을 되돌리기</span></h3><p>이번에는 기존에 한 커밋을 되돌리는 법을 배운다.</p>
-<p>먼저 커밋 내역을 확인할 수 있도록 log를 확인한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<p>뒤로 돌리기</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD</span><br></pre></td></tr></table></figure>
-<p>명령어를 통해 HEAD에 마지막으로 커밋된 내용을 뒤로 돌린다.</p>
-<h3><span id="원격-브랜치-가져오기">원격 브랜치 가져오기</span></h3><p><code>git checkout -t origin/eventsource</code></p>
-<h3><span id="로컬-작업-내용-버리기-혹은-저장하기">로컬 작업 내용 버리기 혹은 저장하기</span></h3><p>당신이 어떤 프로젝트에서 한 부분을 담당하고 있다고 하자. 그리고 여기에서 뭔가 작업하던 일이 있고 다른 요청이 들어와서 잠시 브랜치를 변경해야 할 일이 생겼다고 치자. 아직 완료하지 않은 일을 커밋하는 것은 좀 껄끄럽다. 이런 상황에서는 커밋하지 않고 나중에 다시 돌아와서 작업을 다시 하고 싶을 것이다. 이 문제는 git stash라는 명령으로 해결할 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash // stash difference</span><br><span class="line">git stash clear // deled stased</span><br><span class="line">git stash list // list up stashed</span><br></pre></td></tr></table></figure>
-<h2><span id="과거의-커밋-내용을-수정하기">과거의 커밋 내용을 수정하기</span></h2><p>open source 활동을 하거나 혹은 대규모의 프로젝트를 진행할때 겪는 가장 큰 문제는 내가 작성한 과거의 코드내용, 즉 과거의 커밋 내용을 수정하는 것이다.</p>
+<h2><span id="pull">pull</span></h2><p>풀받기<br><code>git pull [remote 저장소] [브랜치]</code></p>
+<h2><span id="rebase">rebase</span></h2><p>Rebase 란 말 그대로 시작점을 다시 설정하는 것이다.</p>
+<p>git 의 코드관리는 복잡해 보이지만 기본적으로 최초의 하나의 뿌리에서 부터 여러 갈래로 갈라져 나간 나무의 형태를 띄고 있다. 여기서 rebase 의 의미는 현재 나의 branch 와 합치고 싶은 다른 branch 의 base 즉 갈라져 나온 최초의 commit 시점을 찾아서 그 이후로 진행한 나의 모든 가지를 통으로 잘라서 다른 branch 의 끝으로 옮겨붙이는 것이다.</p>
+<p>실제 나무에서 하나의 가지를 통으로 잘라내어 붙이고 싶은 가지를 선택해 그 가지의 끝에 잘라낸 가지를 옮겨붙이는 것을 생각하면 쉽게 이해할 수 있다.</p>
+<p>이러한 rebase 는 상대방의 모든 코드 변화 이후에 나의 코드변화를 빠짐없이 적용할 수 있다는 점에서 매우 유용하다.</p>
+<p>가령 친구와 나의 교과서 필기를 하나로 합치고 싶은데 제일 깔끔한 친구의 노트에 내 모든 필기내용을 한반에 옮겨적는 것을 생각해 보면 된다. 이 얼마나 편리한가! 만약 여기서 친구와 내가 같은 페이지에 다른 내용을 기록했다면 여기서 어떤 내용을 최종으로 작성할지 결정하는 작업이 필요하다.</p>
+<h3><span id="과거-나의-커밋-내용을-수정하기">과거 나의 커밋 내용을 수정하기</span></h3><p>open source 활동을 하거나 혹은 대규모의 프로젝트를 진행할때 겪는 가장 큰 문제는 내가 작성한 과거의 코드내용, 즉 과거의 커밋 내용을 수정하는 것이다.</p>
 <p>대부분의 경우 feature 브랜치에서 많은 내용을 수정하고 중간중간 변경 사항에 대해 commit 으로 기록하기 때문에 과거의 커밋을 바꾸기 위해서는 까마득한 예전의 코드로 돌아가 그 특정 부분을 수정하고 그 뒤의 변경사항을 다시 재적용 시키는 일이 필요하다.</p>
 <p>이 경우에는 <code>git rebase</code> 명령을 사용하여 해결할 수 있으며 다음과 같은 절차를 거친다.</p>
 <ol>
-<li><p><code>git log</code> 를 통해 나의 이전 커밋 내용을 확인한다.</p>
-</li>
-<li><p><code>git rebase -i HEAD~n</code> 를 통해 HEAD로 부터 얼마나 뒤 내용을 수정하고 rebase를 진행할지 정해준다. 가령 HEAD 로 부터 3 번째 커밋부터의 커밋들에 수정사항이 있다면 <code>git rebase -i HEAD~3</code> 명령어를 입력한다.</p>
-</li>
-<li><p>위 명령어를 입력하면 과거의 커밋들이 나타나고 커밋명 앞에 pick 이라는 키워드가 있다. 여기서 우리가 수정하기를 원하는 커밋의 pick 키워드를 e(edit) 으로 바꿔준다.</p>
-</li>
-<li><p>이제 git이 edit 하고자 하는 커밋으로 코드를 돌려주고 원하는 내용을 수정한 뒤에 <code>git commit --amend</code> 를 해주면 해당 커밋을 수정하여 다시 커밋하고 <code>git rebase --continue</code> 명령을 통해 뒤의 커밋들을 쭉 적용시켜 줄 수 있다.</p>
-</li>
+<li><code>git log</code> 를 통해 나의 이전 커밋 내용을 확인한다.</li>
+<li><code>git rebase -i HEAD~n</code> 를 통해 HEAD로 부터 얼마나 뒤 내용을 수정하고 rebase를 진행할지 정해준다. 가령 HEAD 로 부터 3 번째 커밋부터의 커밋들에 수정사항이 있다면 <code>git rebase -i HEAD~3</code> 명령어를 입력한다.</li>
+<li>위 명령어를 입력하면 과거의 커밋들이 나타나고 커밋명 앞에 pick 이라는 키워드가 있다. 여기서 우리가 수정하기를 원하는 커밋의 pick 키워드를 e(edit) 으로 바꿔준다.</li>
+<li>이제 git이 edit 하고자 하는 커밋으로 코드를 돌려주고 원하는 내용을 수정한 뒤에 <code>git commit --amend</code> 를 해주면 해당 커밋을 수정하여 다시 커밋하고 <code>git rebase --continue</code> 명령을 통해 뒤의 커밋들을 쭉 적용시켜 줄 수 있다.</li>
 </ol>
-<h3><span id="특정-파일만-특정-커밋으로-되돌리기">특정 파일만 특정 커밋으로 되돌리기</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;COMMIT_HASH&gt; &lt;FILE_NAME&gt;</span><br></pre></td></tr></table></figure>
-<h2><span id="유용한-기능들">유용한 기능들</span></h2><p><strong>CLI 에서 비밀번호 저장하기</strong></p>
+<h2><span id="remote">remote</span></h2><h3><span id="원격-레포지토리-등록하기">원격 레포지토리 등록하기</span></h3><p>원격 저장소와 코드를 주고 받기 위해 가장 먼저 해야 할 일은 원격 저장소가 어디에 있는지를 알려주는 일이다.<br>다음과 같은 코드를 입력하기 원격저장소 origin의 위치를 등록해 준다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin &lt;GIT_REPOSITORY&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="revert">revert</span></h2><p>이번에는 기존에 한 커밋을 되돌리는 법을 배운다.</p>
+<p>뒤로 돌리기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD</span><br></pre></td></tr></table></figure>
+<p>명령어를 통해 HEAD에 마지막으로 커밋된 내용을 뒤로 돌린다.</p>
+<p>이 revert 에서 주의할 점은 해당 커밋의 변경내용을 정확히 반대로 하는 새로운 commit 을 만들어 내는 것이다.</p>
+<p>즉, revert 를 하면 revert 하고싶은 commit 을 뒤로 돌리는 새로운 업데이트에 대한 commit 을 만들어 낸다.</p>
+<h2><span id="stash">stash</span></h2><h3><span id="로컬-작업-내용-버리기-혹은-저장하기">로컬 작업 내용 버리기 혹은 저장하기</span></h3><p>당신이 어떤 프로젝트에서 한 부분을 담당하고 있다고 하자. 그리고 여기에서 뭔가 작업하던 일이 있고 다른 요청이 들어와서 잠시 브랜치를 변경해야 할 일이 생겼다고 치자. 아직 완료하지 않은 일을 커밋하는 것은 좀 껄끄럽다. 이런 상황에서는 커밋하지 않고 나중에 다시 돌아와서 작업을 다시 하고 싶을 것이다. 이 문제는 git stash라는 명령으로 해결할 수 있다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git stash // stash difference</span><br><span class="line">git stash clear // deled stased</span><br><span class="line">git stash list // list up stashed</span><br><span class="line"><span class="meta">#</span><span class="bash"> stash 한 변경 내용들 불러오기</span></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<p>## </p>
+<h2><span id="configuration">Configuration</span></h2><h3><span id="repository-wide-ssh-setup">Repository wide ssh setup</span></h3><p>아래 명령어는 특정 레포지토리의 ssh 인증키를 별도로 세팅하는 코드이다. 이를 통해 여러개의 레포지토리 마다 별도의 ssh 인증키를 사용할 수 있다. 개인 pc 에서 업무용 repository 에 접근하는 경우라면 이러한 세팅은 매우 편리하다.</p>
+<p>아래 명령어를 git repository 에서 실행함으로 간편하게 repository level 에서의 인증키를 등록할 수 있고</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
+<p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">sshCommand = "ssh -i ~/.ssh/&lt;KEY_FILE&gt;"</span><br></pre></td></tr></table></figure>
+<h3><span id="git-home-디렉토리-변경하기">git home 디렉토리 변경하기</span></h3><p>git 아이콘을 우클릭하여 대상 뒤의 –cd-home을 없애고</p>
+<p>시작위치에 원하는 위치를 넣어준다.</p>
+<p><strong>CLI 에서 비밀번호 저장하기</strong></p>
 <p><code>git config credential.helper store</code></p>
-<p><strong>변경내용 임시 저장하기</strong></p>
-<p><code>git stash</code></p>
-<p><strong>임시 저장내용 불러오기</strong></p>
-<p><code>git stash pop</code></p>
-<h2><span id="2fa-인증">2FA 인증</span></h2><p>git authentication</p>
+<h3><span id="2fa-인증">2FA 인증</span></h3><p>git authentication</p>
 <p>git 에서 2FA 인증을 하는 경우 personal access token을 발급받아서 해야한다.</p>
 
                         
