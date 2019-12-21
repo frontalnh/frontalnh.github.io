@@ -91,6 +91,62 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/03/27/자료구조-강의-09-우선순위-큐/" itemprop="url">
+                자료구조 강의 09. 우선순위 큐
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-27T11:07:13.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/자료구조-강의/">자료구조 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                5 minutes read (About 739 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#1-한쪽-끝과-양쪽-끝-우선순위-큐">1. 한쪽 끝과 양쪽 끝 우선순위 큐</a></li>
+<li><a href="#좌향-트리">좌향 트리</a></li>
+<li><a href="#이항히프b-heap">이항히프(B-Heap)</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="1-한쪽-끝과-양쪽-끝-우선순위-큐">1. 한쪽 끝과 양쪽 끝 우선순위 큐</span></h1><p><strong>우선순위 큐(priority queue)</strong> 는 각 원소가 연관된 우선순위를 갖고 있는 원소들의 모임이다.<br>가령 시스템의 작업 우선도를 설정해 줄 때에는 작업들을 우선 순위에 따라 분류해야 하며, 2개의 서버로 이루어진 시스템의 경우에 하나의 시스템이 사고로 인해 종료되는 경우 반대쪽 서버로 그 작업 내역들이 병합되어야 하는데 이러한 경우 우선순위 큐를 통해 두 작업 리스트를 병합해야 한다.</p>
+<p>이러한 우선순위 큐 <strong>한쪽 끝 우선순위 큐</strong> 와 <strong>양쪽 끝 우선순위 큐</strong> 가 있으며, 한쪽 끝 우선순위 큐는 <strong>최대 우선순위 큐</strong> 와 <strong>최소 우선순위 큐</strong> 로 나뉜다.</p>
+<p><strong>최소 우선순위 큐</strong> 에 의해 지원되는 연산은 다음과 같다.<br>SP1. 최소 우선순위를 가진 원소의 반환<br>SP2. 임의 우선순위를 가진 원소의 삽입<br>SP3. 최소 우선순위를 가진 원소의 삭제</p>
+<p>이러한 우선순위 큐를 잘 표현하기 위한 고전적인 자료 구조로써 <strong>히프(heap)</strong> 를 사용한다.</p>
+<p>양쪽 끝 우선순위 큐는 최소 우선순위 큐와 최대 우선순위 큐가 하나로 합해진 최소-최대 우선순위 큐이다.</p>
+<p>실제 활용도 측면에서, 양쪽 끝 우선순위 큐는 네트워크 버퍼를 구현하는 데 사용되는데 네트워크 링크를 통해 전송되기를 원하는 패킷들을 가지고 있는 경우 가장 높은 우선순위를 가진 패킷이 전송되고 삭제 되는 <strong>최대 삭제</strong> 가 행해지는 반면, 네트워크 내의 다른 곳으로 부터 새로운 패킷이 도착하였는데 버퍼가 가득 차 있다면 우선 순위가 가장 낮은 패킷을 지우는 <strong>최소 삭제</strong> 가 일어나게 된다. 이처럼 작업 큐의 양쪽에서 삽입과 삭제가 가능한 큐를 양쪽 끝 우선순위 큐라고 부른다.</p>
+<h1><span id="좌향-트리">좌향 트리</span></h1><p>좌향트리는 합병성 우선순위 큐의 효율적 구현을 제공한다.<br>좌향 트리의 종류에는 HBLT(Height Biased Leftist Tree)와 WBLT(Weight Biased Leftist Tree)가 있는데, 일반적으로 HBLT를 좌향트리하고 부른다.</p>
+<h1><span id="이항히프b-heap">이항히프(B-Heap)</span></h1><p>좌향 트리에서 지원되는 것과 같은 기능을 수행한다. 개별적인 연산을 수행하는 데 걸리는 시간보다 우선순위 큐의 순차를 수행하는데 걸리는 시점에 관심이 있다.<br>이항 히프란 최소 트리의 집합이며, 최소 트리 가운데 최소값을 갖는 트리를 가리키는 하나의 포인터가 가르키게 된다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/03/27/컴퓨터-구조-강의-프로세서/" itemprop="url">
                 컴퓨터 구조 | 프로세서
             </a>
@@ -612,49 +668,6 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
                     
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/02/06/mysql-update-문의-모든것/" itemprop="url">
-                Mysql 강의 04. mysql update 문의 모든것
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-02-06T00:19:00.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/mysql-강의/">Mysql 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 39 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="기본-구문">기본 구문</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 테이블명 SET 필드명 = &quot;바꿀 값&quot; WHERE 필드명= &quot;조건 값&quot;</span><br></pre></td></tr></table></figure>
-<h1><span id="특정-column-값을-increase-시키기">특정 column 값을 increase 시키기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE mytable</span><br><span class="line">  SET logins = logins + 1</span><br><span class="line">  WHERE id = 12</span><br></pre></td></tr></table></figure>
-
                         
     </div>
     

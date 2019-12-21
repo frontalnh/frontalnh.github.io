@@ -91,6 +91,52 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/05/29/git-기본-설정하기/" itemprop="url">
+                git 기본 설정하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-29T01:05:54.000Z" itemprop="datePublished">
+                7 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 387 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h3><span id="전역-설정하기">전역 설정하기</span></h3><p>git 의 사용자 정보 및 사용자별 다른 연결 정보등과 같은 공통의 설정들은 <code>&lt;home&gt;/.gitconfig</code> 파일에 설정할 수 있다.</p>
+<p>이는 <code>git config --global user.name = &lt;USER_NAME&gt;</code> 등과 같은 명령어를 통해서도 가능하지만 파일에 직접 설정을 작성할 수 있다.</p>
+<p>.gitconfig</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">	editor = "nvim"</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name = &lt;사용자 이름&gt;</span><br><span class="line">	email = &lt;사용자 이메일&gt;</span><br><span class="line">	username = &lt;USER_NAME&gt;</span><br><span class="line">	</span><br><span class="line">[credential]</span><br><span class="line">	helper = cache # 비밀번호를 캐싱하여 계속 입력하지 않아도 되도록 한다.</span><br><span class="line">	</span><br><span class="line">[credential "&lt;CODE_COMMIT_REPOSITORY&gt;"] # 코드 커밋을 사용한다면 설정한다.</span><br><span class="line">	helper = !aws codecommit credential-helper $@</span><br><span class="line">	UseHttpPath = true</span><br></pre></td></tr></table></figure>
+<p> 위 설정은 간단히 아래의 커맨드로도 가능하다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;USER_NAME&gt;</span><br><span class="line">git config --global user.email &lt;USER_EMAIL&gt;</span><br><span class="line">git config credential.helper cache</span><br><span class="line">git config --list # 설정한 내용 확인</span><br><span class="line">git config --global core.editor "nvim" # git command 의 기본 editor 를 nvim 으로 지정.</span><br></pre></td></tr></table></figure>
+<h3><span id="ssh-기반-인증">ssh 기반 인증</span></h3><p>만약 특정 레포지토리가 공개키 방식의 인증과정을 거치고 특정 키를 레포지토리에 등록시켜 두었다면, 해당 인증서를 통해 인증하여 레포지토리와 통신할 수 있다. 이때 여러 레포지토리들은 각각 다른 키를 사용할 수 있는데 이러한 ssh 연결 정보를 특정 레포지토리의 <code>.git/config</code> 파일에 설정해 둘 수 있으며, 그 명령어는 다음과 같다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --add core.sshCommand 'ssh -i ~/your_key'</span><br></pre></td></tr></table></figure>
+<p>혹은 아래와 같이 직접 <code>.git/config</code> 파일을 수정할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">sshCommand = &quot;ssh -i ~/.ssh/keyfile&quot;</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/05/23/가치투자-시작하기/" itemprop="url">
                 가치투자 시작하기
             </a>
@@ -99,7 +145,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-22T23:02:24.000Z" itemprop="datePublished">
-                4 months ago
+                7 months ago
             </time>
         </span>
         
@@ -173,7 +219,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-19T05:40:37.000Z" itemprop="datePublished">
-                4 months ago
+                7 months ago
             </time>
         </span>
         
@@ -217,7 +263,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-15T01:06:49.000Z" itemprop="datePublished">
-                4 months ago
+                7 months ago
             </time>
         </span>
         
@@ -291,7 +337,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-14T08:07:36.000Z" itemprop="datePublished">
-                4 months ago
+                7 months ago
             </time>
         </span>
         
@@ -337,7 +383,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-14T00:51:23.000Z" itemprop="datePublished">
-                5 months ago
+                7 months ago
             </time>
         </span>
         
@@ -392,7 +438,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-06T07:17:56.000Z" itemprop="datePublished">
-                5 months ago
+                8 months ago
             </time>
         </span>
         
@@ -457,7 +503,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-03T09:30:43.000Z" itemprop="datePublished">
-                5 months ago
+                8 months ago
             </time>
         </span>
         
@@ -531,7 +577,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-02T06:59:35.000Z" itemprop="datePublished">
-                5 months ago
+                8 months ago
             </time>
         </span>
         
@@ -585,7 +631,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                5 months ago
+                8 months ago
             </time>
         </span>
         
@@ -629,97 +675,6 @@
 <p>## </p>
 <h3><span id="outbound-request-in-vpc">Outbound request in VPC</span></h3><p>아래와 같이 외부로의 요청을 처리하는 NAT 는 VPC 의 내부 ip range 로의 모든 요청을 VPC 내부로 Route 하고 그 외의 모든 요청을 NAT Gateway 를 통한 외부접근으로 설정한다.</p>
 <p><img src="/images/Screen Shot 2019-04-20 at 4.55.35 PM.png" alt="Screen Shot 2019-04-20 at 4.55.35 PM"></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/04/08/hyperledger-fabric-시작하기/" itemprop="url">
-                
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-04-08T13:48:34.167Z" itemprop="datePublished">
-                6 months ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1216 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="hyperledger-fabric-시작하기">Hyperledger fabric 시작하기</span></h1><h2><span id="prerequisition">Prerequisition</span></h2><ol>
-<li>docker 설치하기</li>
-<li>virtual box 다운로드</li>
-</ol>
-<h2><span id="vm-환경-설정">VM 환경 설정</span></h2><p>먼저 다음 명령어를 통해 docker를 사용하기 위한 VM을 생성해 줍니다.</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --driver virtualbox blockchain</span><br></pre></td></tr></table></figure>
-<p>새로 생성된 VM의 환경변수를 Host에 적용해 줍니다</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine env blockchain</span><br></pre></td></tr></table></figure>
-<p>운영체제에 따라 다음과 같은 명령을 실행해 줍니다.</p>
-<p>MacOS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ eval $(docker-machine env blockchain)</span><br></pre></td></tr></table></figure>
-<p>Windows</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@FOR /f &quot;tokens=*&quot; %i IN (&apos;docker-machine env blockchain&apos;) DO @%i</span><br></pre></td></tr></table></figure>
-<p>Docker 사용을 위한 환경 설정이 잘 되었는지 확인합니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<h2><span id="download-hyperledger-fabric-docker-image">Download hyperledger fabric docker image</span></h2><p>다음의 명령을 통해서 모든 이미지를 받습니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull hyperledger/fabric-baseimage:x86_64-0.2.2</span><br><span class="line">docker pull hyperledger/fabric-membersrvc:x86_64-0.6.1-preview</span><br><span class="line">docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview</span><br></pre></td></tr></table></figure>
-<p>이미지를 다 받으셨으면 <code>docker images</code> 명령을 통해서 이미지 리스트를 확인합니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<p><code>baseimage</code>의 경우 Tab를 latest로 태깅을 해야 합니다. 향후 블록체인의 운영모드에서 체인코드 디플로이를 할 경우 baseimage를 통해 체인코드 구동을 위한 Docker 이미지를 만드는데 <code>hyplerledger/fabric-baseimage:latest</code> 를 사용합니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag hyperledger/fabric-baseimage:x86_64-0.2.2 hyperledger/fabric-baseimgae:latest</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<h2><span id="docker-configuration">docker     configuration</span></h2><p>Docker-compose.yml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">membersrvc:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">hyperledger/fabric-membersrvc:x86_64-0.6.1-preview</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7054:7054"</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">membersrvc</span></span><br><span class="line"><span class="attr">vp0:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">hyperledger/fabric-peer:x86_64-0.6.1-preview</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7050:7050"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7051:7051"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"7053:7053"</span></span><br><span class="line"><span class="attr">  environment:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_ADDRESSAUTODETECT=true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_LOGGING_LEVEL=DEBUG</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_ID=vp0</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_PKI_ECA_PADDR=membersrvc:7054</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_PKI_TCA_PADDR=membersrvc:7054</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_PEER_PKI_TLSCA_PADDR=membersrvc:7054</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_SECURITY_ENABLED=true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_SECURITY_ENROLLID=test_vp0</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">CORE_SECURITY_ENROLLSECRET=MwYpmSRjupbT</span></span><br><span class="line"><span class="attr">  links:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">membersrvc</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">sh</span> <span class="bullet">-c</span> <span class="string">"sleep 5; peer node start --peer-chaincodedev"</span></span><br></pre></td></tr></table></figure>
-<h2><span id="fabric-소스-준비하기">Fabric 소스 준비하기</span></h2><p>컴퓨터의 go path 내에 hyper ledger-fabric 의 코드를 받습니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $GOPATH/src/github.com/hyperledger</span><br><span class="line">cd $GOPATH/src/github.com/hyperledger</span><br><span class="line">git clone https://github.com/hyperledger/fabric.git</span><br><span class="line">cd fabric</span><br><span class="line">git checkout v0.6.1-preview</span><br></pre></td></tr></table></figure>
-<p>우선 예제 코드를 빌드하여 블록체인 네트워크 상에서 동작을 확인해 봅시다.</p>
-<p>MacOS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $GOPATH/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02</span><br><span class="line">go build</span><br></pre></td></tr></table></figure>
-<p>Windows</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd %GOPATH%\src\github.com\hyperledger\fabric\examples\chaincode\go\chaincode_example02</span><br><span class="line">&gt; go build</span><br></pre></td></tr></table></figure>
-<p>위의 과정을 문제없이 완료하였으면 <code>chaincode_example02</code> 디렉토리 하위에 chaincode_example02 라는 이름으로 실행파일이 생성되었을 겁니다.(Windows는 chaincode_example02.exe ) 개발모드에서는 이 실행파일을 몇 개의 환경변수와 함께 실행하기만 하면 블록체인 런타임에서 트랜잭션 테스트가 가능한 상태가 됩니다.</p>
-<h2><span id="스마트-컨트랙의-배포">스마트 컨트랙의 배포</span></h2><p>체인 코드를 validating peer 컨테이너에 복사해 넣고 rest api로 deploy만 호출하면 블록체인 네트워크 전체에 코드가 적용됩니다.</p>
-<p>다음은 운영모드에서 어떻게 체인크도그 반영되는지를 보여줍니다.</p>
-<h3><span id="체인코드의-디플로이-프로세스">체인코드의 디플로이 프로세스</span></h3><ol>
-<li>운영모드에서 체인코드 디플로이가 요청되면 요청을 받은 Peer는 블록체인 네트워크상에 연결되어 있느 모든 피어에게 동일한 체인코드를 전송합니다.</li>
-<li>체인 코드를 받은 각 validating peer는 체인코드르 빌드하여 체인 구동을 위한 docker-image를 만들고, 실행하게 됩니다.</li>
-<li>validating peer는 docker remote api서비스에 체인코드를 위한 docker-image 생성 및 실행을 요청하고 docker-engine은 hyper ledger/fabric-baseimage를 이용하여 체인코드 docker이미지를 생성하고 실행합니다.</li>
-</ol>
-<h3><span id="validating-peer의-수정">Validating Peer의 수정</span></h3><p>docker machine은 VM 환경을 만들 때 기본적으로 https 통신을 하도록 docker 엔진을 구동하고, validating peer 가 docker engine api 에 요청하기 위해서는 블록체인의 ssl certificate를 가지고 있어야합니다.</p>
-<p>이렇게 validating peer 가 ssl certificate를 가지기 위해 다음과 같은 절차를 거칩니다.</p>
-<ol>
-<li>실행중인 validating peer  컨테이너에 certificate들을 복사합니다.</li>
-<li>실행중인 Validating Peer 컨테이너에 터미널로 접속해서 설정파일을 수정합니다.</li>
-<li>Validating Peer에서 빠져나와서 실행중인 Validating Peer 컨테이너를 새로운 이미지 명으로 commit 합니다.</li>
-<li>새로 생성된 이미지로 Validating Peer를 다시 구동합니다.</li>
-</ol>
-<h3><span id="컨테이너에-ssl-인증서-복사">컨테이너에 ssl 인증서 복사</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">컨테이너에서 로컬로 복사</span><br><span class="line">docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH</span><br><span class="line"></span><br><span class="line">로컬에서 컨테이너로 복사</span><br><span class="line">docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</span><br></pre></td></tr></table></figure>
-<p>인증서 위치</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd $HOME/.docker/machine/machines/blockchain</span><br><span class="line">$ mkdir key</span><br><span class="line">$ cp &#123;cert,ca,key&#125;.pem key</span><br></pre></td></tr></table></figure>
-<p>도커 컨테이너 아이디 확인</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-<p>컨테이너에서 Peer의 설정파일에 인증서 위치를 명시</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 컨테이너ID bash</span><br><span class="line"></span><br><span class="line">위 그럼을 기준으로 명령 예는 다음과 같습니다.</span><br><span class="line">docker exec -it 4409df7072c4 bash</span><br></pre></td></tr></table></figure>
-<p>docker의 bash 에 접근하였으면 다음과 같은 설정파일을 수정한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> cd membersrvc</span><br><span class="line"># vi membersrvc.yaml</span><br></pre></td></tr></table></figure>
 
                         
     </div>
