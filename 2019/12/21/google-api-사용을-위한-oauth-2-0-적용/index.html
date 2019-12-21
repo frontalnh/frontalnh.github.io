@@ -88,7 +88,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-12-21T13:32:20.000Z" itemprop="datePublished">
-                23 minutes ago
+                35 minutes ago
             </time>
         </span>
         
@@ -101,13 +101,13 @@
                     <span class="column is-narrow">
                         
                             
-                                12 minutes read (About 1819 words)
+                                13 minutes read (About 1927 words)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
-                    <p>OAuth 2.0 이란 써드 파티 어플리케이션의 인증을 위한 규약이다.</p>
+                    <h3><span id="oauth20-은-무엇이며-왜-사용하는가">OAuth2.0 은 무엇이며 왜 사용하는가?</span></h3><p>OAuth 2.0 이란 써드 파티 어플리케이션의 인증을 위한 규약이다.</p>
 <p>가령 내가 만든 어플리케이션이 구글의 서비스를 쓰기 위한 다양한 방법이 존재하는데, 대부분의 경우 내가 구글에 가서 인증키를 발급받은 다음에 이 인증키를 어플리케이션 내에 하드코드로 박아 넣는 방식을 사용해 왔다. 이러한 형태의 인증은 매우 흔한데 매우 많은 API 사업자들이 이러한 방식의 인증을 제공한다.</p>
 <p>이 경우 해당 키가 탈취되면 매우 심각한 문제가 발생하는데, 해당 키를 가지고 그 어떤 행동도 할 수 있다는 것이다. 이 키는 권한이라는 개념이 없기에 유저의 모든 권한을 가지게 되고 따라서 이 키가 탈취된다는 것은 사용자의 모든 정보가 탈취된 것이라고 봐도 무방하다.</p>
 <p>또 요즘과 같이 수많은 API 기반의 IT 서비스가 탄생하고 각 서비스들이 유기적으로 사용되는 경우는 매우 복잡한 인증들이 많이 필요하게 된다. 가령 우리가 흔히 쓰는 업무 툴인 지라만해도 지라에서 나의 구글드라이브에 접근할 권한을 주는 것 처럼 사용자의 특정 서비스에 대한 권한을 위임받는 것은 이제 매우 흔한 것이 되었다.</p>
@@ -118,26 +118,28 @@
 <p>그래서 OAuth 는 좋은 해결방법을 생각해 낸다. 바로 사용자가 구글에게 허가를 해주었다는 인증서를 발급하는 것이다. 이 인증서를 통해 우리는 구글에게 매번 특정 사용자의 권한을 입증할 수 있다. OAuth 에서 이러한 인증서를 access token 이라고 부른다.</p>
 <p>하지만 만약 이 인증서가 바뀌지 않는다면 큰 보안 이슈가 있는데, 이 책임은 사실 우리가 져야 할 것이다. 유저는 우리를 믿고 자신의 구글 권한을 부여했는데, 우리가 이를 제대로 보관하지 못했기 때문이다. 여기서 좋은 해답이 하나 있는데 인증서가 계속 만료되게끔 하여 탈취되어도 보다 안전하게 하고 우리가 이를 갱신할 수 있는 별도의 인증서를 보관하는 것이다. 물론 이 인증서도 탈취될 수 있지만 구글은 이 인증서와 우리의 비밀번호를 받아 이를 인증하기 때문에 이것이 해킹당하려면 해커는 인증서를 갱신할 수 있는 토큰 (refresh token) 과 우리의 client secret 두가지를 모두 탈취해야 할 것이다.</p>
 <p>따라서 OAuth는 이러한 문제를 잘 해결해 준다.</p>
-<p>OAuth 의 기본 동작 방식은 다음과 같다.</p>
+<h3><span id="google-api-사용을-위한-oauth-인증-절차">Google API 사용을 위한 OAuth 인증 절차</span></h3><p>Google API 에서 OAuth 인증 절차는 다음과 같다.</p>
 <p>구글에서 Client ID 와 Client Secret 를 매뉴얼하게 발급받는다. (이는 google api console 에서 할 수 있다.)</p>
 <p>이 Client ID 는 나에게 부여되는 공유 번호이고, secret 으로 이를 증명할 수 있다.</p>
 <p>우리는 구글에게 어떤 사용자의 권한을 원한다고 요청을 하면 구글은 자신이 만든 별도의 인증페이지로 고객을 보내고 고객이 여기서 자신이 맞다고 하면, 그 인증으로 authentication code 을 발급하여 우리가 전달한 redirect uri 로 요청을 보내준다. 우리는 이 token 을 구글에게 전달해서 access token 과 refresh 토큰을 발급할 수 있는 것이다.</p>
 <p>이를 코드로 작성해 보자</p>
 <p>먼저 구글에게 우리의 client id 와 원하는 권한의 범위를 정해서 전달한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;https://accounts.google.com/o/oauth2/v2/auth?\\&gt;</span><br><span class="line">scope=https://www.googleapis.com/auth/analytics&amp;\\</span><br><span class="line">redirect_uri=http://localhost:8080&amp;\\</span><br><span class="line">client_id=&lt;YOUR_CLIENT_ID&gt;&amp;\\</span><br><span class="line">response_type=code</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://accounts.google.com/o/oauth2/v2/auth?\</span><br><span class="line">scope=https://www.googleapis.com/auth/analytics&amp;\</span><br><span class="line">redirect_uri=http://localhost:8080&amp;\</span><br><span class="line">client_id=&lt;YOUR_CLIENT_ID&gt;&amp;\</span><br><span class="line">response_type=code</span><br></pre></td></tr></table></figure>
 <p>여기서 query parameter 를 한번씩 살펴보면</p>
 <p>scope : 어떤 resource 에 대한 권한을 받을 것인가</p>
 <p>redirect_uri: 구글이 유저에게 확인을 한 뒤에 어디로 요청을 반환해줄 것인가</p>
 <p>response_type: code 라고 써줘야 한다 뭔지 모름…</p>
 <p>client_id: 내 어플리케이션이 발급받은 client id</p>
-<p>위 요청을 브라우저에서 실행하면 브라우저에서 사용자임을 묻는 창으로 이동하게 되는데, 이를 넘기면 위에서 정한  redirect url 로 query 에 code를 담아 반환해주고 이 code를 다시 아래와 같이  우리의 client secret 과 함께 구글에 보내주면 우리는 비로소 access token 과 refresh token 을 발급받을 수 있다.</p>
+<p><strong>위 요청을 브라우저에서 실행</strong>하면 브라우저에서 사용자임을 묻는 창으로 이동하게 되는데, 이를 넘기면 <strong>위에서 정한  redirect url 로 query 에 code를 담아 반환</strong>해주고 이 code를 다시 아래와 같이  우리의 client secret 과 함께 구글에 보내주면 우리는 비로소 access token 과 refresh token 을 발급받을 수 있다.</p>
+<p>여기서 주의해야할 점은 redirect_url 에 명시된 호스트에서 응답을 받을 준비를 해야한다는 것이다.</p>
+<p>만약 해당 url 에서 요청을 받아 authentication code 를 잘 받아주어야 한다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl +X POST &lt;https://oauth2.googleapis.com/token?code=&gt;&lt;당신의 인증 코드&gt;&amp;client_id=&lt;당신의 클라이언트 아이디&gt;&amp;client_secret=&lt;당신의 클라이언트 secret&gt;&amp;redirect_uri=http://localhost:8080&amp;grant_type=authorization_code</span><br></pre></td></tr></table></figure>
 <p>code: authentication code</p>
 <p>client_id: id of the application client</p>
 <p>client_secret: you secret</p>
 <p>redirect_uri</p>
 <p>grant_type: hard code authorization_code which represents grant type</p>
-<p>위 요청을 보내면 access_token 과 refresh token 을 발급받을 수 있다.</p>
+<p>redirect_url 의 서버가 사용자의 authentication code 를 받아 위 요청을 보내면 access_token 과 refresh token 을 발급받을 수 있다.</p>
 <p>만약 추후에 access_token 이 만료된다면 refresh token 으로 아래처럼 새로운 access_token 을 발급받을 수 있다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \\</span><br><span class="line">  &lt;https://oauth2.googleapis.com/token&gt; \\</span><br><span class="line">  -H &apos;Content-Type: application/x-www-form-urlencoded,multipart/form-data;&apos; \\</span><br><span class="line">  -H &apos;content-type: multipart/form-data</span><br><span class="line">  -F client_id=client_id \\</span><br><span class="line">  -F client_secret=client_secret \\</span><br><span class="line">  -F refresh_token=refresh_token \\</span><br><span class="line">  -F grant_type=refresh_token</span><br></pre></td></tr></table></figure>
 <p>이렇게 발급받은 토큰을 Header 에 Authorization Bearer 방식으로 담아 보내면 우리는 드디어 구글 API 를 사용할 수 있게 된다!!</p>
