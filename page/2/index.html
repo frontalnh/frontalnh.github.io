@@ -91,6 +91,43 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/06/03/aws-sdk-cookbook/" itemprop="url">
+                aws sdk cookbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-06-03T06:30:41.000Z" itemprop="datePublished">
+                7 months ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 7 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h3><span id="setting-aws-region">Setting AWS Region</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AWS_REGION=&apos;us-east-1&apos;</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/05/29/git-기본-설정하기/" itemprop="url">
                 git 기본 설정하기
             </a>
@@ -219,7 +256,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-19T05:40:37.000Z" itemprop="datePublished">
-                7 months ago
+                8 months ago
             </time>
         </span>
         
@@ -263,7 +300,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-15T01:06:49.000Z" itemprop="datePublished">
-                7 months ago
+                8 months ago
             </time>
         </span>
         
@@ -337,7 +374,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-14T08:07:36.000Z" itemprop="datePublished">
-                7 months ago
+                8 months ago
             </time>
         </span>
         
@@ -383,7 +420,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-05-14T00:51:23.000Z" itemprop="datePublished">
-                7 months ago
+                8 months ago
             </time>
         </span>
         
@@ -620,72 +657,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/04/20/getting-started-with-aws-vpc/" itemprop="url">
-                Getting started with aws vpc
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-04-20T06:47:33.000Z" itemprop="datePublished">
-                8 months ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/aws/">aws</a><span>></span><a class="article-category-link" href="/categories/aws/cloudformation/">cloudformation</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                6 minutes read (About 830 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h2><span id="what-is-vpc">What is VPC</span></h2><p>VPC 란 Virtual Private Cloud 의 약어로 사용자가 모든 AWS 자원에 대한 Access Control 이 가능한 private network 입니다.</p>
-<p>즉, 사용자는 VPC 안의 Internet Gateway, Route Table, Subnet 등 다양한 네트워크 리소스를 마음대로 제어할 수 있으며 자신의 네트워크에 접근할 수 있는 사용자들에 대한 권한설정이 가능합니다.</p>
-<p>다음 그림은 AWS 의 VPC 를 시각적으로 표현한 도식입니다.</p>
-<p><img src="/images/Screen Shot 2019-04-20 at 4.40.45 PM.png" alt="Screen Shot 2019-04-20 at 4.40.45 PM"></p>
-<p>아마존에는 수많은 region 이 존재하며, 이는 전 세계에 분포되어 있으며, 각 지역별 가용한 zone 을 Availavility Zone 이라고 부릅니다.</p>
-<p>사용자는 여러 availability 존에 분산하여 리소스를 운영함으로써 aws 에 지역적인 결함이 생겨도 문제없이 서비스를 운영할 수 있습니다. VPC 는 이러한 여러 Region 을 모두 포괄하는 개념입니다.</p>
-<p>VPC를 세팅함에 있어 다음과 같은 순서로 진행합니다.</p>
-<ol>
-<li>Choosing IP Address<br>VPC 는 네트워크로써 외부에서 접근하기 위한 IP 주소를 가지며, 내부 ip를 사용합니다.<br>사용할 내부 IP의 범위를 설정하며 이는 CIDR 표기법으로 작성합니다.</li>
-<li>Routing Table 을 설정합니다.<br>VPC 내부에서 외부로 자원을 요청할 때, VPC 는 외부 주소를 확인해야 합니다. 이처럼 외부 주소를 라우팅 해주는 Route Table 이 필요하며 Routing Table 은 외부 요청에 대한 Routing 을 담당합니다.</li>
-<li>Security Group<br>각 VPC 에는 여러 개의 Security 그룹을 가질 수 있으며, VPC 내의 리소스 마다 해당 VPC에 종속되는 Security 그룹을 할당합니다.</li>
-</ol>
-<h3><span id="choosing-ip-address">Choosing IP Address</span></h3><p>사용할 내부 IP 의 범위를 설정합니다.</p>
-<p><img src="/images/Screen Shot 2019-04-20 at 4.42.00 PM.png" alt="Screen Shot 2019-04-20 at 4.42.00 PM"></p>
-<h3><span id="routing-table">Routing Table</span></h3><p>아래와 같이 요청을 Route 해줄 Routing Table 을 설정합니다. <strong>네트워크 외부로의 요청에 대한 Routing 을 담당합니다.</strong></p>
-<p><img src="/images/Screen Shot 2019-04-20 at 4.44.39 PM.png" alt="Screen Shot 2019-04-20 at 4.44.39 PM"></p>
-<p>해당 VPC 의 모든 내부 ip 는 local 로 routing 하며 그 외의 모든 주소에 대해서는 Internet Gateway 에 요청을 전달하고 적합한 목적지로 요청을 Routing 해줍니다.</p>
-<h3><span id="setup-subnet">Setup Subnet</span></h3><p>요청에 대한 접근 관리는 Security Group 설정으로 관리됩니다.</p>
-<p><img src="/images/Screen Shot 2019-04-20 at 4.47.21 PM.png" alt="Screen Shot 2019-04-20 at 4.47.21 PM"></p>
-<p>위 그림에서 위의 4개의 인스턴스는 웹 서버를 의미하며, 아래의 세개의 인스턴스는 웹 서버에서만 접근이 가능한 private resource 입니다.</p>
-<p>각 subnet 은 vac 의 서로 다른 내부 ip range 를 할당하여 가상으로 다른 네트워크로 분리합니다.</p>
-<p>이 경우 두개의 resource 를 각각 <strong>public subnet</strong> 과 <strong>private subnet</strong> 으로 나누어 관리할 수 있으며 각 subnet 마다 다른 security 그룹을 할당하여 접근을 관리할 수 있습니다.</p>
-<p>## </p>
-<h3><span id="outbound-request-in-vpc">Outbound request in VPC</span></h3><p>아래와 같이 외부로의 요청을 처리하는 NAT 는 VPC 의 내부 ip range 로의 모든 요청을 VPC 내부로 Route 하고 그 외의 모든 요청을 NAT Gateway 를 통한 외부접근으로 설정한다.</p>
-<p><img src="/images/Screen Shot 2019-04-20 at 4.55.35 PM.png" alt="Screen Shot 2019-04-20 at 4.55.35 PM"></p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -717,7 +688,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

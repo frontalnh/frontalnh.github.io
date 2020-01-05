@@ -91,6 +91,53 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/08/28/golang-cookbook/" itemprop="url">
+                Golang cookbook
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-08-28T05:09:11.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/go/">go</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 67 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!--toc-->
+<h2><span id="setup">Setup</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br><span class="line">export GOPATH = /Users/_username/Desktop/git/_projectName</span><br><span class="line">echo $GOPATH # 고패스 확인</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h2><span id="type">Type</span></h2><p><strong>type assertion</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable.(<span class="keyword">type</span>)</span><br></pre></td></tr></table></figure>
+<h2><span id="goland">Goland</span></h2><p>Gland 자동 copy right</p>
+<p><code>Preferences</code> - <code>Editor</code> - <code>File and Code Templates</code> - <code>Files</code> 탭에서 <code>Go File</code> 클릭 - <code>package ${GO_PACKAGE_NAME}</code> 앞에 copyright 주석을 추가하시면 됩니다!</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/08/12/what is the blockchain technology/" itemprop="url">
                 What is the blockchain technology
             </a>
@@ -702,52 +749,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/07/25/react-시작하기/" itemprop="url">
-                react 시작하기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-07-25T08:41:15.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/react/">react</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 221 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="react-시작하기">React 시작하기</span></h1><h2><span id="react-create-app-설치하기">React Create App 설치하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br></pre></td></tr></table></figure>
-<h2><span id="react-create-app-을-통해-프로젝트-생성하기">React Create App 을 통해 프로젝트 생성하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create-react-app react_boot_template --scripts-version=react-scripts-ts</span><br></pre></td></tr></table></figure>
-<h2><span id="개발-의존-모듈-설치하기">개발 의존 모듈 설치하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react react-hot-loader webpack webpack-dev-server</span><br></pre></td></tr></table></figure>
-<h2><span id="글로벌-모듈-설치하기">글로벌 모듈 설치하기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g babel-cli</span><br></pre></td></tr></table></figure>
-<h2><span id="필요-디렉토리-만들기">필요 디렉토리 만들기</span></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir server server/routes &amp;&amp; touch <span class="keyword">public</span>/index.html server/main.js server/routes/posts.js src/App.js src/index.js webpack.dev.config.js</span><br></pre></td></tr></table></figure>
-<h2><span id="webpack-설정하기">webpack 설정하기</span></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 가장 처음 읽을 스크립트파일</span></span><br><span class="line">    <span class="comment">// 여기서부터 import 되어있는 다른 스크립트를 불러온다.</span></span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 파일을 합치고 ./public/bundle.js 에 저장한다.</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: __dirname + <span class="string">'/public'</span>,</span><br><span class="line">        filename: <span class="string">'bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ES6 문법과 JSX 문법을 사용한다</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        loaders: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                loader: <span class="string">'babel'</span>,</span><br><span class="line">                exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">                query: &#123;</span><br><span class="line">                    cacheDirectory: <span class="literal">true</span>,</span><br><span class="line">                    presets: [<span class="string">'es2015'</span>, <span class="string">'react'</span>]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -783,7 +784,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

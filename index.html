@@ -91,6 +91,84 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2020/01/05/aws-lambda-를-활용해서-간단한-batch-작업-처리하기/" itemprop="url">
+                AWS Lambda 를 활용해서 간단한 Batch 작업 처리하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-01-05T07:44:35.000Z" itemprop="datePublished">
+                44 minutes ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/aws/">AWS</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                13 minutes read (About 1957 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>어느 정도 규모의 시스템을 구축하다 보면 다양한 배치작업이 필요한 일이 생기게 된다.</p>
+<p>가령 특정 기간동안 유저의 거래 통계를 빠르게 조회하기 위해서 data warehouse 에 저장하거나 혹은 유저에게 주기적으로 특정 이메일을 보내는 등 특정 기간에 걸쳐 어떠한 행위를 반복적으로 처리해야 할 일이 생긴다. 이러한 배치작업을 처리하기 위해서 과거에는 unix cron job 등을 통해 이러한 배치작업을 처리했다.</p>
+<p>하지만 이러한 cron 작업의 경우 단일 server 에서 하나의 프로세스로 돌아가는 만큼 그 안정성과 소스의 관리라는 측면에서 불안한 것이 사실이었고, 사실 해당 server 의 네트워크 상태가 불안정하거나 혹은 프로세스 또는 운영체제가 종료되는 경우 배치작업에 지장이 생기게 된다.</p>
+<p>AWS 에서는 cloudwatch 와 lambda 를 통해 이러한 다양한 배치작업을 처리할 수 있는 기능을 제공하고, 이번 포스트에서는 이처럼 AWS 라는 클라우드 환경에서의 배치작업 처리를 다루어 보고자 한다.</p>
+<h2><span id="what-is-aws-cloudwatch">What is AWS cloudwatch?</span></h2><p>AWS cloudwatch 란 AWS 의 cloud resource 및 어플리케이션에 대한 monitoring service 이다.</p>
+<p>간단하게 설명하면, AWS 에서 여러 자원을 사용하고 또 어플리케이션을 동작하면 AWS 는 이를 모두 클라우드 환경에서 실행하기 때문에 실제 bare metal 을 사용할때처럼 내가 사용하고자 하는 컴퓨팅 자원의 상태 및 로그등을 정확히 알기가 힘들다. 이를 해결하기 위해 AWS 는 각종 cloud resource 를 사용자가 쉽게 관리할 수 있도록 시각화시켜 내 클라우드 자원들이 잘 동작하고 있는지 알 수 있도록 별도의 서비스를 제공하고 이것이 바로 Cloudwatch 이다.</p>
+<p>Cloudwatch 서비스를 이용하여 AWS 상에서 구동되고 있는 다양한 컴퓨팅 자원들의 상태를 리포팅 받고 또 시스템 로그들을 매우 간편하게 확인할 수 있다. 뿐만 아니라 여러 컴퓨팅 자원들을 지켜보며 특정 상황이나 시점에서 어떤 event 를 발생시킬 수도 있다.</p>
+<p>종합하면, AWS 자원들을 모니터링 하는 cloudwatch 에서 내 자원들을 모니터링 할 수 있고, event 라는 개념을 통해 특정 시간 혹은 조건에 따라 어떤 event 를 만들고 이 event 가 어떤 행위를 일으킬 수 있다. 이러한 행위의 종류는 다양한데 이번 포스트에서는 특정 람다를 실행시키는 행위를 발생시켜 이를 통해 일련의 배치작업을 처리해 보고자 한다.</p>
+<h2><span id="간략한-동작-순서">간략한 동작 순서</span></h2><p>이번 포스트에서 배치작업은 다음의 순서에 따라 이루어 진다.</p>
+<ol>
+<li>AWS Cloudwatch 에 특정 시간마다 특정 람다를 호출하도록 하는 event 를 등록한다.</li>
+<li>Cloudwatch 는 위에서 설정한 내용에 따라 주기적으로 event 를 발생시키고 즉, 람다를 호출한다.</li>
+<li>사용자가 특정 시간마다 호출된 람다 함수를 작성한다.</li>
+<li>특정 시간 조건이 충족되면 람다함수가 호출된다.</li>
+</ol>
+<p>이처럼 아주 간단한 절차에 따라 배치함수가 동작되고, 배치함수의 성공 유무 등 잘 동작하고 있는지 cloudwatch 에서 확인이 가능하다.</p>
+<h2><span id="getting-started">Getting started</span></h2><p>자 이제 실제로 구현을 해보도록 하자!!</p>
+<p>이와 같은 일련의 과정을 AWS console 을 통해 하는 것은 너무도 성가시고 실수에 취약하므로 본 포스트에서는 terraform 이라는 Infrastructure as Code 툴을 사용하며 terraform 을 모른더라도 pseudo code 라는 생각으로 보아도 쉽게 이해할 수 있으니 실제 terraform 이 궁금한 독자분이 계시다면 구글링을 통해 살펴보기 바란다…ㅎㅎ</p>
+<p><strong>제일 먼저 아래와 같이 매 시간마다 호출될 람다 함수를 만들어 보자</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">resource &quot;aws_lambda_function&quot; &quot;TestFunction&quot; &#123;</span><br><span class="line">  filename         = &quot;$&#123;path.module&#125;/zips/TestFunction.zip&quot;</span><br><span class="line">  source_code_hash = &quot;$&#123;filebase64sha256(&quot;$&#123;path.module&#125;/zips/TestFunction.zip&quot;)&#125;&quot;</span><br><span class="line">  function_name    = &quot;TestFunction&quot;</span><br><span class="line">  role             = &quot;$&#123;aws_iam_role.iam_role_for_lambda.arn&#125;&quot;</span><br><span class="line">  handler          = &quot;index.lambda_handler&quot;</span><br><span class="line">  runtime          = &quot;python3.6&quot;</span><br><span class="line">  memory_size      = &quot;512&quot;</span><br><span class="line"></span><br><span class="line">  vpc_config &#123;</span><br><span class="line">    subnet_ids         = [&quot;$&#123;var.private_subnet_az1_id&#125;&quot;]</span><br><span class="line">    security_group_ids = [&quot;$&#123;aws_security_group.lambda_sg.id&#125;&quot;]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  timeout = &quot;100&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>코드를 할번 살펴보면 람다함수를 작성하고 이를 zip 파일로 압축하여 terraform 을 통해 zip 파일을 업로드하고 람다함수를 배포하는 것을 알 수 있다. <code>Source_code_hash</code> 는 현재 zip 파일의 hash를 통해 업데이트 되었다면 업데이트된 파일을 aws 로 업로드 하기 위함이며, <code>role</code> 에서 이 람다함수가 어떤 AWS 리소스들에 접근할 수 있을지에 대한 role을 넣어준다.</p>
+<p>vpc_config 의 경우 어떤 vpc와 security group 에 속하는지 등을 표기한다.</p>
+<p><strong>다음으로는 아래와 같이 cloudwatch 에서 특정 시간마다 일으킬 이벤트 규칙을 정의한다.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">resource &quot;aws_cloudwatch_event_rule&quot; &quot;every_10pm&quot; &#123;</span><br><span class="line">  name                = &quot;every-10-pm&quot;</span><br><span class="line">  description         = &quot;Fires every 10 pm&quot;</span><br><span class="line">  schedule_expression = &quot;cron(0 13 * * ? *)&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이벤트 규칙은 cron expression 으로 표현되니 자세한 문법은 cron expression 을 참조하길 바란다.</p>
+<p><strong>다음으로는 아래처럼 위 이벤트 규칙의 대상을 설정해 준다.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">resource &quot;aws_cloudwatch_event_target&quot; &quot;search_naver_every_10pm&quot; &#123;</span><br><span class="line">  rule      = &quot;$&#123;aws_cloudwatch_event_rule.every_10pm.name&#125;&quot;</span><br><span class="line">  target_id = &quot;TestFunction&quot;</span><br><span class="line">  arn       = &quot;$&#123;aws_lambda_function.TestFunction.arn&#125;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>코드를 살펴보면 특정 이벤트 규칙이 어떤 람다 함수를 호출할지 해당 람다 함수의 ARN 을 통해 가르쳐 주고 있다.</p>
+<p><strong>마지막으로는 Cloudwatch 에게 람다함수를 호출 할 수 있는 권한을 주는 것이다.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">resource &quot;aws_lambda_permission&quot; &quot;allow_cloudwatch_to_call_search_naver&quot; &#123;</span><br><span class="line">  statement_id  = &quot;AllowExecutionFromCloudWatch&quot;</span><br><span class="line">  action        = &quot;lambda:InvokeFunction&quot;</span><br><span class="line">  function_name = &quot;$&#123;aws_lambda_function.TestFunction.function_name&#125;&quot;</span><br><span class="line">  principal     = &quot;events.amazonaws.com&quot;</span><br><span class="line">  source_arn    = &quot;$&#123;aws_cloudwatch_event_rule.every_10pm.arn&#125;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이것이 무슨말인지 잘 이해가 되지 않을 수 있다. cloudwatch 가 lambda 를 호출할 권한이라니? Cloudwatch 가 무슨 사람이라도 된단 말인가!?</p>
+<p>AWS 에서는 여러 AWS 서비스가 다른 서비스의 어떤 작업을 수행하기 위한 자격을 부여할 수 있고 이러한 자격을 IAM Role 이라고 한다.</p>
+<p>코드를 한번 살펴보면 위에서 principal 이란 어떤 AWS 서비스에게 권한을 부여할 것인지를 나타내고 여기서는 events.amazonaws.com (이는 아마존에서 정해둔 AWS 서비스에 대한 도메인이다.) 즉, cloudwatch 에서 발생하는 특정 event 에게 어떤 권한을 부여하겠다는 것이다. 또 action 에서는 “lambda:InvokeFunction” 즉 cloudwatch 이벤트로 하여금 어떤 람다함수를 호출할수 있는 권한을 부여한다 정도로 이해하면 되겠다. arn 은 물론 어떤 람다함수인지를 알려주는 것으로, 해당 람다 함수의 고유 id라고 이해하면 된다.</p>
+<p>마지막으로 해야할 것은 위의 람다함수가 실행되면서 발생한 <strong>로그를 저장할 log group 을 설정</strong>해 주는 것이데 이는 아래와 같이 설정한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">resource &quot;aws_cloudwatch_log_group&quot; &quot;example&quot; &#123;</span><br><span class="line">  name              = &quot;/aws/lambda/TestFunction&quot;</span><br><span class="line">  retention_in_days = 14</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기서 name 은 내 멋대로 하면 되나 싶지만 그렇지 않다. </p>
+<p>위처럼 /aws/lambda/함수명 이라는 이름으로 정확히 log group 을 만들어주어야 아마존 람다가 해당 log group 에 로그를 쌓게 되니 주의하기 바란다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/12/21/google-api-사용을-위한-oauth-2-0-적용/" itemprop="url">
                 Google API 사용을 위한 OAuth 2.0 적용
             </a>
@@ -99,7 +177,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-12-21T13:32:20.000Z" itemprop="datePublished">
-                an hour ago
+                15 days ago
             </time>
         </span>
         
@@ -208,7 +286,7 @@
 </ol>
 <h2><span id="aws-ec2-instance-에-jenkins-설치하기">AWS EC2 Instance 에 Jenkins 설치하기</span></h2><p>먼저 이 모든 CI/CD 작업을 수행할 Jenkins Server 를 만들어 봅시다.</p>
 <p>AWS 에서 Amazon Linux 기반의 인스턴스 하나를 생성하고 다음과 같은 script 를 통해 Jenkins 를 설치합니다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Jenkins 는 Java 8 runtime 위에서 실행되므로 java open jdk 를 먼저 설치해 줍니다.</span><br><span class="line">sudo yum install -y java-1.8.0-openjdk wget</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Jenkins 설치</span><br><span class="line">wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Jenkins 가 사용할 docker 와 git 을 설치해 줍니다.</span><br><span class="line">sudo yum install -y jenkins git docker</span><br><span class="line">java -jar jenkins.war --httpPort=8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Git configuration</span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.name 'jenkins-workder'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Start docker machine</span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Add jenkins user in docker group so that jenkins user can use docker machine</span><br><span class="line">groupadd docker</span><br><span class="line">sudo usermod -aG docker jenkins</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> You should restart jenkins to apply updated user group</span><br><span class="line">sudo service jenkins restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 는 Java 8 runtime 위에서 실행되므로 java open jdk 를 먼저 설치해 줍니다.</span></span><br><span class="line">sudo yum install -y java-1.8.0-openjdk wget</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 설치</span></span><br><span class="line">wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Jenkins 가 사용할 docker 와 git 을 설치해 줍니다.</span></span><br><span class="line">sudo yum install -y jenkins git docker</span><br><span class="line">java -jar jenkins.war --httpPort=8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git configuration</span></span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.name 'jenkins-workder'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Start docker machine</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add jenkins user <span class="keyword">in</span> docker group so that jenkins user can use docker machine</span></span><br><span class="line">groupadd docker</span><br><span class="line">sudo usermod -aG docker jenkins</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> You should restart jenkins to apply updated user group</span></span><br><span class="line">sudo service jenkins restart</span><br></pre></td></tr></table></figure>
 <h2><span id="jenkins-설정하기">Jenkins 설정하기</span></h2><p>위처럼 Jenkins 를 설치하고 Jenkins server 를 생행했다면, <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 에 jenkins dashboard 가 열리게 됩니다.</p>
 <p>본 dashboard 에서 jenkins 를 설정하면되며, 초기 비밀번호는 <code>/var/lib/jenkins/secrets/initailAdminPassword</code> 에 위치해 있다. </p>
 <h3><span id="aws-configuration">AWS configuration</span></h3><p>Jenkins 가 was 를 사용하기 위해 다음과 같이 AWS 계정 설정을 해준다.</p>
@@ -217,7 +295,7 @@
 <p>만약 jenkins 에서 aws cli 를 사용하는 경우 aws credential을 <code>/var/lib/jenkins/.aws/credentials</code> 에서 찾기 때문에 해당 파일에도 credentials 을 위치시켜야 한다.</p>
 <p><a href="http://localhost:8080/configure" target="_blank" rel="noopener">jenkins 설정</a>에서도 위의 Environment Variables 를 설정해 준다.</p>
 <p>Jenkins node 가 ecr 을 사용할 수 있도록 다음 명령어를 실행한다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>(aws ecr get-login --no-include-email)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">(aws ecr get-login --no-include-email)</span></span><br></pre></td></tr></table></figure>
 <p><strong>만약 git repository 대신 AWS codecommit repository</strong> 를 사용한다면, 해당 key 를 AWS IAM user 탭에서 code commit http 설정을 할 수 있다.</p>
 <h3><span id="git-configuration">Git configuration</span></h3><p>Jenkins 가 git 을 사용하기 위해 다음과 같이 git 설정을 해준다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~jenkins</span><br><span class="line"></span><br><span class="line">sudo -u jenkins git config --global credential.helper '!aws codecommit credential-helper $@'</span><br><span class="line">sudo -u jenkins git config --global credential.useHttpPath true</span><br><span class="line">sudo -u jenkins git config --global user.email "me@mycompany.com"</span><br><span class="line">sudo -u jenkins git config --global user.name "MyjenkinsServer"</span><br></pre></td></tr></table></figure>
@@ -228,7 +306,7 @@
 <p><strong>주의 사항</strong></p>
 <p>여기서 주의할 사항이 있는데, Jenkins directory 는 system directory 이므로 mv 명령이 제대로 수행되지 않는 경우가 있다.</p>
 <p>때문에, 파일을 복사하기 앞서 directory 권한을 알맞게 변경해 주어야 한다. 또한, 복사한 파일의 user 와 group 이 linux user 로 변경되므로 반드시 복사 이후에 올바른 file owner 인 jenkins 로 변경해 주어야 하는데, 이는 다음의 명령어로 해결할 수 있다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> jenkins:jenkins 사용자:그룹</span><br><span class="line"><span class="meta">#</span> -R recursive</span><br><span class="line">sudo chown -R jenkins:jenkins /var/lib/jenkins</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> jenkins:jenkins 사용자:그룹</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -R recursive</span></span><br><span class="line">sudo chown -R jenkins:jenkins /var/lib/jenkins</span><br></pre></td></tr></table></figure>
 
                         
     </div>
@@ -411,7 +489,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-06-19T08:24:21.000Z" itemprop="datePublished">
-                6 months ago
+                7 months ago
             </time>
         </span>
         
@@ -449,7 +527,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-06-18T08:15:52.000Z" itemprop="datePublished">
-                6 months ago
+                7 months ago
             </time>
         </span>
         
@@ -490,7 +568,7 @@
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             <time datetime="2019-06-18T01:16:59.000Z" itemprop="datePublished">
-                6 months ago
+                7 months ago
             </time>
         </span>
         
@@ -641,43 +719,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/06/03/aws-sdk-cookbook/" itemprop="url">
-                aws sdk cookbook
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-06-03T06:30:41.000Z" itemprop="datePublished">
-                7 months ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 7 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h3><span id="setting-aws-region">Setting AWS Region</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AWS_REGION=&apos;us-east-1&apos;</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -707,7 +748,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

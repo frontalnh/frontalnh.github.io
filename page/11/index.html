@@ -91,6 +91,53 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/05/08/mysql-copy-statement/" itemprop="url">
+                MYSQL CREATE STATEMENT
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:19:58.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 119 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE TB_NEW SELECT * FROM TB_OLD</span><br></pre></td></tr></table></figure>
+<p>위 명령어는 TB_OLD의 값과 테이블을 복사하지만 AUTO_INCREMENT가 복사되지 않고, 간혹 INDEX가 누락되는 경우가 있다.</p>
+<p><strong>COPY STRUCTURE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE TB_NEW LIKE TB_OLD</span><br></pre></td></tr></table></figure></p>
+<p>이 명령어를 사용하면 데이터는 복사하지 않지만, AUTO_INCREMENT, INDEX 등의 형식을 복사할 수 있습니다.</p>
+<p><strong>COPY DATA</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TB_NEW SELECT * FROM TB_OLD</span><br></pre></td></tr></table></figure></p>
+<p><strong>COPY COLUMN DATA</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TB_NEW(COL_NM) SELECT COL_NAME FROM TB_OLD</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/05/08/mysql-index/" itemprop="url">
                 MYSQL INDEX
             </a>
@@ -655,77 +702,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/17/컴퓨터-구조-risc-와-cisc-구조/" itemprop="url">
-                컴퓨터 구조 | RISC 와 CISC 구조
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-17T10:41:02.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/컴퓨터-구조-강의/">컴퓨터 구조 강의</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                5 minutes read (About 745 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="riscreduced-instruction-set-computer-란">RISC(Reduced Instruction Set Computer) 란?</span></h1><p>RISC 란 Reduce Instruction Set Computer 의 약자로 말 그대로 축소 명령어 세트 컴퓨터를 의미합니다.<br>여기서 명령어 세트가 축소되었다는 말은 말 그대로 명령어의 개수가 적은 것을 말합니다. 핵심적인 명령어를 기반으로 최소한의 명령어 세트를 구성함으로써 <strong>파이프라이닝</strong> 이라는 획기적인 기술을 도입할 수 있어 빠른 동작 속도와 하드웨어의 단순화와 효율화를 시킬 수 있었고, 가격 경쟁력에서도 우위를 점했습니다.</p>
-<p>즉, RISC란 CISC의 길고 복잡한 명령어들을 짧고 처리가 가능한 여러개의 명령어로 체계적으로 바꾼 것입니다.</p>
-<p><strong>RISC의 특징</strong></p>
-<ol>
-<li>적은 명령어 세트</li>
-<li>간단한 명령어로 빠른 실행속도</li>
-<li>고정적인 명령어 길이</li>
-<li>워드, 데이터 버스 크기가 동일하고 실행 사이클도 모두 동일</li>
-<li>회로 구성이 단순함</li>
-<li>프로그램을 구성할 때 상대적으로 많은 명령어가 필요</li>
-<li>파이프 라이닝을 사용함</li>
-<li>명령어 개수가 적어서 컴파일러가 단순하게 구현됨</li>
-</ol>
-<h1><span id="cisccomplex-instruction-set-computer-란">CISC(Complex Instruction Set Computer) 란?</span></h1><p>연산을 처리하는 복잡한 명령어들을 수백개 이상 탑재하고 있는 프로세서입니다. CISC는 명령어 개수 증가에 따라 프로세서 내부구조가 매우 복잡해 지고, 고속으로 적동되는 플세서를 만들기 힘듭니다.</p>
-<p>여기서 명령어가 복잡하다는 것의 의미는 하나의 명령어가 할 수 있는 일의 양이 RISC 대비하여 많다는 것을 의미합니다. 명령어 마다 길이가 다르고, 실행에 필요한 사이클 수도 다르기 때문에 pipelining 설계가 어려우며 한 바이트 명령어 부터 100바이트 이상되는 명령어 들도 있습니다.</p>
-<p>이렇게 CISC는 RISC에 비해 성능이 많이 떨어지지만 다음과 같은 이유 때문에 아직도 쓰이고 있습니다.</p>
-<p><strong>CISC의 특징</strong></p>
-<ol>
-<li>명령어의 개수가 많음</li>
-<li>명령어 길이가 다양하며, 실행 사이클도 명령어 마다 다름</li>
-<li>회로구성이 복잡함</li>
-<li>프로그램을 만들 때 적은 명령어로 구현 가능</li>
-<li>다양한 명령어를 사용하기 때문에 컴파일러가 복잡함</li>
-</ol>
-<p><strong>CISC를 사용하는 이유</strong></p>
-<ol>
-<li>아직 너무도 많은 프로세서가 CISC 모델로 구축되어 있고, 이것을 전부 바꾸는 것은 너무 큰 비용이 든다.</li>
-<li>CISC 성능의 취약점은 RISC와 같은 파이프라인을 일부 사용하고 집적도는 더 높임으로써 부분적으로 보완이 가능하다.</li>
-<li>RISC에 비해 호환성이 좋다.</li>
-</ol>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -761,7 +737,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

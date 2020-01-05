@@ -91,6 +91,47 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/02/06/mysql-delete-문의-모든것/" itemprop="url">
+                5. mysql delete 문의 모든것
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T00:19:09.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 0 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/02/06/mysql-update-문의-모든것/" itemprop="url">
                 Mysql 강의 04. mysql update 문의 모든것
             </a>
@@ -565,62 +606,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/17/머신러닝강의 3강 - logistic-classification/" itemprop="url">
-                머신러닝강의 3강 - logistic classification
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-17T03:42:55.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                8 minutes read (About 1207 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <h1><span id="logistic-classification">logistic classification</span></h1><h2><span id="logistic-classification이란-무엇인가">Logistic Classification이란 무엇인가</span></h2><p>logistic classification이란 학습을 통해 특정 상황에 대한 선택지를 고르는 것이다.<br>이 중에서 true or false 중 하나를 고르는 것을 binary classification 이라고 하는데, 본 글에서는 이러한 binary classification을 기준으로 학습한다.<br>이러한 binary classification의 활용범위는 매우 넓은데, 가령 수신함의 메일이 스팸인지 아닌지를 구분한다던가, 페이스북과 같은 SNS 매체에서 특정 사용자의 타임라인에 어떤 게시물을 show 할것인지 혹은 hide 할 것인지를 결정하는 것은 이러한 binary classification을 활용한 것이라 할 수 있다.</p>
-<p>이러한 binary classification의 활용도는 점차 높아지고 있으며, 신용카드 사용패턴을 분석하여 사기 거래인지 아닌지를 판단하거나 혹은 주식시장에서 특정 주식을 매입할 것인가 매도할 것인가를 결정짓는 중요한 역할을 담당할 수도 있다. 사실 이미 많은 사람들이 주식시장에 머신러닝을 활용하여 큰 수익을 내고 있는 사례가 있다.</p>
-<p>이전 글에서의 linear regression과 같은 모델에서는 어떤 입력값의 정도에 따라 출력값을 정도가 변화하는 일종의 선형적인 관계를 나타내는 반면 이러한 의사결정 모델에서는 특정 임계치를 넘기는 순간 결과는 true로 그 정도가 달라지지 않기 때문에 linear regression 모델을 사용할 경우 많은 오차가 발생할 확률이 높아지게 된다.</p>
-<p>아래 그림은 linear regression을 이러한 classification에 활용하였을 때 나타날 수 있는 문제를 보여준다.<br>아래 그림과 같이 다양한 사례들을 통해 학습을 지속하면 어떤 임계치보다 상당히 큰 값이 입력으로 들어갈 경우 weight에 큰 영향을 주기 때문에 적당한 W 값을 찾는데에 큰 어려움이 발생하게 된다.<br>가령 공부를 5시간만 해도 시험에 합격할 수 있는데, 어떤 학생이 공부를 100시간을 하고서 시험에 합격한 사례가 있을 경우 합격에 필요한 시험의 절대적인 공부시간이 실제보다 상당히 크게 예상할 수 있는 상황이 나타난다.</p>
-<p><img src="\images\linearRegression의한계.png" alt="linear regression 의 한계"></p>
-<h2><span id="logistic-classification의-cost-function">logistic classification의 cost function</span></h2><p>linear regression과 마찬가지로 logistic classification의 경우에도 적합한 hypothesis가 필요해졌다.<br>앞에서 설명한 바와 같이 linear regression에 도입된 hypothesis의 경우에 도입된 수식이 아닌 0~1 사이에서 좁게 움직일 수 있는 새로운 hypothesis를 위해 새로운 function이 필요하게 되었고, 이에 가장 적합한 sigmoid 함수로 이를 표현하기로 했다.<br>sigmoid 함수의 경우 0을 기준으로 기울기가 급변하기 때문에 이러한 classification의 표현에 아주 적합한 모델이다.</p>
-<p>아래는 sigmoid함수와 logistic classification에서의 hypothesis function 을 나타낸다.</p>
-<p><img src="\images\sigmoid함수와Hypothesis함수.png" alt="sigmoid 함수와 hypothesis 함수"></p>
-<p>logistic classification에서의 hypothesis를 도출하기 위한 과정은 다음과 같다<br><img src="\images\logisticClassificationHypothesis의도출.png" alt="logistic classification hypothesis의 도출"></p>
-<p>이러한 sigmoid 기반의 hyphthesis의 cost를 구할 때에 기존처럼 차의 제곱을 도입하면 다음과 같은 문제가 생기게 된다.<br>sigmoid의 exponential 부분에 의해 다음과 같이 그래프가 출러이게 되고, 각 부분마다 local minimum 값이 나오게 되어 gradient descent algorithm을 적용하면 cost의 최소값이 어디부터 시작하느냐에 따라 전체 함수의 최소값은 global minimum값이 아니라 local minimum으로 수렴할 가능성이 높아진다.<br>아래 그림은 차의 제곱을 기반으로 한 linear regression 에서의 cost function 모델의 도입했을 때의 그래프 이다.</p>
-<p><img src="\images\logisticClassification에서의잘못된CostFunction.png" alt="logistic classification에서의 잘못된 cost function"></p>
-<p>따라서 cost 함수도 바뀌어야 할 필요가 생기게 되었고 다음과 같은 새로운 cost function이 제시되었다.<br><img src="\images\logisticClassification에서의새로운CostFunction.png" alt="logistic classification에서의 새로운 cost function"></p>
-<p>이러한 새로운 cost function에서는 local minimum은 존재하지 않고 global minimum 값만 있기 때문에 gradient descent algorithm을 적용할 수 있게 된다.<br>하지만 위와 같은 식에서는 python으로 코드를 만들 때 if 문을 계속해서 돌려줘야 하기 때문에 다음과 같은 식으로 변형한다.</p>
-<p><img src="\images\변형된CostFunction의Element.png" alt="변형된 cost function의 element"></p>
-<hr>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -656,7 +641,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

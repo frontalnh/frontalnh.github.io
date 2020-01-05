@@ -91,6 +91,85 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/01/14/nodejs-jwt-로그인-구현하기/" itemprop="url">
+                node.js에서 jwt 로그인 구현하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-14T05:45:08.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 586 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#기본-개념">기본 개념</a><ul>
+<li><a href="#jwt란">JWT란?</a></li>
+<li><a href="#토큰-데이터의-구조">토큰 데이터의 구조</a></li>
+</ul>
+</li>
+<li><a href="#준비사항">준비사항</a><ul>
+<li><a href="#work-flow">Work Flow</a></li>
+</ul>
+</li>
+<li><a href="#process">Process</a><ul>
+<li><a href="#모듈-불러오기">모듈 불러오기</a></li>
+<li><a href="#jasonwebtoken으로-토큰-발급하기">jasonwebtoken으로 토큰 발급하기</a></li>
+<li><a href="#토큰-복호화-하기">토큰 복호화 하기</a></li>
+</ul>
+</li>
+<li><a href="#참조">참조</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="기본-개념">기본 개념</span></h1><h3><span id="jwt란">JWT란?</span></h3><p>Jason Web Token</p>
+<h3><span id="토큰-데이터의-구조">토큰 데이터의 구조</span></h3><p>실제 토큰=&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0MTIzMTIzNTQzNTM0NTY3ODkwIiwibmFtZSI6IkpvaDM0NTM0NTM0NW4gRG9lIiwiYWRtaW4iOnRydWV9.gUpPTlD6M3F264lbRyXa6lat7t1tqoP3MHOwFX1qies</span><br></pre></td></tr></table></figure></p>
+<p>각 부분은 .를 기준으로 3 파트로 나뉜다.</p>
+<p>첫번째 파트 =&gt; 서명키 생성 방식에 대한 정보 (header)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;alg&quot;:&quot;HS256&quot;,</span><br><span class="line">  &quot;type&quot;:&quot;JWT&quot;</span><br><span class="line">&#125;</span><br><span class="line">=&gt; eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span><br></pre></td></tr></table></figure></p>
+<p>두번째 파트 =&gt; 실제 데이터 정보 (payload)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234123123543534567890&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;Joh345345345n Doe&quot;,</span><br><span class="line">  &quot;admin&quot;: true</span><br><span class="line">&#125;  </span><br><span class="line">=&gt; eyJzdWIiOiIxMjM0MTIzMTIzNTQzNTM0NTY3ODkwIiwibmFtZSI6IkpvaDM0NTM0NTM0NW4gRG9lIiwiYWRtaW4iOnRydWV9</span><br></pre></td></tr></table></figure></p>
+<p>세번째 파트 =&gt; 데이터에 대한 무결성 / 변조 방지를 위한 HMAC<br>HMACSHA256(base64UrlEncode(header) + “.” +base64UrlEncode(payload),ServerkeyData)<br>=&gt; gUpPTlD6M3F264lbRyXa6lat7t1tqoP3MHOwFX1qies</p>
+<h1><span id="준비사항">준비사항</span></h1><ol>
+<li>jsonwebtoken 설치<br><code>npm install jsonwebtoken</code></li>
+</ol>
+<h2><span id="work-flow">Work Flow</span></h2><ol>
+<li>회원가입 요청 =&gt; 서버에 id와 password 전달</li>
+<li>서버에서 받은 email을 토대로 중복여부 판별</li>
+<li>중복되지 않았다면 db에 jwt토큰을 복호화 하기 위한 secret key를 저장(random generate)</li>
+<li>위의 secret key를 db에 저장</li>
+<li>사용자가 로그인 시도하면 해당 secret key를 검색하여 토큰을 복호화하여 전달한 토큰과 일치하는지 확인하여 토큰을 전달한다.</li>
+<li>받은 토큰을 사용자는 로컬에 저장한다.</li>
+</ol>
+<h1><span id="process">Process</span></h1><h3><span id="모듈-불러오기">모듈 불러오기</span></h3><p><code>const jwt = require(&#39;jsonwebtoken&#39;)</code></p>
+<h3><span id="jasonwebtoken으로-토큰-발급하기">jasonwebtoken으로 토큰 발급하기</span></h3><p><code>jwt.sign(payload, secret, options, [callback])</code><br>만약에 callback 이 전달되면 비동기적으로 작동하며, 콜백함수의 파라미터는 (err, token) 입니다.<br>전달되지 않을시엔 동기적으로 작동하며, JWT 를 문자열 형태로 리턴합니다.<br>payload 는  객체, buffer, 혹은 문자열형태로 전달 될 수있습니다.<br>secret 은 서명을 만들 때 사용되는 알고리즘에서 사용되는 문자열 혹은 buffer 형태의 값 입니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var token = jwt.sign(payLoad,tokenKey,&#123;</span><br><span class="line">    algorithm : &apos;HS256&apos;, //&quot;HS256&quot;, &quot;HS384&quot;, &quot;HS512&quot;, &quot;RS256&quot;, &quot;RS384&quot;, &quot;RS512&quot; default SHA256</span><br><span class="line">    expiresInMinutes : 1440 //expires in 24 hours</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3><span id="토큰-복호화-하기">토큰 복호화 하기</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var jwt      = require(&apos;jsonwebtoken&apos;);</span><br><span class="line">var tokenKey = &quot;TEST_KEY11&quot;; //토큰키 서버에서 보관 중요</span><br><span class="line">var token = &apos;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjE0NTU0LCJpYXQiOjE0MzUxMzA4NzMsImV4cCI6MTQzNTIxNzI3M30.EWNUjnktCWxlqAAZW2bb0KCj5ftVjpDBocgv2OiypqM&apos;;</span><br><span class="line"></span><br><span class="line">//비동기처리</span><br><span class="line">jwt.verify(token,tokenKey,function(err,decoded)&#123;</span><br><span class="line">    console.log(&quot;sync : &quot;, decoded);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//동기처리</span><br><span class="line">try &#123;</span><br><span class="line">    var decoded = jwt.verify(token,tokenKey);</span><br><span class="line">    console.log(&quot;async : &quot;, decoded);</span><br><span class="line">&#125; catch(err)&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="참조">참조</span></h1><p>nodejs에서 jwt를 사용하기 위한 npm package를 설치하고 이용한다.</p>
+<p><a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank" rel="noopener">NPM 참고자료</a></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/01/14/심리학-개론/" itemprop="url">
                 심리학 개론
             </a>
@@ -2183,43 +2262,6 @@
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/12/26/css-스크롤바-숨기기/" itemprop="url">
-                css 스크롤바 숨기기
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-12-26T13:44:19.000Z" itemprop="datePublished">
-                2 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 5 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#element::-webkit-scrollbar &#123;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -2255,7 +2297,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

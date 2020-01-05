@@ -91,6 +91,81 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/01/12/medium-사토시-나카모토의-bitcoin-논문/" itemprop="url">
+                사토시 나카모토의 Bitcoin 논문
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-12T02:42:35.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                17 minutes read (About 2611 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="사토시-나카모토의-bitcoin-논문">사토시 나카모토의 Bitcoin 논문</span></h1><p>이번 포스트에서는 현대의 블록체인 기술의 근간이 된 사토시 나카모토의 bitcoin 논문을 설명하고, 블록체인의 핵심 개념에 대해 적어보고자 합니다.</p>
+<p>우리가 흔하게 오프라인상에서의 금전을 거래할때와는 다르게 인터넷상에서의 거래에는 기술적으로 해결할 수 없는 문제가 존재하는데 그것은 바로 특정 거래가 두번 일어나게 되어 존재하지 않던 재화가 전산상에 생겨나게 되는 것입니다. 이것이 어떻게 가능하냐고 할 수 있지만, 인터넷에서의 거래란 사실 데이터베이스라는 정보의 창고에 새로운 기록을 작성하고 있던 수치를 줄이거나 올리는 단순한 작업이기 때문에 전산상의 오류나 혹은 해커의 공격에 의해 내가 하지 않은 거래가 두번 기록이 될 수 있게됩니다. 이러한 문제를 <strong>double spending problem</strong> 이라고 하며, 궁극적으로 <strong>사토시는 이 double spending problem 을 해결하기 위한 연구를 시작합니다.</strong></p>
+<p>사토시는 이를 해결하기 위해 매 시간의 timestamp를 기반으로 하는 p2p네트워크를 기반으로 모든 거래 정보는 블록화 되어 체인 구조로 연결되고 동기화되는 일종의 온라인 체인 시스템을 고안하게 됩니다. 즉, 온라인 상에서 일어나는 모든 거래에 그 시간을 ms 단위의 정밀도로 기록을 한 뒤에 온라인 상에서 모든 사람들이 합의를 하여 각 거래의 신뢰성을 판단하고 그 거래기록을 한데 모아 블록으로 만들어 이어붙인다면 모두가 인정할 수 있는 분산 원장을 만들 수 있지 않을까 라는 생각을 하게 된 것입니다.</p>
+<p>이렇게 체인을 연결해 가는 과정에는 많은 컴퓨팅 파워가 필요하게 되었고, 가장 많은 CPU 파워를 가진 컴퓨터 집단이 가장 긴 체인을 생성할 수 있을 것이며 이를 신회하는 네트워크 구조가 바로 블록체인 네트워크 입니다.</p>
+<p><strong>즉, 사토시 나카모토가 제안한 bitcoin의 궁극적이고 본질적인 목표는 제 3 기관의 개입 없이 화폐를 주고 받는 것이었습니다.</strong></p>
+<h2><span id="블록체인-내에서의-거래-기록">블록체인 내에서의 거래 기록</span></h2><p>비트코인에에서 거래는 UTXO(Unspent Transaction Output) state model 에 따라 기록됩니다. 이는 이름 그대로 하나의 거래 내역에서 사용되지 않은 양을 통해서 자금의 상태를 기록함을 의미합니다.</p>
+<p>즉, 비트코인에서 Transaction 이란 사용되고 남은 Bitcoint 의 양을 가지는 일종의 화폐 자체로 이해할 수 있습니다. 가령 5BTC 짜리 Transaction, 1BTC 짜리 트랜잭션처럼 각 Transaction 은 누군가에게 소유된 화폐로 이해할 수 있고, 그 화폐가  이미 소진되었다면 해당 화폐를 소진한 주체가 output 에 기록되고 아직 소진되지 않았다면 그 화폐를 소진할 수 있는 사용자의 주소가 명시되어 있다고 보면 됩니다.</p>
+<p>다음은 실제 비트코인에서 Transaction Model 의 일부입니다.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTransaction</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;CTxIn&gt; vin;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;CTxOut&gt; vout;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">const</span> uint256 hash;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위에서 알 수 있듯이 비트코인에서 하나의 Transaction 에는 Vin 과 Vout 이라는 값이 존재하며, 각 model 의 구조는 다음과 같습니다.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTxIn</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    COutPoint prevout;</span><br><span class="line">    CScript scriptSig;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTxOut</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    CAmount nValue;</span><br><span class="line">    CScript scriptPubKey;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>각 속성을 하나씩 살펴보면, 거래를 이루는 것은 CTxIn 과 CTxOut 두가지로 구성되고, CTxIn 에는 해당 Transaction 이 어떤 Transaction 의 몇번째 output 을 기준으로 거래가 시작되는지를 나타내며 <code>COutPoint</code> 는 실제로 특정 Transaction 의 hash 값과 output 의 index 값을 통해 생성된 값입니다. <strong>ScriptSig</strong> 는 해당 화폐를 사용한 사용자의 서명으로 어떤 사용자가 해당 화폐를 사용하였는지를 나타내며, 이는 이전 Transaction  <code>CTxOut</code> 의 scriptPubKey 의 소유자가 서명한 서명입니다.</p>
+<p><strong>CTxOut</strong> 의 nValue 속성은 실제 BTC 의 양이 명시되며 1억 분의 1 BTC 인 Satoshi 를 기준화폐로 사용합니다. scriptPubKey 는 해당 화폐를 사용할 수 있는 사용자의 address 이며, 해당 사용자가 이 Transaction 에 서명하여 다음 Transaction 에 기록함으로써 화폐를 사용할 수 있습니다.</p>
+<p>여기서 중요한 사실을 알 수 있는데, 그것은 바로 <strong>블록체인 내에서 거래(transaction) 는 이전 거래의 정보(이전 transaction’has value) 를 포함하기 때문에 모든 거래는 시간 순으로 동기화 될 수 있다는 것입니다.</strong></p>
+<p>이렇게 모든 거래의 내역들을 한데 모아 블록으로 저장하며, 특정 시간을 주기로 그 시간동안 일어난 모든 거래를 한데 모아 새롭게 블록을 생성하는 작업을 거치는데, 이는 각 거래를 일종의 트리 형태로 나열하고 이를 해쉬라고 불리는 암호화 과정을 거쳐 해시를 만들어 내는 것입니다. 그리고 새로운 블록을 생성함이란 이렇게 복잡하게 암호화된 해쉬값을 먼저 풀어낸 컴퓨터가 그 보상을 가지는 방식으로 기여를 하게 됩니다.</p>
+<p>여기서 컴퓨터가 해쉬값을 풀어내는 것은 아주 단순하게 생각하면 무수히 많은 숫자와 문자열(nonce)을 계속해서 대입하면서 맞는 값이 나올때까지 대입해 보는 것이라 볼 수 있습니다.각 블록의 해쉬값을 먼저 풀어낸 노드가 새롭게 블록을 생성합니다.</p>
+<p>이를 위해서는 엄청난 컴퓨팅 파워가 필요하며, 이를 통해 상대적으로 더 많은 컴퓨팅 파워를 가지는 믿을 수 있는 노드들의 컴퓨팅 파워를 통해 올바른 블록을 생성하게 됩니다.</p>
+<h2><span id="네트워크의-동작">네트워크의 동작</span></h2><p>블록체인 네트워크는 다음과 같은 순서에 따라 이루어 집니다.</p>
+<ol>
+<li>모든 transactions 는 모든 노드에 전파된다.</li>
+<li>모든 노드는 각 트랜잭션을 모아서 블럭을 구성한다.</li>
+<li>각 노드는 만든 블럭의 해시를 풀어낼 nonce 값을 찾기 위해 연산을 시작한다.</li>
+<li>어떤 노드가 nonce를 찾아냈다면 다른 모든 노드에게 자신이 가진 블록을 전파한다.</li>
+<li>블록을 받은 노드들은 받은 블록 안의 모든 트랜잭션들이 유효하고 이미 지불된 것이 아닐 때에만 블록을 받는다.</li>
+<li>블록을 받은 노드들은 받은 블록의 해쉬값을 previous hash로 하는 새로운 블록은 만드는 것에 착수함으로써 다른 노드들에게 해당 블록을 승인하였음을 알린다.</li>
+<li>만약 노드가 동시에 두개의 블록을 받는다면 처음 받은 블록을 기준으로 작업을 시작하지만 이후로 받은 블록들도 저장해 둔다. 이렇게 여러 블록들은 개별적인 브랜치를 형성하고 특정 브랜치가 길어지면 가장 긴 브랜치의 블록들을 승인하여 체인을 이어간다.</li>
+</ol>
+<p>만약 노드가 다음 블록을 받지 못했다 하더라도 문제가 되지 않는데, 이는 그 다음 블록을 받게 되면 노드 자체가 자신이 받지 못한 블록을 인지하고 다른 노드들에게 이를 요청하기 때문이다. 또한 모든 트랜잭션들을 매우 많아서 빠트리면 트랜잭션이 있더라도 블록들은 계속 생성되기 때문에 빠트린 transaction들은 무시되고 넘어간다.</p>
+<h2><span id="보상의-원리">보상의 원리</span></h2><p>블록체인 시스템의 참여자들을 컴퓨팅 파워를 통해 그 신뢰가 유지되는 시스템이므로, 모든 참여자들이 계속해서 컴퓨팅 파워를 제공하도록 동기 부여 하기 위해 인센티브를 부여하며, 이는 바로 블록을 생성한 노드에게 최초의 트랜잭션을 발행하도록 하는 것으로 이것이 우리가 일반적으로 알고있는 코인의 채굴하는 과정이 됩니다.</p>
+<h2><span id="화폐가치의-분할">화폐가치의 분할</span></h2><p>위 내용에서와 같이 우리는 모든 코인은 그 전의 소유자들의 정보를 가진다고 알아보았으며, 이는 현실 세계에서 특정 1달러 지폐에 이제까지의 소유자들이 적혀있는 것에 비유될 수 있다고 하였습니다. 하지만 좀 더 작은 단위 혹은 더 큰 단위의 돈을 송금하는 경우를 생각해 보면, 1달러 지폐 하나를 다른 누군가 혹은 수십명의 다른 사람들과 공유하는 것을 생각할 수 있습니다.</p>
+<p>이것은 하나의 transaction이 여러 개의 input 및 output value를 가짐으로써 해결 될 수 있는데, 하나의 transaction은 다른 여러 사람들에게 지불될 수 있으며 모든 내용이 하나의 transaction에 작성되어 있도록 하는 것입니다. 쉽게 말하면 1달러 지폐를 현재 가지고 있는 사람이 복수 명이 되어도 괜찮다는 것으로 생각될 수 있습니다.</p>
+<p>이번 포스트에서는 사토시 나카모토의 논물을 쉽게 요약하여 블록체인의 핵심 원리에 대해 알아보았습니다.</p>
+<p>가상화폐 시장의 열기가 죽어가는 현 시점이지만, 블록체인의 효용과 사토시 나카모토가 만들고자 했던 새로운 화폐경제 시스템의 가치는 보존되었으면 하는 바람으로 글을 마칩니다.</p>
+<p>LNH</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/12/04/getting-started-with-graphql/" itemprop="url">
                 Getting started with GraphQL
             </a>
@@ -736,53 +811,6 @@ undefined
 
         
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/08/28/golang-cookbook/" itemprop="url">
-                Golang cookbook
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-08-28T05:09:11.000Z" itemprop="datePublished">
-                a year ago
-            </time>
-        </span>
-        
-            <span class="column is-narrow article-category">
-                <i class="far fa-folder"></i>
-                <a class="article-category-link" href="/categories/go/">go</a>
-            </span>
-            
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a few seconds read (About 67 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!--toc-->
-<h2><span id="setup">Setup</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br><span class="line">export GOPATH = /Users/_username/Desktop/git/_projectName</span><br><span class="line">echo $GOPATH # 고패스 확인</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<h2><span id="type">Type</span></h2><p><strong>type assertion</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable.(<span class="keyword">type</span>)</span><br></pre></td></tr></table></figure>
-<h2><span id="goland">Goland</span></h2><p>Gland 자동 copy right</p>
-<p><code>Preferences</code> - <code>Editor</code> - <code>File and Code Templates</code> - <code>Files</code> 탭에서 <code>Go File</code> 클릭 - <code>package ${GO_PACKAGE_NAME}</code> 앞에 copyright 주석을 추가하시면 됩니다!</p>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -818,7 +846,7 @@ undefined
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 Jake.Lee 이남훈&nbsp;
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
