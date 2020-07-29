@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Tag: golang - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#golang</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/06/11/golang-test-code-작성하기/" itemprop="url">
+                golang - test code 작성하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-06-11T03:19:14.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 488 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="go-test-code-작성하기">go test code 작성하기</span></h1><p>이번 포스트에서는 go 언어로 test code를 작성하는 법을 알아보도록 한다.</p>
+<p>먼저, go 에서 test code를 작성하기 위해서는 다음과 같은 규약을 따라야 한다.</p>
+<ul>
+<li>테스트 함수의 이름은 <code>Test...</code> 가 되어야 한다.</li>
+<li>테스트 함수는 <code>t *testing.T</code> 만을 입력값으로 받는다.</li>
+<li>test code가 작성된 파일의 이름은 뒤가 <code>_test.go</code> 가 되어야 한다.</li>
+</ul>
+<h2><span id="유용한-testing-함수와-활용방안">유용한 testing 함수와 활용방안</span></h2><h3><span id="terror-amp-terrorf">t.Error &amp; t.Errorf</span></h3><p>t.Error 함수는 문제가 일어나는 지점에서 에러를 발생시키며 좀 더 자세한 오류의 내용을 명시하고 싶은 경우 t.Errorf 를 사용한다.</p>
+<p><strong>example</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSum</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    total := Sum(<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> total != <span class="number">10</span> &#123;</span><br><span class="line">       t.Errorf(<span class="string">"Sum was incorrect, got: %d, want: %d."</span>, total, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="tlog">t.Log</span></h3><p>t.Log는 테스트 진행 중 콘솔창에 나타내고 싶은 말들을 명시한다.<br>어떤 입력값이 입력되는 지를 나타내거나 혹은 절차에 관한 간략한 설명을 곁들이는 것이 좋다.</p>
+<p><strong>example</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSum</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    total := Sum(<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">    t.Log(<span class="string">"testing sum function...  input data: %d, %d"</span>, <span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> total != <span class="number">10</span> &#123;</span><br><span class="line">       t.Errorf(<span class="string">"Sum was incorrect, got: %d, want: %d."</span>, total, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="test-table">Test Table</span></h2><p>테스트 하고자 하는 입출력 값을 table에 담아 보다 보기 좋게 명시할 수 있으며 다음과 같이 사용될 수 있다.</p>
+<p><strong>example</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main_test</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"testing"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span><span class="params">(a <span class="keyword">int</span>, b <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSum</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	tests := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">struct</span>&#123;</span><br><span class="line">		input <span class="keyword">struct</span>&#123;</span><br><span class="line">			testData1 <span class="keyword">string</span></span><br><span class="line">			testData2 <span class="keyword">string</span></span><br><span class="line">		&#125;</span><br><span class="line">		output <span class="keyword">struct</span>&#123;</span><br><span class="line">			testOutput1 <span class="keyword">string</span></span><br><span class="line">			testOutput2 <span class="keyword">string</span></span><br><span class="line">		&#125;</span><br><span class="line">		err error</span><br><span class="line">	&#125;&#123;</span><br><span class="line">		input: <span class="keyword">struct</span>&#123;</span><br><span class="line">			testData1: <span class="string">"test data 1"</span>,</span><br><span class="line">			testData2: <span class="string">"test data 2"</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		output: <span class="keyword">struct</span>&#123;</span><br><span class="line">			testOutput1: <span class="string">"test output 1"</span>,</span><br><span class="line">			testOutput2: <span class="string">"test output 2"</span>,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> testName, test := <span class="keyword">range</span> tests&#123;</span><br><span class="line">		Sum(test)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="mock-객체를-활용한-test-시의-dependency-처리">mock 객체를 활용한 test 시의 dependency 처리</span></h2><p>go 함수 내에 dependency injection이 있는 경우 일일히 모든 dependency들을 세팅해 주는 것은 테스트의 코스트가 너무 커진다.<br>때문에 테스트를 위한 fake interface를 구현하여 inject 해 줌으로써 해결한다.</p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

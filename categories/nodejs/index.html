@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Category: nodejs - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5><i class="far fa-folder"></i>nodejs</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/22/building-node-api-server-based-on-ddd-architecture/" itemprop="url">
+                Building node API server based on DDD architecture
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-22T07:02:12.000Z" itemprop="datePublished">
+                a year ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 992 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="building-node-api-server-based-on-ddd-architecture">Building node API server based on DDD architecture</span></h1><h2><span id="domain-layer">Domain Layer</span></h2><p>Domain 레이어는 각 서브 도메인 마다 model, service, repository를 가지며 다음과 같은 역할을 수행한다.</p>
+<p>-   Model</p>
+<p>​    해당 도메인의 모델링이 정의되고, 해당 도메인 내에서의 항상성과 유효성을 담당한다.</p>
+<p>-   Service</p>
+<p>​    주로 여러 도메인을 아우르는 로직을 처리한다.</p>
+<p>-   Repository</p>
+<p>​    도메인 단위로 DB 입출력을 담당하며, 실제 구현은 infra layer의 repository implementation에서 이루어 지며, interface만 정의되어 있다.</p>
+<h2><span id="api-layer">API Layer</span></h2><p>도메인의 서비스들을 조합하며 엔드 유저 레벨에서의 기능수행이 이루어 진다.</p>
+<p>가령 특정 재화를 구매함에 따라 결제를 수행하는 어플리케이션이 있다면 본 api 레이어에는 ‘결제’와 같은 엔드 유저 레벨에서의 함수가 들어가며, 결제 데이터 생성, 구매자의 감소 등과 같은 로직은 도메인의 모델 및 서비스 레벨에서 처리된다.</p>
+<h2><span id="infra-layer">Infra layer</span></h2><p>도메인의 비즈니스 로직들이 잘 수행될 수 있도록 DB, http 라우터 등 외부 환경을 다루는 실제 구현이 이루어 진다.</p>
+<p>본 레이어에서 도메인의 repository interface에 정의된 함수들을 실제로 구현하며, express router를 활용하여 외부 요청에 대한 라우팅을 수행한다.</p>
+<p>또한 본 레이어에는 middleware, auth guard, errorHandler 처럼 도메인에 접근하기 전에 전처리되거나 비즈니스 로직 이후 클라이언트에게 반환할 반환값에 대한 후처리 로직이 들어간다.</p>
+<p>auth guard 는 decorator 를 사용하여 제작되었다.</p>
+<h2><span id="branching-model">Branching Model</span></h2><p>모든 작업 내용은 feature/[브랜치 명] 에서 작업하고, dev 서버에 배포하기 위한 버전을 develop 브랜치에 푸시한다.</p>
+<p>Release 브랜치에서 develop 브랜치를 pull 하면서 코드리뷰를 진행하고 모든 코드리뷰 사항이 반영되면 release 브랜치에 머지된다.</p>
+<p>release 브랜치에서 스프린트 및 일정관리, 테스트 작업을 진행하며 안정화되면 master 브랜치로 push 하고 서비스 배포한다.</p>
+<p>-   Master: 실제 서비스 배포를 위한 브랜치</p>
+<p>-   Release: 개발 진행의 경과가 되는 브랜치로 QA 및 일정관리의 지표가 된다.</p>
+<p>-   Develop: 각 개발자들이 실시간으로 머지하는 브랜치로 테스트 서버의 소스코드가 보관된다.</p>
+<p>-   Feature: 각 개발자들이 임의로 자신들의 작업량을 작업한다.</p>
+<h2><span id="input-validation">Input validation</span></h2><p>본 프로젝트에서는 클라이언트의 요청값을 검증함에 있어 모든 요청의 형태를 DTO 형태로 정의하고 해당 DTO 에 값을 넣기 전에 <code>Joi</code> 라이브러리를 사용하여 요청값에 대한 검증을 수행한다.</p>
+<h2><span id="tsconfig-setting">tsconfig setting</span></h2><p>각 파일에서 다른 파일을 import 함에 있어서 보다 가독성을 높이기 위해 @domain과 같이 태그를 하여 손쉽게 import를 할 수 있습니다.</p>
+<p>tsconfig.json 파일의 예</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">"paths"</span>: &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">"@domain/"</span>: [<span class="string">"server/domain/"</span>]</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위처럼 옵션을 설정하면 복잡한 filepath 대신 위의 태그네임을 통해 import 할 수 있습니다.</p>
+<p>이때 위의 태그네임이 잘 반영이 되지 않는 경우가 있는데, 이는 웹팩에서 트랜스파일링을 하는 과정에서 webpack.config.js 세팅을 바꾸어 줌으로써 해결이 가능합니다.</p>
+<p>태그 네이밍을 하기 위해서 tsconfig-paths-webpack-plugin 을 사용하는데 해당 플러그인은 다음과 같이</p>
+<p>루트 plugin이 아닌 resolve 내의 plugin 내에 설정되어야 합니다.</p>
+<p>webpack.config.js의 예</p>
+<p>\<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    resolve: &#123;</span><br><span class="line"></span><br><span class="line">​        plugins: [</span><br><span class="line"></span><br><span class="line">​            <span class="keyword">new</span> TsconfigPathsPlugin(&#123;</span><br><span class="line"></span><br><span class="line">​                configFile: <span class="string">'./tsconfig.json'</span> <span class="comment">// setup tsconfig path</span></span><br><span class="line"></span><br><span class="line">​            &#125;)</span><br><span class="line"></span><br><span class="line">​        ];</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\</span><br></pre></td></tr></table></figure></p>
+<h3><span id="author">Author</span></h3><p><a href="https://github.com/frontalnh" target="_blank" rel="noopener">frontalnh(Namhoon Lee)</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/07/31/nodejs-sequelize-사용하기/" itemprop="url">
+                nodejs sequelize 사용하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-31T04:43:19.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 135 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="nodejs-에서-sequelize-사용하기">nodejs 에서 sequelize 사용하기</span></h1><p>sequelize 에서 객체를 기반으로 데이터 입출력을 하기 위해 model을 정의한다.</p>
+<h2><span id="설치하기">설치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -- save sequelize</span><br></pre></td></tr></table></figure>
+<h2><span id="connection-연결하기">Connection 연결하기</span></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Sequelize = <span class="built_in">require</span>(<span class="string">'sequelize'</span>);</span><br><span class="line"><span class="keyword">const</span> sequelize = <span class="keyword">new</span> Sequelize(<span class="string">'database'</span>, <span class="string">'username'</span>, <span class="string">'password'</span>, &#123;</span><br><span class="line">  host: <span class="string">'localhost'</span>,</span><br><span class="line">  dialect: <span class="string">'mysql'</span>|<span class="string">'sqlite'</span>|<span class="string">'postgres'</span>|<span class="string">'mssql'</span>,</span><br><span class="line">  operatorsAliases: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  pool: &#123;</span><br><span class="line">    max: <span class="number">5</span>,</span><br><span class="line">    min: <span class="number">0</span>,</span><br><span class="line">    acquire: <span class="number">30000</span>,</span><br><span class="line">    idle: <span class="number">10000</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// SQLite only</span></span><br><span class="line"><span class="comment">//   storage: 'path/to/database.sqlite'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="모델-정의하기">모델 정의하기</span></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = sequelize.define(<span class="string">'user'</span>, &#123;</span><br><span class="line">  firstName: &#123;</span><br><span class="line">    type: Sequelize.STRING</span><br><span class="line">  &#125;,</span><br><span class="line">  lastName: &#123;</span><br><span class="line">    type: Sequelize.STRING</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// force: true will drop the table if it already exists</span></span><br><span class="line">User.sync(&#123;<span class="attr">force</span>: <span class="literal">true</span>&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Table created</span></span><br><span class="line">  <span class="keyword">return</span> User.create(&#123;</span><br><span class="line">    firstName: <span class="string">'John'</span>,</span><br><span class="line">    lastName: <span class="string">'Hancock'</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2><span id="query">query</span></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User.findAll().then(<span class="function"><span class="params">users</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(users)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

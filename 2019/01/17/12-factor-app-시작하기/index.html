@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>12 factor app 시작하기 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                12 factor app 시작하기
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-17T07:41:27.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1360 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#1-codebase">1. codebase</a><ul>
+<li><a href="#introduction-of-git-flow">Introduction of git flow</a></li>
+<li><a href="#start-programming-with-a-feature-branch">Start programming with a feature branch</a></li>
+<li><a href="#release-version">release version</a></li>
+<li><a href="#hotfix">hotfix</a></li>
+</ul>
+</li>
+<li><a href="#2-dependencies">2. Dependencies</a></li>
+<li><a href="#3-configuration">3. Configuration</a></li>
+<li><a href="#4-backing-services">4. Backing services</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="1-codebase">1. codebase</span></h2><p>모든 어플리케이션 코드는 version control system 을 통해 하나로 관리되어야 한다.</p>
+<p>가령 여러개의 루트 repository 가 있다면 이것은 앱이 아니라 하나의 분산 시스템에 가까울 것이다.</p>
+<p>하나의 코드베이스에서 여러개의 배포를 진행할 수 있고, 각 배포버전별로 코드 버전이 관리된다면 훌륭할 것이다.</p>
+<h4><span id="introduction-of-git-flow">Introduction of git flow</span></h4><p>일반적인 프로젝트에서 이러한 버전관리는 훌륭한 버전관리 툴인 git 을 사용해서 진행하며 git flow 는 훌륭한 워크플로우를 제공한다.</p>
+<p>install git flow on Mac</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install git-flow</span><br></pre></td></tr></table></figure>
+<p>start git flow project</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git flow init</span><br></pre></td></tr></table></figure>
+<p>다음은 git flow 에서 브랜치의 종류와 그 역할에 대해 알려준다.</p>
+<p><strong>master branch</strong> 는 실제 공식 배포버전을 관리하며 일반적으로 production deploy 버전을 관리한다.</p>
+<p><strong>feature branch</strong> 는 실제 각 개발자들이 작업을 하는 브랜치이며, 이는 <code>develop</code> 브랜치에서 갈라져 나오고 추후 다시 <code>develop</code> 브랜치로 병합된다.</p>
+<p><strong>develop</strong> 브랜치는 각 개발자들이 작업한 브랜치들이 머지되는 장소이며 모든 커밋의 내용이 기록된다.</p>
+<p><strong>release branch</strong> 는 develop 브랜치로 부터 당겨져오며 여기에서는 오직 버그 수정이나 혹은 documentation 수정 등 release 와 관련된 작업들만 수행된다. 이를 통해 특정 팀에서 해당 release 버전으로 테스트 혹은 출시준비과정을 진행하는 동안 다른 브랜치에서 작업을 수행하며, 다음 release 전까지 해결될 사항들을 정리할 수 있다. 해당 브랜치는 develop 으로부터 갈라져 나온다. <code>만약 코드리뷰를 한다면 해당 브랜치에서 하는 것이 가장 깔끔해 보인다.</code></p>
+<p><strong>hotfix branch</strong> hotfix 브랜치는 바로 master branch 에서 갈라져 나와 빠른 버그 수정 등을 수행하는 branch 이며, 버그가 수정되면 재빨리 다시 master 브랜치로 머지되어야 한다. <code>이 브랜치는 master 브랜치로부터 갈라져 나오는 유일한 브랜치이다.</code></p>
+<h4><span id="start-programming-with-a-feature-branch">Start programming with a feature branch</span></h4><p>아래 명령어로 새로운 develop 브랜치로 부터 feature 브랜치를 만들어서 갈라져 나온다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 로컬에 새 브랜치 생성</span></span><br><span class="line">git flow feature start branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 리모트 브랜치에 배포</span></span><br><span class="line">git flow feature publish branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 새로운 내용을 커밋</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"content"</span></span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line"><span class="comment"># 머지를 요청하기 전에 반드시 리베이스를 받는다</span></span><br><span class="line">git pull -r origin develop</span><br><span class="line"></span><br><span class="line"><span class="comment"># feature 브랜치 머지</span></span><br><span class="line">git feature finish branch_name</span><br></pre></td></tr></table></figure>
+<h4><span id="release-version">release version</span></h4><p>새로운 버전을 출시하기 위한 git flow 코드는 다음과 같다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from develop branch</span></span><br><span class="line">git flow release start 0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># from release branch</span></span><br><span class="line">git flow release finish 0.0.1</span><br></pre></td></tr></table></figure>
+<h4><span id="hotfix">hotfix</span></h4><p>공식 배포 버전에서 빠른 버그 수정을 위한 hotfix 브랜치에서 작업을 하는 과정은 다음과 같다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git flow hotfix start hotfix_branch</span><br><span class="line">git flow hotfix finish hotfix_branch</span><br></pre></td></tr></table></figure>
+<h2><span id="2-dependencies">2. Dependencies</span></h2><p>어플리케이션을 작성함에 있어 다양한 외부 라이브러리들에 의존하게 된다.</p>
+<p>특히 각 언어별로 존재하는 패키지 매니저를 사용한다면 글로벌하게 설치되는 패키지도 있고 내부적으로 설치되는 패키지도 있는데 이처럼 글로벌하게 설치되는 패키지의 경우 시스템 환경에 어플리케이션이 의존하게 되는 문제가 있다.</p>
+<p>12 factor app 에서는 이러한 시스템 환경에 전혀 의존하지 않는 프로그램을 작성함을 원칙으로 한다.</p>
+<p>가령 node.js 환경에서 어플리케이션을 개발하는 경우 npm 패키지를 설치함에 있어 package.json 이라는 패키지 관리 documentation 을 하게 된다. 이처럼 의존하는 dependency 를 명확하게 명시하여서 다른 시스템 환경에서도 바로 빌드가 되어 오류없이 프로그램이 실행하도록 한다.</p>
+<h2><span id="3-configuration">3. Configuration</span></h2><p>대부분의 경우 어플리케이션은 배포할때마다 다른 configuration 이 필요하게 된다.</p>
+<p>가령 develop server 의 경우 develop database 에 연결되어야 하고, production server의 경우 production database에 연결되어야 하는 것처럼 어플리케이션의 소스코드와는 달리 이러한 설정 값들은 배포마다 달라지게 된다.</p>
+<p>때문에, 12 factor app 에서는 이러한 설정값을 코드베이스에 포함시키는 것을 엄격하게 금지하고 있으며, 이러한 모든 설정들을 environment variable 에 저장하는 것을 추천한다.</p>
+<p>이러한 env variable 들은 여러 deployment setting 에 대해 혼합된 정보를 절대 가지지 않으며 각 배포환경마다 독립되게 존재하여야 한다.</p>
+<h2><span id="4-backing-services">4. Backing services</span></h2><p>가령 이메일 서버나 혹은 데이터 베이스와 같이 어플리케이션이 동작하는데 필요한 부수적인 다른 서비스들을 backing service 라고 부른다.</p>
+<p>이러한 backing service 들은 언제나 장애가 생길 수 있으므로 12 factor app 에서는 그 어떤 코드의 변경 없이 백업으로 준비된 backing service 에 붙을 부 있어야 한다.</p>
+<p><a href="https://12factor.net/" target="_blank" rel="noopener">참조 - 12 factor app</a></p>
+
+                        
+    </div>
+    
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2019/01/18/Getting-started-with-javascript/">
+                                Getting started with javascript
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2019/01/16/rabbitmq-시작하기/">
+                                rabbitmq 시작하기
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2019/01/17/12-factor-app-시작하기/';
+        this.page.identifier = '2019/01/17/12-factor-app-시작하기/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

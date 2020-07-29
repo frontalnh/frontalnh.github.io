@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Tag: mysql - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#mysql</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/08/mysql-copy-statement/" itemprop="url">
+                MYSQL CREATE STATEMENT
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:19:58.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 119 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE TB_NEW SELECT * FROM TB_OLD</span><br></pre></td></tr></table></figure>
+<p>위 명령어는 TB_OLD의 값과 테이블을 복사하지만 AUTO_INCREMENT가 복사되지 않고, 간혹 INDEX가 누락되는 경우가 있다.</p>
+<p><strong>COPY STRUCTURE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE TB_NEW LIKE TB_OLD</span><br></pre></td></tr></table></figure></p>
+<p>이 명령어를 사용하면 데이터는 복사하지 않지만, AUTO_INCREMENT, INDEX 등의 형식을 복사할 수 있습니다.</p>
+<p><strong>COPY DATA</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TB_NEW SELECT * FROM TB_OLD</span><br></pre></td></tr></table></figure></p>
+<p><strong>COPY COLUMN DATA</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TB_NEW(COL_NM) SELECT COL_NAME FROM TB_OLD</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/08/mysql-index/" itemprop="url">
+                MYSQL INDEX
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:16:32.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 26 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="basic-statement">BASIC STATEMENT</span></h1><p><strong>CREATE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX INDEX_NM ON TB_NAME(COL_NAME)</span><br></pre></td></tr></table></figure></p>
+<p><strong>READ</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM TB_NAME</span><br></pre></td></tr></table></figure></p>
+<p><strong>DELETE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX INDEX_NM ON TB_NAME</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/08/mysql-alter-statement/" itemprop="url">
+                MYSQL ALTER statement
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-08T00:13:24.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 32 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="basic-statement">BASIC STATEMENT</span></h1><p><strong>CHANGE COLUMN DATA TYPE</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE TB_NAME CHANGE COL1 COL2 INT</span><br></pre></td></tr></table></figure></p>
+<p><strong>DELETE COLUMN</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE TB_NAME DROP COL_NAME</span><br></pre></td></tr></table></figure></p>
+<p><strong>RESET AUTO_INCREMENT</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE TB_NAME AUTO_INCREMENT=0</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/22/mysql-trigger의-활용/" itemprop="url">
+                6. mysql trigger의 활용
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-22T04:20:59.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 268 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="trigger의-생성과-삭제">trigger의 생성과 삭제</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">DROP TRIGGER IF EXISTS `sport`.`tr_update_gameresult`;</span><br><span class="line"></span><br><span class="line">CREATE TRIGGER `sport`.`tr_update_gameresult` BEFORE UPDATE ON sport.tb_game</span><br><span class="line">FOR EACH ROW</span><br><span class="line">BEGIN</span><br><span class="line">  -- 게임이 종료 되었는지 판단</span><br><span class="line">  IF NEW.COMP_CODE = &apos;3&apos; THEN</span><br><span class="line">    SET @exception = (select EXPECATE from tb_reg_game where GAME_NO = NEW.GAME_NO);</span><br><span class="line"></span><br><span class="line">    IF @exception = NEW.VIC_CODE THEN</span><br><span class="line">      update tb_reg_game set `HIT_RESULT` = &apos;1&apos; where GAME_NO = NEW.GAME_NO;</span><br><span class="line">    ELSE</span><br><span class="line">      update tb_reg_game set `HIT_RESULT` = &apos;2&apos; where GAME_NO = NEW.GAME_NO;</span><br><span class="line">    END IF;</span><br><span class="line"></span><br><span class="line">  END IF;</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
+<h1><span id="새로-들어온-데이터-선택자-new와-기존에-있던-데이터-선택자-old">새로 들어온 데이터 선택자 new와 기존에 있던 데이터 선택자 OLD</span></h1><p>새로 들어온 데이터를 new로 지칭하여 attribute를 뽑아서 사용할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tb_group set MEMBER_NUM=@memberNum where GROUP_ID = new.GM_GROUP_ID;</span><br></pre></td></tr></table></figure></p>
+<h1><span id="특정-데이터-생성-혹은-삭제시에-상위-테이블의-전체-개수-인덱스-변경하기">특정 데이터 생성 혹은 삭제시에 상위 테이블의 전체 개수 인덱스 변경하기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create trigger trx_updates_atrig</span><br><span class="line">after insert on trx_updates for each row begin</span><br><span class="line"></span><br><span class="line">&lt;!-- 트리거 동작에 필요한 변수 선언 --&gt;</span><br><span class="line">DECLARE memverNum INT;</span><br><span class="line">  &lt;!-- 변수에 값 넣는 sql --&gt;</span><br><span class="line">  set @memberNum = ( select count(*) from tb_group_member where GM_GROUP_ID=new.GM_GROUP_ID );</span><br><span class="line"></span><br><span class="line">  &lt;!-- 인덱스 변경 SQL --&gt;</span><br><span class="line">  update tb_group set MEMBER_NUM=@memberNum where GROUP_ID = new.GM_GROUP_ID;</span><br><span class="line">end//</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/06/mysql-update-문의-모든것/" itemprop="url">
+                Mysql 강의 04. mysql update 문의 모든것
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T00:19:00.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">Mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 39 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="기본-구문">기본 구문</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 테이블명 SET 필드명 = &quot;바꿀 값&quot; WHERE 필드명= &quot;조건 값&quot;</span><br></pre></td></tr></table></figure>
+<h1><span id="특정-column-값을-increase-시키기">특정 column 값을 increase 시키기</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE mytable</span><br><span class="line">  SET logins = logins + 1</span><br><span class="line">  WHERE id = 12</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/06/mysql-insert-문의-모든것/" itemprop="url">
+                2. mysql insert 문의 모든것
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-06T00:18:29.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 449 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="auto_increment의-시작값-변경해-주기">AUTO_INCREMENT의 시작값 변경해 주기</span></h1><p>데이터를 정리하기 위해 시작 하는 primary 키의 AUTO_INCREMENT 값을 변경해 주어야 할 경우가 있다.<br>다음 명령어를 통해 원하는 값부터 다시 AUTO_INCREMENT가 시작되도록 할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE [테이블명] AUTO_INCREMENT=[시작할려는 순서]</span><br></pre></td></tr></table></figure>
+<h1><span id="on-duplicate-key를-이용한-중복키-관리">ON DUPLICATE KEY를 이용한 중복키 관리</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 데이터는 키값은 유지하고 내용만 변경해야 할 경우가 있다.<br>이 경우는 on duplicate key 를 활용하면 기존에 있던 데이터를 유지하면서 변경된 내용만 업데이트를 시켜줄 수 있다.</p>
+<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO mytable (id, a, b, c)</span><br><span class="line">VALUES (1, &apos;a1&apos;, &apos;b1&apos;, &apos;c1&apos;),</span><br><span class="line">(2, &apos;a2&apos;, &apos;b2&apos;, &apos;c2&apos;),</span><br><span class="line">(3, &apos;a3&apos;, &apos;b3&apos;, &apos;c3&apos;),</span><br><span class="line">(4, &apos;a4&apos;, &apos;b4&apos;, &apos;c4&apos;),</span><br><span class="line">(5, &apos;a5&apos;, &apos;b5&apos;, &apos;c5&apos;),</span><br><span class="line">(6, &apos;a6&apos;, &apos;b6&apos;, &apos;c6&apos;)</span><br><span class="line">ON DUPLICATE KEY UPDATE id=VALUES(id),</span><br><span class="line">a=VALUES(a),</span><br><span class="line">b=VALUES(b),</span><br><span class="line">c=VALUES(c);</span><br></pre></td></tr></table></figure></p>
+<h1><span id="insert-ignoe를-이용한-중복키-단순히-무시하기">INSERT IGNOE를 이용한 중복키 단순히 무시하기</span></h1><p>여러개의 데이터를 한번에 입력할 때 기존에 있던 정보는 아예 입력하지 않는 것이 필요한 경우가 있다.<br>이 경우에는 다음과 같이 insert ignore 문을 활용하여 중복된 키를 가지면 입력을 시키지 않도록 할 수 있다.</p>
+<p>아래 예제는 unique 키가 두개의 키값에 걸려있는 경우 첫번째 id 값이 입력되지 않아도 insert 문이 동작하기에 다음과 같은 예제를 사용한다.<br>아래의 경우 가령 james라는 키값과 barkely라는 키값에 unique 키가 걸려있고 해당 데이터가 이미 존재하는 경우 아래의 insert 문은 그냥 무시된다.</p>
+<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person ADD UNIQUE INDEX (first_name, last_name)</span><br><span class="line">INSERT IGNORE INTO person VALUES (NULL, 15, &apos;James&apos;, &apos;Barkely&apos;)</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/27/nodejs-mysql-join-데이터를-간편하게-json으로-정제하기/" itemprop="url">
+                nodejs mysql join 데이터를 간편하게  json으로 정제하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-27T04:53:17.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 208 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#arrayforeach-함수의-활용">array.forEach 함수의 활용</a></li>
+<li><a href="#받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="arrayforeach-함수의-활용">array.forEach 함수의 활용</span></h2><p>forEach()는 오름차순으로 배열에 있는 각 요소에 대해 한 번씩 callback을 실행한다.<br>삭제 또는 비초기화된 인덱스 속성에 대해서는 호출되지 않는다.</p>
+<p>callback은 다음 세 인수와 함께 호줄된다.<br>요소 값, 요소 인덱스, 순회될 배열</p>
+<h2><span id="받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</span></h2><p>정제하는 함수<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function(err,rows)&#123;</span><br><span class="line">  var result = [];</span><br><span class="line">  var indexObject = &#123;&#125;;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    rows.forEach(function(row)&#123;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 해당 행의 id가 indexObject의 키값에 없을때 실행 --&gt;</span><br><span class="line">        if(!(row.id in index))&#123;</span><br><span class="line">          index[row.id]=&#123;</span><br><span class="line">            id: row.id,</span><br><span class="line">            name: row.name</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">          &lt;!-- 반환값에 추가 --&gt;</span><br><span class="line">          result.push(index[row.id]);</span><br><span class="line">        &#125;</span><br><span class="line">        해당 행이 인덱스에 있건 없건 간에 해당 인덱스의 내역을 체워줌</span><br><span class="line">        index[row.id].histories.push(&#123;</span><br><span class="line">            historyId:row.historyId,</span><br><span class="line">            historyName:row.historyName</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/01/14/mysql-시작하기/" itemprop="url">
+                1. mysql 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-01-14T05:48:56.000Z" itemprop="datePublished">
+                4 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/mysql-강의/">mysql 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                5 minutes read (About 728 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="mysql-시작하기">Mysql 시작하기</span></h1><h2><span id="개요">개요</span></h2><p>ubuntu 서버에 mysql 서버를 설치하고 환경을 설정하고 실제 운용까지 필요한 모든 내용을 담았다.</p>
+<h2><span id="설치">설치</span></h2><h3><span id="window">window</span></h3><p>아래와 같이 mysql-server를 설치해 준다.<br>주의 할 점은 mysql 서버에 접근하기 위해서는 3306포트가 열려있어야 하는데 만약 서버 컴퓨터를 cafe24나 aws를 통해 만드는 경우 반드시 인바운드 규칙에서 3306포트를 추가시켜 주어야 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install mysql-server // 이 과정에서 아이디랑 비밀번호를 물어본다.</span><br><span class="line">mysql_secure_installation //mysql 보안 설정을 세팅한다.</span><br><span class="line">systemctl status mysql.service //mysql이 실행되었는지 확인한다.</span><br><span class="line">sudo systemctl start mysql //mysql이 실행되고 있지 않다면 실행한다.</span><br><span class="line">mysqladmin -p -u root version // mysql을 관리할 수 있다 이경우 버전을 확인하는 명령어이다.</span><br></pre></td></tr></table></figure>
+<h3><span id="macos">macOS</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install mysql // 서버 설치하기</span><br><span class="line">mysql.server start // 실행하기</span><br><span class="line">mysql -u root // 로그인하기</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED WITH mysql_native_password BY &apos;password&apos; // 비밀번호 재설정하기</span><br></pre></td></tr></table></figure>
+<h2><span id="환경설정">환경설정</span></h2><h3><span id="window">window</span></h3><p>먼저 다음 명령어를 통해 mysql 에 접속한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u 사용자_이름 -p 비밀번호</span><br></pre></td></tr></table></figure>
+<p>mysql에 접속한 뒤 해야 할 첫번째는 바로 외부 접속이 가능한 계정을 만드는 것이다.<br>본 계정을 통해 다른 컴퓨터에서 workbench 등의 프로그램을 통해 연결하여 db를 세팅하기 용이하다.<br>다음 명령어를 통해 새로운 mysql 계정을 비밀번호와 함께 만들어 준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user [user명]@&apos;%&apos; identified by &apos;패스워드&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>위 계정으로 다른 컴퓨터에서 접근을 하면 권한이 없다는 말이 나타날 것이다.<br>이는 바로 mysql server의 초기 세팅이 내부 ip 에서만 접근 가능하도록 세팅되어 있기 때문인데<br>아래와 같은 방법으로 외부에서도 접근이 가능하게 바꾸어 준다.</p>
+<p>먼저 mysql의 mysqld.cnf라는 설정파일을 vi 에디터로 열어준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cd /etc/mysql/mysql.conf.d</span><br><span class="line">sudo vi mysqld.cnf</span><br></pre></td></tr></table></figure></p>
+<p>bind-address =127.0.0.1 부분을 주석처리 후 아래의 명령어를 통해 mysql 서버를 재시작 시켜준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/mysql restart</span><br></pre></td></tr></table></figure>
+<p>위 설정을 완료하였다면 생성한 계정이 데이터베이스에 대한 모든 권한을 가지도록 권한을 설정해 준다.<br>아래는 권한을 설정하는 예제이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on exampledb.* to admin@&apos;%&apos; identified by &apos;password&apos; with grant option;</span><br></pre></td></tr></table></figure>
+<h2><span id="mysqladmin-을-사용한-mysql-조작">MYSQLADMIN 을 사용한 MYSQL 조작</span></h2><p>MYSQL 콘솔이 아닌 그냥 컴퓨터 커맨드 라인에서 MSYQL 콘솔에 접근하기 위한 훌륭한 명령어인 mysqladmin이 있으며 다음과 같이 사용합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u _user_name_ -p _password_ CREATE DB_NAME</span><br></pre></td></tr></table></figure>
+<p><strong>명령어 사용하기</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u _user_name_ -p _password_ -e &quot;_statement_&quot;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

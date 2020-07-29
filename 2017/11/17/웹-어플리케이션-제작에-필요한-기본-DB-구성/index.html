@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>웹 어플리케이션 제작에 필요한 기본 DB 구성 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                웹 어플리케이션 제작에 필요한 기본 DB 구성
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-16T17:33:35.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 342 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h3><span id="기본-db-세팅">기본 db 세팅</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">create database angular;</span><br><span class="line">use angular;</span><br><span class="line">CREATE TABLE `tb_airport` (</span><br><span class="line">  `AIRPORT_ID` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `AIRPORT_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `CONTINENT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `NATION` varchar(45) DEFAULT NULL,</span><br><span class="line">  `CITY` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`AIRPORT_ID`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_ticket` (</span><br><span class="line">  `TICKET_ID` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `TICKET_NM` varchar(100) DEFAULT NULL,</span><br><span class="line">  `TICKET_PRICE` int(11) DEFAULT NULL,</span><br><span class="line">  `TICKET_DEPARTURE` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_ARRIVAL` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_DEPARTURE_TIME` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_ARRIVAL_TIME` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_DEPARTURE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `TICKET_ARRIVAL_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `CRE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`TICKET_ID`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_usage` (</span><br><span class="line">  `USAGE_ID` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `USER_EMAIL` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_ENG_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_PHONE` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_ENTITY` int(11) DEFAULT NULL,</span><br><span class="line">  `USAGE_STATUS` varchar(6) DEFAULT NULL COMMENT &apos;003001	신청완료(입금대기)\n003002	입금완료\n003003	환불대기\n003004	환불완료\n003005	종료&apos;,</span><br><span class="line">  `USAGE_NATION` varchar(45) DEFAULT NULL COMMENT &apos;도착 국가&apos;,</span><br><span class="line">  `USAGE_CITY` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_DEPARTURE_CITY` varchar(45) DEFAULT NULL COMMENT &apos;출발 도시&apos;,</span><br><span class="line">  `USAGE_DEPARTURE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USAGE_ARRIVAL_DT` varchar(45) DEFAULT NULL COMMENT &apos;도착일&apos;,</span><br><span class="line">  `USAGE_MEMO` text,</span><br><span class="line">  `CRE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`USAGE_ID`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_wishlist` (</span><br><span class="line">  `WL_ID` int(11) DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=latin1;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `tb_user` (</span><br><span class="line">  `USER_EMAIL` varchar(100) CHARACTER SET latin1 NOT NULL,</span><br><span class="line">  `USER_PWD` varchar(100) DEFAULT NULL,</span><br><span class="line">  `USER_TYPE` varchar(6) DEFAULT NULL COMMENT &apos;002001	일반 회원\n002002	어드민\n&apos;,</span><br><span class="line">  `USER_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_ENG_NM` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_GENDER` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_BIRTHDAY` varchar(100) DEFAULT NULL,</span><br><span class="line">  `USER_PHONE` varchar(45) DEFAULT NULL,</span><br><span class="line">  `USER_USING_FREQ` int(11) DEFAULT NULL,</span><br><span class="line">  `CRE_DT` varchar(45) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`USER_EMAIL`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/db/">#
+                        db
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2017/11/17/Angular의-기본-개념-및-사용/">
+                                Angular의 기본 개념 및 사용
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2017/11/17/Angular-시작하기/">
+                                1. Angular Framework 시작하기
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2017/11/17/웹-어플리케이션-제작에-필요한-기본-DB-구성/';
+        this.page.identifier = '2017/11/17/웹-어플리케이션-제작에-필요한-기본-DB-구성/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

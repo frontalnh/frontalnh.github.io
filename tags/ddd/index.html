@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Tag: DDD - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#DDD</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/05/17/z_domain-driven-design/" itemprop="url">
+                Domain Driven Design 이란 무엇인가?
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-05-17T11:23:49.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                28 minutes read (About 4255 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="domain-driven-design-이란-무엇인가">Domain Driven Design 이란 무엇인가</span></h1><h2><span id="what-is-domain">What is domain?</span></h2><p>도메인의 사전적 의미는 “정보와 활동의 영역” 을 말하며, 흔히 프로그래머들에게는 어플리케이션 내의 로직들이 관여하는 정보와 활동의 영역이라고 받아들여 집니다.<br>가령, 어떤 웹 서비스를 만들 때 회원을 가입하고, 회원을 탈퇴하는 일련의 작업은 “회원” 과 관련된 일련의 작업들이며 여기서 “회원” 이라는 도메인이 있다고 볼 수 있습니다.</p>
+<p>또 다른 용어로써 “domain layer” 와 “domain login” 이라는 용어가 있습니다. 이는 개발자들에게 일종의 “business logic” 과 동등한 것으로 받아들여져 왔습니다. 이러한 business login 은 비즈니스 주체들(가령 회원, 결제 등) 이 어떤 모델링 된 데이터를 생성하거나 변경하기 위해 서로간에 약속한 높은 수준의 규칙들을 의미합니다.</p>
+<h2><span id="ddddomain-driven-desing">DDD(Domain Driven Desing)</span></h2><p>도메인 주도 디자인이란 개발을 함에 있어 위에서 설명한 도메인이 중심이 되는 개발 방식을 말하며, 그 목적은 소프트웨어의 연관된 부분들을 연결하여 계속 해서 진화하는 새로운 모델을 만들어 나가 복잡한 어플리케이션을 만드는 것을 쉽게 해 주는 것에 있습니다.<br>DDD의 핵심적인 목표는 Loose Coupling, High Cohesion 으로 각 도메인이 연결성이 적고 높은 정도로 연관되어 보다 가벼운 설계를 위해 탄생하였습니다.</p>
+<p><strong>다음은 DDD의 세가지 주요 원리입니다.</strong></p>
+<ol>
+<li>핵심 도메인과 그 기능에 집중하라.</li>
+<li>도메인의 모델의 정교하게 구축하라.</li>
+<li>어플리케이션 모델을 발전시키고 새롭게 생기는 도메인 관련 이슈를 해결하기 위해 도메인 전문가와 끊임없이 협력하라.</li>
+</ol>
+<h2><span id="strategic-design">Strategic Design</span></h2><p>소프트웨어를 디자인 할 때 객체를 기준으로 디자인을 진행하는 것은 Object Oriented Design 이라고 하는데, 이러한 관점에서 볼 때 Strategic Design은 OOD가 잘 이루어진 것으로 볼 수 있습니다.</p>
+<p>Strategic Design이란 Context 에 대해 생각하고 이를 기준으로 디자인을 하는 것을 말합니다.</p>
+<p>여기서 Context란 무엇일까요?</p>
+<p>Context 란 특정 객체 혹은 상황이 벌어지는 주변 환경을 말합니다. 가장 쉬운 예로 가게 안에 접시에 담긴 피자와 혹은 길에 버려진 피자를 생각해 봅시다. 같은 피자이지만 피자가 매장 안의 접시에 있는지 혹은 길에 있는지에 따라 유료, 무료의 차이가 생기게 되고 사실상 다른 것으로 간주될 수 있습니다. 이처럼 같은 사물이나 행동 양상이 벌어지는 상황에 집중하여 디자인을 하는 것이 Strategic Design 의 핵심이라고 할 수 있다.</p>
+<p>Strategic Design을 이해하기 위해 간단한 예로 주택을 짓는 경우를 생각해 봅시다. 우리가 원하는 집을 짓기 위해서 우리가 하는 행동 절차는 다음과 같습니다.</p>
+<ol>
+<li>어떤 주택을 지을지 생각을 해 본다.</li>
+<li>그런 뒤에 우리는 <strong>Domain Expert</strong> 즉, 이 경우 집 전문가와 상의를 한다.</li>
+<li>주택을 지을 때 어떤 핵심적인 가치에 집중하여 집을 지을지를 선택합니다. 가령 헛간이 넓어야 한다던가, 수영장이 커야 한다던가 중점적인 사항을 명시합니다.</li>
+<li>그 뒤 우리는 이미 지어진 다른 집들을 최대한 많이 조사하여 마음속에서 원하는 집의 형상을 떠올려 봅니다.</li>
+<li>그런 뒤에 우리는 그 형상을 실제 집으로 만들어 내기 위해 모델링을 하고</li>
+<li>이를 토대로 구체적인 설계도를 그려 나갑니다. 이 설계도에는 집의 아주 구체적인 부분들이 명시되게 됩니다.</li>
+</ol>
+<p>이렇게 DDD를 통한 설계 과정에서 사용되는 용어는 다음과 같습니다.</p>
+<p>먼저 집 전체에 대한 설계의 전체를 우리는 <strong>domain</strong> 이라고 부르며, 커다란 집의 각각의 부분 집합인 헛간, 농장, 수영장 등 큰 파트들을 <strong>subdomain</strong> 이라고 부릅니다. 또 각각의 subdomain에 대해 각 subdomain의 문맥적 상황을 <strong>bounded context</strong> 라고 부르며, 실제 subdomain의 구체적인 형상을 나타내는 것을 <strong>domain model</strong> 이라고 부릅니다.</p>
+<p>여기서 <strong>bounded context</strong> 가 가지는 의미는 바로 특정 모델이 어떤 bounded context 에 속하는 가에 따라서 다른 의미를 가지기 때문입니다.<br>가령, 주택 건축시에 정문에서 caretaker라는 모델이 있다면 이는 바로 경비원을 말하는 것일 겁니다. 하지만 caretaker라는 단어가 메인 주거 건물 안에서 가지는 의미는 이와 다를 수 있습니다.</p>
+<p>이 내용을 간단히 정리하면 다음과 같습니다.</p>
+<p><strong>Context</strong><br>의미를 결정하는 것 처럼 보이는 단어 나 문장이 나타나는 설정으로, 모델에 관한 문장은 context 안에서만 이해될 수 있다.<br>주택을 구성하는 각 부분 구간들에 대한 환경을 말한다.</p>
+<p><strong>Model</strong><br>도메인의 특정 양상을 묘사한느 추상화 시스템으로 도메인과 관련된 문제를 해결하는 데 사용된다.</p>
+<p><strong>Ubiquitous Language</strong><br>소프트웨어를 만들기 위해서는 많은 사람들이 원활히 소통해야 하고 여기에는 다양한 용어들이 사용된다. </p>
+<p>가령, 기획자, 디자이너, 개발자가 모인 자리에서 각자 서로의 언어로 대화를 한다면 이는 원활한 커뮤니케이션을 심각하게 저해하게 된다.</p>
+<p>이 경우에 필요한 것이 Ubiquitous Language이며 이는 domain model 을 둘러싼 언어구조를 말한다.</p>
+<p>이 언어는 팀 전체가 각각의 업무 파트에서 공통적으로 사용될 수 있어야 하며, 실제 개발의 측면에서 모든 기획자, 디자이너, 개발자가 공통된 어휘를 사용해야 서로간에 이견이 없을 것이며 이러한 공통된 어휘를 ubiquitous language라고 합니다.</p>
+<p><strong>Bounded Context</strong><br>위에서 설명한 Context에 대한 구체적인 설명으로, 특정 모델이 정의되고 적용될 수 있는 영역을 이야기 합니다.<br>주택을 짓는 경우에 빗대어 생각해 볼 때, Bounded Context는 주택 전체를 구성하는 헛간, 농장, 수영장, 메인 주택 등의 큰 요소들 각각을 둘러싼 상황을 의미합니다.<br>특정 모델은 어떤 bounded context에 놓이는가에 따라 다르게 이해될 수 있습니다.<br>실제 소프트웨어를 구축함에서의 예를 들면 가령 sales를 담당한하는 subdomain이 있을 수 있고, 이를 지원하는 support와 accounting 라는 subdomain 이 존재할 수 있습니다. 이러한 각각의 subdomain이 놓인 환경인 bounded context 내에서 특정 모델 <strong>customer</strong> 가 보여지는 시각은 매우 상이할 수 있습니다. sales 팀에서 고객을 보는 시각은 주로 사회적 관심사, 좋아하는 것, 욕구 등의 것일 겁니다. 하지만 accounting의 측면에서는 사용자는 그저 하나의 계정으로써 그 사람의 결제정보 만이 중요한 정보일 수 있습니다. 즉 각기 다른 bounded context에서 ubiquitous language는 비록 표현은 같지만 다른 의미를 가지게 됩니다.</p>
+<p><strong>Context Map</strong><br>각 bounded context들 사이의 관계를 말하며 즉, 주택 건축시에 헛간, 뒷간, 수영장 등 큰 요소들이 어떤식으로 서로 연관이 되어 있는지를 나타낸다.</p>
+<p><strong>Domain Model</strong><br>Domain Model 이란 실제 세계를 반영하는 구체적인 설계로, 주택 건축시에 주택을 구성하는 메인 주택의 구체적인 설계도를 말한다.</p>
+<p><img src="..\images\strategicDesign의ProblemSpace와SolutionSpace.png" alt="strategic design의 Problem Space와 Solution Space"></p>
+<h2><span id="tactical-design">Tactical Design</span></h2><p><img src="..\images\tacticalDesign.png" alt="Tactical Design"></p>
+<p>Tactical Design Tool 들은 세부적인 사항을 구현하는 것을 위해 필요하며, 주로 Bounded Context 내의 구성 요소들을 관리합니다.<br>이것은 개발상의 실제적인 표준을 제공하는데 services, entities, repositories, factories 와 같은 소프트웨어 디렉토리 구조들에 익숙한 개발자들이 많을 것인데, 이 모든 것은 전부 DDD에서 나온 개념입니다. 이러한 Tactical Design은 Strategic Design과 달리 개발을 진행하는 과정에서 계속해서 바뀌고 개선됩니다.</p>
+<h2><span id="model-driven-design-and-service">Model Driven Design And Service</span></h2><p><img src="..\images\modelDrivenDesign.png" alt="Model Driven Design"></p>
+<p>Tactical Design을 이해하기 위한 Model Driven Design은 위와 같다.<br>실제 구현은 모델 수준에서 이루어 지고 쉽게 비유하자면 당신의 소프트웨어 전체 즉, domain을 하나의 세계로 표현한다면 각 나라는 subdomain에 해당되고 각 subdomain은 각 나라의 언어인 ubiquitous language를 사용하게 됩니다. 이렇게 각 subdomain은 하나의 Service로 구현되게 됩니다.</p>
+<h2><span id="layered-architecture">Layered Architecture</span></h2><p>layered Architecture란 쉽게 말하면 모든 프로세스를 업무순서로 쪼게어 층을 나누어 수행하는 것이다.<br>가령 맥도날드의 예를 들어보자. 맥도날드에서는 각 종업원들이 맡은 업무를 충실하게 수행하여 아주 효과적으로 업무를 처리한다. 만약 맥도날드의 종업원들이 요리, 계산, 서빙 등 많은 업무를 업무 분담 없이 하게 된다면 분명히 큰 혼란이 초래되고 손님들은 오랜시간 동안 기다려야 하고 형편없는 음식을 먹게 될 것이다. 하지만 맥도날드는 손님을 응대하는 계산원, 주문을 전달하고 컨트롤 하는 중간 매개인, 전체 프로세스에 필요한 인프라를 제공하는 요리사, 사장, 매니저, 필요한 재료들을 보관하는 창고 등으로 구성되어 빠르고 효과적으로 일을 처리한다.</p>
+<p>소프트웨어에서도 마찬가지로 고객을 응대하는 request handler, 이를 중재하는 controller, 각종 중요한 비즈니스 로직을 처리하는 business, 다양한 자료구조 등으로 구성되어 클라이언트에 보다 빨리, 조직적으로, 잘 응대할수 있게 되었고, 이에 따라 보다 유연하고 지속가능한 소프트웨어를 구축할 수 있게 되었으며, 각 파트는 자신의 역할을 충실히 수행하고 필요한 경우 여러번 재사용 될 수 있게 된다.</p>
+<h2><span id="value-object">Value Object</span></h2><p>소프트웨어의 모델을 구성하는 수치에 대한 객체이며 훌륭한 디자인을 위한 가장 중요한 요소 중의 하나이다.<br>가령 소프트웨어 내에 화폐를 취급하는 객체가 있다면, 이는 화폐에 관한 모든 처리를 누군가의 도움 없이 스스로 잘 처리할 수 있어야 한다.<br>단위 환산, 표현법 변경 등 다양한 도메인 로직을 가져야 하며, 스스로 옳바른 값인지 validate 할 수 있어야 할 뿐 아니라 값이 제 3자에 의해 변하지 않고 일관성을 유지해야 한다.</p>
+<p>가령 string 객체를 생각해 보자. 이 객체는 문자 어레이를 다루는 value object로써 substring 등의 다양한 기능을 수행하기 때문에 이를 일일히 정의할 필요가 없어져 ubiquitous language 로 소프트웨어의 표현을 간단하게 하고 보강해 준다.</p>
+<h2><span id="entity">Entity</span></h2><p>기존의 attributes 를 기준으로 정의되었던 전통적인 객체와 달리, 연속성의 일관된 스레드에 의해 식별되는 객체이다.<br>일반적인 개발자들이 이 개념에 대해 알고 있다. Entity는 Value Object로 구성되며 대표적인 예로 db에 있는 row들의 예를 들 수 있다.<br>Entity는 identified id 를 가지고 business logic을 구현한다.</p>
+<h2><span id="aggregate-와-domain-events">Aggregate 와 Domain Events</span></h2><p>aggregates는 entities의 집합이다. 가령 cutomer, customerInfo, address 라는 세가지 종류의 entities를 생각해 보자. 사실 이 모든 정보는 customer라는 주제로 뭉칠 수 있으며, 여기서 핵심이 되는 entitiy인 customer는 이 세 entities가 이루는 aggregates의 root entity가 된다. 이렇게 되면, 다른 외부 객체는 aggregate 내의 객체로 직접 접근할 수 없고, 하나의 aggregate root item 즉 customer 에만 접근이 가능하며, 이를 통해 해당 aggregate 내에 명령을 전달해야 한다. 이는 실제 프로그래밍에 자주 쓰이는 디자인 패턴 중의 하나이다.</p>
+<p>더욱 간편한 예로는 포스트와 댓글의 관계, 질문과 답변의 관계 등이 있다.</p>
+<p>여기서 <strong>Domain Event</strong> 라는 개념에 대해 살표보자.<br>domain event는 모델의 특정 행동과 관련된 이벤트인데, Aggregate 사이의 일관성을 유지하는데에 사용될 수 있다.<br>가령 사용자의 주소가 바뀌면 주문 내용도 바뀌어야 하는데, 순서를 살펴보면 사용자의 주소가 바뀌면 같은 aggregate내에 있는 사용자 정보가 바뀌게 되고 이러한 aggregate의 변화는 주문과 관련된 aggregate의 변화를 촉구하기 위해 domain event를 발생시켜 상호간의 정보의 일치를 이룬다.</p>
+<h2><span id="factories">Factories</span></h2><p>Factories는 복잡한 entity 혹은 aggregate를 생성하는 것을 담당한다.<br>가령 엔진과 부속품을 넣으면 자동차가 나오는 공장과 같이 특정 정보를 factory에 보내면 결과로 aggregate 혹은 entity를 만들어주게 되고, 그 안에서 벌어지는 일에 대해서는 개발자들이 더 이상 신경을 쓰지 않아도 되고, 하나의 모듈로써 사용할 수 있다.</p>
+<h2><span id="repositories">Repositories</span></h2><p>일반적인 저장소와 달리 특정 aggregate에 보다 신속하게 접근하고 aggregate 단위로 데이터를 처리할 수 있게 해 준다.<br>가령 위의 예처럼 customer 가 root entity로 있는 aggregate의 경우 1개의 repo를 만들게 되고, 사용자는 더 이상 기존의 db에서 고객 이름, 나이, 생년 등을 조합해서 사용하지 않고 repo에 aggregate를 통으로 저장해서 보다 쉽게 정보에 접근하고 정보를 변경할 수 있다.</p>
+<h2><span id="ddd를-통해-얻을-수-있는것">DDD를 통해 얻을 수 있는것</span></h2><p>Domain-driven design also heavily emphasizes the ever-more-popular practice of continuous integration, which asks the entire development team to use one shared code repository and push commits to it daily (if not multiple times a day). An automatic process executes at the end of the work day, which checks the integrity of the entire code base, running automated unit tests, regression tests, and the like, to quickly detect any potential problems that may have been introduced in the latest commits.</p>
+<h2><span id="ddd-구현">DDD 구현</span></h2><h3><span id="어떻게-domain-expert와-협의할-것인가">어떻게 domain expert와 협의할 것인가</span></h3><p>과거에 Use Case Diagram, Sequence Diagram 등 많을 것을 썻다.<br>때로는 ER Diagram도 사용했다.</p>
+<p>하지만 요즘에는 이런 옛 방법을 사용하지 않고, Event Storming을 한다.</p>
+<p>이것은 strategic design 을 위해 도메인 모델을 만들기 위한 연습이다.<br>개발 전문가와 domain 전문가가 만나서 브레인 스토밍을 통해 각 도메인에서 어떤 내용들이 필요할지에 대한 직관을 기른다.</p>
+<h3><span id="진행-단계">진행 단계</span></h3><ol>
+<li>domain expert 와 개발 전문가와 함께 서로간의 질문을 하는 미팅 시간을 가진다.</li>
+<li>포스트잇에 색깔에 따라 events, commands, policies, processes, errors, roles, aggregates, etc 등을 적어 놓는다.<br>본 미팅은 event storming 이므로 이벤트를 시간의 순서에 따라 어플리케이션에서 발생 가능한 주요한 이벤트들을 나열한다.<br>가령 쇼핑몰의 경우 상품 열람 =&gt; 상품 구매 =&gt; 상품 배송 =&gt; 배송 완료 처럼 디테일한 이벤트들을 순서대로 나열한다.</li>
+<li>다음은 이러한 이벤트들의 포스트잇 주변에 연관된 system action, user action 등을 쭉 붙인다.</li>
+<li>이러한 과정이 마무리 되면 이제 bounded context 를 찾을 시간이다.<br>나열된 리스트를 보면 어느정도 분리된 subdomain 들이 보이게 되는데 가령 catalog, payments, delivery 등의 subdomain이 될 수 있다.</li>
+</ol>
+<hr>
+<p><a href="https://www.youtube.com/watch?v=wD-d0oZI4YM&amp;list=PLZBNtT95PIW3BPNYF5pYOi4MJjg_boXCG" target="_blank" rel="noopener">참고자료 - Alpha Code 동영상 강의</a></p>
+<p><strong><strong> all images are from Alpha Code Lecture Above </strong></strong></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

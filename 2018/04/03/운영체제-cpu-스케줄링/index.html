@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>운영체제 | CPU 스케줄링 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                운영체제 | CPU 스케줄링
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-03T06:22:07.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                24 minutes read (About 3572 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#cpu-스케줄링이란-무엇인가">CPU 스케줄링이란 무엇인가?</a><ul>
+<li><a href="#프로세스는-어떤-식으로-동작하나요">프로세스는 어떤 식으로 동작하나요?</a></li>
+<li><a href="#cpu-스케줄링은-누가-수행하나요">CPU 스케줄링은 누가 수행하나요?</a></li>
+<li><a href="#스케줄링의-방법들">스케줄링의 방법들</a></li>
+<li><a href="#누가-프로세스에게-제어권을-주나요">누가 프로세스에게 제어권을 주나요?</a></li>
+</ul>
+</li>
+<li><a href="#스케줄링의-기준">스케줄링의 기준</a></li>
+<li><a href="#스케줄링-알고리즘">스케줄링 알고리즘</a><ul>
+<li><a href="#선입-선처리-스케줄링">선입 선처리 스케줄링</a></li>
+<li><a href="#최단-작업-우선-스케줄링">최단 작업 우선 스케줄링</a></li>
+<li><a href="#우선-순위-스케줄링">우선 순위 스케줄링</a></li>
+<li><a href="#라운드-로빈-스케줄링">라운드 로빈 스케줄링</a></li>
+<li><a href="#다단계-큐-스케줄링">다단계 큐 스케줄링</a></li>
+<li><a href="#다단계-피드백-큐-스케줄링">다단계 피드백 큐 스케줄링</a></li>
+</ul>
+</li>
+<li><a href="#다중-처리기-스케줄링">다중 처리기 스케줄링</a><ul>
+<li><a href="#다중-처리기-시스템에-대한-접근방법">다중 처리기 시스템에 대한 접근방법</a></li>
+<li><a href="#처리기-친화성">처리기 친화성</a></li>
+<li><a href="#부하-균등화">부하 균등화</a></li>
+<li><a href="#대칭적-다중-스레딩smt-symmetric-multi-threading">대칭적 다중 스레딩(SMT: Symmetric Multi-Threading)</a></li>
+</ul>
+</li>
+<li><a href="#스레드-스케줄링">스레드 스케줄링</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="cpu-스케줄링이란-무엇인가">CPU 스케줄링이란 무엇인가?</span></h1><p>단일 처리기 시스템에서는 한 순간에 오직 하나의 프로세스만 실행이 될 수 있었지만 다중 처리기 시스템에서는 어느 한 순간에 다수의 프로세스들이 메모리 내에 위치하게 되고 여러개의 CPU가 수많은 프로세스들을 처리하며 복잡하게 움직입니다. 운영체제는 CPU에게 여러 프로세스들을 계속해서 배분하고 교환해 줍니다. 가령 하나의 프로세스가 대기해야 할 때 다른 프로세스가 CPU 사용을 양도받아 CPU가 쉬지않고 작업을 처리할 수 있게 해 줍니다.</p>
+<p>모든 컴퓨터 자원들은 사용되기 전에 스케줄링 되며, 따라서 CPU 스케줄리은 운영체제 설계의 핵심이라고 볼 수 있습니다.</p>
+<h2><span id="프로세스는-어떤-식으로-동작하나요">프로세스는 어떤 식으로 동작하나요?</span></h2><p>우리는 운영체제가 CPU에게 다수의 프로세스들을 효과적으로 배분해 줌을 배웠습니다.<br>CPU가 프로세스를 어떻게 스케줄링 해 주는지 배우기 전에 먼저 프로세스가 CPU에서 어떻게 동작하는지를 살펴봅시다.</p>
+<p>먼저, 프로세스의 실행은 CPU 실행과 입출력 대기의 사이클로 구성되며, CPU의 실행은 <strong>CPU 버스트</strong> 로 부터 시작되고, 입출력은 <strong>입출력 버스트</strong> 로 부터 시작이 됩니다. 이렇게 CPU 버스트와 입출력 버스트가 교대로 발생하면서 프로세스가 진행이 됩니다. 프로그램 마다 이러한 CPU 버스트와 입출력 버스트의 시간 분포가 매우 상이합니다. 가령 입출력이 중심이 되는 상대적으로 짧은 CPU 버스트 시간을 가질 것이며, CPU 중심 프로그램은 상대적으로 긴 CPU 버스트 시간을 가지게 되며, 이러한 <strong>버스트의 분포는 CPU 스케줄링 알고리즘을 선택하는 데에 있어 매우 중요한 역할</strong> 을 합니다.</p>
+<h2><span id="cpu-스케줄링은-누가-수행하나요">CPU 스케줄링은 누가 수행하나요?</span></h2><p>CPU 스케줄링은 CPU 스케줄러(단기 스케줄러)에 의해 수행되며, CPU가 유휴 상태가 될 때마다 CPU 스케줄러는 준비완료 큐에 있는 프로세스 중 하나를 선택하여 실행합니다. 여기서 <strong>준비완료 큐</strong> 는 반드시 선입선출(FIFO) 방식으로 동작하지 않아도 되며 이제까지 배운 다양한 자료구조들을 통해 구현될 수 있습니다. 예를 들어 선입선출 큐, 우선순위 큐, 트리 등 다양한 자료 구조를 통해 구현되어집니다. 개념적으로 볼 때 준비완료 큐에 있는 모든 프로세스들은 CPU에서 실행될 기회를 기다리면 대기하고 있으며, 큐에 있는 레코드들은 일반적으로 프로세스들의 <strong>프로세스 제어 블록(PCB)</strong> 입니다.</p>
+<h2><span id="스케줄링의-방법들">스케줄링의 방법들</span></h2><p>CPU 스케줄링 결정은 다음의 네 가지 상황에서 발생할 수 있다.</p>
+<ol>
+<li>한 프로세스가 실행 상태에서 대기 상태로 전활될 때</li>
+<li>프로세스가 실행 상태에서 준비완료 상태로 전활될 때</li>
+<li>프로세스가 대기 상태에서 준비완료 상태로 전환될 때</li>
+<li>프로세스가 종료할 때</li>
+</ol>
+<p>위의 1, 4의 경우 스케줄링 면에서는 선택의 여지가 없고 반드시 선택되어야 하며, 이러한 상황에서 스케줄링이 발생할 경우 우리는 이러한 스케줄링 방법은 <strong>비선점 또는 협조적</strong> 스케줄링이라고 말합니다. 그렇지 않으면 <strong>선점 스케줄링</strong> 이라고 합니다. 현대의 운영체제들은 이러한 <strong>선점 스케줄링</strong> 을 기반으로 하지만, 선점 스케줄링은 공유 자료에 대한 접근을 조정하는 데 필요한 비용을 발생시킵니다. 가령 프로세스 A가 쓰기 작업을 하는 중에 프로세스 B가 A 가 쓰고 있는 파일을 읽어들이는 경우를 생각해 보면, A 라는 프로세스가 컴퓨팅 자원을 <strong>선점</strong> 하고 있었으므로 프로세스 B가 이 자료에 접근을 하지 못하도록 막아야 할 필요가 생기게 되는 됩니다.</p>
+<h2><span id="누가-프로세스에게-제어권을-주나요">누가 프로세스에게 제어권을 주나요?</span></h2><p><strong>디스패처</strong> 는 CPU의 제어를 단기 스케줄러가 선택한 프로세스에게 넘겨주는 모듈이며 다음과 같은 작업을 수행합니다.</p>
+<ol>
+<li>문맥을 교환하는 일</li>
+<li>사용자 모드로 전환하는 일</li>
+<li>프로그램을 다시 시작하기 위해 사용자 프로그램의 적절한 위치로 이동하는 일</li>
+</ol>
+<h1><span id="스케줄링의-기준">스케줄링의 기준</span></h1><p>위에서는 CPU 스케줄링이 무엇이고 어떤 방식으로 수행이 되는지를 알아보았습니다.<br>이제는 실제로 스케줄링 알고리즘을 설계하려고 할 때, 과연 어떤 기준에 따라 프로세스들을 선택하고 스케줄링을 해야 할까요?<br>다음에는 스케줄링 알고리즘을 비교하기 위한 여러 기준이 제시되며, 이러한 특성에 따라 최선의 알고리즘을 결정하는 데 큰 차이가 있습니다.</p>
+<ol>
+<li>CPU 이용률</li>
+<li>처리량</li>
+<li>총처리 시간</li>
+<li>대기 시간</li>
+<li>응답 시간</li>
+</ol>
+<p>스케줄링의 기준을 간단히 말하자면 CPU 이용률과 처리량을 최대화 하고, 총처리 시간, 대기시간, 응답시간을 최소화 하는 것에 있습니다.</p>
+<h1><span id="스케줄링-알고리즘">스케줄링 알고리즘</span></h1><p>실제로 프로세스들을 스케줄링 하려고 할때 쓰이는 <strong>스케줄링 알고리즘</strong> 에는 무엇이 있을까요?<br>다양한 스케줄링 알고리즘들을 소개합니다.</p>
+<h3><span id="선입-선처리-스케줄링">선입 선처리 스케줄링</span></h3><p>가장 간단한 CPU 스케줄링 기법으로, 먼저 들어온 프로세스가 CPU를 할당받는 방식입니다.</p>
+<h3><span id="최단-작업-우선-스케줄링">최단 작업 우선 스케줄링</span></h3><p>SJF(Shortest Job First) 알고리즘의 대표적인 예로, 이 알고리즘은 각 프로세스에 CPU 버스트 길이를 연관시켜, 짧은 CPU 버스트를 가지는 프로세스에게 우선적으로 CPU를 할당해 주는 방식입니다.</p>
+<h3><span id="우선-순위-스케줄링">우선 순위 스케줄링</span></h3><p>각 프로세스 마다 우선순위를 부여하고 우선순위가 높은 프로세스에게 CPU를 먼저 할당하는 알고리즘 입니다.<br>프로세스가 준비완료 큐에 도착하면, 새로 도착한 프로세스와 현재 실행중인 프로세스의 우선순위를 비교하여 높은 우선순위를 가진 프로세스 에게 CPU를 할당해 줍니다.</p>
+<p>하지만, 이 알고리즘은 <strong>무한 봉쇄 또는 기아상태(starvation)</strong> 에 빠질 수 있는 문제점을 가지고 있습니다.<br>예를 들어 낮은 우선순위를 가진 프로세스들으 무한정 대기완료 큐에서 대기하는 경우가 발생하게 되는데 이러한 경우에 대한 해결방안으로 <strong>노화</strong> 알고리즘을 포함시켜 오랫동안 시스템에서 대기한 프로세스들의 우선순위를 점진적으로 올려주는 방식입니다. 따라서 오랫동안 대기완료 큐에서 머문 프로세스들은 자연스레 우선순위가 올라가게 되고 최종에는 CPU를 할당받을 수 있게 됩니다.</p>
+<h3><span id="라운드-로빈-스케줄링">라운드 로빈 스케줄링</span></h3><p><strong>라운드 로빈</strong> 알고리즘은 특별히 시분할 시스템을 위해 설계된 알고리즘 입니다. 시분할 알고리즘에서는 각 프로세스가 일정 구간으로 나눈 시간을 계속해서 배정받으면서 CPU 가 같은 시간동안 프로세스들을 돌면서 작업을 처리하게 됩니다. 즉, CPU 스케줄러는 준비완류 큐를 돌면서 한번에 한 프로세스에게 한 번의 시간 할당량 동안 CPU를 할당합니다. 이러한 라운드 로빈 큐를 위해서 우리는 준비완료 규를 선입선출 큐로 유지합니다.</p>
+<h3><span id="다단계-큐-스케줄링">다단계 큐 스케줄링</span></h3><h3><span id="다단계-피드백-큐-스케줄링">다단계 피드백 큐 스케줄링</span></h3><h1><span id="다중-처리기-스케줄링">다중 처리기 스케줄링</span></h1><p>위의 모든 방법론들은 단일 처리기 시스템을 스케줄 하는 문제에 초점을 두고 배워보았다. 이번 장에서는 여러 개의 CPU가 있는 <strong>다중 처리기 시스템에서의 CPU 스케줄리에 대해 배워보도록 합시다.</strong></p>
+<h2><span id="다중-처리기-시스템에-대한-접근방법">다중 처리기 시스템에 대한 접근방법</span></h2><p>다중처리기 시스템의 CPU 스케줄링의 한가지 방법은 <strong>비대칭 다중처리(Asymmetric Multi-processing)</strong> 입니다. 비대칭 다중처리란 주 서버라는 하나의 처리기가 나머지 모든 처리기에 대한 통제권을 가지고 모든 스케줄링을 결정하고 입출력 처리 그리고 다른 시스템의 활동을 처리하게 하는 것 입니다. 이 방법은 오직 하나의 처리기 에서만 자료구조에 접근하므로 정보의 공유가 필요 없다는 장점이 있습니다.</p>
+<p>다른 해결방안은 <strong>대칭 다중처리(SMP: Symmetric Multi-processing)</strong> 입니다. 대칭 다중처리 에서는 모든 처리기의 스케줄러가 준비완료 큐를 검사해서 실행할 프로세스를 선택함으로써 진행됩니다. 여러 개의 처리기가 공통의 자료구조를 처리하려고 한다면 문제가 발생합니다. 때문에 각 처리기가 공동 자료구조를 접근하고 갱신하려고 한다면 스케줄러가 신중하게 프로그램 되어야 합니다.</p>
+<h2><span id="처리기-친화성">처리기 친화성</span></h2><p>위에 설명한 대칭 다중 처리기를 살펴보면 각 처리기가 독자적으로 프로세스를 처리하므로 특정 처리기에서 다른 처리기로 프로세스가 이동 하면 각 처리기의 캐시에 해당 프로세스의 정보가 적재되게 될 것입니다. 그렇게 된다면 전에 있던 처리기의 캐시에 있던 정보가 삭제되고 이동한 처리기의 캐시가 체워져야 하는데 이는 큰 비용을 초래합니다. 때문에 대부분의 SMP 시스템은 한 처리기에서 다른 처리기로의 이주를 피하고 대신 같은 처리기에서 프로세스를 실행시키려고 하는데 이러한 성질을 <strong>처리기 친화성</strong> 이라고 합니다. 즉, 프로세스가 현재 실행 중인 처리기에 친화성을 가지는 것을 말합니다.</p>
+<h2><span id="부하-균등화">부하 균등화</span></h2><p>다중 처리기 스케줄링 에서는 처리기가 여러개 이기 때문에 각각의 처리기가 균등하게 사용되는 것이 매우 중요합니다. 이렇게 각 처리기에 부하가 잘 분산되는 것은 <strong>부하 균등화</strong> 라고 부릅니다. <strong>공용 실행 큐만 있는 시스템</strong> 에서는 한 처리기가 쉬게 되면 바로 공용 큐에서 프로세스를 불러와 실행하므로 문제가 없습니다. 하지만 현대의 대부분의 컴퓨터들은 <strong>자신만의 전용 큐</strong> 를 가지고 있기 때문에 각 처리기가 별도의 큐에서 프로세스를 가져와서 실행하게 됩니다.</p>
+<p>이렇게 자신만의 전용 큐를 가지고 있는 처리기의 경우 <strong>push 이주(migration)</strong> 과 <strong>pulll 이주(migration)</strong> 을 통해 부하를 분산합니다. 푸시 이주의 경우는 부하가 높은 처리기가 프로세스를 다른 처리기로 넘기는 것을 말하며, pull 이주의 경우는 한가한 처리기가 바쁜 처리기의 프로세스를 가져오는 것을 의미합니다.</p>
+<h2><span id="대칭적-다중-스레딩smt-symmetric-multi-threading">대칭적 다중 스레딩(SMT: Symmetric Multi-Threading)</span></h2><p>SMP 시스템은 다수의 물리 처리기를 제공함으로써 다수의 스레드가 동시에 실행되게 합니다. 여기서 SMT의 착상은 동일한 처리기 상에서 여러 개의 <strong>논리 처리기</strong> 를 생성하는 것입니다. 각 논리 처리기는 <strong>구조 상태</strong> 를 가지게 되며 이때 인터럽트가 물리처리기가 아닌 논리적 처리기에 전달되고 처리되는 것을 의미합니다.</p>
+<h1><span id="스레드-스케줄링">스레드 스케줄링</span></h1><p>스레드는 경량의 프로세스라고 일컬어 지며, CPU 가 처리하는 task의 최소한의 단위가 된다.</p>
+<p>이런한 thread 와 process 의 차이는 바로 공유하는 메모리 공간의 차이인데, <code>process 는 stack 과 heap 을 모두 공유하지 않기 때문에</code> 서로 다른 프로세스를 메모리 공간을 공유하지 않으며, 때문에 여러 프로세스 사이의 통신은 매우 어렵다. 반면, <code>thread 는 stack 은 공유하지 않고 따로 존재하며 heap 는 공유하기 때문에</code> 같은 메모리 공간을 공유한다. 즉, 각 thread 는 공통된 변수 및 메모리 공간에 접근이 가능하기 때문에 쉽게 통신할 수 있으나 다른 작업 que 를 가지기 때문에 병렬적으로 처리되어 병렬성을 가질 수 있다.</p>
+<p>여러개의 <code>thread</code> 는 CPU 에 할당되는 시점에 <code>CPU affinity</code> 를 가지고 할당되기 때문에, 가급적 하나의 CPU 에서 처리된다.</p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/os/">#
+                        os
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/04/03/운영체제-입출력-시스템/">
+                                운영체제 | 입출력 시스템이란 무엇인가?
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/04/03/극작가-유진-오닐-이-말하는-꿈에-관하여/">
+                                이룰수 없는 꿈은 헛된 것인가요?
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/04/03/운영체제-cpu-스케줄링/';
+        this.page.identifier = '2018/04/03/운영체제-cpu-스케줄링/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

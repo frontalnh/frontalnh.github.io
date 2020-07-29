@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Category: angular 강의 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5><i class="far fa-folder"></i>angular 강의</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/17/Angular-시작하기/" itemprop="url">
+                1. Angular Framework 시작하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-16T17:29:54.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/angular-강의/">angular 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                6 minutes read (About 900 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#설치하기">설치하기</a></li>
+<li><a href="#angular-cli-에서-scss-사용하기">angular-cli 에서 scss 사용하기</a></li>
+<li><a href="#angular-migration">angular migration</a><ul>
+<li><a href="#module">Module</a></li>
+</ul>
+</li>
+<li><a href="#entrycomponents">entryComponents</a><ul>
+<li><a href="#component">Component</a></li>
+</ul>
+</li>
+<li><a href="#컴포넌트-안에-input-주기">컴포넌트 안에 input 주기</a><ul>
+<li><a href="#example">example</a></li>
+<li><a href="#readonlytrue">[readonly]=”true”</a></li>
+</ul>
+<ul>
+<li><a href="#library">Library</a></li>
+</ul>
+</li>
+<li><a href="#angular-bootstrap">Angular bootstrap</a></li>
+<li><a href="#angular-material">Angular material</a><ul>
+<li><a href="#code-flow">code flow</a></li>
+</ul>
+</li>
+<li><a href="#promise">Promise</a><ul>
+<li><a href="#세팅">세팅</a></li>
+</ul>
+<ul>
+<li><a href="#로그인-구현">로그인 구현</a></li>
+</ul>
+<ul>
+<li><a href="#work-flow">Work Flow</a></li>
+</ul>
+<ul>
+<li><a href="#etc">ETC</a></li>
+</ul>
+</li>
+<li><a href="#주의-사항">주의 사항</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="설치하기">설치하기</span></h2><p>앵귤러는 npm을 사용하여 다음과 같이 설치한다.<br>이때 반드시 -g 옵션을 사용하여 global하게 설치를 해 주어야 ng 명령어가 등록이 되며, 앵귤러 cli를 설치하기에 앞서서 typescript기반인 angular를 동작시키기 위한 typescript를 설치해 주어야 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g typescript</span><br><span class="line">sudo npm install -g @angular/cli@latest</span><br><span class="line">sudo npm install --save-dev @angular/cli@latest</span><br></pre></td></tr></table></figure></p>
+<p>만약 aws 환경에서 위 코드를 실행하면 root 권한으로 인한 많은 문제가 발생한다 이때는 뒤에 –unsafe-perm을 붙여서 설치해 준다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g @angular/cli@latest --unsafe-perm</span><br><span class="line">sudo npm install --save-dev @angular/cli@latest --unsafe-perm</span><br></pre></td></tr></table></figure></p>
+<p>앵귤러를 설치한 후에는 앵귤러에 필요한 각종 모듈을 설치해 주면 되며 package.json을 설정하며 필요한 모듈을 설치한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
+<p>도 추가적으로 설치해주어야 하는 기본적인 node-module이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install underscore</span><br></pre></td></tr></table></figure></p>
+<h2><span id="angular-cli-에서-scss-사용하기">angular-cli 에서 scss 사용하기</span></h2><p>sass는 루비라는 언어로 동작하기 때문에 먼저 루비를 설치해 줍니다.<br>리눅스와 맥의 경우는 루비가 기본으로 설치되어 있기 때문에 window의 경우만 설치해 줍니다.</p>
+<p>다음의 링크를 통해 설치를 진행합니다.<br><a href="https://rubyinstaller.org/" target="_blank" rel="noopener">다운로드</a></p>
+<p>반드시 64비트인 x64로 설치해 줍니다.</p>
+<p>ubuntu의 경우는 apt-get을 통해 설치하며 모든 설치 이후 다음 ruby-dev를 설치해주어야 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ruby-dev</span><br></pre></td></tr></table></figure></p>
+<p>루비 설치가 완료되었으면 다음 명령어를 통해 sass를 설치해 줍니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install sass</span><br></pre></td></tr></table></figure></p>
+<p>sass를 설치하였으면 angular-cli를 활용하여 sass 기반의 프로젝트를 만듭니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng new 프로젝트 이름 --style=sass</span><br></pre></td></tr></table></figure></p>
+<p>만약 기존의 프로젝트가 있는 경우라면 다음과 같이 css 기반 프로젝트를 sass기반 프로젝트로 바꾸어 줍니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng set defaults.styleExt scss</span><br></pre></td></tr></table></figure></p>
+<p>angualr-cli.json 에 다음의 내용을 추가해 줍니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;defaults&quot;: &#123;</span><br><span class="line">    &quot;styleExt&quot;: &quot;scss&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="angular-migration">angular migration</span></h2><p><a href="https://github.com/angular/angular-cli/wiki/stories-1.0-update" target="_blank" rel="noopener">참조</a></p>
+<h1><span id="module">Module</span></h1><h2><span id="entrycomponents">entryComponents</span></h2><p>module.ts의 entryComponents는 html내에서 확인되는 태그가 아닌 동적으로만 생성되는 태그를 앵귤러가 알 수 있게 해준다.<br>앵귤러는 이를 통해 태그를 찾고 컴파일을 수행한다.<br>만약 html 내에서 확인되는 다른 많은 태그들은 단순히 declarations에만 있으면 된다.</p>
+<h1><span id="component">Component</span></h1><h2><span id="컴포넌트-안에-input-주기">컴포넌트 안에 input 주기</span></h2><h3><span id="example">example</span></h3>
+undefined
+
+
+<h3><span id="readonlytrue">[readonly]=”true”</span></h3><p>인풋이 입력되지 않도록 읽기전용으로 바꾼다.</p>
+<h1><span id="library">Library</span></h1><h2><span id="angular-bootstrap">Angular bootstrap</span></h2><p><code>npm install --save @ng-bootstrap/ng-bootstrap</code></p>
+<h2><span id="angular-material">Angular material</span></h2><h3><span id="code-flow">code flow</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//앵귤러 매터리얼 설치</span><br><span class="line">npm install --save @angular/material @angular/cdk</span><br><span class="line">//매터리얼에 필요한 애니메이션 설치</span><br><span class="line">npm install --save @angular/animations</span><br><span class="line">import &#123;BrowserAnimationsModule&#125; from &apos;@angular/platform-browser/animations&apos;;</span><br><span class="line">imports: [BrowserAnimationsModule],</span><br><span class="line">//달력입력박스를 위한 module.ts에서 임포트</span><br><span class="line">import &#123;MdButtonModule, MdCheckboxModule&#125; from &apos;@angular/material&apos;;</span><br><span class="line"></span><br><span class="line">// css 파일에서 추가시켜줌</span><br><span class="line">@import &quot;~@angular/material/prebuilt-themes/indigo-pink.css&quot;;</span><br></pre></td></tr></table></figure>
+<p><a href="https://material.angular.io/guide/getting-started" target="_blank" rel="noopener">Angular Material 시작하기</a></p>
+<h2><span id="promise">Promise</span></h2><h3><span id="세팅">세팅</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install promise</span><br><span class="line">var Promise = require(&apos;promise&apos;);</span><br></pre></td></tr></table></figure>
+<h1><span id="로그인-구현">로그인 구현</span></h1><h3><span id="work-flow">Work Flow</span></h3><ol>
+<li><code>_guards</code>디렉토리 생성</li>
+<li>alert component 생성</li>
+<li>alert service 생성</li>
+<li>auth guard생성</li>
+<li>authentication service 생성</li>
+</ol>
+<p><a href="http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial" target="_blank" rel="noopener">jasonwatmore의 Angular를 이용한 로그인 구현 포스팅</a></p>
+<h1><span id="etc">ETC</span></h1><h2><span id="주의-사항">주의 사항</span></h2><ol>
+<li>임포트시 양방향으로 서로서로 import를 하는 circulr 임포트를 하면 안된다.</li>
+</ol>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

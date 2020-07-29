@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Neural network Perceptron과 ADALINE - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                Neural network Perceptron과 ADALINE
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-29T04:04:12.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                9 minutes read (About 1319 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#perceptron-이란">Perceptron 이란?</a></li>
+<li><a href="#photo-perceptron의-예">photo perceptron의 예</a></li>
+<li><a href="#perception-convergence-theorem">Perception Convergence Theorem</a></li>
+<li><a href="#problems-in-perceptron-single-layer-xor-문제">problems in perceptron (single layer) - XOR 문제</a></li>
+<li><a href="#하이퍼-플레인과-hidden-node">하이퍼 플레인과 hidden node</a></li>
+<li><a href="#multi-layer-perceptron을-이용한-xor-문제의-해결">multi layer perceptron을 이용한 XOR 문제의 해결</a></li>
+<li><a href="#weight-vector는-왜-hyper-plane과-수직을-이루는가">weight vector는 왜 hyper plane과 수직을 이루는가?</a></li>
+<li><a href="#adalineadaptive-linear-neuron이란-무엇이며-perceptron-과의-차이점은-무엇인가">ADALINE(ADAptive LInear NEuron)이란 무엇이며 perceptron 과의 차이점은 무엇인가?</a></li>
+<li><a href="#adaline">ADALINE</a></li>
+<li><a href="#least-mean-squareslms">Least Mean Squares(LMS)</a></li>
+<li><a href="#rlmsrelative-least-mean-squares">RLMS(Relative Least Mean Squares)</a></li>
+<li><a href="#neural-network-설계-프로세스">Neural network 설계 프로세스</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="perceptron-이란">Perceptron 이란?</span></h2><p>frank rosenblatt 박사가 1950년 발표한 내용으로 McCulloch-pitts 모델의 확장 개념이다.<br>통계적으로 구분된 이론이다.(확률적, 거시적)</p>
+<h2><span id="photo-perceptron의-예">photo perceptron의 예</span></h2><p><img src="\images\photoPerceptron의예.png" alt="photo perceptron의 예"></p>
+<h2><span id="perception-convergence-theorem">Perception Convergence Theorem</span></h2><p>두개의 패턴을 학습하는 과정에서, 유한번의 사이클 내에 두 개의 패턴을 구분할 수 있다.</p>
+<p><img src="\images\perceptronLearningAlgorithm.png" alt="perceptron learning algorithm"></p>
+<p>여기서 N과 P는 각각 Negative, Positive를 의미한다.<br>P와 N에서 랜덤하게 벡터를 뽑아서 Weight와 곱해준 값이<br>P의 경우 Positive 해 질때 까지 계속 덧셈을 하고<br>N의 경우 Negative 해 질때까지 계속 뺄셈을 하여 Positive 하고 Negative 함을 맞추어 준다.</p>
+<h2><span id="problems-in-perceptron-single-layer-xor-문제">problems in perceptron (single layer) - XOR 문제</span></h2><p>single layer perceptron에서는 XOR 함수를 만족하는 weight를 찾을 수 없는 문제가 발생한다.</p>
+<p><img src="\images\problemsInPerceptron.png" alt="problems in perceptron"></p>
+<p><img src="\images\problemsInPerceptron2.png" alt="problems in perceptron2"></p>
+<p><img src="\images\problemsInPerceptron3.png" alt="problems in perceptron3"></p>
+<h2><span id="하이퍼-플레인과-hidden-node">하이퍼 플레인과 hidden node</span></h2><p>하이퍼 플레인이란 n차 공간에서 TLU(Threshold Logic Unit)역할을 하는 n-1차 공간이다.</p>
+<p>hidden node란 xor 문제를 해결하는 mid-layer들을 의미한다.</p>
+<p><img src="\images\하이퍼플레인과HiddenNode.png" alt="하이퍼 플레인과 hidden node"></p>
+<h2><span id="multi-layer-perceptron을-이용한-xor-문제의-해결">multi layer perceptron을 이용한 XOR 문제의 해결</span></h2><p>멀티레이어 퍼셉트론을 이용하여 XOR 문제를 해결할 수 있다.<br><img src="\images\multiLayerPerceptronSolvingXORProblems.png" alt="multi layer perceptron solving XOR Problems"></p>
+<h2><span id="weight-vector는-왜-hyper-plane과-수직을-이루는가">weight vector는 왜 hyper plane과 수직을 이루는가?</span></h2><p>weight vector는 hyper plane과 수직을 이룬다.</p>
+<p><img src="\images\weightVectorIsPerpendicularToHyperPlane.png" alt="weight vector is perpendicular to hyper plane"></p>
+<h2><span id="adalineadaptive-linear-neuron이란-무엇이며-perceptron-과의-차이점은-무엇인가">ADALINE(ADAptive LInear NEuron)이란 무엇이며 perceptron 과의 차이점은 무엇인가?</span></h2><p>ADALINE이란 adaptive signal processing을 수행한다.</p>
+<p>다음과 같은 면에서 perceptron과 차이점을 가진다.</p>
+<ol>
+<li>dc 바이어스와 그에 대한 weight가 포함되어 있다.</li>
+<li>perceptron은 0, +1의 출력을 가지는데 반해 -1 +1의 bipolar 출력을 가진다.</li>
+<li>TLU가 단지 선형함수이다.</li>
+</ol>
+<p><img src="\images\perceptronAndADALINE.png" alt="perceptron and ADALINE"></p>
+<h2><span id="adaline">ADALINE</span></h2><p>ALC: Adaptive Linear Combiner<br><img src="\images\adaline.png" alt="adaline"></p>
+<h2><span id="least-mean-squareslms">Least Mean Squares(LMS)</span></h2><p>L개의 입력값을 통한 출력값과 L개의 desired output을 비교하여 mean of square error가 가장 작은 weights를 구한다.</p>
+<p><img src="\images\aDALINELMS.png" alt="ADALINE LMS"></p>
+<p>solution<br><img src="\images\aDALINELMSSolution.png" alt="ADALINE LMS Solution"></p>
+<h2><span id="rlmsrelative-least-mean-squares">RLMS(Relative Least Mean Squares)</span></h2><p>학습되어야 할 데이터의 숫자가 증가하거나 벡터의 사이즈가 증가하는 경우에 문제가 생긴다.<br>모호한 방정식을 풀어야 하거나, 방정식의 개수가 weight보다 많은 경우 문제가 생긴다.<br>또한 inverse matrix를 구해야 하는 경우도 문제가 되는데, 데이터의 숫자가 많아짐에 따라 Determination이 0이 되는 값이 있을 수 있다.<br>이 경우 LMS를 줄여주는 방향으로 weight를 스스로 변화시키는 방법으로 weight를 조절해 갈 수 있는데 이를 RLMS라고 한다.</p>
+<p><img src="\images\rLMSImage.png" alt="RLMS image"></p>
+<p><img src="\images\rLMSProcess.png" alt="RLMS process"></p>
+<h2><span id="neural-network-설계-프로세스">Neural network 설계 프로세스</span></h2><p>perceptron의 경우 TLU가 non-linear하기 때문에 계산하기 어려우므로 ADALINE을 이용한다.</p>
+<p><em><strong>1. 학습되어야 할 데이터쌍이 몇개인가?</strong></em><br>문제의 복잡도에 따라 다르다. 학습되어야 할 데이터가 많을 수록 더 많은 learning cycle을 필요로 한다.<br>neural net의 저장용량에 따라 cross-talk 없이 효과적인 학습과 재현이 가능해야 한다.<br>최종적으로, incremental learning이 필요하다.</p>
+<p><em><strong>2. 각 학습 입력쌍의 기대되는 출력값은 무엇인가?</strong></em><br>GMP(Genralized Modus Ponens)와 밀접한 관련이 있다.<br>학습 쌍이 학습 알고리즘 상의 weight에 저장되어 있다면, 같은 입력 패턴이 들어갔을ㄷ대 반드시 같은 결과 패턴이 나와야 한다.</p>
+<p><em><strong>3. weight vector의 차원은 무엇이며 초기 추측값은 무엇인가?</strong></em><br>센서의 개수와 잘 정의된 입력값에 관계가 있다.<br>초기 추측값은 랜덤하게 선택하거나 대충 선택한다.</p>
+<p><em><strong>4. bias weight이 필요한가? 필요하다면 언제 필요한가?</strong></em><br>어떤 필터에서는 필요가 없다.<br>hyper plane이 원점과 거리가 매우 멀다면 필요하다.</p>
+<p><em><strong>5. pattern의 통계적 성질이 시간에 따라 변하면 어떠한가?</strong></em><br>일반적으로 시간에 따른 변수들의 통계적 특성이 불변한다고 가정한다.<br>만약에 변한다면 학습 주기는 처음부터 다시 시작되어야 한다.</p>
+<p>incremental learning을 한다면 하나의 패턴쌍을 제거할 수 있는가? 어떤것이 변하는가?</p>
+<p><em><strong>6. learning coefficient 적합한 값은 얼마인가?</strong></em><br>학습계수는 최저값과 최고값이 있어야 한다. 학습에서 이 크기는 매우매우 중요하다.<br>작은 학습계수는 학습의 수렴이 천천히 일어나게 하고, 큰 학습 계수는 가끔 매우 긴 수렴 주기로 가게 하거나 혹은 발산하게 할 수 있다.</p>
+<p><img src="\images\learningCoefficient.png" alt="learning coefficient"></p>
+<p><em><strong>7. learning cycle의 종료 규칙을 어떻게 정하는가?</strong></em><br>출력 조건과 관련이 있다. 만약 기대값과 실제 출력값이 허용치 안에서 계속 머문다면 학습 주기를 종료한다.</p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/neural-network/">#
+                        neural network
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2017/11/29/angular와-nodejs를-활용한-socket-io-사용하기/">
+                                angular와 nodejs를 활용한 socket.io 사용하기
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2017/11/29/Neural-Network의-기본-개념/">
+                                Neural Network의 기본 개념
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2017/11/29/Neural-network-Perceptron과-ADALINE/';
+        this.page.identifier = '2017/11/29/Neural-network-Perceptron과-ADALINE/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

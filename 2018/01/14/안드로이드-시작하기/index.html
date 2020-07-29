@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>안드로이드 시작하기 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                안드로이드 시작하기
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-14T05:40:31.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                23 minutes read (About 3515 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#개발-세팅-및-환경-설정">개발 세팅 및 환경 설정</a><ul>
+<li><a href="#가상화-기기-설정">가상화 기기 설정</a></li>
+<li><a href="#기본-환경-설정">기본 환경 설정</a></li>
+</ul>
+</li>
+<li><a href="#android-프로젝트-세팅">Android 프로젝트 세팅</a><ul>
+<li><a href="#ide란">IDE란?</a></li>
+<li><a href="#xml이란">XML이란?</a></li>
+</ul>
+</li>
+<li><a href="#advanced-layout">Advanced Layout</a><ul>
+<li><a href="#drawable의-활용">Drawable의 활용</a></li>
+<li><a href="#listview">ListView</a></li>
+</ul>
+</li>
+<li><a href="#network">Network</a><ul>
+<li><a href="#url이란-uniform-resource-locator">URL이란? Uniform Resource Locator</a></li>
+<li><a href="#api">API</a><ul>
+<li><a href="#parsing">Parsing</a></li>
+<li><a href="#permission-in-android">Permission in Android</a></li>
+<li><a href="#readfromstream">readFromStream()</a></li>
+<li><a href="#inputstream">InputStream</a></li>
+<li><a href="#mainthread">MainThread</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#레이아웃">레이아웃</a><ul>
+<li><a href="#fragment">Fragment</a><ul>
+<li><a href="#workflow">WorkFlow</a></li>
+</ul>
+</li>
+<li><a href="#tablayout">TabLayout</a><ul>
+<li><a href="#workflow-1">WorkFlow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#라이브러리">라이브러리</a><ul>
+<li><a href="#butterknife">ButterKnife</a><ul>
+<li><a href="#개요">개요</a></li>
+<li><a href="#workflow-2">WorkFlow</a></li>
+</ul>
+</li>
+<li><a href="#recyclerview">RecyclerView</a><ul>
+<li><a href="#workflow-3">WorkFlow</a></li>
+</ul>
+</li>
+<li><a href="#retrofit">Retrofit</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="개발-세팅-및-환경-설정">개발 세팅 및 환경 설정</span></h1><h2><span id="가상화-기기-설정">가상화 기기 설정</span></h2><p>안드로이드 가상화 기기 설정을 위해 VT-X 켜기<br>컴퓨터의 BIOS세팅에 진입(레노버의 경우F1 혹은 Enter)에 진입하여<br>Intel 가상화 세팅을 Enable로 바꾼다.</p>
+<h2><span id="기본-환경-설정">기본 환경 설정</span></h2><ol>
+<li><p>자바 JDK(Java Development Kit)를 설치한다.<br>JDK는 앱을 만드는 일종의 작업장과 같은 역할을 한다.<br>JDK는 컴퓨터가 JAVA 프로그래밍 언어를 읽고 쓸수 있게 해 주는 소프트 웨어 이다.<br>결론적으로 JDK Standard Edition을 설치한다.</p>
+</li>
+<li><p>안드로이드 스튜디오를 설치한다.<br>안드로이드 스튜디오는 우리가 앱을 만드는 일종의 작업장과 같은 개념이다.</p>
+</li>
+<li><p>Android Setting의 plugin에서 lombok plugin 다운로드</p>
+</li>
+</ol>
+<p>도메인 이름 설정</p>
+<p>흔히 알고 있는 패키지 명은 .com 형식을 취하며 이것은 특정 도메인을 일컷는다.<br>패키지 명은 이를 단순히 뒤집은 꼴이며 제일 뒤에 Application name이 붙게 된다.<br>이는 어플리케이션을 배포 할때 각각 고유한 패키지를 가지게 한다.</p>
+<p>만약 company domain 이 tangentx.com이고 어플리케이션 이름이 expirit이라면 패키지 명은<br>com.tangentx.expirit이 된다.</p>
+<p>모바일 설정</p>
+<p>핸드폰에게 내가 개발자라는 사실을 알리기 위해 개발자 모드를 적용한다.<br>핸드폰 제작사 별로 알맞은 드라이버를 설치한다.<br>핸드폰을 연결하여 에뮬레이팅 할 수 있다.<br>가상 장치를 이용하여 에뮬레이팅 할 수 있다.<br>컴퓨터의 프로그램 및 기능에 들어가서 vt-x를 활성화 한다.</p>
+<p>한글 설정</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//plugins/android/lib/layoutlib/data/fonts/fonts.xml 에서</span><br><span class="line">&lt;family lang=&quot;&quot;ko&quot;&quot;&gt;</span><br><span class="line">&lt;font weight=&quot;&quot;400&quot;&quot; style=&quot;&quot;normal&quot;&quot; index=&quot;&quot;1&quot;&quot;&gt;NanumGothic.ttf&lt;/font&gt;</span><br><span class="line">&lt;/family&gt;</span><br></pre></td></tr></table></figure>
+<p>를 추가해준다.</p>
+<p>바로 수정이 되지 않는 경우가 있으므로 파일을 바탕화면에 저장하여 바꾼뒤 복사해주는 식으로 한다.</p>
+<h1><span id="android-프로젝트-세팅">Android 프로젝트 세팅</span></h1><p>AndroidManifest 세팅<br>AndroidManifest에서 처음 어플리케이션을 시작한다.</p>
+<h3><span id="ide란">IDE란?</span></h3><p>IDE란 Integrated Developing Envionment의 약자로써 코드를 작성하는 공간을 의미한다.<br>안드로이드 에서는 흔히 Android Studio를 일컷는다.</p>
+<h3><span id="xml이란">XML이란?</span></h3><p>XML이란 Extensible Markup Language의 약자로써 기본적인 표현 언어이다.<br>이 언어의 문법을 XML Syntax라고 한다.</p>
+<h1><span id="advanced-layout">Advanced Layout</span></h1><h2><span id="drawable의-활용">Drawable의 활용</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;shape  xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">android:shape=&quot;oval&quot;&gt;</span><br><span class="line">&lt;solid android:color=&quot;@color/magnitude1&quot; /&gt;</span><br><span class="line">&lt;size</span><br><span class="line">android:width=&quot;36dp&quot;</span><br><span class="line">android:height=&quot;36dp&quot; /&gt;</span><br><span class="line">&lt;corners android:radius=&quot;18dp&quot; /&gt;</span><br><span class="line">&lt;/shape&gt;</span><br></pre></td></tr></table></figure>
+<p>Drawable에 새로운 Shape을 정의<br>하고 이를 background로 사용</p>
+<h2><span id="listview">ListView</span></h2><h1><span id="network">Network</span></h1><h2><span id="url이란-uniform-resource-locator">URL이란? Uniform Resource Locator</span></h2><p>http: 는 protocol, scheme을 의미한다.<br>example.com은 host/domain/authority<br>를 의미한다.<br>/animal/mammal/primate/tarsier는<br>resource path를 의미한다.<br>?diet=carnivore&amp;active=night은 query<br>부분이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2><span id="api">API</span></h2><p>Application Programming Interface<br>다른 소프트웨어에서 해당 어플리케이션이 편하게 사용되도록 하는 장치<br>모든 사람람들은 API를 사용하게 된다.<br>API의 url 에 특정한 request를 보내면 일정한 데이터 형식을 같추어 response를 보내준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3><span id="parsing">Parsing</span></h3><p>긴 스트링을 컴퓨터가 이해하기 쉬운 다른 형태로 변형하는 과정 즉 JSON과 같은 형태로 변형<br>JSON = JavaScript Object Notation</p>
+<h3><span id="permission-in-android">Permission in Android</span></h3><p>인턴넷에 접속하거나 혹은 메시지를 보내고 카메라를 작동 시키는 등 다양한 동작을 하기 위해서는<br>permission을 얻어야 한다.</p>
+<h3><span id="readfromstream">readFromStream()</span></h3><p>클라이언트가 서버에 요청을 보내면 서버는 이진수 형태의 raw data를 보내주는데 이를 사람이 이해 할 수 있<br>는 형태의 데이터로 읽어들이기 위해서 readFromStream을 사용한다.</p>
+<h3><span id="inputstream">InputStream</span></h3><p>input Stream은 이미지나 텍스트 등 다양한 resource들이 입력되는 입력 형태이다.<br>이 input Stream을 읽어들여 이미지, 텍스트 등 다양한 요소들을 적합한 형태로 받아온다.</p>
+<h3><span id="mainthread">MainThread</span></h3><p>Android가 작업들을 처리할때는 처음부터 순차적으로 처리하게 되는데 이러한 주 작업목록을<br>MainThread 라고 한다. 이는 사용자가 쓰는 측면에서 UIThread 라고도 하는데 이 작업목록에 긴 시간동안의<br>작업이 포함되면 사용자가 다음 입력을 지시하여도 화면이 얼어있게 된다.<br>그래서 절대 UIThread를 막으면 안된다.<br>즉, UIThread에서는 사용자가 실제 사용하는 것들만 처리하고 그 동안 다른 근 작업들은 backgroundthread<br>에서 처리하도록 한다. - AsyncTask&lt;Params, Progress, Result&gt;</p>
+<h1><span id="레이아웃">레이아웃</span></h1><h2><span id="fragment">Fragment</span></h2><h3><span id="workflow">WorkFlow</span></h3><ol>
+<li><p>Activity에 Fragment 추가<br>activity_main에 fragment를 추가해 준다.</p>
+</li>
+<li><p>Fragment를 위한 Layout Resource XML 작성</p>
+</li>
+<li><p>각 Fragment Class 구현</p>
+</li>
+<li><p>Activity의 onCreate()에서 Fragment초기화.</p>
+</li>
+<li><p>FragementTransaction을 사용한 Fragment 제어<br>FracmentTansaction의 replace()함수를 통해 제어.</p>
+</li>
+</ol>
+<h2><span id="tablayout">TabLayout</span></h2><h3><span id="workflow">WorkFlow</span></h3><ol>
+<li><p>gradle에 dependencies를 추가해 준다.</p>
+</li>
+<li><p>style.xml에서 액션바를 제거한 다음, 탭으로 사용할 Fragment를 생성한다.</p>
+</li>
+<li><p>프래그먼트를 구현할 xml를 생성한다.</p>
+</li>
+<li><p>MainActivity에서 Toolbar, TabLayout, ViewPager를 생성하고 설정한다.<br><a href="http://swalloow.tistory.com/80" target="_blank" rel="noopener">출처 바로가기</a></p>
+</li>
+</ol>
+<h1><span id="라이브러리">라이브러리</span></h1><h2><span id="butterknife">ButterKnife</span></h2><h3><span id="개요">개요</span></h3><p>일반적으로 레이아웃을 생성하고 난뒤, 제일 먼저 View를 선언하고 할당하는 작업이다.</p>
+<h3><span id="workflow">WorkFlow</span></h3><ol>
+<li><p>Gradle에 추가<br>그레이들 -&gt; compile ‘com.jakewharton:butterknife:7.0.1’</p>
+</li>
+<li><p>Activity에서 버터나이프로 바인드 해주기</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//액티비티의 경우</span><br><span class="line">super.setContentView(layoutResID);</span><br><span class="line">ButterKnife.bind(this);</span><br><span class="line"></span><br><span class="line">//Fragment의 경우</span><br><span class="line">View  view = LayoutInflater.from(getActivity()).inflate(resId, null);</span><br><span class="line">ButterKnife.inject(this, view);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>레이아웃에서 View 객체 선언</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.view_action_sms)</span><br><span class="line">View view_action_sms;</span><br><span class="line">@Bind(R.id.view_action_comment)</span><br><span class="line">View view_action_comment;</span><br><span class="line">@Bind(R.id.view_input_comment)</span><br><span class="line">View view_input_comment;</span><br></pre></td></tr></table></figure>
+<p>기타 기능<br>onClickListener달기<br>ClickListener가 필요한경우 setOnClickListener를 선언해줄필요 없이 바로 실행될 함수를 만들고 <code>@OnClick</code> 을 사용하면 됩니다.<br>만약 View가 button처럼 클릭 이벤트만을 받고싶은 경우라면 2번에서 처럼 View객체를 선언할 필요조차 없이 그냥 바로 <code>@OnClick</code>함수만 사용해도 됩니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@OnClick(R.id.view_action_call)</span><br><span class="line">void onCallClick() &#123;</span><br><span class="line">.... </span><br><span class="line">&#125;</span><br><span class="line">&lt;!-- 여러 뷰에 대해서 하나의 함수만을 실행시키고 싶다면 아래와 같이 선언해주면 됩니다. --&gt;</span><br><span class="line"></span><br><span class="line">@OnClick(&#123;R.id.pager, R.id.indicator, R.id.cell_picture, R.id.cell_product, R.id.cell_price, R.id.cell_description,R.id.cell_location&#125;)</span><br><span class="line">public void onSomeThingClick(View view) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="recyclerview">RecyclerView</span></h2><h3><span id="workflow">WorkFlow</span></h3><ol>
+<li><p>레이아웃에 RecyclerView를 추가한다.</p>
+</li>
+<li><p>액티비티에 레이아웃을 연결한다.</p>
+</li>
+<li><p>RecyclerView.Adapter 클래스를 생성한다. // 굳이 만들지 않고 다음단계로 진행해도 된다.<br>RecyclerView.Adapter를 extends하여 클래스를 생성하고, 내부에서 ViewHoler를 생성한다.</p>
+</li>
+</ol>
+<p>onCreateViewHolder(ViewGroup parent, int viewType)<br>뷰와 뷰홀더를 만들고 레이아웃의 사이즈 마진 패딩 등을 조절한다.<br>뷰홀더에 뷰를 넣어 뷰홀더 인스턴스를 만들어 리턴한다.</p>
+<p>onBindViewHolder(ViewHolder holder, int position)<br>데이터베이스에서 데이터들을 받아와 뷰홀더 내의 요소들에 입혀준다.</p>
+<ol start="4">
+<li>액티비티에 LayoutManager와 Adapter를 생성한다.<br>어댑터는 데이터 집합의 항목에 액세스할 수 있게 해주며, 항목 뷰를 생성하고, 원래의 항목이 더 이상 보이지 않을 경우 일부 뷰의 콘텐츠를 새 데이터 항목으로 교체합니다</li>
+</ol>
+<p></p><p class="strongfont" href="https://developer.android.com/training/material/lists-cards.html">Google Developer 참조</p>
+<h2><span id="retrofit">Retrofit</span></h2><p>개요<br>Rest API통신을 위한 Android/Java 라이프러리<br>WorkFlow</p>
+<ol>
+<li>build.gradle에 의존성 설정</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos; // Retrofit</span><br><span class="line">compile &apos;com.squareup.retrofit2:converter-gson:2.0.0-beta3&apos; // Gson 변환을 위한 converter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>퍼미션 추가<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">인터넷 통신을 하기 위한 퍼미션을 추가해 준다.</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;</span><br><span class="line">&lt;!-- Resource URI</span><br><span class="line"></span><br><span class="line">http://apis.skplanetx.com/weather/current/hourly?version=&#123;version&#125;&amp;lat=&#123;lat&#125;&amp;lon=&#123;lon&#125;&amp;city=&#123;city&#125;&amp;county=&#123;county&#125;&amp;village=&#123;village&#125;</span><br><span class="line"></span><br><span class="line">Protocol - REST</span><br><span class="line"></span><br><span class="line">HTTP Method - GET --&gt;</span><br><span class="line"></span><br><span class="line">public interface WeatherApiInterface &#123;</span><br><span class="line">@Headers(&#123;&quot;Accept: application/json&quot;&#125;)</span><br><span class="line">@GET(&quot;weather/current/hourly&quot;)</span><br><span class="line">Call&lt;WeatherRepo&gt; get_Weather_retrofit(@Query(&quot;version&quot;) int version, @Query(&quot;lat&quot;) String lat, @Query(&quot;lon&quot;) String lon);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- @Headers 에는 필요한 헤더 부분을 (&#123; ~~ . ~~ &#125;) 형식으로 넣어줄 수 있습니다.</span><br><span class="line"></span><br><span class="line">@GET 부분에는 현재날씨(시간별)에 해당하는 URL 을 넣어줍니다.</span><br><span class="line"></span><br><span class="line">다음으로 Call입니다.</span><br><span class="line"></span><br><span class="line">Call &lt;&apos;주고받을 객체&apos;&gt; &apos;함수명&apos; (@Query (&apos;변수 이름&apos;) &apos;자료형&apos; &apos;변수 이름&apos;)  형태로 나타나 있는데요</span><br><span class="line"></span><br><span class="line">@Query 를 통해 위치가 바뀌어도 동적으로 값을 받아올 수 있습니다! --&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>GSON<br>JSON의 파싱을 쉽게 하기 위해 구글에서 만든 라이브러리이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">public class WeatherRepo &#123;</span><br><span class="line">@SerializedName(&quot;result&quot;)</span><br><span class="line">Result result;</span><br><span class="line">@SerializedName(&quot;weather&quot;)</span><br><span class="line">weather weather;</span><br><span class="line"></span><br><span class="line">public class Result &#123;</span><br><span class="line">@SerializedName(&quot;message&quot;) String message;</span><br><span class="line">@SerializedName(&quot;code&quot;) String code;</span><br><span class="line"></span><br><span class="line">public String getMessage() &#123;return message;&#125;</span><br><span class="line">public String getCode() &#123;return code;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class weather &#123;</span><br><span class="line"></span><br><span class="line">public List&lt;hourly&gt; hourly = new ArrayList&lt;&gt;();</span><br><span class="line">public List&lt;hourly&gt; getHourly() &#123;return hourly;&#125;</span><br><span class="line"></span><br><span class="line">public class hourly &#123;</span><br><span class="line">@SerializedName(&quot;sky&quot;) Sky sky;</span><br><span class="line">@SerializedName(&quot;precipitation&quot;) precipitation precipitation;</span><br><span class="line">@SerializedName(&quot;temperature&quot;) temperature temperature;</span><br><span class="line">@SerializedName(&quot;wind&quot;) wind wind;</span><br><span class="line"></span><br><span class="line">public class Sky&#123;</span><br><span class="line">@SerializedName(&quot;name&quot;) String name;</span><br><span class="line">@SerializedName(&quot;code&quot;) String code;</span><br><span class="line"></span><br><span class="line">public String getName() &#123;return name;&#125;</span><br><span class="line">public String getCode() &#123;return code;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class precipitation&#123; // 강수 정보</span><br><span class="line">@SerializedName(&quot;sinceOntime&quot;) String sinceOntime; // 강우</span><br><span class="line">@SerializedName(&quot;type&quot;) String type; //0 :없음 1:비 2: 비/눈 3: 눈</span><br><span class="line"></span><br><span class="line">public String getSinceOntime() &#123;return sinceOntime;&#125;</span><br><span class="line">public String getType() &#123;return type;&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class temperature&#123;</span><br><span class="line">@SerializedName(&quot;tc&quot;) String tc; // 현재 기온</span><br><span class="line"></span><br><span class="line">public String getTc() &#123;return tc;&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class wind&#123; // 바람</span><br><span class="line">@SerializedName(&quot;wdir&quot;) String wdir;</span><br><span class="line">@SerializedName(&quot;wspd&quot;) String wspd;</span><br><span class="line"></span><br><span class="line">public String getWdir() &#123;return wdir;&#125;</span><br><span class="line">public String getWspd() &#123;return wspd;&#125;</span><br><span class="line">&#125;</span><br><span class="line">public Sky getSky() &#123;return sky;&#125;</span><br><span class="line">public hourly.precipitation getPrecipitation() &#123;return precipitation;&#125;</span><br><span class="line">public hourly.temperature getTemperature() &#123;return temperature;&#125;</span><br><span class="line">public hourly.wind getWind() &#123;return wind;&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">public Result getResult() &#123;return result;&#125;</span><br><span class="line">public weather getWeather() &#123;return weather;&#125;</span><br><span class="line"></span><br><span class="line">public interface WeatherApiInterface &#123;</span><br><span class="line">@Headers(&#123;&quot;Accept: application/json&quot;&#125;)</span><br><span class="line">@GET(&quot;weather/current/hourly&quot;)</span><br><span class="line">Call&lt;WeatherRepo&gt; get_Weather_retrofit(@Query(&quot;version&quot;) int version, @Query(&quot;lat&quot;) String lat, @Query(&quot;lon&quot;) String lon);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;!-- GSON이 쉽고 편하고 아름답게 파싱해 주는 것을 볼 수 있습니다!</span><br><span class="line"></span><br><span class="line">여기서 @SerializedName 어노테이션이 포인트인데요</span><br><span class="line"></span><br><span class="line">이 어노테이션을 이용하면 wspd(풍속) 을 </span><br><span class="line"></span><br><span class="line">@SerializedName(&quot;wspd&quot;) String windSpeed; 처럼 변수 이름을 바꿔 넣을 수도 있습니다.</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+<p>장점 / 용도<br>다음과 같은 귀찮은 작업들을 매우 편리하게 바꾸어 준다.</p>
+<ol>
+<li>네트워크 통신 연결/해제</li>
+<li>가져온 데이터 파싱</li>
+<li>Json통신의 경우, Json데이터를 Class로 변환</li>
+<li>각종 에러 처리</li>
+</ol>
+<p><a href="http://gun0912.tistory.com/30" target="_blank" rel="noopener">출처 - 박상권의 삽질 블로그</a><br><a href="&quot;http://square.github.io/retrofit/">출처 - Retrofit 공식 홈페이지</a></p>
+<p>EventBus<br>Workflow</p>
+<ol>
+<li>Otto를 관리해주는 Singleton 개념의 BusProvider 클래스를 생성</li>
+<li>Event를 감지하고자 하는 ACtivity 혹은 Fragment에서 register를 수행한다.</li>
+<li>Event가 발생하는 위치에서 Event가 발생했음을 알린다.</li>
+<li>이벤트가 발생했을때 수행할 함수를 FinishLoad 메소드에 만들어 준다.</li>
+<li>해당 이벤트에서 원하는 변수, 리스트 등을 받아서 작업을 처리한다.<br><p class="strongfont" href="http://gun0912.tistory.com/4">출처 바로가기</p></li>
+</ol>
+<p>Dagger<br>개요<br>Android/Java에서 Dependency Injection을 위한 편리한 도구이다.<br>주요 Annotation<br> @Module, @Provides, @Component, @Inject<br>@Inject: 이 어노테이션은 의존성을 요청합니다. 의존성 주입을 통해서 해당 어노테이션이 달린 클래스나 필드에게 값을 주입해 달라고 Dagger 에게 요청합니다. Dagger 는 어노테이션이 달린 클래스의 인스턴스를 생성하고 그것들의 의존성을 만족시킵니다.</p>
+<p>@Module: 모듈들은 의존성을 제공하는 메서드들을 가진 클래스입니다. 의존성을 제공하는 클래스를 정의하고 @Module 어노테이션을 답니다. 그러면 Dagger 는 클래스 인스턴스를 만들 때 의존성을 만족시키기 위한 정보를 찾을 수 있습니다.</p>
+<p>@Provide: 모듈 안에서 해당 어노테이션이 달린 메서드를 정의합니다. 해당 어노테이션이 달린 메서드가 Dagger 가 어떻게 의존성에 맞게 객체를 만들고 제공하는지 알려줍니다.</p>
+<p>@Component: 컴포넌트는 @Inject 와 @Module 사이 다리이며 의존성을 주입하는 역할을 합니다. 컴포넌트는 미리 정의한 모든 타입의 인스턴스를 줍니다. @Component 어노테이션은 인터페이스에다만 달아야합니다 그리고 컴포넌트를 구성하는 모든 @Module 이 달린 클래스 목록을 적어야합니다. 컴포넌트에서 사용하는 모듈들중 하나라도 없다면 컴파일 타임에 에러를 만듭니다. 모든 컴포넌트들은 컴포넌트에 포함된 모듈들을 통해 의존성의 범위를 알 수 있습니다.</p>
+<p>@Scope: 스코프는 매우 유용하고 Dagger 2 에서 사용자 정의 어노테이션을 통해 범위를 나누는 명확한 방법입니다. 나중에 예제에서 보겠지만 이것은 매우 강력한 기능입니다. 앞에서 언급한바와 같이 하기 때문에, 모든 객체는 자기 자신의 인스턴스를 관리하는 방법에 대해 알필요가 없습니다. 예를들어 사용자가 지정한 @PerActivity 어노테이션이 달려있는 클래스는 액티비티가 살아있는 동안 존재합니다. 다시말하자면 객체 범위의 단위를 정의할 수 있습니다.</p>
+<p>@Qualifier: 클래스의 유형이 종속성을 식별하기 불충분할 때 사용하는 어노테이션입니다. 예를 들어 안드로이드의 경우, 많은 경우 컨텍스트의 다양한 타입이 필요합니다, 그래서 “@ForApplication”, “@ForActivity” 같은 식별자 어노테이션을 정의합니다. 컨텍스트를 주입할 때 이 식별자 어노테이션을 이용해서 Dagger 가 어떤 타입을 제공할지 정해줍니다.</p>
+<p>WorkFlow</p>
+<ol>
+<li>buil.gradle에 dependencies를 추가하여 준다.<br><p class="strongfont" href="https://medium.com/@jason_kim/tasting-dagger-2-on-android-%EB%B2%88%EC%97%AD-632e727a7998">출처 바로가기</p></li>
+</ol>
+<p>Plugins<br>Lombok<br>주요 요소</p>
+<p></p><p clas="mainfont"></p>
+<ol>
+<li><p>@Getter / @Setter<br>기본적으로 멤버필드들에 대한 getter/setter메소드들을 만들어 줍니다.</p>
+</li>
+<li><p>@AllArgsConstructor / @NoArgsConstructor<br>멤버필드들이 모두 파라미터로 지정된 생성자와 빈 생성자를 만들어 줍니다.</p>
+</li>
+<li><p>@Builder<br>모델을 빌더 패턴으로 만들어 줍니다.</p>
+</li>
+<li><p>@ToString<br>toString의 override된 메소드를 만들어 줍니다.</p>
+</li>
+</ol>
+<p>WorkFlow</p>
+<p></p><p clas="mainfont">1. Lombok Plugin 설치</p>
+<ol start="2">
+<li>gradle에 Lombokk 적용하기.</li>
+<li>gradle에 annotaion을 provide 해주기</li>
+</ol>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/android/">#
+                        android
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/01/14/컴퓨터-네트워크/">
+                                컴퓨터 네트워크
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/01/14/퍼스트-클래스-승객은-펜을-빌리지-않는다/">
+                                퍼스트 클래스 승객은 펜을 빌리지 않는다
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/01/14/안드로이드-시작하기/';
+        this.page.identifier = '2018/01/14/안드로이드-시작하기/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Tag: nodejs - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#nodejs</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/27/nodejs-mysql-join-데이터를-간편하게-json으로-정제하기/" itemprop="url">
+                nodejs mysql join 데이터를 간편하게  json으로 정제하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-27T04:53:17.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 208 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#arrayforeach-함수의-활용">array.forEach 함수의 활용</a></li>
+<li><a href="#받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="arrayforeach-함수의-활용">array.forEach 함수의 활용</span></h2><p>forEach()는 오름차순으로 배열에 있는 각 요소에 대해 한 번씩 callback을 실행한다.<br>삭제 또는 비초기화된 인덱스 속성에 대해서는 호출되지 않는다.</p>
+<p>callback은 다음 세 인수와 함께 호줄된다.<br>요소 값, 요소 인덱스, 순회될 배열</p>
+<h2><span id="받아온-rows를-foreach-함수를-사용하여-정체">받아온 rows를 forEach 함수를 사용하여 정체</span></h2><p>정제하는 함수<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function(err,rows)&#123;</span><br><span class="line">  var result = [];</span><br><span class="line">  var indexObject = &#123;&#125;;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    rows.forEach(function(row)&#123;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 해당 행의 id가 indexObject의 키값에 없을때 실행 --&gt;</span><br><span class="line">        if(!(row.id in index))&#123;</span><br><span class="line">          index[row.id]=&#123;</span><br><span class="line">            id: row.id,</span><br><span class="line">            name: row.name</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">          &lt;!-- 반환값에 추가 --&gt;</span><br><span class="line">          result.push(index[row.id]);</span><br><span class="line">        &#125;</span><br><span class="line">        해당 행이 인덱스에 있건 없건 간에 해당 인덱스의 내역을 체워줌</span><br><span class="line">        index[row.id].histories.push(&#123;</span><br><span class="line">            historyId:row.historyId,</span><br><span class="line">            historyName:row.historyName</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/22/nodejs-swagger-api-doc-구현하기/" itemprop="url">
+                nodejs swagger api-doc 구현하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-22T08:25:16.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 349 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="swagger-ui-express-설치하기">swagger-ui-express 설치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i swagger-ui-express</span><br></pre></td></tr></table></figure>
+<h2><span id="packagejson에-swagger-ui-express-추가하기">package.json에 swagger-ui-express 추가하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;swagger-ui-express&quot;: &quot;latest&quot; // or desired version</span><br></pre></td></tr></table></figure>
+<h2><span id="swagger-js-doc-설치하기">swagger js-doc 설치하기</span></h2><p>기존에 있던 js 파일에서 api를 따오기 위해 swagger jsdoc을 설치한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install swagger-jsdoc --save</span><br></pre></td></tr></table></figure></p>
+<h2><span id="swagger-jsdoc-설정">swagger-jsdoc 설정</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var swaggerJSDoc = require(&apos;swagger-jsdoc&apos;);</span><br><span class="line"></span><br><span class="line">var options = &#123;</span><br><span class="line">  swaggerDefinition: &#123;</span><br><span class="line">    info: &#123;</span><br><span class="line">      title: &apos;Hello World&apos;, // Title (required)</span><br><span class="line">      version: &apos;1.0.0&apos;, // Version (required)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  apis: [&apos;./routes.js&apos;], // Path to the API docs</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// Initialize swagger-jsdoc -&gt; returns validated swagger spec in json format</span><br><span class="line">var swaggerSpec = swaggerJSDoc(options);</span><br></pre></td></tr></table></figure>
+<h2><span id="appjs-세팅하기">app.js 세팅하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const app = express();</span><br><span class="line">const swaggerUi = require(&apos;swagger-ui-express&apos;);</span><br><span class="line">const swaggerSpec = swaggerJSDoc(options)</span><br><span class="line"></span><br><span class="line">app.use(&apos;/api-docs&apos;, swaggerUi.serve, swaggerUi.setup(swaggerSpec));</span><br></pre></td></tr></table></figure>
+<h2><span id="document-the-api">document the api</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @swagger</span><br><span class="line"> * /login:</span><br><span class="line"> *   post:</span><br><span class="line"> *     description: Login to the application</span><br><span class="line"> *     produces:</span><br><span class="line"> *       - application/json</span><br><span class="line"> *     parameters:</span><br><span class="line"> *       - name: username</span><br><span class="line"> *         description: Username to use for login.</span><br><span class="line"> *         in: formData</span><br><span class="line"> *         required: true</span><br><span class="line"> *         type: string</span><br><span class="line"> *       - name: password</span><br><span class="line"> *         description: User&apos;s password.</span><br><span class="line"> *         in: formData</span><br><span class="line"> *         required: true</span><br><span class="line"> *         type: string</span><br><span class="line"> *     responses:</span><br><span class="line"> *       200:</span><br><span class="line"> *         description: login</span><br><span class="line"> */</span><br><span class="line">app.post(&apos;/login&apos;, function(req, res) &#123;</span><br><span class="line">  res.json(req.body);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2><span id="model-definition을-통한-재사용">Model Definition을 통한 재사용</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @swagger</span><br><span class="line"> * definitions:</span><br><span class="line"> *   NewUser:</span><br><span class="line"> *     type: object</span><br><span class="line"> *     required:</span><br><span class="line"> *       - username</span><br><span class="line"> *       - password</span><br><span class="line"> *     properties:</span><br><span class="line"> *       username:</span><br><span class="line"> *         type: string</span><br><span class="line"> *       password:</span><br><span class="line"> *         type: string</span><br><span class="line"> *         format: password</span><br><span class="line"> *   User:</span><br><span class="line"> *     allOf:</span><br><span class="line"> *       - $ref: &apos;#/definitions/NewUser&apos;</span><br><span class="line"> *       - required:</span><br><span class="line"> *         - id</span><br><span class="line"> *       - properties:</span><br><span class="line"> *         id:</span><br><span class="line"> *           type: integer</span><br><span class="line"> *           format: int64</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">   * @swagger</span><br><span class="line">   * /users:</span><br><span class="line">   *   get:</span><br><span class="line">   *     description: Returns users</span><br><span class="line">   *     produces:</span><br><span class="line">   *      - application/json</span><br><span class="line">   *     responses:</span><br><span class="line">   *       200:</span><br><span class="line">   *         description: users</span><br><span class="line">   *         schema:</span><br><span class="line">   *           type: array</span><br><span class="line">   *           items:</span><br><span class="line">   *             $ref: &apos;#/definitions/User&apos;</span><br><span class="line">   */</span><br><span class="line">  app.get(&apos;/users&apos;, function(req, res) &#123;</span><br><span class="line">    res.json([ &#123;</span><br><span class="line">      id: 1,</span><br><span class="line">      username: &apos;jsmith&apos;,</span><br><span class="line">    &#125;, &#123;1</span><br><span class="line">      id: 2,</span><br><span class="line">      username: &apos;jdoe&apos;,</span><br><span class="line">    &#125; ]);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * @swagger</span><br><span class="line">   * /users:</span><br><span class="line">   *   post:</span><br><span class="line">   *     description: Returns users</span><br><span class="line">   *     produces:</span><br><span class="line">   *       - application/json</span><br><span class="line">   *     parameters:</span><br><span class="line">   *       - name: user</span><br><span class="line">   *         description: User object</span><br><span class="line">   *         in:  body</span><br><span class="line">   *         required: true</span><br><span class="line">   *         type: string</span><br><span class="line">   *         schema:</span><br><span class="line">   *           $ref: &apos;#/definitions/NewUser&apos;</span><br><span class="line">   *     responses:</span><br><span class="line">   *       200:</span><br><span class="line">   *         description: users</span><br><span class="line">   *         schema:</span><br><span class="line">   *           $ref: &apos;#/definitions/User&apos;</span><br><span class="line">   */</span><br><span class="line">  app.post(&apos;/users&apos;, function(req, res) &#123;</span><br><span class="line">    // Generate ID</span><br><span class="line">    req.body.id = Math.floor(Math.random() * 100) * 1</span><br><span class="line">    res.json(req.body);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.npmjs.com/package/swagger-ui-express" target="_blank" rel="noopener">swagger-ui-express 공식 문서</a><br><a href="https://github.com/Surnet/swagger-jsdoc/blob/master/docs/GETTING-STARTED.md" target="_blank" rel="noopener">swagger-jsdoc 공식 문서</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/22/nodejs-express를-활용한-정적-파일-제공/" itemprop="url">
+                nodejs express를 활용한 정적 파일 제공
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-22T07:07:08.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 102 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="정적-파일을-제공할-폴더-설정">정적 파일을 제공할 폴더 설정</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(express.static(&apos;public&apos;));</span><br></pre></td></tr></table></figure>
+<p>express.static을 활용하여 public 폴더를 정적 파일을 제공하기 위한 기본 폴더로 지정한다.</p>
+<h2><span id="정적-파일-요청-양식">정적 파일 요청 양식</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localhost:3000/images/kitten.jpg</span><br><span class="line">localhost:3000/css/style.css</span><br><span class="line">localhost:3000/js/app.js</span><br><span class="line">localhost:3000/images/bg.png</span><br><span class="line">localhost:3000/hello.html</span><br></pre></td></tr></table></figure>
+<p>기본 폴더명인 public은 입력하지 않아도 된다.</p>
+<p><a href="http://expressjs.com/ko/starter/static-files.html" target="_blank" rel="noopener">참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/19/NodeJs-파일-업로드-및-삭제하기/" itemprop="url">
+                NodeJs 파일 업로드 및 삭제하기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:38:45.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a minute read (About 199 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="formidable-설치하기">Formidable 설치하기</span></h2><p><code>npm i -S formidable</code></p>
+<h2><span id="html-에서-파일-입력받기">html 에서 파일 입력받기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;file&quot; (change)=&quot;fileChange($event)&quot; placeholder=&quot;Upload file&quot; accept=&quot;.pdf,.doc,.docx&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="입력받은-파일을-formdata에-담아-서버로-전송하기">입력받은 파일을 formData에 담아 서버로 전송하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fileChange(event) &#123;</span><br><span class="line">    let fileList: FileList = event.target.files;</span><br><span class="line">    if(fileList.length &gt; 0) &#123;</span><br><span class="line">        let file: File = fileList[0];</span><br><span class="line">        let formData:FormData = new FormData();</span><br><span class="line">        formData.append(&apos;uploadFile&apos;, file, file.name);</span><br><span class="line">        let headers = new Headers();</span><br><span class="line">        /** No need to include Content-Type in Angular 4 */</span><br><span class="line">        headers.append(&apos;Content-Type&apos;, &apos;multipart/form-data&apos;);</span><br><span class="line">        headers.append(&apos;Accept&apos;, &apos;application/json&apos;);</span><br><span class="line">        let options = new RequestOptions(&#123; headers: headers &#125;);</span><br><span class="line">        this.http.post(`$&#123;this.apiEndPoint&#125;`, formData, options)</span><br><span class="line">            .map(res =&gt; res.json())</span><br><span class="line">            .catch(error =&gt; Observable.throw(error))</span><br><span class="line">            .subscribe(</span><br><span class="line">                data =&gt; console.log(&apos;success&apos;),</span><br><span class="line">                error =&gt; console.log(error)</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="node-server에서-수신하기">node server에서 수신하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">router.post(&apos;/cover_img&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;커버이미지 저장 시작!&quot;);</span><br><span class="line">  var form = new formidable.IncomingForm();</span><br><span class="line">  form.parse(req, function (err, fields, files) &#123;</span><br><span class="line">    console.log(files);</span><br><span class="line">    var oldpath = files.uploadFile.path;</span><br><span class="line">    var newpath = &quot;/var/www/html/contents_cover_img/&quot; + files.uploadFile.name;</span><br><span class="line">    fs.rename(oldpath, newpath, function (err) &#123;</span><br><span class="line">      if (err) throw err;</span><br><span class="line">      res.sendStatus(200);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp" target="_blank" rel="noopener">참고자료</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/19/NodeJs-mongoose-라이브러리를-활용한-mongodb-통신/" itemprop="url">
+                NodeJs mongoose 라이브러리를 활용한 mongodb 통신
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:34:20.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 293 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#세팅하기">세팅하기</a></li>
+<li><a href="#objectid-이용하기">ObjectId 이용하기</a></li>
+<li><a href="#model을-사용하여-update-하기">Model을 사용하여 update 하기</a></li>
+<li><a href="#inc-를-활용하여-increase-하기">$inc 를 활용하여 increase 하기</a></li>
+<li><a href="#없으면-create하고-있으면-update하기">없으면 create하고 있으면 update하기</a></li>
+<li><a href="#or를-활용하여-or-서치하기">$or를 활용하여 or 서치하기</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="세팅하기">세팅하기</span></h2><ol>
+<li>mongoose 설치<br><code>npm install mongoose</code></li>
+<li>mongoose 임포트 해주기<br><code>var mongoose = require(&#39;mongoose&#39;);</code></li>
+<li>몽구를 이용하여 db 연결<br><code>mongoose.connect(&#39;mongodb://username:password@host:port/database?options...&#39;);</code><br><a href="https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications" target="_blank" rel="noopener">mongoose를 활용한 nodeje mongodb 연결</a></li>
+</ol>
+<h2><span id="objectid-이용하기">ObjectId 이용하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoose.Types.ObjectId(req.params._id)</span><br></pre></td></tr></table></figure>
+<h2><span id="model을-사용하여-update-하기">Model을 사용하여 update 하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Apply.update(&#123;_id:saved_id&#125;,req.body,&#123;upsert:true&#125;,function(err,docs)&#123;</span><br><span class="line">  if(err)&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">    res.sendStatus(500);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    res.sendStatus(200);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2><span id="inc-를-활용하여-increase-하기">$inc 를 활용하여 increase 하기</span></h2>
+undefined
+
+
+<h2><span id="없으면-create하고-있으면-update하기">없으면 create하고 있으면 update하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">router.put(&apos;/&apos;,function(req,res)&#123;</span><br><span class="line">  console.log(&quot;스케줄 업데이트 처리 req.body:&quot;, req.body);</span><br><span class="line">  delete req.body._id;</span><br><span class="line"></span><br><span class="line">  Schedule.findOneAndUpdate(&#123;day:req.body.day, time:req.body.time&#125;,req.body,&#123;upsert:true&#125;,function(err,docs)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">      console.log(err);</span><br><span class="line">      res.sendStatus(500);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      res.sendStatus(200);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>upsert: true 항목을 추가한다.</p>
+<h2><span id="or를-활용하여-or-서치하기">$or를 활용하여 or 서치하기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ar userExists = function(u, callback) &#123;</span><br><span class="line">  User.find(&#123;$or:[ &#123;&apos;username&apos;: u.username&#125;, &#123;&apos;email&apos;: u.email&#125;]&#125; , function(err,user) &#123;</span><br><span class="line">    if (err || user.length &gt; 0) &#123;     // user does not come back null, so check length</span><br><span class="line">        callback(1);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    //no error, no user</span><br><span class="line">    callback(0);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a href="https://www.npmjs.com/package/mongoose" target="_blank" rel="noopener">NPM mongoose package Document</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/19/NodeJs-nodemailer를-활용한-이메일-보내기/" itemprop="url">
+                NodeJs nodemailer를 활용한 이메일 보내기
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:33:20.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 36 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p><a href="https://www.w3schools.com/nodejs/nodejs_email.asp" target="_blank" rel="noopener">W3School 참고자료</a></p>
+<h2><span id="gsuite-사용시-권한-설정하기">Gsuite 사용시 권한 설정하기</span></h2><p><a href="https://support.google.com/mail/answer/7126229?visit_id=1-636482248914143060-1011588501&amp;rd=1" target="_blank" rel="noopener">참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/19/Node-js에서의-bcrypt-암호화/" itemprop="url">
+                Node.js에서의 bcrypt 암호화
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:29:46.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                a few seconds read (About 27 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>강력한 암호화 방식인 bcrypt를 node에서 사용한다.</p>
+<p><a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="noopener">NPM 참조</a></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous">
+        <a href="/tags/nodejs/">Prev</a>
+    </div>
+    <div class="pagination-next is-invisible is-hidden-mobile">
+        <a href="/tags/nodejs/page/3/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link" href="/tags/nodejs/">1</a></li>
+        
+        <li><a class="pagination-link is-current" href="/tags/nodejs/page/2/">2</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

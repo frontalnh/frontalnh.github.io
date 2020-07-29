@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>운영체제 | 가상 메모리 - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section">
+    <div class="container">
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+                운영체제 | 가상 메모리
+                    
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-04T12:24:27.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/운영체제-강의/">운영체제 강의</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                29 minutes read (About 4294 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#가상-메모리는-무엇이며-왜-사용하는가">가상 메모리는 무엇이며, 왜 사용하는가?</a></li>
+<li><a href="#요구-페이징이란">요구 페이징이란?</a><ul>
+<li><a href="#요구-페이징이란-1">요구 페이징이란?</a></li>
+<li><a href="#요구-페이징의-성능">요구 페이징의 성능</a></li>
+</ul>
+</li>
+<li><a href="#페이지-교체">페이지 교체</a><ul>
+<li><a href="#페이지-교체의-필요성">페이지 교체의 필요성</a></li>
+<li><a href="#페이지-교체의-동작-원리">페이지 교체의 동작 원리</a></li>
+<li><a href="#선입선출-페이지-교체fifo-page-replacement">선입선출 페이지 교체(FIFO Page Replacement)</a></li>
+<li><a href="#최적-페이지-교체optimal-page-replacement">최적 페이지 교체(Optimal Page Replacement)</a></li>
+<li><a href="#lru-페이지-교체lru-page-replacement">LRU 페이지 교체(LRU Page Replacement)</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="가상-메모리는-무엇이며-왜-사용하는가">가상 메모리는 무엇이며, 왜 사용하는가?</span></h1><p>가상 메모리란 어떤 프로레스를 실행할 때 <strong>프로세스 전체가 메모리에 적재되지 않고도 실행이 가능</strong> 하도록 하는 기법입니다. 좀 더 나아가면 어떤 프로세스가 차지하는 메모리가 전체 메모리 용량보다 크더라도 지금 현재 <strong>필요한 부분만 메모리에 적재</strong> 되면 실행이 가능하기 때문에 <strong>물리 메모리 용량을 초과하는 프로그램도 동작</strong> 시킬 수 있는 큰 장점이 있습니다.</p>
+<p>가상 메모리는 실제의 물리 메모리의 개념과 <strong>사용자의 논리 메모리의 개념을 분리</strong> 합니다. 좀 더 쉽게 말하자면 원래의 컴퓨터의 메모리란 일반적으로 실제 존재하는 물리적인 메모리 만을 의미합니다. 하지만 이러한 <strong>물리적인 메모리를 보다 효율적으로 사용 하기 위해서 프로그래머는 가상 메모리 의 개념을 만들게 되었고, 이런 가상 메모리는 다소 복잡하게 구성되고 접근이 어려운 물리 메모리를 가상으로 재구성 하여 엄청나게 큰 배열로 추상화 시켜줍니다.</strong> 따라서 프로그래머는 물리 메모리를 신경쓰지 않고 <strong>가상의 메모리만을 신경 쓰면서 프로그래밍</strong> 을 하게 되어 보다 편리해 진 측면도 존재합니다. 여기서 말하는 <strong>가상 메모리</strong> 를 프로세스가 차지하는 공간의 측면에서 <strong>가상 주소 공간</strong> 이라고 부르며, 보다 정확히는 그 프로세스가 메모리에 저장되는 논리적인 모습을 말합니다. 앞의 내용에서 다루었듯이 실제 물리 메모리는 <strong>페이지 프레임</strong> 들로 구성되며, 논리적인 페이지를 물리적인 페이지 프레임으로 사상하는 것은 <strong>메모리 관리 장치(Memory Management Unit)</strong> 에서 담당합니다.</p>
+<p>가상 메모리를 사용함에 따른 또 다른 장점은 파일이나 <strong>메모리가 둘 또는 그 이상의 프로세스들에 의해 공유되는 것을 가능</strong> 하게 하는 것입니다. 어떤 프로세스나 파일이 메모리 주소를 참조할 때 특정 물리주소가 아닌 가상 주소를 참조하고 이 가상 주소는 메모리 관리 장치에 의해 물리 주소로 사상되기 때문에 특정 프로세스에서 논리 메모리 값을 참조하면 자연스럽게 두 프로세스가 같은 물리 주소를 참조하게 됩니다.</p>
+<h1><span id="요구-페이징이란">요구 페이징이란?</span></h1><h2><span id="요구-페이징이란">요구 페이징이란?</span></h2><p>디스크에서 메모리로 실행 프로그램을 적재할 때를 생각해 봅시다. 이 경우 실행하고자 하는 프로그램 전체를 메모리로 옮기는 것이 일반적인 방법입니다. 하지만 가상 메모리에서는 <strong>초기에 필요한 것만 적재하는 전략을 사용할 수 있는데 이것을 요구 페이징</strong> 이라고 합니다. 이러한 요구 페이징을 사용하게 되면 <strong>한번도 접근되지 않는 페이지는 물리 메모리에 전혀 적재되지 않게 됩니다.</strong> 이러한 요구 페이징은 어떤 점에서 스와핑 기법과 비슷하게 동작합니다. 프로세스를 실행하고 싶으면 메모리로 읽어 들이는 swap in 을 할 때 전체 프로세스를 읽어오지 않고 필요한 페이지만 메모리에 적재합니다. 하지만 이 경우 프로세스를 하나의 연속된 주소 공간으로 보기 보다 페이지들의 연속으로 생각하고 있으므로 <strong>스와퍼</strong> 라는 표현이 아닌 <strong>페이저</strong> 라는 표현을 사용합니다. 이러한 <strong>페이저 는 프로세스 내의 개별 페이지들을 관리합니다.</strong></p>
+<p>디스크에서 메모리로 페이지를 적재하는 <strong>스왑인(swap in)</strong> 을 수행하는 경우 프로세스가 다시 <strong>스왑 아웃</strong> 되기 전에 실제로 어떤 페이지들이 사용될 것인지 추측하고, 프로세스 전체를 메모리에 적재하는 대신 실제 필요한 페이지들만 메모리로 읽어옵니다.</p>
+<p>이렇게 프로세스 전체가 아니라 프로세스의 부분 조각인 <strong>페이지</strong> 들만 가져오게 되면 무슨 일이 생길까요?<br><strong>특정 프로세스 내에서 어떤 페이지가 실제 메모리에 적재되었는지, 또 적재되지 않았는지를 구별할 수 없게 됩니다.</strong> 이런 문제를 해결하기 위해서 약간의 하드웨어 지원을 받아 <strong>페이지 테이블</strong> 이라는 것이 존재합니다. 이런 <strong>페이지 테이블</strong> 에는 <strong>유효-무효 비트</strong> 가 존재하여 어떤 페이지가 실제 <strong>물리 메모리에 적재되어 있는지를 표시해 주고 만약 실제 물리 메모리에 적재되지 않은 페이지는 그 페이지가 저장되어 있는 디스크 주소를 기록</strong> 해 두어 나중에 필요할 때 가져올 수 있게 해 줍니다.</p>
+<p>이제 CPU가 필요한 페이지를 메모리에서 가져올 때 만약 가상 메모리에 해당 내용이 있다면 해당하는 물리 메모리에서 페이지를 로드하여 모든 페이지가 메모리에 존재할 때와 동일하게 실행이 됩니다. 만약 <strong>메모리에 없는 페이지에 접근</strong> 을 하려고 하면 어떨까요? 이때는 페이지 테이블 항목이 무효로 설정되어 있으므로 <strong>페이지 부재 트랩</strong> 을 발생시킵니다.</p>
+<p>페이지 부재가 발생하면 사용하는 모든 페이지가 메모리에 올라올 때까지 필요할 때마다 페이지 부재가 발생하게 되는데, 일단 필요한 모든 페이지가 메모리에 적재되고 나면 부재 오류가 발생하지 않게 되고 이것이 <strong>순수 요구 페이징</strong> 입니다. 즉, 어떤 페이지가 필요해 지기 전에는 그 페이지를 적재하지 않습니다.</p>
+<p>여기서, 이렇게 가상 메모리가 최초의 페이지를 적재하고 계속해서 필요한 페이지들을 불러오는 방식으로 계속해서 <strong>페이지 부재 오류를 처리하면서 페이지를 적재한다면 시스템 성능이 현저하게 떨어지지 않을까하는 의문</strong> 이 생길 수 있습니다. 한 명령어에서도 여러 개의 페이지 부재를 일으킬 수 있는 만큼 충분히 이런 의문이 제기될 수 있습니다. 하지만, 모든 프로그램은 <strong>참조 지역성</strong> 즉, 프로그램의 어느 한 특정 작은 부분만 집중적으로 참조하기 때문에 특정 페이지를 불러오면 그 안에 대부분의 유효한 정보가 밀집되어 있기 때문에, 현실에서는 문제가 될 만큼 많은 페이지 부재가 일어나지는 않습니다.</p>
+<p>이러한 요구 페이징에서 필수적인 요구사항은 <strong>페이지 부재 오류 처리 후 명령어를 다시 시작 할</strong> 수 있어야 한다는 것 입니다. 언뜻 생각하면 이는 매우 단순한 문제인 것 처럼 보입니다. 페이지 부재 오류가 발생하면 중단된 프로세스 상태(일종의 레지스터 값 등)을 저장해 놓은 뒤에 페이지를 적재하고 다시 명령을 처리하면 문제는 해결될 것으로 보입니다.</p>
+<p>하지만, 한 명령어가 많은 기억 장소를 변경하는 경우를 생각해 봅시다. 가령 디스크의 특정 블록을 적재하는 데 해당 블록이 페이지 사이에 걸쳐 있다면 정보가 다 적재되기도 전에 페이지 부재가 발생하여 문제가 발생하게 됩니다. 만약 적재하던 블록은 저장하는 장소가 걸쳐진 다른 블록인 경우는 문제가 더욱 심각해 집니다.</p>
+<p>이러한 문제를 해결하기 위한 방법 중 하나는 마이크로 코드로 양 블록의 끝을 계산하여 접근을 시도하는 것 입니다. 가령 블록이 몇 페이지에 걸쳐 존재한다면 양 끝 블록을 계산하여 몇 개의 페이지를 적재해야 하는지 알 수 있고, 만약 페이지 부재가 발생하면 어떤 블록도 수정되기 전의 단계에서 부재가 발생하여 데이터의 손상이 없습니다.</p>
+<h2><span id="요구-페이징의-성능">요구 페이징의 성능</span></h2><p>요구 페이징은 페이지 부재가 발생하지 않는 한 실질 접근시간은 메모리 접근 시간과 같다. 즉, 유효 접근시간은 <strong>페이지 부재율</strong> 에 비례하기 때문에 페이지 부재율을 낮게 유지하는 것이 상당히 중요하다.</p>
+<h1><span id="페이지-교체">페이지 교체</span></h1><h2><span id="페이지-교체의-필요성">페이지 교체의 필요성</span></h2><p>페이지 부재율을 논할 때 각 페이지는 처음 그 페이지가 접근될 때 한 번만 페이지 부재가 발생한다고 가정하였으나, 이 설명은 정확한 것이 아닙니다. 가령 40프레임의 메모리 용량을 가진 컴퓨터에서 10페이지 중 실제 5페이지만 사용하는 프로세스를 6개를 실행시킨다고 합시다. 그러면 요구 페이징에 의해 총 30페이지가 메모리에 적재될 것입니다. 하지만 기존의 가정과 달리 특정 데이터 조합에 대해 이 프로세스들이 10 페이지를 모두 사용해야 하는 상황이 있을 수 있고 그런 상황의 경우 총 60페이지가 메모리에 적재되어야 합니다. 이렇게 된다면 총 40프레임만 있는 상황에서 60프레임을 필요로 하게 되고 사용자 프로세스가 실행 중 이 때 <strong>과할당(over-allocating)</strong> 이 발생하게 됩니다. 즉, <strong>과할당이란 프로세스가 메모리보다 더 큰 용량의 페이지를 적재하려고 할 때 발생</strong> 하게 됩니다. 이런 과할당이 발생하는 경우 가장 일반적인 해결책은 바로 <strong>페이지 교체</strong> 입니다.</p>
+<h2><span id="페이지-교체의-동작-원리">페이지 교체의 동작 원리</span></h2><p>그렇다면 페이지 교체는 어떻게 이루어 질까요?<br>페이지의 교체는 다음과 같은 순서로 이루어 집니다.</p>
+<ol>
+<li>디스크에서 적재가 필요한 페이지의 위치를 알아냅니다.</li>
+<li>메모리공간에서 빈 페이지 프레임을 찾습니다.<br>이때 빈 프레임이 있다면 그것을 사용하고 없다면 <strong>페이지 교체 알고리즘</strong> 을 통해 <strong>희생될(victim) 프레임</strong> 을 선정하고, 희생될 페이지를 디스크에 기록한 뒤 관련 테이블을 수정합니다.</li>
+<li>새롭게 비워진 프레임에 새 페이지를 읽어오고 프레임 테이블을 수정합니다.</li>
+<li>사용자 프로세스를 재시작 합니다.</li>
+</ol>
+<p>위 순서를 잘 살펴보면 만약 메모리 공간에 <strong>빈 페이지 프레임이 있는 경우에는 프레임을 비울 때 한번, 프레임을 읽어들일 때 한번 총 2번에 걸쳐 디스크에 접근</strong> 하는 점을 알 수 있습니다. 이 때문에 페이지 부재 처리시간은 총 2베가 소요되게 되는데 이는 이러한 오버헤드는 <strong>변경 비트(modify bit or dirty bit)</strong> 를 활용해서 해결 할 수 있습니다. 변경 비트란 CPU가 페이지 내 어떤 워드나 바이트라도 쓰게 되면 페이작 변경되었음을 나타내기 위해 설정됩니다. 만약 변경 비트가 설정되어 있지 않다면 페이지가 메모리로 읽혀들어온 후에 바뀌지 않았으므로 메모리에서 그냥 삭제해도 디스크에는 원본이 잘 보존되어 있기 때문에 별도로 저장을 하지 않아도 됩니다. 이 기법은 읽기전용 페이지들에도(디스크 내용을 변경하지 않았으므로) 같은 원리로 적용이 됩니다.</p>
+<p>위에서 다룬 <strong>페이지 교체 알고리즘</strong> 을 비롯하여 현대의 페이징 시스템은 두 가지 중요한 문제를 해결해야 하는데, 그것은 <strong>프레임 할당 알고리즘</strong> 과 <strong>페이지 교체 알고리즘</strong> 입니다.<br><strong>프레임 할당 알고리즘</strong> 이란 여러 개의 프로세스가 존재하는 경우 각 프로세스에 얼마나 많은 프레임을 할당해야 할지 결정하는 알고리즘이며, <strong>페이지 교체 알고리즘</strong> 이란 페이지 교체가 필요할 때 어떤 페이지를 교체할지 선정하는 알고리즘 입니다.</p>
+<p>현재에는 많은 페이지 교체 알고리즘이 존재하며 일반적으로는 <strong>페이지 부재율이 가장 낮은 것을 선정</strong> 하는 알고리즘을 사용합니다.</p>
+<h2><span id="선입선출-페이지-교체fifo-page-replacement">선입선출 페이지 교체(FIFO Page Replacement)</span></h2><p><strong>페이지 교체 알고리즘</strong> 중에서 가장 간단한 알고리즘인 <strong>선입선출 알고리즘</strong> 을 살펴봅시다. 선입선출 교체 알고리즘은 각 페이지에 메모리 적재시간을 연관시켜 가장 오래된 페이지를 교체하는 알고리즘 입니다. 하지만 선입선출 알고리즘은 간단한 만큼 많은 문제점을 가지고 있습니다. 쉽게 생각해 봐도 오래된 페이지가 얼마나 자주 사용될지도 모르는데 모래되었다는 것 하나로 교체해 버리는 것은 참 무모해 보입니다. 가령 매우 중요한 변수를 들고있을 수도 있고 수없이 많이 수행되는 중요한 페이지 일수도 있기 때문입니다. 하지만 이렇게 페이지가 교체되어도 치명적인 문제는 일어나지 않습니다. <strong>페이지가 교체되어도 필요한 시점에서 바로 부재처리</strong> 가 되어서 다시 메모리에 적재시키면서 프로세스가 동작하기 때문입니다. 하지만, 이 경우에는 <strong>페이지 부재율이 많이 높아지게 되고 효율적이지 못한 동작</strong> 이 일어난다고 볼 수 있습니다.</p>
+<h2><span id="최적-페이지-교체optimal-page-replacement">최적 페이지 교체(Optimal Page Replacement)</span></h2><p>최적 페이지 교체 알고리즘을 알아보기 전에 <strong>Belady 의 모순</strong> 에 대해 알아봅시다. 보통 프로세스에게 얼마만큼의 프레임을 할당하는가 하는 문제에 있어서 많은 프레임을 할당하면 페이지 부재율이 낮아질 것으로 생각을 합니다. 하지만 위의 선입선출 알고리즘과 마찬가지로 Belady 의 모순이란 많은 프레임을 할당해 주었는데도 불구하고 반대로 페이지 부재율이 더 증가하는 현상을 일컷습니다. 이러한 Belady 의 모순이 없는 알고리즘을 찾던 와중에 <strong>최적 교체 알고리즘</strong> 이 탄생하게 되었습니다. 최적 교체 알고리즘은 간단히 말하면 <strong>앞으로 가장 오랫동안 사용되지 않을 페이지를 찾아 교체</strong> 하는 알고리즘이며, <strong>프레임 수가 고정된 경우 가장 낮은 페이지 부재율을 보장</strong> 합니다. 하지만 불행하게도 이 알고리즘의 구현은 매우 어렵고 따라서 주로 비교 연구 목적을 위해 가장 최선의 경우를 계산할 목적으로 사용됩니다. 가령 특정 알고리즘을 개발하였는데 최적 알고리즘에 비해 12.3% 이상으로 나빠지지 않았다라는 연구결과를 얻는 등 일종의 레퍼런스로 사용됩니다.</p>
+<h2><span id="lru-페이지-교체lru-page-replacement">LRU 페이지 교체(LRU Page Replacement)</span></h2><p>최적 페이지 교체 알고리즘이 미래에 사용되지 않을 페이지를 찾아 교체하는 것이라 할때 최근의 과거를 미래의 근사치로 본다면 가장 오랜 시간 사용되지 않은 페이즈를 교체할 수 있고 이것이 LRU 알고리즘이다.</p>
+<hr>
+
+                        
+    </div>
+    
+        <div class="columns is-variable is-1 is-multiline is-mobile">
+            
+                <span class="column is-narrow">
+                    <a class="tag is-light article-tag" href="/tags/os/">#
+                        os
+                    </a>
+                </span>
+                
+        </div>
+        
+            
+                <div class="columns is-mobile is-multiline article-nav">
+                    <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+                        
+                            <a href="/2018/04/05/운영체제-교착상태-deadlock-란-무엇인가/">
+                                운영체제 | 교착상태(deadlock)란 무엇인가?
+                            </a>
+                            
+                    </span>
+                    <span class="column is-12-mobile is-half-desktop  article-nav-next">
+                        
+                            <a href="/2018/04/03/운영체제-입출력-시스템/">
+                                운영체제 | 입출력 시스템이란 무엇인가?
+                            </a>
+                            
+                    </span>
+                </div>
+                
+</article>
+
+
+    <div class="sharebox">
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5b29f0b2a7603d0012fa866b&amp;product=inline-share-buttons" async="async"></script>
+
+    </div>
+    
+
+        
+            <div class="comments">
+                <h3 class="title is-4">
+                    Comments
+                </h3>
+                
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://frontalnh.github.io/2018/04/04/운영체제-가상-메모리란-무엇인가/';
+        this.page.identifier = '2018/04/04/운영체제-가상-메모리란-무엇인가/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jake-lee-blog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            </div>
+            
+    </div>
+</section>
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Category: machine learning - Jake.Lee&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="PgpnJMuvO-IqYWyFljnyr-tusLhJUz1VRMmECenJyHE">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/frontalnh">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+        <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5><i class="far fa-folder"></i>machine learning</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6354931397950820",
+    enable_page_level_ads: true
+  });
+</script>
+
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/01/23/getting-started-with-machine-learning-with-python/" itemprop="url">
+                Getting started with machine learning with python
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-23T02:25:01.000Z" itemprop="datePublished">
+                2 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                2 minutes read (About 231 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <p>One example of where this handcoded approach will fail is in detecting faces in images. Today, every smartphone can detect a face in an image. </p>
+<p>The most successful kinds of machine learning algorithms are those that automate decision-making processes by generalizing from known examples </p>
+<p>In this setting, which is known as <em>supervised learning</em></p>
+<p>the user provides the algorithm with pairs of inputs and desired outputs, and the algorithm finds a way to produce the desired output given an input.</p>
+<p><code>scikit-learn</code> is a very popular tool, and the most prominent Python library for machine learning.</p>
+<p>A Python distribution made for large-scale data processing, predictive analytics, and scientific computing</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy scipy matplotlib ipython scikit-learn pandas pillow</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scikit-learn` is built on top of the NumPy and SciPy scientific Python libraries. In addition to NumPy and SciPy, we will be using `pandas` and `matplotlib</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line">print(<span class="string">"x:\n&#123;&#125;"</span>.format(x))</span><br></pre></td></tr></table></figure>
+<p><code>pandas</code> is a Python library for data wrangling and analysis</p>
+<h4><span id="classification">classification</span></h4><p>어떤 데이터들을 분류하는 문제이다.</p>
+<p>여기서 분류의 대상의 data, 분류종류를 class 그리고 특정 데이터가 분류되었을때 그 분류 이름을 label이라고 부른다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/24/머신러닝강의 5강 - 머신러닝-테스트-및-정확도-향상의-방법론/" itemprop="url">
+                머신러닝강의 5강 - 머신러닝 테스트 및 정확도 향상의 방법론
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-24T02:42:56.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 490 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#머신러닝의-정확도">머신러닝의 정확도</a></li>
+<li><a href="#적당한-learning-rate의-선택">적당한 learning rate의 선택</a></li>
+<li><a href="#정확도-향상을-위한-data-preprocessing">정확도 향상을 위한 data preprocessing</a></li>
+<li><a href="#overfitting">overfitting</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="머신러닝의-정확도">머신러닝의 정확도</span></h2><p>머신러닝에서의 정확도는 다양한 변인들에 의하여 판가름 난다.<br>그 중 제일 큰 부분을 차지하는 변수는 바로 learning rate, data preprocessing, overfitting 이며 본 강의에서는 각 요소들이 어떻게 영향을 미치고 정확도를 개선 할 방법에 대해 알아본다.</p>
+<h2><span id="적당한-learning-rate의-선택">적당한 learning rate의 선택</span></h2><p>learning rate는 gradient descent algorithm을 사용할 때에 학습이 진행됨에 따라 학습의 속도 혹은 변화도를 통제하는 변수이다.<br>만약 learning rate이 너무 크다면 최저점을 찾을 때 1회 이동의 정도가 너무 크기 때문에 발산할 가능성 즉 overshooting의 위험이 있으며, 너무 작으면 속도가 매우 느린 단점이 있다.</p>
+<h2><span id="정확도-향상을-위한-data-preprocessing">정확도 향상을 위한 data preprocessing</span></h2><p>만약 입력받은 두 종류의 변수의 크기 차이가 심한 경우 이는 학습에 큰 영향을 미칠 수 있기 때문에 학습 전에 data preprocessing을 거쳐 정확도를 높일 수 있으며, 흔히 normalize라고 불리는 정규화 작업을 거친 뒤 학습을 하게 된다. 이러한 standardize를 위한 수식은 다음과 같다.</p>
+<p><img src="\images\gradientDescentAlgorithm을위한Standardization.png" alt="gradient descent algorithm을 위한 standardization"></p>
+<h2><span id="overfitting">overfitting</span></h2><p>overfitting이란 학습된 결과가 학습을 위한 데이터에 너무 맞추어져 있는 것을 의미한다.<br>이는 주로 적은 수의 학습데이터가 주어져 있을 경우 발생하기 쉬운데, 넓은 범위의 학습데이터가 아니기 때문에 해당 학습데이터에 치우친 결과값이 나와 정확도가 떨어지는 측면이 있다.<br>이러한 overfitting을 해결하기 위해서는 먼저 충분한 양의 학습데이터를 확보를 하고, 학습하는 feature의 수를 줄이는 것, 또 regularization을 하는 것이 도움이 된다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/18/머신러닝강의 4강 - multinomial-classification/" itemprop="url">
+                머신러닝강의 4강 - multinomial classification
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-18T01:32:21.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                4 minutes read (About 642 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="multinomial-classification이란">multinomial classification이란?</span></h2><p>저번 포스트에서는 logistic classification 중에서 binary classification에 대해서만 다루었으나, 오늘은 보다 많은 변수값을 기준으로 보다 많은 종류의 결과값들 중에서 선택을 하는 알고리즘인 multinomial classification에 대해 학습한다.<br>가령 학생들의 시험성적의 경우 각 과목의 점수를 종합하여 전체 평점이 A~D 사이로 결정이 되는데, 이러한 복수의 결과값 중 하나를 선택하는 학습 알고리즘이다.<br>다음 그림은 각 결과값을 위한 다양한 Weight 값을 종합으로 판단을 하는 것을 그림을 통해 보여주고 있다.<br>각 결과값이 true이냐 혹은 false이냐를 결정짓는 Weight를 종합하여 hypothesis function을 만들어 낼 수 있다.</p>
+<p><img src="..\images\multinomialClassification.png" alt="multinomial classification"></p>
+<p>위 내용을 식과 다이어그램으로 표현하면 다음과 같다.<br><img src="..\images\multinomialClassification의표현.png" alt="multinomial classification 의 표현"></p>
+<p>이는 matrix를 이용하여 간략하게 표현될 수 있다.<br><img src="..\images\multinomialClassificationMatrix표현.png" alt="multinomial classification matrix 표현"></p>
+<p>위와 같이 결과값의 예측값을 구하면 그 범위는 0에서 1사이의 구간이 아니라 많은 편차를 나타내게 된다.<br>하지만, multinomial classification에서의 최대 관심사는 특정 입력값이 들어갔을 때에 결과적은 어떤 결과값이 선택되는 가에 대한 것이기 때문에, 특정 결과값이 나올 확률에 대한 궁금증을 가지기 시작했고 softmax 를 통해 결과값을 확률값으로 변환시켰다.<br>softmax 함수와 그 방식은 다음과 같다.<br><img src="..\images\softmax함수의적용.png" alt="softmax 함수의 적용"></p>
+<h2><span id="multinomial-classification에서의-cost-function-cross-entry-cost-function">multinomial classification에서의 cost function / cross entry cost function</span></h2><p>위와 같은 softmax 함수를 통해 나온 값의 cost function을 구해 이를 최소화 시키는 gradient descent 알고리즘을 적용시키기 위해서 정확한 cost function을 구해야 할 필요가 생기게 되었고, 그 식은 일명 cross entry cost function이라 불리는 다음의 식을 따른다.</p>
+<p><img src="..\images\crossEntryCostFunction.png" alt="cross entry cost function"></p>
+<p>위 사례를 통해 위 식은 cost function가 충족해야 할 조건인 참인 경우 0 참이 아닌경우 무한대라는 조건을 훌륭하게 만족시키며, 비록 형태는 다르지만 binary classification에서의 cost function과 비교해 볼 때 특정 결과값의 요소만 반영하는 방식에 있어서 결국은 같은 형태의 식이다.</p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/17/머신러닝강의 3강 - logistic-classification/" itemprop="url">
+                머신러닝강의 3강 - logistic classification
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-17T03:42:55.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                8 minutes read (About 1207 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h1><span id="logistic-classification">logistic classification</span></h1><h2><span id="logistic-classification이란-무엇인가">Logistic Classification이란 무엇인가</span></h2><p>logistic classification이란 학습을 통해 특정 상황에 대한 선택지를 고르는 것이다.<br>이 중에서 true or false 중 하나를 고르는 것을 binary classification 이라고 하는데, 본 글에서는 이러한 binary classification을 기준으로 학습한다.<br>이러한 binary classification의 활용범위는 매우 넓은데, 가령 수신함의 메일이 스팸인지 아닌지를 구분한다던가, 페이스북과 같은 SNS 매체에서 특정 사용자의 타임라인에 어떤 게시물을 show 할것인지 혹은 hide 할 것인지를 결정하는 것은 이러한 binary classification을 활용한 것이라 할 수 있다.</p>
+<p>이러한 binary classification의 활용도는 점차 높아지고 있으며, 신용카드 사용패턴을 분석하여 사기 거래인지 아닌지를 판단하거나 혹은 주식시장에서 특정 주식을 매입할 것인가 매도할 것인가를 결정짓는 중요한 역할을 담당할 수도 있다. 사실 이미 많은 사람들이 주식시장에 머신러닝을 활용하여 큰 수익을 내고 있는 사례가 있다.</p>
+<p>이전 글에서의 linear regression과 같은 모델에서는 어떤 입력값의 정도에 따라 출력값을 정도가 변화하는 일종의 선형적인 관계를 나타내는 반면 이러한 의사결정 모델에서는 특정 임계치를 넘기는 순간 결과는 true로 그 정도가 달라지지 않기 때문에 linear regression 모델을 사용할 경우 많은 오차가 발생할 확률이 높아지게 된다.</p>
+<p>아래 그림은 linear regression을 이러한 classification에 활용하였을 때 나타날 수 있는 문제를 보여준다.<br>아래 그림과 같이 다양한 사례들을 통해 학습을 지속하면 어떤 임계치보다 상당히 큰 값이 입력으로 들어갈 경우 weight에 큰 영향을 주기 때문에 적당한 W 값을 찾는데에 큰 어려움이 발생하게 된다.<br>가령 공부를 5시간만 해도 시험에 합격할 수 있는데, 어떤 학생이 공부를 100시간을 하고서 시험에 합격한 사례가 있을 경우 합격에 필요한 시험의 절대적인 공부시간이 실제보다 상당히 크게 예상할 수 있는 상황이 나타난다.</p>
+<p><img src="\images\linearRegression의한계.png" alt="linear regression 의 한계"></p>
+<h2><span id="logistic-classification의-cost-function">logistic classification의 cost function</span></h2><p>linear regression과 마찬가지로 logistic classification의 경우에도 적합한 hypothesis가 필요해졌다.<br>앞에서 설명한 바와 같이 linear regression에 도입된 hypothesis의 경우에 도입된 수식이 아닌 0~1 사이에서 좁게 움직일 수 있는 새로운 hypothesis를 위해 새로운 function이 필요하게 되었고, 이에 가장 적합한 sigmoid 함수로 이를 표현하기로 했다.<br>sigmoid 함수의 경우 0을 기준으로 기울기가 급변하기 때문에 이러한 classification의 표현에 아주 적합한 모델이다.</p>
+<p>아래는 sigmoid함수와 logistic classification에서의 hypothesis function 을 나타낸다.</p>
+<p><img src="\images\sigmoid함수와Hypothesis함수.png" alt="sigmoid 함수와 hypothesis 함수"></p>
+<p>logistic classification에서의 hypothesis를 도출하기 위한 과정은 다음과 같다<br><img src="\images\logisticClassificationHypothesis의도출.png" alt="logistic classification hypothesis의 도출"></p>
+<p>이러한 sigmoid 기반의 hyphthesis의 cost를 구할 때에 기존처럼 차의 제곱을 도입하면 다음과 같은 문제가 생기게 된다.<br>sigmoid의 exponential 부분에 의해 다음과 같이 그래프가 출러이게 되고, 각 부분마다 local minimum 값이 나오게 되어 gradient descent algorithm을 적용하면 cost의 최소값이 어디부터 시작하느냐에 따라 전체 함수의 최소값은 global minimum값이 아니라 local minimum으로 수렴할 가능성이 높아진다.<br>아래 그림은 차의 제곱을 기반으로 한 linear regression 에서의 cost function 모델의 도입했을 때의 그래프 이다.</p>
+<p><img src="\images\logisticClassification에서의잘못된CostFunction.png" alt="logistic classification에서의 잘못된 cost function"></p>
+<p>따라서 cost 함수도 바뀌어야 할 필요가 생기게 되었고 다음과 같은 새로운 cost function이 제시되었다.<br><img src="\images\logisticClassification에서의새로운CostFunction.png" alt="logistic classification에서의 새로운 cost function"></p>
+<p>이러한 새로운 cost function에서는 local minimum은 존재하지 않고 global minimum 값만 있기 때문에 gradient descent algorithm을 적용할 수 있게 된다.<br>하지만 위와 같은 식에서는 python으로 코드를 만들 때 if 문을 계속해서 돌려줘야 하기 때문에 다음과 같은 식으로 변형한다.</p>
+<p><img src="\images\변형된CostFunction의Element.png" alt="변형된 cost function의 element"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/16/머신러닝강의 2강 - linear regression/" itemprop="url">
+                머신러닝강의 2강 - Linear Regression
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-16T01:44:37.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 452 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="linear-regression">linear regression</span></h2><p>linear regression 이란 말은 입력값이 변할때 출력값이 linear하다는 가설을 기반으로 한 regression 이다.<br>가령 공부를 오래하면 공부를 잘한다와 같은 명제는 사실일 확률이 높은데, 이렇든 linear한 모델을 의미한다.</p>
+<p>linear regression에서는 training data를 받아 학습을 하며 결과적으로 다음과 같이 적당한 직선을 찾는 것이 주 목적이다.</p>
+<p><img src="..\images\linearRegressionAndCostFunction.png" alt="linear regression and cost function"></p>
+<p>위의 cost function은 W와 b에 관한 함수인데, 이 cost function을 최소로 하는 w와 b를 찾는것이 linear regression의 핵심 목표이다.</p>
+<h2><span id="gradient-descent-algorithm">Gradient Descent Algorithm</span></h2><p>linear regression에서의 핵심은 cost function을 최소값을 찾아내는 것이며, 대부분의 convex function에서는<br>경사로 타고 내려가는 알고리즘을 의미하는 gradient descent algorithm을 많이 사용한다.<br>이 알고리즘은 마치 산을 내려갈 때 경사가 아래인 방향으로 계속 이동하는 것 처럼 미분값을 기준으로 아래 방향으로 이동하는 알고리즘이다.<br>cost가 최소인 지점을 찾기 위해 수행하는 알고리즘으로 최소값이 유일해야 하므로 convex function에서만 적용이 가능하다.</p>
+<p><img src="../images/gradientDescentAlgorithm.png" alt="gradient descent algorithm"></p>
+<h2><span id="multi-variable-regression">multi variable regression</span></h2><p>weight와 x가 vector의 형태를 가진다.</p>
+<p><img src="..\images\multiVariableMatrixRegression.png" alt="multi variable matrix regression"></p>
+<p>파이썬에서 array를 선언할 때<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A=[[x1(1), x2(2)], [x1(1), x2(2)], ...]</span><br></pre></td></tr></table></figure></p>
+<p>이런식으로 나열을 하면 이는 실제로는 다음과 같다.</p>
+<p><img src="..\images\매트릭스곱셈의실제형태.png" alt="매트릭스 곱셈의 실제 형태"></p>
+<h2><span id="load-data-from-file">load data from file</span></h2><p><img src="..\images\trainDataFile.png" alt="train data file"></p>
+<p><strong><em>example</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">xy = np.loadtxt(&apos;train.txt&apos;, unpack=True, dtype=&apos;float32&apos;)</span><br><span class="line">x_data = xy[0:-1]</span><br><span class="line">y_data = xy[]</span><br></pre></td></tr></table></figure></p>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/12/16/머신러닝강의 1강 - 머신러닝의 기본 개념/" itemprop="url">
+                머신러닝강의 01. 머신러닝의 기본 개념
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-12-16T14:13:43.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+            <span class="column is-narrow article-category">
+                <i class="far fa-folder"></i>
+                <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+            </span>
+            
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                7 minutes read (About 975 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <!-- toc -->
+<ul>
+<li><a href="#explicit-programming-의-한계와-인공지능의-대두">explicit programming 의 한계와 인공지능의 대두</a><ul>
+<li><a href="#supervised-learning">supervised learning</a></li>
+<li><a href="#unsupervised-learning">unsupervised learning</a></li>
+<li><a href="#tensorflow-설치">tensorflow 설치</a></li>
+<li><a href="#data-flow-graph">data flow graph</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="explicit-programming-의-한계와-인공지능의-대두">explicit programming 의 한계와 인공지능의 대두</span></h1><p>흔히 말하는 explicit programming 이란 사람이 생각한 다양한 방법들을 단순히 프로그램으로 옮기는 작업이다.<br>예를 들어 주식 시장의 주식을 판매를 할것인가의 하는 문제를 프로그램 적으로 해결을 할 때에, 국가의 GDP가 높아지면 주식의 판매하는 것이 바람직하다는 가정을 토대로 프로그램을 만들 수 있다. 이러한 판단이 옳을 수도 있지만 주식시장이라는 거대한 복합체를 판단하기에는 너무나 많은 다양한 변수들이 존재하기 때문에 이것을 프로그램화 시키는 것은 불가능한 수준에 가까웠다.<br>즉, 흔한 일상 생활에도 상당히 복잡한 상황들이 많이 발생하고 이것을 논리를 기반으로 한 프로그램으로 만들기 어려운 문제가 발생하게 되었고, 과학자들은 사람들이 정보를 학습할때 입력과 결과의 합, 즉 경험을 통해 학습을 진행하는 것을 모티브로 컴퓨터돠 수많은 입력과 출력의 쌍으로 어떤 상황에 대한 판단능력을 기를 수 있고, 또 보다 지능적인 프로그램을 만들 수 있지 않을 까 하는 생각을 하게 되었고, 그것이 인공 지능의 시초이다.</p>
+<p>인공지능을 위해서는 다양한 입력과 결과를 토대로 학습을 진행하여야 하는데, 데이터의 종류를 알고 학습을 하는가 혹은 모르고 학습을 하는가에 따라 supervised learning 과 unsupervised learning으로 나누어 지게 된다.</p>
+<h2><span id="supervised-learning">supervised learning</span></h2><p>데이터가 무엇인지 가르쳐 주고 학습을 진행한다. 즉 labeled data를 가지고 학습을 하는 학습방법이며 결과값의 범위에 따라 다음과 같은 종류가 있다.</p>
+<ol>
+<li><p>regression<br>예를들어 시험 성적의 값을 알고 싶은 경우 예를 들어 범위가 매우 넓은 경우</p>
+</li>
+<li><p>binary classification<br>결과가 둘중 하나인 경우</p>
+</li>
+</ol>
+<ol start="3">
+<li>multi-label classification</li>
+</ol>
+<p>결과가 몇가지 케이스가 있는 경우</p>
+<h2><span id="unsupervised-learning">unsupervised learning</span></h2><p>un-labeled data를 가지고 학습한다.<br>그룹핑이나 클러스터링을 주로 한다.</p>
+<h2><span id="tensorflow-설치">tensorflow 설치</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install upgrade tensorflow</span><br></pre></td></tr></table></figure>
+<p>예제<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hello = tf.constant(&apos;Hello, TensorFlow!&apos;)</span><br><span class="line">//여기서 constant는 하나의 노드, 오퍼레이션을 의미한다</span><br><span class="line">//예를 들어 print(hello)를 출력하면 이상한 값이 나온다.</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print sess.run(hello) //실행을 시키는 부분이다.</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>placeholder</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//a와 b의 자료형을 지정해 주어 뒤에서 사용할 수 있게 한다.</span><br><span class="line">a = tf.placeholder(tf.int16)</span><br><span class="line">b = tf.placeholder(tf.int16)</span><br><span class="line"></span><br><span class="line">add = tf.add(a,b)</span><br><span class="line">mul = tf.mul(a,b)</span><br><span class="line"></span><br><span class="line">with tf.Session() ass sess:</span><br><span class="line">  print &quot;Addition with variables: %i&quot; % sess.run(add, feed_dict=&#123;a: 2, b:3&#125;) //a와 b에 값을 넘겨줄 수 있다.</span><br><span class="line">  print &quot;Multiplication with variables: %i&quot; % sess.run(mul, feed_dict=&#123;a: 2, b:3&#125;) //a와 b에 값을 넘겨줄 수 있다.</span><br></pre></td></tr></table></figure></p>
+<h2><span id="data-flow-graph">data flow graph</span></h2><p>edge와 node 로 구성된 data flow graph는 다음과 같은 의미를 가진다.</p>
+<p>node는 수학적 계산을 하는 operation의 의미를 가지며 edge는 데이터가 흘러들어감을 보여주는 연결선이다.<br>이러한 데이터는 data array와 같은 형태를 가지는데 이를 다른 말로는 tensor 라는 말로도 부른다.<br>tensorflow란 말은 이러한 데이터의 흐름을 의미한다.</p>
+<p>이러한 node들은 꼭 동일한 cpu 혹은 gpu안에 존재하지 않아도 되고 분산되어 존재하면서 병렬연산이 가능하기에 매우 강력하다.<br>많은 컴퓨터들을 컴퓨터 자원을 통합해서 계산이 가능해진 것이다</p>
+<p><img src="\images\dataFlowGraph.png" alt="data flow graph"></p>
+<hr>
+
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+    
+    </div>
+</section>
+
+            <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jake.Lee 이남훈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/frontalnh">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110077250-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110077250-2');
+</script>
+
+
+    
+
+
+<script src="/js/script.js"></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+                            
+</body>
+
+</html>
