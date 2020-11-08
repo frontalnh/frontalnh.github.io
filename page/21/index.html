@@ -91,52 +91,6 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2017/11/26/css-dev-note/" itemprop="url">
-                css dev note
-            </a>
-            
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-11-26T02:12:07.000Z" itemprop="datePublished">
-                3 years ago
-            </time>
-        </span>
-        
-                
-                    <span class="column is-narrow">
-                        
-                            
-                                a minute read (About 122 words)
-                    </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-                    <!-- toc -->
-<ul>
-<li><a href="#배경-설정하기">배경 설정하기</a></li>
-<li><a href="#배경-그라디언트">배경 그라디언트</a></li>
-<li><a href="#커서-모양-만들기">커서 모양 만들기</a></li>
-</ul>
-<!-- tocstop -->
-<h2><span id="배경-설정하기">배경 설정하기</span></h2><p>배경을 전체로 설정하고 가운데를 보이게 할 수 있다.<br>가장 일반적인 배경 설정이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">background-position: center;</span><br><span class="line">background-repeat: no-repeat;</span><br><span class="line">background-size: cover;</span><br></pre></td></tr></table></figure></p>
-<h2><span id="배경-그라디언트">배경 그라디언트</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#grad &#123;</span><br><span class="line">  background: red; /* For browsers that do not support gradients */</span><br><span class="line">  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */</span><br><span class="line">  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */</span><br><span class="line">  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */</span><br><span class="line">  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="커서-모양-만들기">커서 모양 만들기</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">li &#123; cursor: pointer; cursor: hand; &#125;</span><br></pre></td></tr></table></figure>
-
-                        
-    </div>
-    
-            
-</article>
-
-
-
-        
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
             <a href="/2017/11/22/nodejs-swagger-api-doc-구현하기/" itemprop="url">
                 nodejs swagger api-doc 구현하기
             </a>
@@ -522,6 +476,92 @@ undefined
 <p>ngFor 내에서 인덱스를 붙이는 경우의 활용<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li *ngFor=&quot;let item of items; index as i; trackBy: trackByFn&quot;&gt;...&lt;/li&gt;</span><br></pre></td></tr></table></figure></p>
 <p>ngFor 안에서 ngFor를 사용하는 경우의 활용<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*ngFor=&quot;let subMenuName of menuName[&apos;submenu&apos;]; let idx = index;&quot;</span><br></pre></td></tr></table></figure></p>
 <h3><span id="ngif">ngIf</span></h3>
+                        
+    </div>
+    
+            
+</article>
+
+
+
+        
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2017/11/19/Angular-다양한-종류의-Template-and-Data-Binding/" itemprop="url">
+                Angular 다양한 종류의 Template and Data Binding
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2017-11-18T16:54:25.000Z" itemprop="datePublished">
+                3 years ago
+            </time>
+        </span>
+        
+                
+                    <span class="column is-narrow">
+                        
+                            
+                                3 minutes read (About 501 words)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2><span id="template-and-data-binding-in-angular를">Template And Data Binding in Angular를</span></h2><p>Angular에서는 다양한 종류의 Binding을 제공한다.<br>binding의 종류에 따라</p>
+<ol>
+<li>(element / component / directive) property</li>
+<li>(element / component / directive) event</li>
+<li>(rarely) an attribute name.</li>
+</ol>
+<p>의 세가지 경우가 있다.</p>
+<h2><span id="property-binding">property binding</span></h2><p>html 태그의 다양한 속성을 바인딩 해준다.</p>
+<p><strong>대상</strong><br>Element property<br>Component property<br>Directive property</p>
+<p>example1<br>예제에서 보여지듯이 다양한 종류의 속성을 바인딩 할 수 있다.<br>이미지를 불러오는 경로인 (src) 컴포넌트의 입력값을 주는 [hero] 바인딩, class 속성을 가르쳐주는 [ngClass] 등의<br>바인딩 사례가 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img [src]=&quot;heroImageUrl&quot;&gt;</span><br><span class="line">&lt;app-hero-detail [hero]=&quot;currentHero&quot;&gt;&lt;/app-hero-detail&gt;</span><br><span class="line">&lt;div [ngClass]=&quot;&#123;&apos;special&apos;: isSpecial&#125;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>example2<br>[ngStyle]을 활용하여 동적으로 background-image 할당.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;profile-image&quot; [ngStyle]=&quot;&#123; &apos;background-image&apos;: &apos;url(&apos; + image + &apos;)&apos;&#125;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="event-binding">Event Binding</span></h2><p>html 태그에서 발생하는 다양한 종류의 event에 대한 binding이다.</p>
+<p><strong>대상</strong><br>Element event<br>Component event<br>Directive event</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)=&quot;onSave()&quot;&gt;Save&lt;/button&gt;</span><br><span class="line">&lt;app-hero-detail (deleteRequest)=&quot;deleteHero()&quot;&gt;&lt;/app-hero-detail&gt;</span><br><span class="line">&lt;div (myClick)=&quot;clicked=$event&quot; clickable&gt;click me&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>(click)을 통해 클릭을 하는 시점에 함수를 발동하는 등의 역할을 수행한다.</p>
+<h3><span id="focus-and-focusout">(focus) and (focusout)</span></h3><p>input 등의 경우 입력모드가 발동된 시점이나 특정 element가 focus 된 경우 동작을 나타낸다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input name=&quot;date&quot; type=&quot;text&quot; (focus)=&quot;focusFunction()&quot; (focusout)=&quot;focusOutFunction()&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="ngmodelchange">(ngModelChange)</span></h3><p>해당 모델의 데이터 값이 바뀔 때마다 특정 함수를 실행할 수 있다.</p>
+<p>Example<br>
+
+undefined
+
+</p>
+<p><a href="https://stackoverflow.com/questions/35359358/angular-2-change-event-on-every-keypress" target="_blank" rel="noopener">참고자료</a></p>
+<h2><span id="two-way-binding을">Two Way Binding을</span></h2><p>이벤트와 속성등을 양방향으로 연결하는 바인딩이다.</p>
+<p><strong>대상</strong><br>Event and property</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input [(ngModel)]=&quot;name&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="attribute-binding">Attribute Binding</span></h2><p><strong>대상</strong><br>Attribute</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button [attr.aria-label]=&quot;help&quot;&gt;help&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<p>다음과 같이 value, selected를 바인딩 하는 데에도 사용 가능하다.<br><a href="https://stackoverflow.com/questions/36750524/angular-2-selected-option-on-condition" target="_blank" rel="noopener">참조</a><br>
+
+undefined
+
+</p>
+<h2><span id="class-binding">class binding</span></h2><p>특정 조건에서 class를 바인딩 해준다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div [class.special]=&quot;isSpecial&quot;&gt;Special&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="style-binding">style binding</span></h2><p>스타일 속성을 바인딩한다.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button [style.color]=&quot;isSpecial ? &apos;red&apos; : &apos;green&apos;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>너비, 높이 등을 유동적으로 세팅하기 위해 다음과 같은 코드를 흔히 사용한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;home-component&quot;</span><br><span class="line"> [style.width.px]=&quot;width&quot;</span><br><span class="line"> [style.height.px]=&quot;height&quot;&gt;Some stuff in this div&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://stackoverflow.com/questions/35882670/dynamically-updating-css-in-angular-2" target="_blank" rel="noopener">사이즈 조절을 위한 style binding</a></p>
+<h2><span id="structural-directive">Structural Directive</span></h2><p>HTML Layout에 영향을 주는 요소들이다.<br>대표적으로<br>ngIf ngFor 등이 있다.</p>
+
                         
     </div>
     
